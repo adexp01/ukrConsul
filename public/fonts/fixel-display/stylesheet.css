@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Black.eot');
+    src: local('Fixel Display Black'), local('FixelDisplay-Black'),
+        url('FixelDisplay-Black.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Black.woff2') format('woff2'),
+        url('FixelDisplay-Black.woff') format('woff'),
+        url('FixelDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Bold.eot');
+    src: local('Fixel Display Bold'), local('FixelDisplay-Bold'),
+        url('FixelDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Bold.woff2') format('woff2'),
+        url('FixelDisplay-Bold.woff') format('woff'),
+        url('FixelDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Thin.eot');
+    src: local('Fixel Display Thin'), local('FixelDisplay-Thin'),
+        url('FixelDisplay-Thin.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Thin.woff2') format('woff2'),
+        url('FixelDisplay-Thin.woff') format('woff'),
+        url('FixelDisplay-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display Extra';
+    src: url('FixelDisplay-ExtraBold.eot');
+    src: local('Fixel Display Extra Bold'), local('FixelDisplay-ExtraBold'),
+        url('FixelDisplay-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-ExtraBold.woff2') format('woff2'),
+        url('FixelDisplay-ExtraBold.woff') format('woff'),
+        url('FixelDisplay-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display Semi';
+    src: url('FixelDisplay-SemiBold.eot');
+    src: local('Fixel Display Semi Bold'), local('FixelDisplay-SemiBold'),
+        url('FixelDisplay-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-SemiBold.woff2') format('woff2'),
+        url('FixelDisplay-SemiBold.woff') format('woff'),
+        url('FixelDisplay-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Medium.eot');
+    src: local('Fixel Display Medium'), local('FixelDisplay-Medium'),
+        url('FixelDisplay-Medium.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Medium.woff2') format('woff2'),
+        url('FixelDisplay-Medium.woff') format('woff'),
+        url('FixelDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display Extra';
+    src: url('FixelDisplay-ExtraLight.eot');
+    src: local('Fixel Display Extra Light'), local('FixelDisplay-ExtraLight'),
+        url('FixelDisplay-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-ExtraLight.woff2') format('woff2'),
+        url('FixelDisplay-ExtraLight.woff') format('woff'),
+        url('FixelDisplay-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Regular.eot');
+    src: local('Fixel Display Regular'), local('FixelDisplay-Regular'),
+        url('FixelDisplay-Regular.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Regular.woff2') format('woff2'),
+        url('FixelDisplay-Regular.woff') format('woff'),
+        url('FixelDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fixel Display';
+    src: url('FixelDisplay-Light.eot');
+    src: local('Fixel Display Light'), local('FixelDisplay-Light'),
+        url('FixelDisplay-Light.eot?#iefix') format('embedded-opentype'),
+        url('FixelDisplay-Light.woff2') format('woff2'),
+        url('FixelDisplay-Light.woff') format('woff'),
+        url('FixelDisplay-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+

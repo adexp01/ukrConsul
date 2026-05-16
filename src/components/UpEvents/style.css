@@ -1,0 +1,243 @@
+.up-events {
+  width: 100%;
+  padding: 80px 48px;
+}
+
+.up-events__inner {
+      margin: 0 auto;
+}
+
+.up-events__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.up-events__icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.up-events__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.up-events__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.up-events__body {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 64px;
+  padding: 48px 0;
+  width: 70%;
+  margin: auto;
+}
+
+.up-events__calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.up-events__month {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.up-events__month-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.up-events__month-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.up-events__month-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.up-events__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.up-events__weekdays span {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+}
+
+.up-events__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px 4px;
+}
+
+.up-events__day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 44px;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.up-events__day--empty {
+  pointer-events: none;
+  cursor: default;
+}
+
+.up-events__day:not(.up-events__day--empty):hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.up-events__day--selected {
+  background: #3f51b5;
+  color: #ffffff;
+}
+
+.up-events__day--has-event::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #f05a28;
+  transform: translateX(-50%);
+}
+
+.up-events__day--selected.up-events__day--has-event::after {
+  background: #ff8a5c;
+}
+
+.up-events__details {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.up-events__time {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.up-events__event-title {
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.up-events__event-desc {
+  margin: 0;
+  max-width: 520px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.up-events__empty {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 14px;
+}
+
+.up-events__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.up-events__link:hover {
+  opacity: 0.75;
+}
+
+.up-events__link span {
+  font-size: 18px;
+}
+
+.up-events__all-btn {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+@media (max-width: 900px) {
+  .up-events {
+    padding: 64px 24px;
+  }
+
+  .up-events__body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 32px 0;
+  }
+
+  .up-events__all-btn {
+    align-self: flex-start;
+    margin-top: 32px;
+    padding-top: 0;
+  }
+}

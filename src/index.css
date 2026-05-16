@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("/fonts/fixel-display/FixelDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("/fonts/fixel-display/FixelDisplay-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("/fonts/fixel-display/FixelDisplay-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fixel Display";
+  src: url("/fonts/fixel-display/FixelDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  font-family: "Fixel Display";
+}
+
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-image: url("./assets/bg1.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.home-page {
+  min-height: 100vh;
+  padding-top: 88px;
+  background-image: url("./assets/bg1.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+
+.about-us {
+  background-image: url("./assets/bg2.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+
+.info,
+.gallery,
+.up-events-wrap,
+.articles-wrap,
+.anima-wrap {
+  position: relative;
+  padding-top: 88px;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+
+.info {
+  min-height: 100vh;
+  background-image: url("./assets/bg3.svg");
+}
+
+.gallery {
+  background-image: url("./assets/bg4.svg");
+}
+
+.up-events-wrap {
+  background-image: url("./assets/bg5.svg");
+}
+
+.articles-wrap {
+  background-image: url("./assets/bg5.svg");
+}
+.anima-wrap {
+  position: relative;
+  background-image: url("./assets/bg6.svg");
+  background-size: cover;
+  background-position: center;
+  padding-block: 300px;
+}
+
+.anima-wrap::before,
+.anima-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.anima-wrap::before {
+  top: 0;
+  background: linear-gradient(to bottom, #000000d1, transparent);
+}
+
+.anima-wrap::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.181), transparent);
+}
+
+.info::after,
+.gallery::after,
+.up-events-wrap::after,
+.articles-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  height: 160px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 85%);
+  pointer-events: none;
+}
