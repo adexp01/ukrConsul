@@ -29,6 +29,7 @@
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
+  min-height: 54px;
 }
 
 .ui-button__icon-inner {

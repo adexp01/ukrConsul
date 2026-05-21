@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "../../hooks/IsMobile";
 
 const FRAME_COUNT = 179;
 const FPS = 34;
@@ -24,8 +25,7 @@ const stripSolidBackground = (img) => {
   const { data } = imageData;
 
   for (let i = 0; i < data.length; i += 4) {
-    const lum =
-      data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722;
+    const lum = data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722;
 
     if (lum <= LUMINANCE_THRESHOLD) {
       data[i + 3] = 0;
@@ -55,6 +55,7 @@ const preloadSprites = () =>
 
 export const SpriteCanvas = ({ className }) => {
   const canvasRef = useRef(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -103,5 +104,12 @@ export const SpriteCanvas = ({ className }) => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className={className}
+      aria-hidden="true"
+      style={{ width: `${!isMobile ? "60%" : "100%"}`, height: "auto", display: "block" }}
+    />
+  );
 };

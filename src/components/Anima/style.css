@@ -1,5 +1,81 @@
 .anima {
-    width: 90%;
-    margin: auto;
-    padding-top: 100px;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.anima__mobile {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  .anima__desktop {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .anima {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 20px 0;
+  }
+
+  .anima__desktop {
+    display: none;
+  }
+
+  .anima__mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .anima__mobile-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(28px, 10vw, 48px);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 18px;
+    padding: 0 8px;
+  }
+
+  .anima__tab {
+    color: rgba(255, 255, 255, 0.38);
+    font-size: clamp(20px, 5.5vw, 28px);
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+
+  .anima__tab--active {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .anima__mobile-frame {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 24px 16px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 28px 28px 0 0;
+    background: transparent;
+  }
+
+  .anima__ring {
+    display: block;
+    width: min(100%, 340px);
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
 }

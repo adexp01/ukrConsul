@@ -4,7 +4,7 @@
 }
 
 .up-events__inner {
-      margin: 0 auto;
+  margin: 0 auto;
 }
 
 .up-events__header {
@@ -226,13 +226,14 @@
 
 @media (max-width: 900px) {
   .up-events {
-    padding: 64px 24px;
+    padding: 4px 24px;
   }
 
   .up-events__body {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 32px 0;
+    padding: 30px 0;
+    width: 100%;
   }
 
   .up-events__all-btn {

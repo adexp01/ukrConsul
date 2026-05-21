@@ -12,6 +12,11 @@ export const TABS = [
   { id: "capacity", label: "capacity" },
 ];
 
+export const MOBILE_TABS = [
+  { id: "capacity", label: "capacity", active: true },
+  { id: "partners", label: "partners", active: false },
+];
+
 const PANEL_TEXT =
   "We unite industry associations, present a common position, and work with the state, military, and international partners to accelerate production and scaling of the defense industry.";
 
@@ -22,20 +27,26 @@ export const Bunner = () => {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        ".banner__tabs-inner",
-        { "--tabs-reveal": "0%" },
-        {
-          "--tabs-reveal": "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: bannerRef.current,
-            start: "top 45%",
-            end: "+=220",
-            scrub: 1,
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1025px)", () => {
+        gsap.fromTo(
+          ".banner__tabs-inner",
+          { "--tabs-reveal": "0%" },
+          {
+            "--tabs-reveal": "100%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: bannerRef.current,
+              start: "top 45%",
+              end: "+=220",
+              scrub: 1,
+            },
           },
-        },
-      );
+        );
+      });
+
+      return () => mm.revert();
     },
     { scope: bannerRef },
   );
@@ -44,11 +55,22 @@ export const Bunner = () => {
     <section className="banner" aria-label="Hero banner">
       <div className="banner__inner">
         <div className="banner__top">
-          <span className="banner__label">You see ...</span>
+          <span className="banner__label banner__desktop-only">You see ...</span>
 
           <SpriteCanvas className="banner__ring" />
 
-          <div ref={bannerRef} className="banner__tabs">
+          <div className="banner__tabs-mobile banner__mobile-only">
+            {MOBILE_TABS.map((tab) => (
+              <span
+                key={tab.id}
+                className={`banner__tab-mobile${tab.active ? " banner__tab-mobile--active" : ""}`}
+              >
+                {tab.label}
+              </span>
+            ))}
+          </div>
+
+          <div ref={bannerRef} className="banner__tabs banner__desktop-only">
             <div className="banner__tabs-inner">
               <p className="banner__tabs-base">
                 {TABS.map((tab) => (
@@ -78,7 +100,7 @@ export const Bunner = () => {
             <span>OF ARMS MAKERS</span>
           </h2>
 
-          <Button href="#" variant="primary">
+          <Button href="#" variant="primary" className="banner__cta">
             Send a request
           </Button>
         </div>

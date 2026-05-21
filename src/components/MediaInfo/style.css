@@ -1,0 +1,132 @@
+.media-info {
+  position: relative;
+  width: 100%;
+  padding: clamp(80px, 11vw, 140px) 48px clamp(96px, 12vw, 160px);
+  overflow: hidden;
+  background-image: url("../../assets/bg2.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.media-info::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 70px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.102) 0%, #000000 85%);
+  pointer-events: none;
+}
+
+.media-info__glow {
+  position: absolute;
+  top: -12%;
+  left: 50%;
+  z-index: 0;
+  width: min(920px, 95vw);
+  height: 65%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(130, 75, 38, 0.24) 0%,
+    rgba(55, 32, 18, 0.1) 42%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.media-info__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 6vw, 64px);
+}
+
+.media-info__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(32px, 5.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.media-info__title span {
+  display: block;
+}
+
+.media-info__title span:first-child {
+  position: relative;
+  left: -10%;
+}
+
+.media-info__title span:nth-child(2) {
+  position: relative;
+  left: 10%;
+}
+
+.media-info__title span:last-child {
+  position: relative;
+  left: 25%;
+}
+
+.media-info__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  width: 100%;
+}
+
+.media-info__text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(14px, 1.35vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .media-info {
+    padding: 64px 20px 80px;
+  }
+
+  .media-info__glow {
+    top: -8%;
+    width: 100%;
+    height: 55%;
+  }
+
+  .media-info__inner {
+    gap: 32px;
+  }
+
+  .media-info__title {
+    font-size: clamp(26px, 7.5vw, 36px);
+    line-height: 1.12;
+    padding: 0 4px;
+  }
+
+  .media-info__columns {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .media-info__text {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+}

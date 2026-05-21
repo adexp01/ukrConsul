@@ -38,14 +38,28 @@
   font-display: swap;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   font-family:
     "Inter",
     system-ui,
     -apple-system,
     sans-serif;
+  background-color: #000;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 h1,
@@ -59,12 +73,30 @@ span {
   font-family: "Fixel Display";
 }
 
+h1 {
+  color: #fff;
+  leading-trim: both;
+  text-edge: cap;
+
+  /* Desktop/H1 */
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 82px; /* 102.5% */
+  letter-spacing: -4.8px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
 .header-container {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background-image: url("./assets/bg1.svg");
   background-size: cover;
   background-position: center top;
@@ -72,8 +104,11 @@ span {
 }
 
 .home-page {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   padding-top: 88px;
+  overflow-x: clip;
   background-image: url("./assets/bg1.svg");
   background-size: cover;
   background-position: center top;
@@ -160,4 +195,45 @@ span {
   height: 160px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 85%);
   pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .header-container {
+    background-color: #0b1a33;
+    background-image: none;
+  }
+
+  .home-page {
+    padding-top: 72px;
+  }
+
+  .anima-wrap {
+    padding-block: 160px;
+  }
+
+  .anima-wrap::before,
+  .anima-wrap::after {
+    height: 72px;
+  }
+
+  .anima-wrap::before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent);
+  }
+
+  .anima-wrap::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.12), transparent);
+  }
+
+  .info::after,
+  .gallery::after,
+  .up-events-wrap::after,
+  .articles-wrap::after {
+    height: 72px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 72%);
+  }
+
+  .up-events-wrap::after {
+    height: 30px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 72%);
+  }
 }

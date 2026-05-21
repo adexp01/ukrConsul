@@ -1,0 +1,220 @@
+.main-media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50px;
+  background-image: url("../../assets/bg5.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.main-media__inner {
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.main-media__card {
+  display: grid;
+  grid-template-columns: minmax(280px, 44%) minmax(0, 1fr);
+  gap: 10px;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.main-media__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #45435a 0%, #2e2c3c 100%);
+}
+
+.main-media__media-placeholder {
+  padding: 8px 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.main-media__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 28px 32px 32px;
+}
+
+.main-media__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  width: 100%;
+}
+
+.main-media__tag {
+  display: inline-flex;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.main-media__date {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.main-media__date-label {
+  color: #ee7d33;
+  font-weight: 600;
+}
+
+.main-media__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.main-media__text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.main-media__text--secondary {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.main-media__accordion-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-media__accordion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 14px 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.main-media__accordion:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.main-media__accordion-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.main-media__topics {
+  margin: 0;
+  padding: 4px 0 4px 18px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.main-media__topics li + li {
+  margin-top: 8px;
+}
+
+.main-media__cta {
+  margin-top: 4px;
+}
+
+@media (max-width: 1024px) {
+  .main-media {
+    padding: 0 20px 48px;
+  }
+
+  .main-media__card {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+    padding: 8px;
+  }
+
+  .main-media__media {
+    min-height: 200px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .main-media__body {
+    padding: 22px 18px 26px;
+    gap: 14px;
+  }
+
+  .main-media__title {
+    font-size: clamp(22px, 6vw, 28px);
+  }
+
+  .main-media__text {
+    font-size: 14px;
+  }
+
+  .main-media__accordion {
+    font-size: 10px;
+    padding: 12px;
+  }
+
+  .main-media__accordion-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .main-media__cta {
+    width: 100%;
+    max-width: 280px;
+  }
+}
