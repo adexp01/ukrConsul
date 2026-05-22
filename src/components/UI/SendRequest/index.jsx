@@ -7,6 +7,8 @@ const DESCRIPTION =
 export const SendRequest = () => {
   return (
     <section className="send-request" aria-labelledby="send-request-title">
+      <div className="send-request__backdrop" aria-hidden="true" />
+
       <div className="send-request__inner">
         <article className="send-request__card">
           <div className="send-request__glow" aria-hidden="true" />

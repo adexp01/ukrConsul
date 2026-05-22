@@ -1,5 +1,8 @@
 import logo from "../../assets/logo.png";
 import { Button } from "../UI/Button";
+import instagram from "../../assets/ins.svg";
+import facebook from "../../assets/faceb.svg";
+import linkedin from "../../assets/linked.svg";
 import "./style.css";
 
 const DIRECTIONS = [
@@ -21,9 +24,9 @@ const COMPANY_LINKS = [
 ];
 
 const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "#" },
-  { id: "facebook", label: "Facebook", href: "#" },
-  { id: "linkedin", label: "LinkedIn", href: "#" },
+  { id: "instagram", label: "Instagram", href: "#", icon: instagram },
+  { id: "facebook", label: "Facebook", href: "#", icon: facebook },
+  { id: "linkedin", label: "LinkedIn", href: "#", icon: linkedin },
 ];
 
 export const Footer = () => {
@@ -55,61 +58,12 @@ export const Footer = () => {
                   className="footer__social-link"
                   aria-label={social.label}
                 >
-                  {social.id === "instagram" && (
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <rect
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        rx="5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-                    </svg>
-                  )}
-                  {social.id === "facebook" && (
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v3H6v4h3v8h4v-8h3.3l.7-4H13V9c0-.6.4-1 1-1z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  )}
-                  {social.id === "linkedin" && (
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M6 9h4v12H6V9zm2-6a2.5 2.5 0 110 5 2.5 2.5 0 010-5zm4 6h4v1.7h.1c.6-1.1 2-2.3 4.1-2.3 4.4 0 5.2 2.9 5.2 6.6V21h-4v-6.2c0-1.5-.5-2.5-1.9-2.5-1 0-1.6.7-1.9 1.4-.1.3-.1.7-.1 1.1V21h-4V9z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  )}
+                  <img
+                    src={social.icon}
+                    alt=""
+                    className="footer__social-icon"
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
             </div>
@@ -162,7 +116,7 @@ export const Footer = () => {
 
           <div className="footer__bottom">
             <p className="footer__copyright">Copyright © 2026</p>
-            <a href="#" className="footer__legal">
+            <a href="/privacy-policy" className="footer__legal">
               Privacy Policy, Terms &amp; Conditions
             </a>
           </div>

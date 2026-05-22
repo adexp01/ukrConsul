@@ -80,18 +80,15 @@
 .footer__socials {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
 }
 
 .footer__social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.85);
+  width: 52px;
+  height: 52px;
   text-decoration: none;
   transition:
     background 0.2s ease,
@@ -99,8 +96,13 @@
 }
 
 .footer__social-link:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  opacity: 0.85;
+}
+
+.footer__social-icon {
+  display: block;
+  width: 52px;
+  height: 52px;
 }
 
 .footer__columns {

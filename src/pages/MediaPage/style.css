@@ -116,14 +116,9 @@
   .media-page .send-request {
     position: relative;
     padding: 48px 20px 64px;
-    background-color: #000;
-    background-image: url("../../assets/bg3.svg");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
   }
 
-  .media-page .send-request::before {
+  .media-page .send-request__backdrop::before {
     height: 56px;
     background: linear-gradient(
       180deg,
@@ -133,7 +128,7 @@
     );
   }
 
-  .media-page .send-request::after {
+  .media-page .send-request__backdrop::after {
     height: 56px;
     background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 100%);
   }
