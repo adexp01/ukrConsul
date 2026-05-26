@@ -64,7 +64,7 @@ export const Info = () => {
     >
       <div className="info-section__inner">
         <div className="info-section__orgs">
-          <h2 className="info-section__heading info-section__mobile-only">
+          <h2 className="info-section__heading">
             <span>ASSOCIATIONS INCLUDED</span>
             <span>IN THE COUNCIL OF ARMS MAKERS</span>
           </h2>
@@ -84,7 +84,7 @@ export const Info = () => {
               <Button
                 href="#"
                 variant="default"
-                className="info-section__about-btn info-section__mobile-only"
+                className="info-section__about-btn"
               >
                 About us
               </Button>
@@ -108,7 +108,7 @@ export const Info = () => {
           </p>
 
           <div className="info-section__cta-actions">
-            <Button href="#" variant="primary">
+            <Button href="#" variant="default">
               Take the test
             </Button>
             <a href="#" className="info-section__cta-link">

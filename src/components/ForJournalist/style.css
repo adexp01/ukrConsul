@@ -1,6 +1,6 @@
 .for-journalist {
   width: 100%;
-  padding: clamp(48px, 8vw, 80px) 48px clamp(80px, 10vw, 120px);
+  padding-block: clamp(48px, 8vw, 80px) clamp(80px, 10vw, 120px);
   background-color: #000;
 }
 

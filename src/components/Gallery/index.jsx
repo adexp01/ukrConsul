@@ -8,9 +8,9 @@ const SLIDES = [
     description:
       "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
-      "https://images.unsplash.com/photo-1581092918056-0c4c3acd378e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
     thumb:
-      "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80",
   },
   {
     id: 2,

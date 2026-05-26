@@ -120,7 +120,7 @@
   mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 0 H90 Q100 0 100 10 V42 Q100 52 90 52 H11 Q1 52 4 43 L17 9 Q20 0 24 0 Z' fill='black'/%3E%3C/svg%3E");
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
-  margin-left: -8px;
+  margin-left: -13px;
 }
 
 .header__nav-link:hover {

@@ -31,7 +31,8 @@ const SATELLITE_STATS = [
     id: "funds",
     value: "20",
     mobileLabel: "Venture funds",
-    description: "Private defence venture funds investing in defence innovation",
+    description:
+      "Private defence venture funds investing in defence innovation",
     position: "bottom-right",
   },
 ];
@@ -188,7 +189,9 @@ export const AboutUs = () => {
         const section = sectionRef.current;
         if (!section) return;
 
-        const satellites = section.querySelectorAll(".about-us__card--satellite");
+        const satellites = section.querySelectorAll(
+          ".about-us__card--satellite",
+        );
         const mainCard = section.querySelector(".about-us__card--main");
 
         gsap.set(satellites, { autoAlpha: 0, y: 28, scale: 0.96 });
@@ -327,7 +330,7 @@ export const AboutUs = () => {
           ))}
         </div>
 
-        <Button href="#" className="about-us__cta">
+        <Button href="#" className="about-us__cta" variant="default">
           About us
         </Button>
       </div>

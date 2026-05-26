@@ -10,6 +10,8 @@ const ARTICLES = [
     title:
       "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
     bg: "#dde6ed",
+    description:
+      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
   },
   {
     id: 2,
@@ -18,6 +20,8 @@ const ARTICLES = [
     title:
       "A year of the Gunsmiths' Council: 300 manufacturers, 30+ regulatory decisions and ...",
     bg: "#bdd5ea",
+    description:
+      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
   },
   {
     id: 3,
@@ -26,6 +30,8 @@ const ARTICLES = [
     title:
       "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
     bg: "#97a7d8",
+    description:
+      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
   },
 ];
 
@@ -52,6 +58,7 @@ export const Articles = () => {
               tag={article.tag}
               date={article.date}
               title={article.title}
+              description={article.description}
             />
           ))}
         </div>

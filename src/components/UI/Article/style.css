@@ -8,6 +8,22 @@
   background: transparent;
   border-radius: 20px;
   overflow: visible;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.articles-card:hover {
+  transform: translateY(-2px);
+}
+
+.articles-card:hover .articles-card__read {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.articles-card:hover .articles-card__action {
+  filter: brightness(1.08);
 }
 
 .articles-card__body {
@@ -98,10 +114,6 @@
   transition: color 0.2s ease;
 }
 
-.articles-card__read:hover {
-  color: rgba(0, 0, 0, 0.75);
-}
-
 .articles-card::after {
   content: "";
   position: absolute;
@@ -150,8 +162,4 @@
 
 .articles-card__action::before {
   display: none;
-}
-
-.articles-card__action:hover {
-  filter: brightness(1.08);
 }

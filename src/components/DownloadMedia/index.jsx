@@ -2,6 +2,7 @@ import "./style.css";
 import pdfIcon from "../../assets/pdfIcon.svg";
 import zipIcon from "../../assets/zipIcon.svg";
 import downloadIcon from "../../assets/downloadIcon.svg";
+import { Button } from "../UI/Button";
 
 const INTRO =
   "This section provides materials that help journalists and partners represent the Gunsmiths' Council accurately in public communication.";
@@ -66,19 +67,9 @@ export const DownloadMedia = () => {
         </ul>
 
         <div className="download-media__actions">
-          <a
-            href="#"
-            className="ui-button ui-button--primary download-media__zip"
-          >
-            <span className="ui-button__label">
-              <span className="ui-button__label-inner">Download .zip</span>
-            </span>
-            <span className="ui-button__icon">
-              <span className="ui-button__icon-inner" style={{ left: 2 }}>
-                <img src={downloadIcon} alt="Download" />
-              </span>
-            </span>
-          </a>
+          <Button href="#" variant="primary" icon={<img src={downloadIcon} alt="Download" className="download-media__icon" />}>
+            Download .zip
+          </Button>
         </div>
       </div>
     </section>

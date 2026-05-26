@@ -4,6 +4,12 @@
   padding-top: 100px;
 }
 
+@media (min-width: 1025px) {
+  .anima .banner__tabs-inner {
+    --tabs-reveal: 0%;
+  }
+}
+
 .anima__mobile {
   display: none;
 }

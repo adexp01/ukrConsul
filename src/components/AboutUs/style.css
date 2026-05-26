@@ -99,7 +99,7 @@ section.about-us::after {
   position: relative;
   z-index: 2;
   width: 100%;
-  min-height: 520px;
+  min-height: 320px;
   margin-top: clamp(-120px, -14vw, -88px);
 }
 
@@ -154,14 +154,10 @@ section.about-us::after {
   transition: color 0.3s ease;
 }
 
-.about-us--expanded .about-us__card--main {
-  --glow-strength: 1;
-}
-
 .about-us__card--main {
   --glow-strength: 0;
-  bottom: 2%;
-  left: 58%;
+  bottom: 10%;
+  left: 60%;
   min-width: 260px;
   transform: translateX(-85%);
   z-index: 6;
@@ -243,8 +239,8 @@ section.about-us::after {
 }
 
 .about-us__card--top-left {
-  top: -30%;
-  left: 10%;
+  top: -55%;
+  left: 5%;
   max-width: 210px;
   transform: translateX(-58%);
   opacity: 0.55;
@@ -267,7 +263,7 @@ section.about-us::after {
 
 .about-us__card--bottom-left {
   bottom: 34%;
-  left: 2%;
+  left: 10%;
   top: auto;
 }
 
@@ -278,7 +274,7 @@ section.about-us::after {
 }
 
 .about-us__card--bottom-right {
-  top: 30%;
+  top: 20%;
   right: 0;
   top: auto;
   max-width: 220px;

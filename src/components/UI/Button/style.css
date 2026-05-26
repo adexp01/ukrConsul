@@ -1,125 +1,131 @@
-.ui-button {
-  --cta-slant: px;
-  --btn-radius: 8px;
-  display: flex;
-  align-items: stretch;
-  flex-shrink: 0;
+.button2 {
+  --button2-height: 54px;
+  --button2-icon: 52px;
+
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr) var(--button2-icon);
+  align-items: center;
   width: fit-content;
-  gap: 4px;
-  text-decoration: none;
-}
-
-.ui-button__label,
-.ui-button__icon {
-  position: relative;
-  display: inline-flex;
+  min-width: 200px;
+  height: var(--button2-height);
+  padding: 0;
+  border: none;
+  background: transparent;
   color: #ffffff;
-  clip-path: none;
-  border-radius: 0;
-  background: transparent;
-}
-
-.ui-button__label-inner {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 36px 16px 24px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  min-height: 54px;
-}
-
-.ui-button__icon-inner {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 52px;
-  padding: 16px 18px;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1;
-}
-
-.ui-button--primary .ui-button__label {
-  background: linear-gradient(180deg, #f5924f 0%, #e06820 100%);
-  clip-path: none;
-
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0 H92 Q100 0 98 8 L92 44 Q90 52 82 52 H8 Q0 52 0 44 V8 Q0 0 8 0 Z' fill='black'/%3E%3C/svg%3E");
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-
-  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0 H92 Q100 0 98 8 L92 44 Q90 52 82 52 H8 Q0 52 0 44 V8 Q0 0 8 0 Z' fill='black'/%3E%3C/svg%3E");
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  margin-right: -5px;
-}
-
-.ui-button--primary .ui-button__icon {
-  background: linear-gradient(180deg, #f5924f 0%, #e06820 100%);
-  clip-path: none;
-
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 52 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 0 H44 Q52 0 52 8 V44 Q52 52 44 52 H8 Q0 52 2 44 L10 8 Q12 0 14 0 Z' fill='black'/%3E%3C/svg%3E");
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-
-  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 52 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 0 H44 Q52 0 52 8 V44 Q52 52 44 52 H8 Q0 52 2 44 L10 8 Q12 0 14 0 Z' fill='black'/%3E%3C/svg%3E");
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  margin-left: -5px;
-}
-
-.ui-button--default .ui-button__label,
-.ui-button--default .ui-button__icon {
-  background: transparent;
-  clip-path: none;
-}
-
-.ui-button--default .ui-button__label::before,
-.ui-button--default .ui-button__icon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  margin-right: -5px;
-}
-
-.ui-button--default .ui-button__label::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1 H92 Q100 1 98 8 L92 44 Q90 51 82 51 H8 Q1 51 1 44 V8 Q1 1 8 1 Z' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.ui-button--default .ui-button__icon::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 52 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 1 H44 Q51 1 51 8 V44 Q51 51 44 51 H8 Q1 51 2 44 L10 8 Q12 1 14 1 Z' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.ui-button--default:hover .ui-button__label::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 1 H92 Q100 1 98 8 L92 44 Q90 51 82 51 H8 Q1 51 1 44 V8 Q1 1 8 1 Z' fill='none' stroke='rgba(255,255,255,0.42)' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.ui-button--default:hover .ui-button__icon::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 52 52' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 1 H44 Q51 1 51 8 V44 Q51 51 44 51 H8 Q1 51 2 44 L10 8 Q12 1 14 1 Z' fill='none' stroke='rgba(255,255,255,0.42)' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.ui-button--primary .ui-button__label,
-.ui-button--primary .ui-button__icon {
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
   transition:
     filter 0.2s ease,
     transform 0.2s ease;
 }
 
-.ui-button--primary:hover .ui-button__label,
-.ui-button--primary:hover .ui-button__icon {
-  filter: brightness(1.08);
+.button2__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.ui-button--primary:active .ui-button__label,
-.ui-button--primary:active .ui-button__icon {
+.button2__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px 0 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.button2__icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--button2-icon);
+  height: 100%;
+}
+
+.button2__icon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.button2__arrow {
+  display: block;
+  width: 16px;
+  height: 10px;
+}
+
+.button2__icon-inner img,
+.button2__icon-inner svg:not(.button2__arrow) {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Primary — orange gradient fill */
+.button2--primary:hover {
+  filter: brightness(1.06);
+}
+
+.button2--primary:active {
   transform: translateY(1px);
-  filter: brightness(0.95);
+  filter: brightness(0.96);
+}
+
+/* Default — outlined shapes */
+.button2--default {
+  min-width: 180px;
+}
+
+.button2--default .button2__shape {
+  transition: stroke 0.2s ease;
+}
+
+.button2--default:hover {
+  filter: none;
+}
+
+.button2--default:hover .button2__shape {
+  stroke: rgba(255, 255, 255, 0.42);
+}
+
+.button2--default:active {
+  transform: translateY(1px);
+}
+
+.button2--default:active .button2__shape {
+  stroke: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 1024px) {
+  .button2 {
+    --button2-height: 48px;
+    --button2-icon: 48px;
+
+    min-width: 180px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .button2--default {
+    min-width: 160px;
+  }
+
+  .button2__label {
+    padding: 0 8px 0 20px;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+  }
 }

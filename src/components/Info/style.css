@@ -1,21 +1,21 @@
 .info-section {
   position: relative;
   width: 100%;
-  padding: 80px 48px 120px;
   overflow: hidden;
 }
 
 .info-section__inner {
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 80px;
-  padding-inline: 100px;
+  padding-bottom: 80px;
 }
 
 .info-section__orgs {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -24,9 +24,29 @@
   max-width: 100%;
 }
 
-.info-section__heading,
+.info-section__heading {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  width: 100%;
+  gap: 0;
+  margin: 0 0 48px;
+  color: #ffffff;
+  font-size: clamp(32px, 3vw, 48px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.info-section__heading span {
+  display: block;
+}
+
 .info-section__about-btn {
-  display: none;
+  display: flex;
+  margin-top: 24px;
+  width: fit-content;
 }
 
 .info-section__shield {
@@ -53,18 +73,17 @@
 
 .info-section__list {
   margin: 0;
-  padding: 32px 40px;
+  padding: 32px;
   list-style: none;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
 }
 
 .info-section__list-item {
   position: relative;
   padding-left: 20px;
   color: #ffffff;
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(28px, 1.5vw, 18px);
   font-weight: 700;
   line-height: 1.35;
   text-transform: uppercase;
@@ -213,20 +232,8 @@
   }
 
   .info-section__heading {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
     margin: 0;
-    color: #ffffff;
     font-size: clamp(28px, 8vw, 36px);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-  }
-
-  .info-section__heading span {
-    display: block;
   }
 
   .info-section__shield {
@@ -255,12 +262,6 @@
 
   .info-section__list-item + .info-section__list-item {
     margin-top: 14px;
-  }
-
-  .info-section__about-btn {
-    display: flex;
-    margin-top: 24px;
-    width: fit-content;
   }
 
   .info-section__cta {

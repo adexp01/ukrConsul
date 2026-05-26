@@ -23,24 +23,27 @@ const PANEL_TEXT =
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Bunner = () => {
-  const bannerRef = useRef(null);
+  const tabsRef = useRef(null);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1025px)", () => {
+        const inner = tabsRef.current?.querySelector(".banner__tabs-inner");
+        if (!inner) return;
+
         gsap.fromTo(
-          ".banner__tabs-inner",
+          inner,
           { "--tabs-reveal": "0%" },
           {
             "--tabs-reveal": "100%",
-            ease: "none",
+            duration: 1.2,
+            ease: "power2.out",
             scrollTrigger: {
-              trigger: bannerRef.current,
-              start: "top 45%",
-              end: "+=220",
-              scrub: 1,
+              trigger: tabsRef.current,
+              start: "top 75%",
+              once: true,
             },
           },
         );
@@ -48,7 +51,7 @@ export const Bunner = () => {
 
       return () => mm.revert();
     },
-    { scope: bannerRef },
+    { scope: tabsRef },
   );
 
   return (
@@ -70,7 +73,7 @@ export const Bunner = () => {
             ))}
           </div>
 
-          <div ref={bannerRef} className="banner__tabs banner__desktop-only">
+          <div ref={tabsRef} className="banner__tabs banner__desktop-only">
             <div className="banner__tabs-inner">
               <p className="banner__tabs-base">
                 {TABS.map((tab) => (
@@ -100,7 +103,7 @@ export const Bunner = () => {
             <span>OF ARMS MAKERS</span>
           </h2>
 
-          <Button href="#" variant="primary" className="banner__cta">
+          <Button href="#" className="banner__cta">
             Send a request
           </Button>
         </div>

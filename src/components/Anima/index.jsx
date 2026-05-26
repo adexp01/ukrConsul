@@ -25,15 +25,18 @@ export const Anima = () => {
           { "--tabs-reveal": "0%" },
           {
             "--tabs-reveal": "100%",
-            ease: "none",
+            duration: 1.2,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: tabsRef.current,
-              start: "top 45%",
-              end: "+=120",
-              scrub: 1,
+              start: "top 75%",
+              once: true,
             },
           },
         );
+
+        // Scroll-scrub variant (restore if needed):
+        // scrollTrigger: { trigger: tabsRef.current, start: "top 45%", end: "+=120", scrub: 1 }
       });
 
       return () => mm.revert();
