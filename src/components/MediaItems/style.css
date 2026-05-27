@@ -114,7 +114,7 @@
 /* Featured — horizontal */
 .media-item--featured {
   display: grid;
-  grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
+  grid-template-columns: minmax(260px, 48%) minmax(0, 1fr);
 }
 
 .media-item--featured .media-item__media {

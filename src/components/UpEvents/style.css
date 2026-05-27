@@ -37,7 +37,7 @@
 .up-events__body {
   display: grid;
   grid-template-columns: minmax(280px, 380px) 1fr;
-  gap: 64px;
+  gap: 185px;
   padding: 48px 0;
   width: 70%;
   margin: auto;
@@ -219,7 +219,7 @@
 }
 
 .up-events__all-btn {
-  align-self: flex-end;
+  align-self: flex-start;
   margin-top: auto;
 }
 

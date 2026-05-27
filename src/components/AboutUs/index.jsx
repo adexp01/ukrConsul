@@ -163,6 +163,15 @@ export const AboutUs = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [activeId, updateConnector]);
 
+  useEffect(() => {
+    const refreshScrollTriggers = () => ScrollTrigger.refresh();
+
+    window.addEventListener("load", refreshScrollTriggers);
+    document.fonts?.ready.then(refreshScrollTriggers).catch(() => {});
+
+    return () => window.removeEventListener("load", refreshScrollTriggers);
+  }, []);
+
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -171,24 +180,56 @@ export const AboutUs = () => {
         const section = sectionRef.current;
         if (!section) return;
 
-        const satellites = section.querySelectorAll(
-          ".about-us__card--satellite",
-        );
+        const satellites = SATELLITE_STATS.map(
+          (stat) => satelliteRefs.current[stat.id],
+        ).filter(Boolean);
         const mainCard = section.querySelector(".about-us__card--main");
+        if (!mainCard || satellites.length === 0) return;
 
-        gsap.set(satellites, { autoAlpha: 0, y: 28, scale: 0.96 });
-        gsap.set(mainCard, { autoAlpha: 1, scale: 1 });
+        const resetAnimationStart = () => {
+          gsap.set(mainCard, { scale: 1 });
+          satellites.forEach((satellite) => {
+            gsap.set(satellite, { x: 0, y: 0, scale: 1 });
+          });
+
+          const mainRect = mainCard.getBoundingClientRect();
+          const mainAnchor = {
+            x: mainRect.left + mainRect.width / 2,
+            y: mainRect.top + mainRect.height * 0.58,
+          };
+
+          satellites.forEach((satellite) => {
+            const satRect = satellite.getBoundingClientRect();
+            const satCx = satRect.left + satRect.width / 2;
+            const satCy = satRect.top + satRect.height / 2;
+
+            gsap.set(satellite, {
+              autoAlpha: 1,
+              x: mainAnchor.x - satCx,
+              y: mainAnchor.y - satCy,
+              scale: 0.92,
+            });
+          });
+        };
+
+        resetAnimationStart();
+        gsap.set(mainCard, { autoAlpha: 1 });
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             start: "top 55%",
-            end: "+=520",
+            end: "+=420",
             scrub: 0.85,
             onEnter: () => setIsExpanded(false),
+            onLeaveBack: () => {
+              setIsExpanded(false);
+              setActiveId(null);
+              setLine(null);
+            },
             onLeave: () => {},
             onUpdate: (self) => {
-              setIsExpanded(self.progress > 0.35);
+              setIsExpanded(self.progress > 0.55);
             },
           },
         });
@@ -199,7 +240,7 @@ export const AboutUs = () => {
         }).to(
           satellites,
           {
-            autoAlpha: 1,
+            x: 0,
             y: 0,
             scale: 1,
             stagger: 0.12,

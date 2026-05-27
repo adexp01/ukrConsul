@@ -44,9 +44,7 @@
 }
 
 .info-section__about-btn {
-  display: flex;
   margin-top: 24px;
-  width: fit-content;
 }
 
 .info-section__shield {
