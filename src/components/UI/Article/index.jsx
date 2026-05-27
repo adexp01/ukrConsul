@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../../i18n/LanguageContext";
 import "./style.css";
 
 export const Article = ({
@@ -11,14 +12,16 @@ export const Article = ({
   href,
   description,
 }) => {
+  const { t } = useLanguage();
   const articleHref = href ?? `/article/${id}`;
+  const readLabel = t("articles.readArticle");
 
   return (
     <Link
       to={articleHref}
       className="articles-card"
       style={{ "--card-bg": bg }}
-      aria-label={`Read article: ${title}`}
+      aria-label={`${readLabel}: ${title}`}
     >
       <div className="articles-card__body">
         <div className="articles-card__top">
@@ -42,7 +45,7 @@ export const Article = ({
           <p className="articles-card__excerpt">{description}</p>
         ) : null}
 
-        <span className="articles-card__read">Read article</span>
+        <span className="articles-card__read">{readLabel}</span>
       </div>
 
       <span className="articles-card__action" aria-hidden="true">

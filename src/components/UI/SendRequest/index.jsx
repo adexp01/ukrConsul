@@ -1,10 +1,11 @@
 import { Button } from "../Button";
+import { useLanguage } from "../../../i18n/LanguageContext";
 import "./style.css";
 
-const DESCRIPTION =
-  "We will help you find an expert comment or materials on the Ukrainian defence industry, the Council's activities and its members.";
-
 export const SendRequest = () => {
+  const { t } = useLanguage();
+  const titleLines = t("sendRequest.title");
+
   return (
     <section className="send-request" aria-labelledby="send-request-title">
       <div className="send-request__backdrop" aria-hidden="true" />
@@ -15,15 +16,15 @@ export const SendRequest = () => {
 
           <div className="send-request__content">
             <h2 id="send-request-title" className="send-request__title">
-              <span>Writing about</span>
-              <span>Ukraine&apos;s defence industry?</span>
-              <span>Contact us</span>
+              {titleLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
             </h2>
 
-            <p className="send-request__text">{DESCRIPTION}</p>
+            <p className="send-request__text">{t("sendRequest.description")}</p>
 
             <Button href="#" variant="primary" className="send-request__cta">
-              Send a media request
+              {t("sendRequest.cta")}
             </Button>
           </div>
         </article>

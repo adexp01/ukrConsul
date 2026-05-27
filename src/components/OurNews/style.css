@@ -103,9 +103,9 @@
   gap: 24px;
 }
 
-.our-news__grid:empty::after {
-  content: "No articles in this category yet.";
+.our-news__empty {
   grid-column: 1 / -1;
+  margin: 0;
   color: rgba(255, 255, 255, 0.55);
   font-size: 14px;
 }

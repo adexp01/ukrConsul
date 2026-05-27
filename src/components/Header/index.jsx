@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const NAV_ITEMS = [
-  { title: "About Us", to: "/about-us" },
-  { title: "Get Involved", to: "/get-involved" },
-  { title: "Activities", to: "/activities" },
-  { title: "Media", to: "/media" },
-  { title: "Events", to: "/events" },
-  { title: "Contact", to: "/contact" },
-];
-
 export const Header = () => {
-  const [language, setLanguage] = useState("en");
+  const { language, setLanguage, t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -28,10 +20,10 @@ export const Header = () => {
     <header className="header">
       <div className="header__left">
         <a href="/" className="header__logo" onClick={closeMenu}>
-          <img src={logo} alt="Ukrainian Council of Defence Industry" />
+          <img src={logo} alt={t("header.logoAlt")} />
         </a>
 
-        <div className="header__lang" role="group" aria-label="Language">
+        <div className="header__lang" role="group" aria-label={t("header.langLabel")}>
           <button
             type="button"
             className={`header__lang-btn${language === "en" ? " header__lang-btn--active" : ""}`}
@@ -42,9 +34,9 @@ export const Header = () => {
           </button>
           <button
             type="button"
-            className={`header__lang-btn${language === "ua" ? " header__lang-btn--active" : ""}`}
-            onClick={() => setLanguage("ua")}
-            aria-pressed={language === "ua"}
+            className={`header__lang-btn${language === "uk" ? " header__lang-btn--active" : ""}`}
+            onClick={() => setLanguage("uk")}
+            aria-pressed={language === "uk"}
           >
             Ua
           </button>
@@ -58,7 +50,7 @@ export const Header = () => {
         aria-controls="header-mobile-nav"
         onClick={() => setIsMenuOpen((open) => !open)}
       >
-        <span className="header__menu-btn-text">Меню</span>
+        <span className="header__menu-btn-text">{t("header.menu")}</span>
         <span className="header__menu-icon" aria-hidden="true">
           <span />
           <span />
@@ -69,7 +61,7 @@ export const Header = () => {
         <button
           type="button"
           className="header__backdrop"
-          aria-label="Close menu"
+          aria-label={t("header.closeMenu")}
           onClick={closeMenu}
         />
       ) : null}
@@ -80,14 +72,26 @@ export const Header = () => {
         aria-label="Main navigation"
       >
         <ul className="header__nav-list">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.title}>
+          {["aboutUs", "getInvolved", "activities", "media", "events", "contact"].map((key) => (
+            <li key={key}>
               <a
-                href={`${item.to}`}
+                href={
+                  key === "aboutUs"
+                    ? "/about-us"
+                    : key === "getInvolved"
+                      ? "/get-involved"
+                      : key === "activities"
+                        ? "/activities"
+                        : key === "media"
+                          ? "/media"
+                          : key === "events"
+                            ? "/events"
+                            : "/contact"
+                }
                 className="header__nav-link"
                 onClick={closeMenu}
               >
-                {item.title}
+                {t(`header.nav.${key}`)}
               </a>
             </li>
           ))}
@@ -96,7 +100,7 @@ export const Header = () => {
         <div
           className="header__lang header__lang--mobile"
           role="group"
-          aria-label="Language"
+          aria-label={t("header.langLabel")}
         >
           <button
             type="button"
@@ -108,9 +112,9 @@ export const Header = () => {
           </button>
           <button
             type="button"
-            className={`header__lang-btn${language === "ua" ? " header__lang-btn--active" : ""}`}
-            onClick={() => setLanguage("ua")}
-            aria-pressed={language === "ua"}
+            className={`header__lang-btn${language === "uk" ? " header__lang-btn--active" : ""}`}
+            onClick={() => setLanguage("uk")}
+            aria-pressed={language === "uk"}
           >
             Ua
           </button>

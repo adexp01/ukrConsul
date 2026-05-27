@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const SLIDES = [
+const SLIDE_MEDIA = [
   {
     id: 1,
-    title: "Zbroya Expo",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
     thumb:
@@ -14,9 +12,6 @@ const SLIDES = [
   },
   {
     id: 2,
-    title: "Defence Innovation",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
       "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80",
     thumb:
@@ -24,9 +19,6 @@ const SLIDES = [
   },
   {
     id: 3,
-    title: "UAV Systems",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
       "https://images.unsplash.com/photo-1581092160562-40aa08ad7881?auto=format&fit=crop&w=1200&q=80",
     thumb:
@@ -34,9 +26,6 @@ const SLIDES = [
   },
   {
     id: 4,
-    title: "Industry Forum",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
     thumb:
@@ -44,9 +33,6 @@ const SLIDES = [
   },
   {
     id: 5,
-    title: "Maritime Defence",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
     image:
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
     thumb:
@@ -55,22 +41,32 @@ const SLIDES = [
 ];
 
 export const Gallery = () => {
+  const { t, language } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
-  const slide = SLIDES[activeIndex];
-  const prevIndex = (activeIndex - 1 + SLIDES.length) % SLIDES.length;
+
+  const slides = useMemo(() => {
+    const copy = t("gallery.slides");
+    return SLIDE_MEDIA.map((media, index) => ({
+      ...media,
+      ...copy[index],
+    }));
+  }, [t, language]);
+
+  const slide = slides[activeIndex];
+  const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
+  const headingLines = t("gallery.heading");
 
   const goTo = (index) => setActiveIndex(index);
   const goPrev = () => goTo(prevIndex);
-  const goNext = () => goTo((activeIndex + 1) % SLIDES.length);
+  const goNext = () => goTo((activeIndex + 1) % slides.length);
 
   return (
     <section className="gallery-section" aria-label="Projects gallery">
       <div className="gallery-section__inner">
         <h2 className="gallery-section__heading">
-          <span>ACROSS THE FULL</span>
-          <span>SPECTRUM OF</span>
-          <span>DEFENCE</span>
-          <span>INNOVATION</span>
+          {headingLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
         </h2>
 
         <div className="gallery-section__slider">
@@ -79,9 +75,9 @@ export const Gallery = () => {
               type="button"
               className="gallery-section__thumb"
               onClick={goPrev}
-              aria-label="Previous project"
+              aria-label={t("gallery.prevProject")}
             >
-              <img src={SLIDES[prevIndex].thumb} alt="" />
+              <img src={slides[prevIndex].thumb} alt="" />
             </button>
 
             <div className="gallery-section__main">
@@ -98,7 +94,7 @@ export const Gallery = () => {
             <p className="gallery-section__desc">{slide.description}</p>
 
             <a href="#" className="gallery-section__link">
-              Discover the project
+              {t("gallery.discover")}
               <span aria-hidden="true">→</span>
             </a>
 
@@ -107,7 +103,7 @@ export const Gallery = () => {
                 type="button"
                 className="gallery-section__nav-btn gallery-section__nav-btn--prev"
                 onClick={goPrev}
-                aria-label="Previous slide"
+                aria-label={t("gallery.prevSlide")}
               >
                 ←
               </button>
@@ -115,7 +111,7 @@ export const Gallery = () => {
                 type="button"
                 className="gallery-section__nav-btn gallery-section__nav-btn--next"
                 onClick={goNext}
-                aria-label="Next slide"
+                aria-label={t("gallery.nextSlide")}
               >
                 →
               </button>
@@ -127,7 +123,7 @@ export const Gallery = () => {
             role="tablist"
             aria-label="Gallery slides"
           >
-            {SLIDES.map((item, index) => (
+            {slides.map((item, index) => (
               <button
                 key={item.id}
                 type="button"

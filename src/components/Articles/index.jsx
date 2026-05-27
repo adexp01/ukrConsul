@@ -1,56 +1,41 @@
+import { useMemo } from "react";
 import { Article } from "../UI/Article";
 import { Button } from "../UI/Button";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const ARTICLES = [
-  {
-    id: 1,
-    tag: "News",
-    date: "March 12, 2026",
-    title:
-      "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
-    bg: "#dde6ed",
-    description:
-      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
-  },
-  {
-    id: 2,
-    tag: "Publications",
-    date: "March 30, 2026",
-    title:
-      "A year of the Gunsmiths' Council: 300 manufacturers, 30+ regulatory decisions and ...",
-    bg: "#bdd5ea",
-    description:
-      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
-  },
-  {
-    id: 3,
-    tag: "News",
-    date: "April 01, 2026",
-    title:
-      "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
-    bg: "#97a7d8",
-    description:
-      "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
-  },
+const ARTICLE_META = [
+  { id: 1, bg: "#dde6ed" },
+  { id: 2, bg: "#bdd5ea" },
+  { id: 3, bg: "#97a7d8" },
 ];
 
 export const Articles = () => {
+  const { t, language } = useLanguage();
+
+  const articles = useMemo(() => {
+    const items = t("articles.items");
+    return ARTICLE_META.map((meta, index) => ({
+      ...meta,
+      ...items[index],
+    }));
+  }, [t, language]);
+
   return (
     <section className="articles" aria-labelledby="articles-title">
       <div className="articles__inner">
         <header className="articles__header">
           <h2 id="articles-title" className="articles__title">
-            LATEST ARTICLES
+            {t("articles.title")}
           </h2>
 
           <Button href="#" variant="default" className="articles__all-media">
-            All media
+            {t("articles.allMedia")}
           </Button>
         </header>
 
         <div className="articles__grid">
-          {ARTICLES.map((article) => (
+          {articles.map((article) => (
             <Article
               key={article.id}
               id={article.id}

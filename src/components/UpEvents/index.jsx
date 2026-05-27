@@ -1,29 +1,11 @@
 import { useMemo, useState } from "react";
 import { Button } from "../UI/Button";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
-const EVENTS = {
-  "2025-04-10": {
-    time: "10 april • 09:00-12:00",
-    title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-  },
-  "2025-04-20": {
-    time: "20 april • 14:00-17:00",
-    title: "DEFENCE INDUSTRY ROUNDTABLE",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-  },
-  "2025-04-22": {
-    time: "22 april • 10:00-13:00",
-    title: "UAV ECOSYSTEM MEETUP",
-    description:
-      "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-  },
-};
+const EVENT_KEYS = ["2025-04-10", "2025-04-20", "2025-04-22"];
 
 const toKey = (year, month, day) =>
   `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -41,33 +23,29 @@ const getMonthGrid = (year, month) => {
   return cells;
 };
 
-const MONTH_NAMES = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 export const UpEvents = () => {
+  const { t, language } = useLanguage();
   const [viewDate, setViewDate] = useState(() => new Date(2025, 3, 1));
   const [selectedDay, setSelectedDay] = useState(10);
 
+  const events = useMemo(() => {
+    const translated = t("upEvents.events");
+    return EVENT_KEYS.reduce((acc, key) => {
+      if (translated[key]) acc[key] = translated[key];
+      return acc;
+    }, {});
+  }, [t, language]);
+
+  const monthNames = t("upEvents.months");
+
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
-  const monthLabel = MONTH_NAMES[month];
+  const monthLabel = monthNames[month];
 
   const cells = useMemo(() => getMonthGrid(year, month), [year, month]);
 
   const selectedKey = toKey(year, month, selectedDay);
-  const selectedEvent = EVENTS[selectedKey];
+  const selectedEvent = events[selectedKey];
 
   const changeMonth = (delta) => {
     setViewDate(new Date(year, month + delta, 1));
@@ -92,7 +70,7 @@ export const UpEvents = () => {
             </svg>
           </span>
           <h2 id="up-events-title" className="up-events__title">
-            UPCOMING EVENTS
+            {t("upEvents.title")}
           </h2>
         </header>
 
@@ -107,7 +85,7 @@ export const UpEvents = () => {
                   type="button"
                   className="up-events__month-btn"
                   onClick={() => changeMonth(-1)}
-                  aria-label="Previous month"
+                  aria-label={t("upEvents.prevMonth")}
                 >
                   ←
                 </button>
@@ -115,7 +93,7 @@ export const UpEvents = () => {
                   type="button"
                   className="up-events__month-btn"
                   onClick={() => changeMonth(1)}
-                  aria-label="Next month"
+                  aria-label={t("upEvents.nextMonth")}
                 >
                   →
                 </button>
@@ -140,7 +118,7 @@ export const UpEvents = () => {
                 }
 
                 const dateKey = toKey(year, month, day);
-                const hasEvent = Boolean(EVENTS[dateKey]);
+                const hasEvent = Boolean(events[dateKey]);
                 const isSelected = day === selectedDay;
 
                 return (
@@ -151,7 +129,7 @@ export const UpEvents = () => {
                     className={`up-events__day${isSelected ? " up-events__day--selected" : ""}${hasEvent ? " up-events__day--has-event" : ""}`}
                     onClick={() => setSelectedDay(day)}
                     aria-selected={isSelected}
-                    aria-label={`${day} ${monthLabel}${hasEvent ? ", has event" : ""}`}
+                    aria-label={`${day} ${monthLabel}${hasEvent ? t("upEvents.hasEvent") : ""}`}
                   >
                     {day}
                   </button>
@@ -172,16 +150,16 @@ export const UpEvents = () => {
                 </p>
               </>
             ) : (
-              <p className="up-events__empty">No events on this date.</p>
+              <p className="up-events__empty">{t("upEvents.noEvents")}</p>
             )}
 
             <a href="#" className="up-events__link">
-              Discover the events
+              {t("upEvents.discover")}
               <span aria-hidden="true">→</span>
             </a>
 
             <Button href="#" variant="default" className="up-events__all-btn">
-              All events
+              {t("upEvents.allEvents")}
             </Button>
           </article>
         </div>

@@ -2,14 +2,17 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TABS, MOBILE_TABS } from "../Bunner";
 import { SpriteCanvas } from "../Bunner/SpriteCanvas";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { useBannerTabs } from "../../i18n/useBannerTabs";
 import "../Bunner/style.css";
 import "./style.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Anima = () => {
+  const { t } = useLanguage();
+  const { tabs, mobileTabs } = useBannerTabs();
   const tabsRef = useRef(null);
 
   useGSAP(
@@ -34,9 +37,6 @@ export const Anima = () => {
             },
           },
         );
-
-        // Scroll-scrub variant (restore if needed):
-        // scrollTrigger: { trigger: tabsRef.current, start: "top 45%", end: "+=120", scrub: 1 }
       });
 
       return () => mm.revert();
@@ -48,21 +48,21 @@ export const Anima = () => {
     <div className="anima">
       <div className="anima__desktop">
         <div className="banner__top" style={{ marginTop: 0 }}>
-          <span className="banner__label">You see ...</span>
+          <span className="banner__label">{t("banner.label")}</span>
 
           <SpriteCanvas className="banner__ring" />
 
           <div ref={tabsRef} className="banner__tabs">
             <div className="banner__tabs-inner">
               <p className="banner__tabs-base">
-                {TABS.map((tab) => (
+                {tabs.map((tab) => (
                   <span key={tab.id} className="banner__tab-item">
                     {tab.label}
                   </span>
                 ))}
               </p>
               <p className="banner__tabs-fill" aria-hidden="true">
-                {TABS.map((tab) => (
+                {tabs.map((tab) => (
                   <span key={tab.id} className="banner__tab-item">
                     {tab.label}
                   </span>
@@ -75,7 +75,7 @@ export const Anima = () => {
 
       <div className="anima__mobile">
         <div className="anima__mobile-tabs">
-          {MOBILE_TABS.map((tab) => (
+          {mobileTabs.map((tab) => (
             <span
               key={tab.id}
               className={`anima__tab${tab.active ? " anima__tab--active" : ""}`}

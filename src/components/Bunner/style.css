@@ -85,6 +85,18 @@
   white-space: nowrap;
 }
 
+/* Ukrainian labels are longer; tune desktop tabs without affecting EN. */
+@media (min-width: 1025px) {
+  html[data-language="uk"] .banner__tabs-base,
+  html[data-language="uk"] .banner__tabs-fill {
+    grid-template-columns: repeat(3, max-content);
+    justify-content: space-between;
+    gap: clamp(18px, 2.2vw, 42px);
+    font-size: clamp(22px, 2.5vw, 36px);
+    letter-spacing: -0.01em;
+  }
+}
+
 .banner__tabs-base {
   color: rgba(255, 255, 255, 0);
 }

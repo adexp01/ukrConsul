@@ -1,43 +1,9 @@
+import { useMemo } from "react";
 import { Button } from "../UI/Button";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const FEATURED = {
-  id: "zbroya-militarnyi",
-  layout: "featured",
-  tag: "Media project with Militarnyi",
-  title: "Zbroya with Militarnyi",
-  description: [
-    "A joint media project of the Ukrainian Council of Defence Industry and Militarnyi that explains how the defence industry works, what challenges manufacturers face, and which solutions are already changing the sector.",
-    "Through interviews, analytics and field stories, we show how private defence production becomes part of Ukraine's security and economic resilience.",
-  ],
-  cta: "Learn more",
-  href: "#",
-};
-
-const ITEMS = [
-  {
-    id: "telegram",
-    layout: "card",
-    tag: "Telegram channel",
-    title: "Zbroyari × Defender",
-    description:
-      "Operational updates, sector news and expert commentary on defence industry developments — in a format that is easy to follow day to day.",
-    cta: "Subscribe",
-    href: "#",
-  },
-  {
-    id: "digest",
-    layout: "card",
-    tag: "Email / Monthly",
-    title: "Gunsmiths' Council digest",
-    description:
-      "A monthly overview of key decisions, association updates, international cooperation and projects that help Ukrainian manufacturers scale.",
-    cta: "Subscribe",
-    href: "#",
-  },
-];
-
-const MediaItemCard = ({ item }) => {
+const MediaItemCard = ({ item, imagePlaceholder }) => {
   const isFeatured = item.layout === "featured";
 
   return (
@@ -46,7 +12,7 @@ const MediaItemCard = ({ item }) => {
       aria-labelledby={`media-item-title-${item.id}`}
     >
       <div className="media-item__media">
-        <span className="media-item__media-placeholder">Image</span>
+        <span className="media-item__media-placeholder">{imagePlaceholder}</span>
       </div>
 
       <div className="media-item__body">
@@ -75,13 +41,40 @@ const MediaItemCard = ({ item }) => {
 };
 
 export const MediaItems = () => {
+  const { t, language } = useLanguage();
+
+  const { featured, items } = useMemo(() => {
+    const featuredData = t("media.items.featured");
+    const telegram = t("media.items.telegram");
+    const digest = t("media.items.digest");
+
+    return {
+      featured: {
+        id: "zbroya-militarnyi",
+        layout: "featured",
+        ...featuredData,
+        href: "#",
+      },
+      items: [
+        { id: "telegram", layout: "card", ...telegram, href: "#" },
+        { id: "digest", layout: "card", ...digest, href: "#" },
+      ],
+    };
+  }, [t, language]);
+
+  const imagePlaceholder = t("media.items.imagePlaceholder");
+
   return (
-    <section className="media-items" aria-label="Media projects">
-      <MediaItemCard item={FEATURED} />
+    <section className="media-items" aria-label={t("media.items.sectionAria")}>
+      <MediaItemCard item={featured} imagePlaceholder={imagePlaceholder} />
 
       <div className="media-items__row">
-        {ITEMS.map((item) => (
-          <MediaItemCard key={item.id} item={item} />
+        {items.map((item) => (
+          <MediaItemCard
+            key={item.id}
+            item={item}
+            imagePlaceholder={imagePlaceholder}
+          />
         ))}
       </div>
     </section>

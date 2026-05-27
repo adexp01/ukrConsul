@@ -3,38 +3,18 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const MAIN_STAT = {
   id: "companies",
   value: "350+",
-  mobileLabel: "Participants",
-  description: "Companies united in one defence ecosystem",
 };
 
 const SATELLITE_STATS = [
-  {
-    id: "manufacturers",
-    value: "300+",
-    mobileLabel: "Manufacturers",
-    description: "Private defence manufacturers in the ecosystem",
-    position: "top-left",
-  },
-  {
-    id: "schools",
-    value: "28",
-    mobileLabel: "UAV schools",
-    description: "UAV schools training the next generation",
-    position: "bottom-left",
-  },
-  {
-    id: "funds",
-    value: "20",
-    mobileLabel: "Venture funds",
-    description:
-      "Private defence venture funds investing in defence innovation",
-    position: "bottom-right",
-  },
+  { id: "manufacturers", value: "300+", position: "top-left" },
+  { id: "schools", value: "28", position: "bottom-left" },
+  { id: "funds", value: "20", position: "bottom-right" },
 ];
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -81,6 +61,8 @@ const buildRoundedPath = (points, radius = 12) => {
 };
 
 export const AboutUs = () => {
+  const { t } = useLanguage();
+  const titleLines = t("aboutUs.title");
   const sectionRef = useRef(null);
   const stageRef = useRef(null);
   const mainCardRef = useRef(null);
@@ -277,10 +259,9 @@ export const AboutUs = () => {
 
       <div className="about-us__inner">
         <h2 id="about-us-title" className="about-us__title">
-          <span>THE LARGEST</span>
-          <span>ASSOCIATION OF PRIVATE</span>
-          <span>ARMS</span>
-          <span>MANUFACTURERS</span>
+          {titleLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
         </h2>
 
         <div ref={stageRef} className="about-us__stage">
@@ -300,10 +281,10 @@ export const AboutUs = () => {
             className="about-us__card about-us__card--main"
           >
             <p className="about-us__card-label about-us__mobile-only">
-              {MAIN_STAT.mobileLabel}
+              {t("aboutUs.main.mobileLabel")}
             </p>
             <p className="about-us__card-desc about-us__desktop-only">
-              {MAIN_STAT.description}
+              {t("aboutUs.main.description")}
             </p>
             <p className="about-us__card-value">{MAIN_STAT.value}</p>
           </article>
@@ -320,10 +301,10 @@ export const AboutUs = () => {
               tabIndex={isExpanded ? 0 : -1}
             >
               <p className="about-us__card-label about-us__mobile-only">
-                {stat.mobileLabel}
+                {t(`aboutUs.satellites.${stat.id}.mobileLabel`)}
               </p>
               <p className="about-us__card-desc about-us__desktop-only">
-                {stat.description}
+                {t(`aboutUs.satellites.${stat.id}.description`)}
               </p>
               <p className="about-us__card-value">{stat.value}</p>
             </article>
@@ -331,7 +312,7 @@ export const AboutUs = () => {
         </div>
 
         <Button href="#" className="about-us__cta" variant="default">
-          About us
+          {t("aboutUs.aboutBtn")}
         </Button>
       </div>
     </section>

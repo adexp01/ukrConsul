@@ -4,25 +4,19 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
 import shield from "../../assets/shield.png";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const ORGANIZATIONS = [
-  "DEFENSE ALLIANCE OF UKRAINE",
-  "LEAGUE OF DEFENSE ENTERPRISES OF UKRAINE",
-  "RADIOELECTRONIC ALLIANCE OF UKRAINE",
-  "UKRAINIAN ROBOTIC FORCES",
-  "TECHOSYSTEM DEFENSE",
-  'ASSOCIATION OF MANUFACTURERS OF UAVS "ARMADA"',
-  "ASSOCIATION OF MARITIME DRONES",
-  "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
-  "UCDI INVESTOR CLUB",
-];
-
 export const Info = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const shieldRef = useRef(null);
+
+  const organizations = t("info.organizations");
+  const headingLines = t("info.heading");
+  const ctaTitleLines = t("info.ctaTitle");
 
   useGSAP(
     () => {
@@ -65,8 +59,9 @@ export const Info = () => {
       <div className="info-section__inner">
         <div className="info-section__orgs">
           <h2 className="info-section__heading">
-            <span>ASSOCIATIONS INCLUDED</span>
-            <span>IN THE COUNCIL OF ARMS MAKERS</span>
+            {headingLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </h2>
 
           <div className="info-section__shield" aria-hidden="true">
@@ -75,7 +70,7 @@ export const Info = () => {
 
           <div className="info-section__list-wrap">
             <ul className="info-section__list">
-              {ORGANIZATIONS.map((name) => (
+              {organizations.map((name) => (
                 <li key={name} className="info-section__list-item">
                   {name}
                 </li>
@@ -86,7 +81,7 @@ export const Info = () => {
                 variant="default"
                 className="info-section__about-btn"
               >
-                About us
+                {t("info.aboutBtn")}
               </Button>
             </ul>
           </div>
@@ -96,23 +91,19 @@ export const Info = () => {
           <div className="info-section__cta-glow" aria-hidden="true" />
 
           <h2 id="info-cta-title" className="info-section__cta-title">
-            <span>WANT TO JOIN</span>
-            <span>THE GUNSMITHS</span>
-            <span>COUNCIL</span>
-            <span>ECOSYSTEM?</span>
+            {ctaTitleLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </h2>
 
-          <p className="info-section__cta-text">
-            Take a short test and find out which association or community suits
-            you best.
-          </p>
+          <p className="info-section__cta-text">{t("info.ctaText")}</p>
 
           <div className="info-section__cta-actions">
             <Button href="#" variant="default">
-              Take the test
+              {t("info.takeTest")}
             </Button>
             <a href="#" className="info-section__cta-link">
-              Apply directly
+              {t("info.applyDirectly")}
               <span aria-hidden="true">→</span>
             </a>
           </div>

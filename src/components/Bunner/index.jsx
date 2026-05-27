@@ -4,25 +4,15 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
 import { SpriteCanvas } from "./SpriteCanvas";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { useBannerTabs } from "../../i18n/useBannerTabs";
 import "./style.css";
-
-export const TABS = [
-  { id: "industry", label: "Ukraine’s private defence industry" },
-  { id: "partners", label: "partners" },
-  { id: "capacity", label: "capacity" },
-];
-
-export const MOBILE_TABS = [
-  { id: "capacity", label: "capacity", active: true },
-  { id: "partners", label: "partners", active: false },
-];
-
-const PANEL_TEXT =
-  "We unite industry associations, present a common position, and work with the state, military, and international partners to accelerate production and scaling of the defense industry.";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Bunner = () => {
+  const { t } = useLanguage();
+  const { tabs, mobileTabs } = useBannerTabs();
   const tabsRef = useRef(null);
 
   useGSAP(
@@ -54,16 +44,20 @@ export const Bunner = () => {
     { scope: tabsRef },
   );
 
+  const titleLines = t("banner.title");
+
   return (
     <section className="banner" aria-label="Hero banner">
       <div className="banner__inner">
         <div className="banner__top">
-          <span className="banner__label banner__desktop-only">You see ...</span>
+          <span className="banner__label banner__desktop-only">
+            {t("banner.label")}
+          </span>
 
           <SpriteCanvas className="banner__ring" />
 
           <div className="banner__tabs-mobile banner__mobile-only">
-            {MOBILE_TABS.map((tab) => (
+            {mobileTabs.map((tab) => (
               <span
                 key={tab.id}
                 className={`banner__tab-mobile${tab.active ? " banner__tab-mobile--active" : ""}`}
@@ -76,14 +70,14 @@ export const Bunner = () => {
           <div ref={tabsRef} className="banner__tabs banner__desktop-only">
             <div className="banner__tabs-inner">
               <p className="banner__tabs-base">
-                {TABS.map((tab) => (
+                {tabs.map((tab) => (
                   <span key={tab.id} className="banner__tab-item">
                     {tab.label}
                   </span>
                 ))}
               </p>
               <p className="banner__tabs-fill" aria-hidden="true">
-                {TABS.map((tab) => (
+                {tabs.map((tab) => (
                   <span key={tab.id} className="banner__tab-item">
                     {tab.label}
                   </span>
@@ -94,17 +88,18 @@ export const Bunner = () => {
         </div>
 
         <div className="banner__panel">
-          <p className="banner__text">{PANEL_TEXT}</p>
+          <p className="banner__text">{t("banner.panelText")}</p>
         </div>
 
         <div className="banner__hero">
           <h2 className="banner__title">
-            <span>UKRAINIAN COUNCIL</span>
-            <span>OF ARMS MAKERS</span>
+            {titleLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </h2>
 
           <Button href="#" className="banner__cta">
-            Send a request
+            {t("banner.sendRequest")}
           </Button>
         </div>
       </div>
