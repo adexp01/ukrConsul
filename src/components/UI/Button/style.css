@@ -1,6 +1,8 @@
 .button2 {
   --button2-height: 54px;
-  --button2-icon: 52px;
+  --button2-icon: 54px;
+  --button2-gap: 5px;
+  --button2-radius: 8px;
 
   position: relative;
   display: inline-grid;
@@ -29,13 +31,36 @@
   pointer-events: none;
 }
 
+.button2__svg--primary,
+.button2__svg--default {
+  overflow: visible;
+}
+
+.button2__label-shape {
+  x: 0;
+  y: 0;
+  width: calc(100% - var(--button2-icon) - var(--button2-gap));
+  height: 100%;
+  rx: var(--button2-radius);
+  ry: var(--button2-radius);
+}
+
+.button2__icon-shape {
+  x: calc(100% - var(--button2-icon));
+  y: 0;
+  width: var(--button2-icon);
+  height: 100%;
+  rx: var(--button2-radius);
+  ry: var(--button2-radius);
+}
+
 .button2__label {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px 0 24px;
+  padding: 0 12px 0 12px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -61,8 +86,8 @@
 
 .button2__arrow {
   display: block;
-  width: 16px;
-  height: 10px;
+  width: 24px;
+  height: 24px;
 }
 
 .button2__icon-inner img,
@@ -75,12 +100,12 @@
 
 /* Primary — orange gradient fill */
 .button2--primary:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.04);
 }
 
 .button2--primary:active {
   transform: translateY(1px);
-  filter: brightness(0.96);
+  filter: brightness(0.97);
 }
 
 /* Default — outlined shapes */
@@ -88,7 +113,8 @@
   min-width: 180px;
 }
 
-.button2--default .button2__shape {
+.button2--default .button2__label-shape,
+.button2--default .button2__icon-shape {
   transition: stroke 0.2s ease;
 }
 
@@ -96,7 +122,8 @@
   filter: none;
 }
 
-.button2--default:hover .button2__shape {
+.button2--default:hover .button2__label-shape,
+.button2--default:hover .button2__icon-shape {
   stroke: rgba(255, 255, 255, 0.42);
 }
 
@@ -104,7 +131,8 @@
   transform: translateY(1px);
 }
 
-.button2--default:active .button2__shape {
+.button2--default:active .button2__label-shape,
+.button2--default:active .button2__icon-shape {
   stroke: rgba(255, 255, 255, 0.55);
 }
 
@@ -112,6 +140,8 @@
   .button2 {
     --button2-height: 48px;
     --button2-icon: 48px;
+    --button2-gap: 8px;
+    --button2-radius: 15px;
 
     min-width: 180px;
     width: 100%;
@@ -127,5 +157,10 @@
     font-size: 13px;
     white-space: normal;
     text-align: center;
+  }
+
+  .button2__arrow {
+    width: 22px;
+    height: 22px;
   }
 }

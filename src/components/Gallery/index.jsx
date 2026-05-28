@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
+import arrow from "../../assets/arrow.svg";
 import "./style.css";
 
 const SLIDE_MEDIA = [
@@ -105,7 +106,7 @@ export const Gallery = () => {
                 onClick={goPrev}
                 aria-label={t("gallery.prevSlide")}
               >
-                ←
+                <img src={arrow} alt="" aria-hidden="true" />
               </button>
               <button
                 type="button"
@@ -113,7 +114,7 @@ export const Gallery = () => {
                 onClick={goNext}
                 aria-label={t("gallery.nextSlide")}
               >
-                →
+                <img src={arrow} alt="" aria-hidden="true" />
               </button>
             </div>
           </div>

@@ -180,71 +180,46 @@
 
 .gallery-section__nav {
   display: flex;
-  gap: 8px;
+  gap: 5px;
   padding-top: 40px;
 }
 
 .gallery-section__nav-btn {
-  --slant: 5px;
-
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
-  height: 44px;
-  padding: 0 16px;
-
-  border: none;
-  background: transparent;
+  width: 54px;  
+  height: 54px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(5, 9, 24, 0.42);
   color: #ffffff;
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.gallery-section__nav-btn::before,
-.gallery-section__nav-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  transition: opacity 0.2s ease;
-  margin-right: -10px;
+.gallery-section__nav-btn img {
+  width: 18px;
+  height: 18px;
+  display: block;
+  object-fit: contain;
 }
 
-/* заливка на hover */
-.gallery-section__nav-btn::after {
-  opacity: 0;
-}
-
-.gallery-section__nav-btn:hover::after {
-  opacity: 1;
-}
-
-/* ліва кнопка */
-.gallery-section__nav-btn--prev::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 44' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1 H70 Q78 1 76 9 L68 35 Q66 43 58 43 H9 Q1 43 1 35 V9 Q1 1 9 1 Z' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.gallery-section__nav-btn--prev::after {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 44' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 1 H70 Q78 1 76 9 L68 35 Q66 43 58 43 H9 Q1 43 1 35 V9 Q1 1 9 1 Z' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.5)' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-/* права кнопка */
-.gallery-section__nav-btn--next::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 44' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1 H71 Q79 1 79 9 V35 Q79 43 71 43 H9 Q1 43 4 35 L12 9 Q14 1 22 1 Z' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-}
-
-.gallery-section__nav-btn--next::after {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 44' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 1 H71 Q79 1 79 9 V35 Q79 43 71 43 H9 Q1 43 4 35 L12 9 Q14 1 22 1 Z' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.5)' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+.gallery-section__nav-btn--prev img {
+  transform: rotate(180deg);
 }
 
 .gallery-section__nav-btn:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(10, 16, 40, 0.58);
+}
+
+.gallery-section__nav-btn:active {
+  transform: translateY(1px);
 }
 
 .gallery-section__pagination {
@@ -342,5 +317,21 @@
   .gallery-section__pagination-item--active {
     width: 32px;
     height: 4px;
+  }
+
+  .gallery-section__nav {
+    gap: 12px;
+    padding-top: 30px;
+  }
+
+  .gallery-section__nav-btn {
+    width: 82px;
+    height: 82px;
+    border-radius: 18px;
+  }
+
+  .gallery-section__nav-btn img {
+    width: 30px;
+    height: 24px;
   }
 }
