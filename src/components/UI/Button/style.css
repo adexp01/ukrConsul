@@ -7,7 +7,8 @@
   position: relative;
   display: inline-grid;
   grid-template-columns: minmax(0, 1fr) var(--button2-icon);
-  align-items: center;
+  column-gap: var(--button2-gap);
+  align-items: stretch;
   width: fit-content;
   min-width: 200px;
   height: var(--button2-height);
@@ -57,19 +58,25 @@
 .button2__label {
   position: relative;
   z-index: 1;
+  grid-column: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px 0 12px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
+  text-align: center;
   white-space: nowrap;
 }
 
 .button2__icon {
   position: relative;
   z-index: 1;
+  grid-column: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +160,7 @@
   }
 
   .button2__label {
-    padding: 0 8px 0 20px;
+    padding: 0 12px;
     font-size: 13px;
     white-space: normal;
     text-align: center;

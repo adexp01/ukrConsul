@@ -139,6 +139,8 @@ export const en = {
     noEvents: "No events on this date.",
     discover: "Discover the events",
     allEvents: "All events",
+    formatOnline: "Online",
+    formatOffline: "Offline",
     hasEvent: ", has event",
     months: [
       "January",
@@ -156,19 +158,28 @@ export const en = {
     ],
     events: {
       "2025-04-10": {
-        time: "10 april • 09:00-12:00",
+        time: "10-11 april / 09:00-12:00",
+        categoryLabel: "Open events:",
+        categoryName: "Defense regions",
+        format: "online",
         title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
         description:
           "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
       "2025-04-20": {
-        time: "20 april • 14:00-17:00",
+        time: "20 april / 14:00-17:00",
+        categoryLabel: "Closed events:",
+        categoryName: "Among armourers",
+        format: "offline",
         title: "DEFENCE INDUSTRY ROUNDTABLE",
         description:
           "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
       "2025-04-22": {
-        time: "22 april • 10:00-13:00",
+        time: "22 april / 10:00-13:00",
+        categoryLabel: "Open events:",
+        categoryName: "UAV ecosystem",
+        format: "online",
         title: "UAV ECOSYSTEM MEETUP",
         description:
           "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
@@ -395,6 +406,109 @@ export const en = {
           "The Council's media team helps explain how private defence production contributes to security and economic resilience, while supporting manufacturers with advocacy, expert commentary and access to international cooperation formats.",
         ],
       },
+    },
+  },
+  track: {
+    intro: {
+      title: ["International", "track"],
+      columns: [
+        "We represent members of the Ukrainian Council of Defence Industry at key international events — forums, conferences and industry meetings.",
+        "We help companies access relevant events and connect them with gatherings organized through our partner network.",
+      ],
+    },
+    cards: {
+      title: [
+        "We offer various formats of joint projects",
+        "with partner associations, including:",
+      ],
+      items: [
+        {
+          id: "trade-missions",
+          side: "left",
+          icon: "diamond",
+          title: "Trade missions:",
+          text: "hosting delegations in Kyiv, B2B sessions in Ukraine, support for foreign and Ukrainian companies",
+        },
+        {
+          id: "industry-forums",
+          side: "right",
+          icon: "eagle",
+          title: "Industry Day Forums:",
+          text: "focused on the conference programme, B2B matchmaking and closed meetings with foreign manufacturers",
+        },
+        {
+          id: "info-sessions",
+          side: "left",
+          icon: "links",
+          title: "Online/offline information sessions:",
+          text: "on Build with Ukraine and familiarisation with the market and the structure of the Gunsmiths' Council",
+        },
+        {
+          id: "exhibitions",
+          side: "right",
+          icon: "zigzag",
+          title: "Presence at international exhibitions:",
+          text: "we build stands at prestigious overseas exhibitions, including EUROSATORY, SAHA and others.",
+        },
+        {
+          id: "abroad",
+          side: "left",
+          icon: "cross",
+          title: "Council presence abroad:",
+          text: "we represent the Council at international events of various formats and scales; advocate cooperation with Ukraine's private defence industry; raise the visibility of the organisation and Ukrainian technologies",
+        },
+      ],
+    },
+    cooperation: {
+      text: "We develop cooperation with international industry associations and institutions.",
+    },
+    partners: {
+      title: "Working with partners",
+    },
+  },
+  eventDetailsPage: {
+    breadcrumbEvents: "Events",
+    imagePlaceholder: "image",
+    formatOnline: "Online",
+    formatOffline: "Offline",
+    apply: "Submit application",
+  },
+  eventDetails: {
+    "pomizh-zbroiariv-pz": {
+      breadcrumbGroup: "Among armourers",
+      breadcrumbTitle: "Software supply. Codification and procurement issues",
+      time: "27 May 2026 / 15:30–19:00",
+      categoryLabel: "Open events:",
+      categoryName: "Defense regions",
+      format: "offline",
+      title:
+        "AMONG ARMOURERS | SOFTWARE SUPPLY. CODIFICATION AND PROCUREMENT ISSUES",
+      body: [
+        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+      ],
+      registrationTitle:
+        "Participation in the meeting is only possible with prior registration.",
+      registrationDeadline:
+        "Application deadline: 26 May by 12:00",
+    },
+    "asd-connect-2": {
+      breadcrumbGroup: "Among armourers",
+      breadcrumbTitle: "ASD-Connect platform presentation",
+      time: "10 April / 09:00-12:00",
+      categoryLabel: "Open events:",
+      categoryName: "Defense regions",
+      format: "online",
+      title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
+      body: [
+        "The event will bring together defense product manufacturers, banking representatives and the Ministry of Strategic Industries to discuss the 5% lending programme launched in 2024.",
+        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand.",
+      ],
+      registrationTitle:
+        "Participation in the meeting is only possible with prior registration.",
+      registrationDeadline: "Application deadline: 9 April by 18:00",
     },
   },
   articlePage: {

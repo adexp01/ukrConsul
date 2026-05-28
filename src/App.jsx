@@ -5,6 +5,9 @@ import { MediaPage } from "./pages/MediaPage";
 import { ArticlePage } from "./pages/ArticlePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { EventsPage } from "./pages/EventsPage";
+import { EventDetailPage } from "./pages/EventDetailPage";
+import { TrackPage } from "./pages/TrackPage";
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/media" element={<MediaPage />} />
         <Route path="/article/:id" element={<ArticlePage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/details/:id" element={<EventDetailPage />} />
+        <Route path="/track" element={<TrackPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

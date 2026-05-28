@@ -1,0 +1,206 @@
+.animation-cards {
+  position: relative;
+  width: 100%;
+  padding: clamp(48px, 7vw, 88px) 48px clamp(64px, 8vw, 96px);
+  overflow: hidden;
+}
+
+.animation-cards__glow {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  z-index: 0;
+  width: min(900px, 100%);
+  height: 60%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(80, 55, 30, 0.16) 0%,
+    rgba(40, 28, 16, 0.05) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+
+.animation-cards__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: min(1060px, 100%);
+  margin: 0 auto;
+}
+
+.animation-cards__pin {
+  width: 100%;
+}
+
+.animation-cards__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.animation-cards__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.animation-cards__title span {
+  display: block;
+}
+
+.animation-cards__stage {
+  position: relative;
+  width: 100%;
+}
+
+.animation-cards__viewport {
+  position: relative;
+  height: clamp(480px, 60vh, 560px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.animation-cards__track {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 14vh 0 48vh;
+  transform: translateZ(0);
+}
+
+.animation-cards__card {
+  flex-shrink: 0;
+  width: min(100%, 560px);
+  max-width: 440px;
+  padding: 24px 60px 24px 24px;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: box-shadow 0.35s ease;
+
+  border-radius: 12px;
+  background: rgba(140, 140, 140, 0.19);
+  backdrop-filter: blur(9px);
+}
+
+.animation-cards__card.is-focus {
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.animation-cards__card--left {
+  align-self: flex-start;
+  margin-right: auto;
+  margin-left: 0;
+  transform-origin: left center;
+}
+
+.animation-cards__card--right {
+  align-self: flex-end;
+  margin-left: auto;
+  margin-right: 0;
+  transform-origin: right center;
+}
+
+.animation-cards__card-icon {
+  margin-bottom: 16px;
+}
+
+.animation-cards__card-icon-img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.animation-cards__card-title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.animation-cards__card-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(16px, 1.25vw, 16px);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+@media (max-width: 1024px) {
+  .animation-cards {
+    padding: 40px 20px 72px;
+  }
+
+  .animation-cards__head {
+    margin-bottom: 24px;
+  }
+
+  .animation-cards__title {
+    font-size: clamp(24px, 7vw, 36px);
+  }
+
+  .animation-cards__viewport {
+    height: auto;
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .animation-cards__track {
+    gap: 16px;
+    padding: 0;
+  }
+
+  .animation-cards__card {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px 18px 20px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .animation-cards__card--left,
+  .animation-cards__card--right {
+    align-self: stretch;
+    margin-left: 0;
+    margin-right: 0;
+    transform-origin: center center;
+  }
+
+  .animation-cards__card-title {
+    font-size: 18px;
+  }
+
+  .animation-cards__card-text {
+    font-size: 14px;
+  }
+}

@@ -165,12 +165,59 @@
 }
 
 .up-events__time {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   color: rgba(255, 255, 255, 0.55);
   font-size: 14px;
   font-weight: 400;
   line-height: 1;
   text-transform: lowercase;
+}
+
+.up-events__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.up-events__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.up-events__badge--category {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.up-events__badge-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6b8cff;
+}
+
+.up-events__badge-text strong {
+  font-weight: 700;
+}
+
+.up-events__badge--format-online {
+  background: rgba(230, 102, 24, 0.09);
+  color: #e66618;
+}
+
+.up-events__badge--format-offline {
+  background: rgba(92, 134, 228, 0.12);
+  color: #5c86e4;
 }
 
 .up-events__event-title {
@@ -219,8 +266,7 @@
 }
 
 .up-events__all-btn {
-  align-self: flex-start;
-  margin-top: auto;
+  margin-top: 80px;
 }
 
 @media (max-width: 900px) {

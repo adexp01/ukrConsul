@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import { useLocation } from "react-router-dom";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -27,6 +28,7 @@ export const UpEvents = () => {
   const { t, language } = useLanguage();
   const [viewDate, setViewDate] = useState(() => new Date(2025, 3, 1));
   const [selectedDay, setSelectedDay] = useState(10);
+  const { pathname } = useLocation();
 
   const events = useMemo(() => {
     const translated = t("upEvents.events");
@@ -51,6 +53,8 @@ export const UpEvents = () => {
     setViewDate(new Date(year, month + delta, 1));
     setSelectedDay(1);
   };
+
+  const isEventsPage = pathname === "/events";
 
   return (
     <section className="up-events" aria-labelledby="up-events-title">
@@ -142,6 +146,24 @@ export const UpEvents = () => {
             {selectedEvent ? (
               <>
                 <p className="up-events__time">{selectedEvent.time}</p>
+
+                <div className="up-events__badges">
+                  <span className="up-events__badge up-events__badge--category">
+                    <span className="up-events__badge-dot" aria-hidden="true" />
+                    <span className="up-events__badge-text">
+                      {selectedEvent.categoryLabel}{" "}
+                      <strong>{selectedEvent.categoryName}</strong>
+                    </span>
+                  </span>
+                  <span
+                    className={`up-events__badge up-events__badge--format up-events__badge--format-${selectedEvent.format}`}
+                  >
+                    {selectedEvent.format === "offline"
+                      ? t("upEvents.formatOffline")
+                      : t("upEvents.formatOnline")}
+                  </span>
+                </div>
+
                 <h3 className="up-events__event-title">
                   {selectedEvent.title}
                 </h3>
@@ -158,9 +180,13 @@ export const UpEvents = () => {
               <span aria-hidden="true">→</span>
             </a>
 
-            <Button href="#" variant="default" className="up-events__all-btn">
-              {t("upEvents.allEvents")}
-            </Button>
+            {isEventsPage ? (
+              <></>
+            ) : (
+              <Button href="#" variant="default" className="up-events__all-btn">
+                {t("upEvents.allEvents")}
+              </Button>
+            )}
           </article>
         </div>
 

@@ -1,0 +1,138 @@
+.partners {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.partners__inner {
+  width: 100%;
+  margin: 0 auto;
+  padding-block: 30px;
+}
+
+.partners__title {
+  margin: 30px 48px clamp(28px, 4vw, 40px);
+  color: #ffffff;
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.partners__rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 16px);
+}
+
+.partners__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.partners__marquee--bottom {
+  padding-left: clamp(48px, 8vw, 140px);
+}
+
+.partners__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.partners__track--left {
+  animation: partners-scroll-left 48s linear infinite;
+}
+
+.partners__track--right {
+  animation: partners-scroll-right 52s linear infinite;
+}
+
+.partners__strip {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: clamp(88px, 10vw, 105px);
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes partners-scroll-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes partners-scroll-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners__track--left,
+  .partners__track--right {
+    animation: none;
+    transform: none;
+  }
+
+  .partners__marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+    scrollbar-width: none;
+  }
+
+  .partners__marquee::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .partners__inner {
+    padding: 0 20px;
+  }
+
+  .partners__title {
+    font-size: clamp(24px, 7vw, 36px);
+    margin-bottom: 24px;
+  }
+
+  .partners__marquee--bottom {
+    padding-left: 32px;
+  }
+
+  .partners__strip {
+    height: 88px;
+  }
+
+  .partners__track--left {
+    animation-duration: 36s;
+  }
+
+  .partners__track--right {
+    animation-duration: 40s;
+  }
+}

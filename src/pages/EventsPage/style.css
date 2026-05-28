@@ -1,0 +1,35 @@
+.events-page {
+  background-color: #000;
+  background-image: url("../../assets/bg1.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  min-height: calc(100vh - 88px);
+  position: relative;
+}
+
+.events-page::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 90%);
+}
+
+.events-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .events-page {
+    min-height: calc(100dvh - 72px);
+  }
+
+  .events-page::after {
+    height: 72px;
+  }
+}
