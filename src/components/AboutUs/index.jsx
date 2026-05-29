@@ -64,6 +64,7 @@ export const AboutUs = () => {
   const { t } = useLanguage();
   const titleLines = t("aboutUs.title");
   const sectionRef = useRef(null);
+  const titleRef = useRef(null);
   const stageRef = useRef(null);
   const mainCardRef = useRef(null);
   const satelliteRefs = useRef({});
@@ -178,7 +179,25 @@ export const AboutUs = () => {
 
       mm.add("(min-width: 1025px)", () => {
         const section = sectionRef.current;
+        const title = titleRef.current;
         if (!section) return;
+
+        if (title) {
+          gsap.fromTo(
+            title,
+            { color: "#ffffff" },
+            {
+              color: "rgba(255, 255, 255, 0.55)",
+              ease: "none",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 72%",
+                end: "top 48%",
+                scrub: 0.75,
+              },
+            },
+          );
+        }
 
         const satellites = SATELLITE_STATS.map(
           (stat) => satelliteRefs.current[stat.id],
@@ -254,7 +273,25 @@ export const AboutUs = () => {
         "(max-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
           const section = sectionRef.current;
+          const title = titleRef.current;
           if (!section) return;
+
+          if (title) {
+            gsap.fromTo(
+              title,
+              { color: "#ffffff" },
+              {
+                color: "rgba(255, 255, 255, 0.52)",
+                ease: "none",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 78%",
+                  end: "top 52%",
+                  scrub: 0.75,
+                },
+              },
+            );
+          }
 
           const cards = section.querySelectorAll(".about-us__card");
           cards.forEach((card, index) => {
@@ -272,6 +309,13 @@ export const AboutUs = () => {
           });
         },
       );
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        const title = titleRef.current;
+        if (title) {
+          gsap.set(title, { color: "rgba(255, 255, 255, 0.55)" });
+        }
+      });
 
       mm.add("(max-width: 1024px)", () => {
         const section = sectionRef.current;
@@ -299,7 +343,7 @@ export const AboutUs = () => {
       <div className="about-us__glow" aria-hidden="true" />
 
       <div className="about-us__inner">
-        <h2 id="about-us-title" className="about-us__title">
+        <h2 id="about-us-title" ref={titleRef} className="about-us__title">
           {titleLines.map((line) => (
             <span key={line}>{line}</span>
           ))}

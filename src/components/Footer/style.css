@@ -82,6 +82,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
+  margin-top: 68px;
 }
 
 .footer__social-link {
@@ -111,8 +112,8 @@
 .footer__column-title {
   margin: 0 0 22px;
   color: rgba(255, 255, 255, 0.45);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1;
 }
 
@@ -128,8 +129,8 @@
 
 .footer__list a {
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 1.35;
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -154,14 +155,14 @@
 .footer__contact-label {
   margin: 0;
   color: rgba(255, 255, 255, 0.45);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.35;
 }
 
 .footer__contact-value {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.35;
   text-decoration: none;
@@ -184,7 +185,7 @@
 .footer__copyright,
 .footer__legal {
   color: rgba(255, 255, 255, 0.45);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1;
 }

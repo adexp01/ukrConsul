@@ -1,7 +1,7 @@
 .banner {
   width: 100%;
   max-width: 100%;
-  margin-top: 350px;
+  margin-top: 310px;
   position: relative;
   padding-bottom: 150px;
   overflow-x: clip;
@@ -15,10 +15,6 @@
 
 .banner__top {
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 24px 48px;
   margin-bottom: 32px;
 }
 
@@ -43,38 +39,29 @@
   }
 }
 
-.banner__label {
-  color: #ffffff;
-  font-size: clamp(28px, 3.2vw, 44px);
-  font-weight: 400;
-  line-height: 1.15;
-  white-space: nowrap;
-}
-
-.banner__tabs {
+.banner__top-line {
   position: relative;
   z-index: 1;
   width: 100%;
 }
 
-.banner__tabs-inner {
+.banner__top-line-inner {
   --tabs-reveal: 0%;
   position: relative;
   width: 100%;
 }
 
 @media (max-width: 1024px) {
-  .banner__tabs-inner {
+  .banner__top-line-inner {
     --tabs-reveal: 100%;
   }
 }
 
-.banner__tabs-base,
-.banner__tabs-fill {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.banner__top-line-base,
+.banner__top-line-fill {
+  display: flex;
   align-items: baseline;
-  gap: 54px;
+  gap: clamp(24px, 4vw, 48px);
   margin: 0;
   font-family: inherit;
   font-size: clamp(28px, 3.2vw, 44px);
@@ -82,49 +69,65 @@
   line-height: 1.15;
 }
 
-.banner__tab-item {
+.banner__top-line-label,
+.banner__top-line-tab {
   white-space: nowrap;
 }
 
-/* Ukrainian labels are longer; tune desktop tabs without affecting EN. */
+.banner__top-line-tabs {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: baseline;
+  gap: 54px;
+}
+
+/* Ukrainian labels are longer; tune desktop line without affecting EN. */
 @media (min-width: 1025px) {
-  html[data-language="uk"] .banner__tabs-base,
-  html[data-language="uk"] .banner__tabs-fill {
+  html[data-language="uk"] .banner__top-line-tabs {
     grid-template-columns: repeat(3, max-content);
     justify-content: space-between;
     gap: clamp(18px, 2.2vw, 42px);
+  }
+
+  html[data-language="uk"] .banner__top-line-base,
+  html[data-language="uk"] .banner__top-line-fill {
     font-size: clamp(22px, 2.5vw, 36px);
     letter-spacing: -0.01em;
   }
 }
 
-.banner__tabs-base {
-  color: rgba(255, 255, 255, 0);
+.banner__top-line-base {
+  color: transparent;
 }
 
-.banner__tabs-base .banner__tab-item:not(:last-child) {
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 0%, transparent 0%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 0%, transparent 100%);
-}
-
-.banner__tabs-fill {
+.banner__top-line-fill {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  color: #ffffff;
+  inset: 0;
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff6a 22%,
+    rgba(255, 255, 255, 0.457) 68%,
+    rgba(255, 255, 255, 0.202) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
   clip-path: inset(0 calc(100% - var(--tabs-reveal)) 0 0);
-  pointer-events: none;
-}
-
-.banner__tabs-fill .banner__tab-item:not(:last-child) {
   -webkit-mask-image: linear-gradient(
     90deg,
-    #000 0%,
-    #000 75%,
-    transparent 100%
+    #000 0,
+    #000 max(0%, calc(var(--tabs-reveal) - 10%)),
+    transparent min(100%, calc(var(--tabs-reveal) + 4%))
   );
-  mask-image: linear-gradient(90deg, #000 0%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(
+    90deg,
+    #000 0,
+    #000 max(0%, calc(var(--tabs-reveal) - 10%)),
+    transparent min(100%, calc(var(--tabs-reveal) + 4%))
+  );
+  pointer-events: none;
 }
 
 .banner__panel {

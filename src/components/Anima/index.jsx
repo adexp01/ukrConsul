@@ -13,60 +13,84 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export const Anima = () => {
   const { t } = useLanguage();
   const { tabs, mobileTabs } = useBannerTabs();
-  const tabsRef = useRef(null);
+  const textRevealRef = useRef(null);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1025px)", () => {
-        const inner = tabsRef.current?.querySelector(".banner__tabs-inner");
-        if (!inner) return;
+        const inner = textRevealRef.current?.querySelector(
+          ".banner__top-line-inner",
+        );
+        const fill = inner?.querySelector(".banner__top-line-fill");
+        if (!inner || !fill) return;
 
-        gsap.fromTo(
-          inner,
-          { "--tabs-reveal": "0%" },
-          {
-            "--tabs-reveal": "100%",
-            duration: 1.2,
-            ease: "power2.out",
+        gsap.set(inner, { "--tabs-reveal": "0%" });
+        gsap.set(fill, { opacity: 0 });
+
+        gsap
+          .timeline({
             scrollTrigger: {
-              trigger: tabsRef.current,
+              trigger: textRevealRef.current,
               start: "top 75%",
               once: true,
             },
-          },
-        );
+          })
+          .to(fill, {
+            opacity: 1,
+            duration: 0.9,
+            ease: "sine.inOut",
+          })
+          .to(
+            inner,
+            {
+              "--tabs-reveal": "100%",
+              duration: 2.2,
+              ease: "sine.inOut",
+            },
+            0.35,
+          );
       });
+
+      requestAnimationFrame(() => ScrollTrigger.refresh());
 
       return () => mm.revert();
     },
-    { scope: tabsRef },
+    { scope: textRevealRef },
   );
 
   return (
     <div className="anima">
       <div className="anima__desktop">
         <div className="banner__top" style={{ marginTop: 0 }}>
-          <span className="banner__label">{t("banner.label")}</span>
-
           <SpriteCanvas className="banner__ring" />
 
-          <div ref={tabsRef} className="banner__tabs">
-            <div className="banner__tabs-inner">
-              <p className="banner__tabs-base">
-                {tabs.map((tab) => (
-                  <span key={tab.id} className="banner__tab-item">
-                    {tab.label}
-                  </span>
-                ))}
+          <div ref={textRevealRef} className="banner__top-line">
+            <div className="banner__top-line-inner">
+              <p className="banner__top-line-base">
+                <span className="banner__top-line-label">
+                  {t("banner.label")}
+                </span>
+                <span className="banner__top-line-tabs">
+                  {tabs.map((tab) => (
+                    <span key={tab.id} className="banner__top-line-tab">
+                      {tab.label}
+                    </span>
+                  ))}
+                </span>
               </p>
-              <p className="banner__tabs-fill" aria-hidden="true">
-                {tabs.map((tab) => (
-                  <span key={tab.id} className="banner__tab-item">
-                    {tab.label}
-                  </span>
-                ))}
+              <p className="banner__top-line-fill" aria-hidden="true">
+                <span className="banner__top-line-label">
+                  {t("banner.label")}
+                </span>
+                <span className="banner__top-line-tabs">
+                  {tabs.map((tab) => (
+                    <span key={tab.id} className="banner__top-line-tab">
+                      {tab.label}
+                    </span>
+                  ))}
+                </span>
               </p>
             </div>
           </div>

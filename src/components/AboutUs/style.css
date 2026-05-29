@@ -53,33 +53,36 @@ section.about-us::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: max-content;
+  max-width: min(900px, 100%);
   margin: 0 auto;
   padding-bottom: clamp(48px, 8vw, 72px);
-  width: 100%;
-  max-width: 900px;
   color: #ffffff;
   font-size: clamp(32px, 5vw, 64px);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  text-align: center;
   text-transform: uppercase;
-  transition: color 0.5s ease;
-}
-
-.about-us--expanded .about-us__title,
-.about-us--expanded .about-us__title span {
-  color: #ffffff80;
-}
-
-.about-us__title > span:first-child {
-  position: relative;
-  left: -10%;
 }
 
 .about-us__title span {
   display: block;
+  width: 100%;
   white-space: nowrap;
+}
+
+.about-us__title > span:nth-child(1),
+.about-us__title > span:nth-child(2) {
+  text-align: center;
+}
+
+.about-us__title > span:nth-child(3) {
+  text-align: right;
+}
+
+.about-us__title > span:nth-child(4) {
+  position: relative;
+  left: 20%;
 }
 
 .about-us__mobile-only {
@@ -466,7 +469,7 @@ section.about-us::after {
 
 @media (max-width: 1024px) {
   section.about-us {
-    padding: 72px 20px 88px;
+    padding: 56px 20px 72px;
   }
 
   section.about-us::after {
@@ -474,10 +477,10 @@ section.about-us::after {
   }
 
   .about-us__glow {
-    top: 42%;
+    top: 46%;
     left: 50%;
-    width: min(100%, 360px);
-    height: 320px;
+    width: min(100%, 340px);
+    height: 300px;
   }
 
   .about-us__mobile-only {
@@ -489,32 +492,71 @@ section.about-us::after {
   }
 
   .about-us__inner {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: auto;
+    width: 100%;
+    max-width: 390px;
+    min-height: clamp(560px, 142vw, 640px);
+    margin: 0 auto;
     padding-bottom: 0;
   }
 
   .about-us__title {
+    align-items: flex-start;
     width: 100%;
-    max-width: 360px;
+    max-width: none;
     margin: 0 auto;
-    padding: 0 4px 20px;
+    padding: 0 12px;
     z-index: 1;
+    color: #ffffff;
+    font-size: clamp(32px, 9.2vw, 36px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-align: left;
+    pointer-events: none;
   }
 
-  .about-us--expanded .about-us__title span {
-    color: rgba(255, 255, 255, 0.38);
+  .about-us__title span {
+    position: relative;
+    left: auto;
+    right: auto;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  /* Staggered zigzag on mobile (5 short lines in UK via word wrap is 4 spans) */
+  .about-us__title > span:nth-child(1) {
+    padding-left: 13%;
+    text-align: left;
+  }
+
+  .about-us__title > span:nth-child(2) {
+    padding-left: 0;
+    text-align: left;
+  }
+
+  .about-us__title > span:nth-child(3) {
+    padding-left: 44%;
+    text-align: left;
+  }
+
+  .about-us__title > span:nth-child(4) {
+    padding-left: 19%;
+    text-align: left;
   }
 
   .about-us__stage {
     position: relative;
     width: 100%;
     max-width: 390px;
-    min-height: clamp(430px, 108vw, 500px);
-    margin-top: clamp(-36px, -9vw, -16px);
-    margin-bottom: 4px;
+    min-height: clamp(470px, 118vw, 540px);
+    margin-top: clamp(-88px, -22vw, -64px);
+    margin-bottom: 0;
+    z-index: 2;
   }
 
   .about-us__connector {
@@ -531,7 +573,7 @@ section.about-us::after {
 
   .about-us__card-label {
     display: block;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     color: rgba(255, 255, 255, 0.58);
     font-size: 12px;
     font-weight: 400;
@@ -542,42 +584,45 @@ section.about-us::after {
     font-size: clamp(34px, 9.5vw, 44px);
   }
 
+  /* Виробників — зверху зліва */
   .about-us__card--top-left {
-    top: 0;
+    top: -15%;
     left: 0;
-    width: 46%;
-    max-width: 168px;
+    width: 47%;
+    max-width: 170px;
     opacity: 1;
     filter: none;
     transform: none !important;
-    background: rgba(110, 85, 65, 0.32);
+    background: rgba(110, 85, 65, 0.34);
     border-color: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
+  /* Венчурних фондів — по центру справа */
   .about-us__card--bottom-right {
-    top: 17%;
+    top: 6%;
     right: 0;
     left: auto;
     bottom: auto;
-    width: 48%;
-    max-width: 174px;
-    background: rgba(95, 88, 82, 0.36);
+    width: 49%;
+    max-width: 172px;
+    background: rgba(95, 88, 82, 0.38);
     border-color: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
+  /* Учасників — великий центральний блок */
   .about-us__card--main {
-    top: 40%;
+    top: 36%;
     left: 50%;
     right: auto;
     bottom: auto;
-    width: 80%;
-    max-width: 292px;
+    width: 84%;
+    max-width: 248px;
     min-width: 0;
-    padding: 20px 22px;
+    padding: 22px 24px;
     transform: translateX(-50%) !important;
     box-shadow:
       0 16px 40px rgba(0, 0, 0, 0.28),
@@ -598,14 +643,17 @@ section.about-us::after {
     font-size: clamp(48px, 14vw, 64px);
   }
 
+  /* Шкіл БпЛА — знизу зліва */
   .about-us__card--bottom-left {
-    bottom: 6%;
+    bottom: -3%;
     left: 0;
     top: auto;
-    width: 44%;
-    max-width: 162px;
+    width: 45%;
+    max-width: 172px;
     background: rgba(36, 34, 32, 0.78);
     border-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .about-us__card--satellite.about-us__card--active,
@@ -614,11 +662,15 @@ section.about-us::after {
     transform: none !important;
   }
 
+  /* Кнопка — між центральною карткою та нижньою лівою */
   .about-us__cta {
-    position: relative;
+    position: absolute;
+    top: auto;
+    right: clamp(12px, 5vw, 24px);
+    bottom: clamp(92px, 24vw, 112px);
     left: auto;
-    bottom: auto;
+    z-index: 8;
+    margin: 0;
     transform: none;
-    margin-top: 20px;
   }
 }

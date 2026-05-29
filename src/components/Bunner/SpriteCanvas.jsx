@@ -3,7 +3,7 @@ import { useIsMobile } from "../../hooks/IsMobile";
 
 const SOURCE_FRAME_COUNT = 179;
 const FRAME_STEP = 2;
-const FPS = 32;
+const DEFAULT_FPS = 32;
 const INITIAL_BATCH = 28;
 const LOAD_CONCURRENCY = 3;
 
@@ -92,9 +92,22 @@ const mapPool = async (items, concurrency, mapper) => {
   return results;
 };
 
-export const SpriteCanvas = ({ className }) => {
+const getPlaybackFps = (playbackDurationMs) => {
+  if (!playbackDurationMs) return DEFAULT_FPS;
+  return PLAYBACK_FRAME_COUNT / (playbackDurationMs / 1000);
+};
+
+export const SpriteCanvas = ({
+  className,
+  play = true,
+  playbackDurationMs,
+}) => {
   const canvasRef = useRef(null);
+  const playRef = useRef(play);
+  const runtimeRef = useRef(null);
   const isMobile = useIsMobile(1025);
+
+  playRef.current = play;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,10 +124,12 @@ export const SpriteCanvas = ({ className }) => {
     let lastFrameTime = 0;
     let currentFrame = 0;
     let isVisible = true;
-    let isPlaying = true;
+    let isPlaying = false;
+    let isBatchReady = false;
 
     const frames = new Array(PLAYBACK_FRAME_COUNT).fill(null);
-    const frameDuration = 1000 / FPS;
+    const fps = getPlaybackFps(playbackDurationMs);
+    const frameDuration = 1000 / fps;
     const processScale = getProcessScale(isMobile);
 
     const prefersReducedMotion = window.matchMedia(
@@ -179,10 +194,42 @@ export const SpriteCanvas = ({ className }) => {
       return frame;
     };
 
+    const pausePlayback = () => {
+      isPlaying = false;
+      currentFrame = 0;
+      lastFrameTime = 0;
+
+      if (frames[0]) {
+        drawFrame(frames[0]);
+      }
+    };
+
     const startPlayback = () => {
-      if (!prefersReducedMotion) {
+      if (prefersReducedMotion || !playRef.current) return;
+
+      currentFrame = 0;
+      lastFrameTime = 0;
+      isPlaying = true;
+
+      if (!animationId) {
         animationId = requestAnimationFrame(drawLoop);
       }
+    };
+
+    const tryStartPlayback = () => {
+      if (!isBatchReady || isCancelled) return;
+
+      if (playRef.current) {
+        startPlayback();
+      } else {
+        pausePlayback();
+      }
+    };
+
+    runtimeRef.current = {
+      isBatchReady: false,
+      startPlayback,
+      pausePlayback,
     };
 
     const loadRemainingFrames = async (fromSlot) => {
@@ -217,7 +264,9 @@ export const SpriteCanvas = ({ className }) => {
 
         if (isCancelled) return;
 
-        startPlayback();
+        isBatchReady = true;
+        runtimeRef.current.isBatchReady = true;
+        tryStartPlayback();
         void loadRemainingFrames(firstBatchEnd);
       } catch (error) {
         console.error("Failed to preload sprite frames:", error);
@@ -229,10 +278,22 @@ export const SpriteCanvas = ({ className }) => {
     return () => {
       isCancelled = true;
       isPlaying = false;
+      runtimeRef.current = null;
       observer.disconnect();
       cancelAnimationFrame(animationId);
     };
-  }, [isMobile]);
+  }, [isMobile, playbackDurationMs]);
+
+  useEffect(() => {
+    const runtime = runtimeRef.current;
+    if (!runtime?.isBatchReady) return;
+
+    if (play) {
+      runtime.startPlayback();
+    } else {
+      runtime.pausePlayback();
+    }
+  }, [play]);
 
   return (
     <canvas
