@@ -535,7 +535,7 @@ section.about-us::after {
   }
 
   .about-us__title > span:nth-child(2) {
-    padding-left: 0;
+    font-size: 31px;
     text-align: left;
   }
 
@@ -666,8 +666,7 @@ section.about-us::after {
   .about-us__cta {
     position: absolute;
     top: auto;
-    right: clamp(12px, 5vw, 24px);
-    bottom: clamp(92px, 24vw, 112px);
+    bottom: 135px;
     left: auto;
     z-index: 8;
     margin: 0;

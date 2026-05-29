@@ -293,19 +293,44 @@ export const AboutUs = () => {
             );
           }
 
-          const cards = section.querySelectorAll(".about-us__card");
-          cards.forEach((card, index) => {
+          const cards = gsap.utils.toArray(".about-us__card", section);
+          if (!cards.length) return;
+
+          cards.forEach((card) => {
             if (card.classList.contains("about-us__card--main")) {
               gsap.set(card, { xPercent: -50, force3D: true });
             }
+          });
 
-            gsap.to(card, {
-              y: index % 2 === 0 ? -7 : 7,
-              duration: 2.4 + index * 0.15,
-              ease: "sine.inOut",
-              yoyo: true,
-              repeat: -1,
-            });
+          gsap.fromTo(
+            cards,
+            { autoAlpha: 0, y: 28 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power2.out",
+              stagger: 0.12,
+              scrollTrigger: {
+                trigger: section,
+                start: "top 55%",
+                toggleActions: "play reverse play reverse",
+              },
+            },
+          );
+        },
+      );
+
+      mm.add(
+        "(max-width: 1024px) and (prefers-reduced-motion: reduce)",
+        () => {
+          const section = sectionRef.current;
+          if (!section) return;
+
+          gsap.set(section.querySelectorAll(".about-us__card"), {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
           });
         },
       );
@@ -318,14 +343,6 @@ export const AboutUs = () => {
       });
 
       mm.add("(max-width: 1024px)", () => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        gsap.set(section.querySelectorAll(".about-us__card"), {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-        });
         setIsExpanded(true);
       });
 

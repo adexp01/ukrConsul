@@ -93,6 +93,13 @@ export const en = {
       "COUNCIL",
       "ECOSYSTEM?",
     ],
+    ctaTitleMobile: [
+      "WANT TO",
+      "JOIN THE",
+      "GUNSMITHS",
+      "COUNCIL",
+      "ECOSYSTEM?",
+    ],
     ctaText:
       "Take a short test and find out which association or community suits you best.",
     takeTest: "Take the test",
@@ -106,29 +113,96 @@ export const en = {
     nextSlide: "Next slide",
     slides: [
       {
-        title: "Zbroya Expo",
+        title: "ZBROYA EXPO",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
       },
       {
-        title: "Defence Innovation",
+        title: "EXPORT MAP",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
       },
       {
-        title: "UAV Systems",
+        title: "AMONG GUNSMITHS",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
       },
       {
-        title: "Industry Forum",
+        title: "BUILD WITH UKRAINE",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
       },
       {
-        title: "Maritime Defence",
+        title: "DEALBOOK",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
+      },
+      {
+        title: "WHITE PAPER OF CHANGE IN DI",
+        titleLines: ["WHITE PAPER OF CHANGE", "IN DI"],
+        description:
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
+      },
+      {
+        title: "DEFENSE CLUSTER",
+        description:
+          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+        descriptionLines: [
+          "We ensure the systematic presence",
+          "of Ukrainian defense manufacturers at key",
+          "international exhibitions under the ZBROYA brand.",
+          "We coordinate company participation,",
+          "organize stands, and support",
+          "expositions at every stage.",
+        ],
       },
     ],
   },

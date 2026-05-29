@@ -100,7 +100,6 @@
   margin: 0;
   color: #ffffff;
   font-size: clamp(28px, 4.5vw, 48px);
-  font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -182,10 +181,19 @@
     letter-spacing: -0.01em;
   }
 
-  .send-request__title span:first-child,
-  .send-request__title span:nth-child(2),
+  .send-request__title span:first-child {
+    position: relative;
+    left: -10%;
+  }
+
+  .send-request__title span:nth-child(2) {
+    position: relative;
+    left: 12%;
+  }
+
   .send-request__title span:last-child {
-    left: 0;
+    position: relative;
+    left: -10%;
   }
 
   .send-request__text {
@@ -195,8 +203,6 @@
   }
 
   .send-request__cta {
-    width: 100%;
-    max-width: none;
     margin-top: 4px;
   }
 

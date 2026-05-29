@@ -73,7 +73,9 @@ export const Button = ({
         />
       </svg>
 
-      <span className="button2__label">{children}</span>
+      <span className="button2__label">
+        <span className="button2__label-text">{children}</span>
+      </span>
 
       <span className="button2__icon" aria-hidden="true">
         <span className="button2__icon-inner">{icon ?? <DefaultIcon />}</span>

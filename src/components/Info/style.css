@@ -146,26 +146,37 @@
   text-transform: uppercase;
 }
 
-.info-section__cta-title span {
+.info-section__cta-title-lines--desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.info-section__cta-title-lines--mobile {
+  display: none;
+}
+
+.info-section__cta-title-lines--desktop > span {
   display: block;
   white-space: nowrap;
 }
 
-.info-section__cta-title span:nth-child(1) {
+.info-section__cta-title-lines--desktop > span:nth-child(1) {
   align-self: center;
 }
 
-.info-section__cta-title span:nth-child(2) {
+.info-section__cta-title-lines--desktop > span:nth-child(2) {
   align-self: flex-end;
   margin-right: 8%;
 }
 
-.info-section__cta-title span:nth-child(3) {
+.info-section__cta-title-lines--desktop > span:nth-child(3) {
   align-self: flex-start;
   margin-left: 4%;
 }
 
-.info-section__cta-title span:nth-child(4) {
+.info-section__cta-title-lines--desktop > span:nth-child(4) {
   align-self: flex-end;
   margin-right: 8%;
 }
@@ -254,7 +265,7 @@
   }
 
   .info-section__list-item {
-    font-size: 13px;
+    font-size: 20px;
     line-height: 1.4;
   }
 
@@ -272,17 +283,60 @@
     height: 220px;
   }
 
-  .info-section__cta-title {
-    font-size: clamp(26px, 7.5vw, 34px);
-    line-height: 1.08;
+  .info-section__cta {
+    align-items: stretch;
   }
 
-  .info-section__cta-title span {
-    white-space: normal;
-    text-align: center;
-    align-self: center !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+  .info-section__cta-title {
+    align-items: stretch;
+    max-width: none;
+    font-size: clamp(34px, 9.2vw, 42px);
+    line-height: 1.12;
+  }
+
+  .info-section__cta-title-lines--desktop {
+    display: none;
+  }
+
+  .info-section__cta-title-lines--mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .info-section__cta-title-lines--mobile > span {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  /* Staggered layout per line — як на макеті */
+  .info-section__cta-title-lines--mobile > span:nth-child(1) {
+    align-self: flex-start;
+    padding-left: 10%;
+  }
+
+  .info-section__cta-title-lines--mobile > span:nth-child(2) {
+    align-self: flex-start;
+    padding-left: 15%;
+  }
+
+  .info-section__cta-title-lines--mobile > span:nth-child(3) {
+    align-self: flex-start;
+    padding-left: 0;
+  }
+
+  .info-section__cta-title-lines--mobile > span:nth-child(4) {
+    align-self: flex-end;
+    margin-right: 8%;
+  }
+
+  .info-section__cta-title-lines--mobile > span:nth-child(5) {
+    align-self: flex-start;
+    padding-left: 32%;
   }
 
   .info-section__cta-text {

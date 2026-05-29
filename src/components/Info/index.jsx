@@ -17,6 +17,9 @@ export const Info = () => {
   const organizations = t("info.organizations");
   const headingLines = t("info.heading");
   const ctaTitleLines = t("info.ctaTitle");
+  const ctaTitleMobileLines = Array.isArray(t("info.ctaTitleMobile"))
+    ? t("info.ctaTitleMobile")
+    : ctaTitleLines;
 
   useGSAP(
     () => {
@@ -91,9 +94,16 @@ export const Info = () => {
           <div className="info-section__cta-glow" aria-hidden="true" />
 
           <h2 id="info-cta-title" className="info-section__cta-title">
-            {ctaTitleLines.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
+            <span className="info-section__cta-title-lines info-section__cta-title-lines--desktop">
+              {ctaTitleLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </span>
+            <span className="info-section__cta-title-lines info-section__cta-title-lines--mobile">
+              {ctaTitleMobileLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </span>
           </h2>
 
           <p className="info-section__cta-text">{t("info.ctaText")}</p>

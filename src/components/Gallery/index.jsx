@@ -2,42 +2,49 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import arrow from "../../assets/arrow.svg";
 import "./style.css";
+import f1 from "../../assets/f1.png";
+import f2 from "../../assets/f2.png";
+import f3 from "../../assets/f3.png";
+import f4 from "../../assets/f4.png";
+import f5 from "../../assets/f5.png";
+import f6 from "../../assets/f6.png";
+import f7 from "../../assets/f7.png";
 
 const SLIDE_MEDIA = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80",
+    image: f1,
+    thumb: f1,
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1581092160562-40aa08ad7881?auto=format&fit=crop&w=400&q=80",
+    image: f2,
+    thumb: f2,
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08ad7881?auto=format&fit=crop&w=1200&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1581092918056-0c4c3acd378e?auto=format&fit=crop&w=400&q=80",
+    image: f3,
+    thumb: f3,
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80",
+    image: f4,
+    thumb: f4,
   },
   {
     id: 5,
-    image:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80",
+    image: f5,
+    thumb: f5,
+  },
+  {
+    id: 6,
+    image: f6,
+    thumb: f6,
+  },
+  {
+    id: 7,
+    image: f7,
+    thumb: f7,
   },
 ];
 
@@ -47,10 +54,21 @@ export const Gallery = () => {
 
   const slides = useMemo(() => {
     const copy = t("gallery.slides");
-    return SLIDE_MEDIA.map((media, index) => ({
-      ...media,
-      ...copy[index],
-    }));
+    return SLIDE_MEDIA.map((media, index) => {
+      const slideCopy = copy[index] ?? copy[copy.length - 1];
+      const descriptionLines = Array.isArray(slideCopy.descriptionLines)
+        ? slideCopy.descriptionLines
+        : [slideCopy.description];
+
+      return {
+        ...media,
+        ...slideCopy,
+        descriptionLines,
+        titleLines: Array.isArray(slideCopy.titleLines)
+          ? slideCopy.titleLines
+          : null,
+      };
+    });
   }, [t, language]);
 
   const slide = slides[activeIndex];
@@ -86,13 +104,34 @@ export const Gallery = () => {
             </div>
           </div>
 
-          <div className="gallery-section__content">
+          <div
+            className={`gallery-section__content gallery-section__content--slide-${slide.id}`}
+          >
             <div className="gallery-section__content-head">
               <span className="gallery-section__index">{slide.id}</span>
-              <h3 className="gallery-section__title">{slide.title}</h3>
+              <h3 className="gallery-section__title">
+                <span className="gallery-section__title-text gallery-section__title--desktop">
+                  {slide.title}
+                </span>
+                {slide.titleLines ? (
+                  <span className="gallery-section__title-lines gallery-section__title--mobile">
+                    {slide.titleLines.map((line) => (
+                      <span key={line}>{line}</span>
+                    ))}
+                  </span>
+                ) : null}
+              </h3>
             </div>
 
-            <p className="gallery-section__desc">{slide.description}</p>
+            <p className="gallery-section__desc gallery-section__desc--desktop">
+              {slide.description}
+            </p>
+
+            <div className="gallery-section__desc-lines gallery-section__desc--mobile">
+              {slide.descriptionLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </div>
 
             <a href="#" className="gallery-section__link">
               {t("gallery.discover")}

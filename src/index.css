@@ -88,6 +88,10 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-weight: 500 !important;
+}
+
 .header-container {
   position: fixed;
   top: 0;
@@ -235,5 +239,9 @@ h1 {
   .up-events-wrap::after {
     height: 30px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 72%);
+  }
+
+  .gallery {
+    padding-top: 0px;
   }
 }
