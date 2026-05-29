@@ -15,7 +15,7 @@
 
 .main-media__card {
   display: grid;
-  grid-template-columns: minmax(280px, 44%) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 49%) minmax(0, 1fr);
   gap: 10px;
   overflow: hidden;
   padding: 10px;

@@ -1,8 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useIsMobile } from "../../hooks/IsMobile";
 
-const FRAME_COUNT = 179;
-const FPS = 34;
+const SOURCE_FRAME_COUNT = 179;
+const FRAME_STEP = 2;
+const FPS = 32;
+const INITIAL_BATCH = 28;
+const LOAD_CONCURRENCY = 3;
+
+const LUMINANCE_THRESHOLD = 38;
+const LUMINANCE_FEATHER = 28;
 
 const frameSrc = (index) =>
   new URL(
@@ -10,18 +16,40 @@ const frameSrc = (index) =>
     import.meta.url,
   ).href;
 
-const LUMINANCE_THRESHOLD = 38;
-const LUMINANCE_FEATHER = 28;
+const buildPlaybackIndices = () => {
+  const indices = [];
+  for (let i = 0; i < SOURCE_FRAME_COUNT; i += FRAME_STEP) {
+    indices.push(i);
+  }
+  return indices;
+};
 
-const stripSolidBackground = (img) => {
+const PLAYBACK_INDICES = buildPlaybackIndices();
+const PLAYBACK_FRAME_COUNT = PLAYBACK_INDICES.length;
+
+const getProcessScale = (isMobile) => (isMobile ? 0.55 : 0.85);
+
+const loadImage = (index) =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = frameSrc(index);
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+  });
+
+const stripSolidBackground = (img, scale = 1) => {
   const buffer = document.createElement("canvas");
-  buffer.width = img.width;
-  buffer.height = img.height;
+  const width = Math.max(1, Math.round(img.width * scale));
+  const height = Math.max(1, Math.round(img.height * scale));
+
+  buffer.width = width;
+  buffer.height = height;
 
   const bufferCtx = buffer.getContext("2d", { willReadFrequently: true });
-  bufferCtx.drawImage(img, 0, 0);
+  bufferCtx.drawImage(img, 0, 0, width, height);
 
-  const imageData = bufferCtx.getImageData(0, 0, buffer.width, buffer.height);
+  const imageData = bufferCtx.getImageData(0, 0, width, height);
   const { data } = imageData;
 
   for (let i = 0; i < data.length; i += 4) {
@@ -40,76 +68,177 @@ const stripSolidBackground = (img) => {
   return buffer;
 };
 
-const preloadSprites = () =>
-  Promise.all(
-    Array.from({ length: FRAME_COUNT }, (_, index) => {
-      const img = new Image();
-      img.src = frameSrc(index);
+const loadAndProcessFrame = async (sourceIndex, processScale) => {
+  const img = await loadImage(sourceIndex);
+  return stripSolidBackground(img, processScale);
+};
 
-      return new Promise((resolve, reject) => {
-        img.onload = () => resolve(stripSolidBackground(img));
-        img.onerror = reject;
-      });
-    }),
+const mapPool = async (items, concurrency, mapper) => {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+
+  const worker = async () => {
+    while (nextIndex < items.length) {
+      const current = nextIndex;
+      nextIndex += 1;
+      results[current] = await mapper(items[current], current);
+    }
+  };
+
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, items.length) }, () => worker()),
   );
+
+  return results;
+};
 
 export const SpriteCanvas = ({ className }) => {
   const canvasRef = useRef(null);
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1025);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return undefined;
 
-    let animationId;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    let animationId = 0;
     let isCancelled = false;
     let lastFrameTime = 0;
     let currentFrame = 0;
+    let isVisible = true;
+    let isPlaying = true;
 
+    const frames = new Array(PLAYBACK_FRAME_COUNT).fill(null);
     const frameDuration = 1000 / FPS;
+    const processScale = getProcessScale(isMobile);
 
-    preloadSprites()
-      .then((images) => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const drawFrame = (frame) => {
+      if (!frame) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(frame, 0, 0);
+    };
+
+    const setCanvasSizeFromFrame = (frame) => {
+      if (canvas.width !== frame.width || canvas.height !== frame.height) {
+        canvas.width = frame.width;
+        canvas.height = frame.height;
+      }
+    };
+
+    const assignFrame = (slotIndex, frame) => {
+      frames[slotIndex] = frame;
+
+      if (slotIndex === 0) {
+        setCanvasSizeFromFrame(frame);
+        drawFrame(frame);
+      }
+    };
+
+    const drawLoop = (time) => {
+      if (isCancelled) return;
+
+      animationId = requestAnimationFrame(drawLoop);
+
+      if (!isPlaying || !isVisible) return;
+
+      if (time - lastFrameTime >= frameDuration) {
+        const frame = frames[currentFrame];
+        if (frame) {
+          drawFrame(frame);
+        }
+
+        currentFrame = (currentFrame + 1) % PLAYBACK_FRAME_COUNT;
+        lastFrameTime = time;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.08 },
+    );
+    observer.observe(canvas);
+
+    const loadSlot = async (slotIndex) => {
+      const sourceIndex = PLAYBACK_INDICES[slotIndex];
+      const frame = await loadAndProcessFrame(sourceIndex, processScale);
+
+      if (isCancelled) return null;
+
+      assignFrame(slotIndex, frame);
+      return frame;
+    };
+
+    const startPlayback = () => {
+      if (!prefersReducedMotion) {
+        animationId = requestAnimationFrame(drawLoop);
+      }
+    };
+
+    const loadRemainingFrames = async (fromSlot) => {
+      const slots = PLAYBACK_INDICES.map((_, slotIndex) => slotIndex).slice(fromSlot);
+
+      await mapPool(slots, LOAD_CONCURRENCY, async (slotIndex) => {
+        if (frames[slotIndex]) return;
+        await loadSlot(slotIndex);
+      });
+    };
+
+    const init = async () => {
+      try {
+        await loadSlot(0);
+
         if (isCancelled) return;
 
-        canvas.width = images[0].width;
-        canvas.height = images[0].height;
+        if (prefersReducedMotion) {
+          isPlaying = false;
+          return;
+        }
 
-        const draw = (time) => {
-          if (isCancelled) return;
+        const firstBatchEnd = Math.min(INITIAL_BATCH, PLAYBACK_FRAME_COUNT);
+        const firstBatchSlots = Array.from(
+          { length: firstBatchEnd - 1 },
+          (_, index) => index + 1,
+        );
 
-          if (time - lastFrameTime >= frameDuration) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(images[currentFrame], 0, 0);
+        await mapPool(firstBatchSlots, LOAD_CONCURRENCY, (slotIndex) =>
+          loadSlot(slotIndex),
+        );
 
-            currentFrame = (currentFrame + 1) % FRAME_COUNT;
-            lastFrameTime = time;
-          }
+        if (isCancelled) return;
 
-          animationId = requestAnimationFrame(draw);
-        };
-
-        animationId = requestAnimationFrame(draw);
-      })
-      .catch((error) => {
+        startPlayback();
+        void loadRemainingFrames(firstBatchEnd);
+      } catch (error) {
         console.error("Failed to preload sprite frames:", error);
-      });
+      }
+    };
+
+    void init();
 
     return () => {
       isCancelled = true;
+      isPlaying = false;
+      observer.disconnect();
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <canvas
       ref={canvasRef}
       className={className}
       aria-hidden="true"
-      style={{ width: `${!isMobile ? "60%" : "100%"}`, height: "auto", display: "block" }}
     />
   );
 };

@@ -1,7 +1,7 @@
 .banner {
   width: 100%;
   max-width: 100%;
-  margin-top: 408px;
+  margin-top: 350px;
   position: relative;
   padding-bottom: 150px;
   overflow-x: clip;
@@ -24,11 +24,12 @@
 
 .banner__ring {
   display: block;
-  max-width: 100%;
+  width: 100%;
   height: auto;
   aspect-ratio: 1;
   pointer-events: none;
   background: transparent;
+  contain: layout style paint;
 }
 
 @media (min-width: 1025px) {
@@ -37,7 +38,7 @@
     left: 50%;
     top: 50%;
     z-index: 2;
-    width: clamp(700px, 62vw, 820px);
+    width: clamp(700px, 62vw, 720px);
     transform: translate(-50%, -52%);
   }
 }
@@ -129,7 +130,7 @@
 .banner__panel {
   position: relative;
   z-index: 0;
-  padding-top: 40px;
+  padding-top: 0px;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 24px 24px 0 0;
 }
@@ -137,7 +138,7 @@
 .banner__text {
   max-width: 420px;
   margin: 0;
-  margin-top: 200px;
+  margin-top: 120px;
   color: #ffffff;
   font-size: 16px;
   font-weight: 400;
@@ -149,7 +150,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 32px;
-  margin-top: 150px;
+  margin-top: 20px;
 }
 
 .banner__title {
