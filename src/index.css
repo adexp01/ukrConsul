@@ -48,11 +48,7 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
-  font-family:
-    "Inter",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: "Fixel Display";
   background-color: #000;
 }
 
