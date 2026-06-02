@@ -490,6 +490,16 @@ export const en = {
         "We help companies access relevant events and connect them with gatherings organized through our partner network.",
       ],
     },
+    clock: {
+      dialLabel: ["KEY FEATURES OF", "BUILD WITH UKRAINE:"],
+      items: [
+        "Production or part of it is deployed in the partner country;",
+        "Ukrainian technology base, engineering experience and manufacturing competencies are used, while intellectual property rights remain in Ukraine;",
+        "The model is focused on long-term integration of Ukrainian solutions into allied supply chains.",
+      ],
+      cta: "Learn more",
+      ctaHref: "#",
+    },
     cards: {
       title: [
         "We offer various formats of joint projects",
@@ -546,6 +556,7 @@ export const en = {
     formatOnline: "Online",
     formatOffline: "Offline",
     apply: "Submit application",
+    applyFormUrl: "",
   },
   eventDetails: {
     "pomizh-zbroiariv-pz": {
@@ -592,5 +603,40 @@ export const en = {
     title: "Page Not Found",
     text: "The requested resource could not be found.",
     cta: "Back to home",
+  },
+  office: {
+    hero: {
+      title: ["Export support", "office"],
+      description:
+        "A team that helps Ukrainian defense manufacturers navigate export procedures, compliance requirements and the rules of international markets.",
+    },
+    clock: {
+      title: [
+        "BUILD WITH UKRAINE:",
+        "JOINT PRODUCTION",
+        "WITH UKRAINIAN TECHNOLOGIES",
+        "AND PARTNERS",
+        "ABROAD",
+      ],
+      columns: [
+        "A dedicated focus of the Export Support Office is working with private international business in the defense industry, including through the Build with Ukraine model. We support requests from foreign companies seeking partners in Ukraine to establish joint ventures and develop and test new solutions.",
+        "Build with Ukraine is a model that involves establishing production lines in partner countries; exporting production technologies and integrating Ukrainian expertise into allied supply chains; and joint projects (co-production or JV formats) with Ukrainian companies.",
+      ],
+      dialLabel: ["KEY FEATURES OF", "BUILD WITH", "UKRAINE:"],
+      items: [
+        "Production or part of it is deployed in the partner country;",
+        "Ukrainian technology base, engineering experience and manufacturing competencies are used, while intellectual property rights remain in Ukraine;",
+        "The model is focused on long-term integration of Ukrainian solutions into allied supply chains.",
+      ],
+    },
+    exportMap: {
+      title: "EXPORT MAP",
+      cardLeft:
+        "The map explains key stages, procedures and requirements companies face when preparing for export, and shows the main formats of international work: from direct export to joint production and partnerships abroad.",
+      cardRight:
+        "A practical product of the Export Support Office that helps manufacturers understand possible routes to external markets.",
+      cta: "Export Map",
+      ctaHref: "#",
+    },
   },
 };

@@ -17,7 +17,6 @@ export const TrackPage = () => {
       </div>
 
       <div className="track-page__bg-blue">
-        <TrackCooperation />
         <Parnters />
       </div>
 

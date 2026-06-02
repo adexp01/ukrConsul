@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import { ButtonTest } from "../UI/ButtonTest";
 
 const AccordionPlusIcon = () => (
   <svg
@@ -110,9 +111,9 @@ export const MainMedia = () => {
               {t("media.main.textSecondary")}
             </p>
 
-            <Button href="#" variant="primary" className="main-media__cta">
+            <ButtonTest href="#" variant="primary" className="main-media__cta">
               {t("media.main.apply")}
-            </Button>
+            </ButtonTest>
           </div>
         </article>
       </div>

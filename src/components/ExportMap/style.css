@@ -1,0 +1,252 @@
+.export-map {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #000;
+}
+
+.export-map::before,
+.export-map::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.export-map::before {
+  top: 0;
+  height: clamp(96px, 14vw, 180px);
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.92) 18%,
+    rgba(0, 0, 0, 0.55) 48%,
+    rgba(0, 0, 0, 0.12) 78%,
+    transparent 100%
+  );
+}
+
+.export-map::after {
+  bottom: 0;
+  height: clamp(96px, 14vw, 180px);
+  background: linear-gradient(
+    0deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.92) 18%,
+    rgba(0, 0, 0, 0.55) 48%,
+    rgba(0, 0, 0, 0.12) 78%,
+    transparent 100%
+  );
+}
+
+.export-map__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: #000;
+  background-image: url("../../assets/bg2.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.export-map__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.export-map__visual {
+  position: absolute;
+  right: -4%;
+  bottom: -6%;
+  z-index: 2;
+  width: min(72vw, 920px);
+  max-height: 92%;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  pointer-events: none;
+  user-select: none;
+}
+
+.export-map__inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(520px, 62vw, 680px);
+  padding: clamp(48px, 6vw, 72px) 48px clamp(56px, 7vw, 80px);
+}
+
+.export-map__connector {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.export-map__title-anchor {
+  display: inline;
+}
+
+.export-map__connector-path {
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.export-map__connector-dash {
+  stroke: #FF7D20;
+  stroke-width: 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.export-map__head {
+  position: relative;
+  z-index: 2;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.export-map__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(32px, 4.8vw, 56px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.export-map__stage {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-height: clamp(280px, 36vw, 380px);
+}
+
+.export-map__card {
+  position: absolute;
+  max-width: min(420px, 46vw);
+  padding: clamp(18px, 2.2vw, 24px) clamp(20px, 2.4vw, 28px);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .export-map__card,
+  .export-map__cta-wrap {
+    will-change: auto;
+  }
+}
+
+.export-map__card p {
+  margin: 0;
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.export-map__card--left {
+  top: 38%;
+  left: 0;
+  z-index: 2;
+  background: #b8c6e0;
+  color: #0c1220;
+}
+
+.export-map__card--right {
+  top: 8%;
+  left: 30%;
+  z-index: 3;
+  max-width: min(360px, 38vw);
+  background: #6f7ec4;
+  color: #0a0e18;
+}
+
+.export-map__cta-wrap {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  margin-top: auto;
+  width: fit-content;
+  margin-top: 50px;
+  will-change: opacity, transform;
+}
+
+.export-map__cta {
+  position: relative;
+}
+
+.export-map__cta.button2 {
+  min-width: 220px;
+}
+
+@media (max-width: 1024px) {
+  .export-map::before,
+  .export-map::after {
+    height: clamp(72px, 18vw, 120px);
+  }
+
+  .export-map__connector {
+    display: none;
+  }
+
+  .export-map__visual {
+    right: -18%;
+    bottom: -4%;
+    width: 115%;
+    opacity: 0.55;
+  }
+
+  .export-map__inner {
+    min-height: auto;
+    padding: 40px 20px 48px;
+  }
+
+  .export-map__head {
+    margin-bottom: 24px;
+  }
+
+  .export-map__title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .export-map__stage {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    margin-bottom: 28px;
+  }
+
+  .export-map__card {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    max-width: 100%;
+  }
+
+  .export-map__card--right {
+    right: auto;
+  }
+
+  .export-map__card p {
+    font-size: 14px;
+  }
+
+  .export-map__cta-wrap {
+    width: 100%;
+    max-width: 320px;
+  }
+}

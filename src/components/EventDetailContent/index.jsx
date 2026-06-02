@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Button } from "../UI/Button";
+import { EVENT_APPLY_FORM_URL } from "../../data/externalLinks";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -17,6 +18,8 @@ export const EventDetailContent = () => {
 
   const formatLabel =
     event.format === "offline" ? labels.formatOffline : labels.formatOnline;
+
+  const applyFormUrl = event.applyFormUrl || labels.applyFormUrl || EVENT_APPLY_FORM_URL;
 
   return (
     <div className="event-detail__shell">
@@ -78,7 +81,13 @@ export const EventDetailContent = () => {
             <p className="event-detail__register-deadline">
               {event.registrationDeadline}
             </p>
-            <Button href="#" variant="primary" className="event-detail__apply-btn">
+            <Button
+              href={applyFormUrl || "#"}
+              target={applyFormUrl ? "_blank" : undefined}
+              rel={applyFormUrl ? "noopener noreferrer" : undefined}
+              variant="primary"
+              className="event-detail__apply-btn"
+            >
               {labels.apply}
             </Button>
           </aside>

@@ -1,6 +1,7 @@
 import { Button } from "../Button";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import "./style.css";
+import { ButtonTest } from "../ButtonTest";
 
 export const SendRequest = () => {
   const { t } = useLanguage();
@@ -23,9 +24,9 @@ export const SendRequest = () => {
 
             <p className="send-request__text">{t("sendRequest.description")}</p>
 
-            <Button href="#" variant="primary" className="send-request__cta">
+            <ButtonTest href="#" variant="primary" className="send-request__cta">
               {t("sendRequest.cta")}
-            </Button>
+            </ButtonTest>
           </div>
         </article>
       </div>

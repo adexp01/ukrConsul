@@ -1,0 +1,315 @@
+.clock {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.clock__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, #050a14 0%, #020306 48%, #000 100%),
+    #000;
+}
+
+.clock__backdrop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(96px, 14vw, 180px);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    rgba(0, 0, 0, 0.92) 18%,
+    rgba(0, 0, 0, 0.55) 48%,
+    rgba(0, 0, 0, 0.12) 78%,
+    transparent 100%
+  );
+}
+
+.clock__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 18%,
+    rgba(120, 55, 18, 0.14) 0%,
+    rgba(48, 32, 18, 0.06) 42%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.clock__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 120px) 48px clamp(80px, 11vw, 128px);
+}
+
+.clock__hero {
+  text-align: center;
+}
+
+.clock__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 0 auto clamp(40px, 5vw, 56px);
+  max-width: 980px;
+  color: #ffffff;
+  font-size: clamp(32px, 5.2vw, 64px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.clock__title span {
+  display: block;
+}
+
+.clock__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 48px);
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.clock__text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.clock__features-pin {
+  margin-top: clamp(72px, 10vw, 112px);
+}
+
+.clock__features {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1.1fr);
+  gap: clamp(32px, 6vw, 72px);
+  align-items: center;
+  min-height: 100vh;
+  padding: clamp(48px, 7vw, 72px) 0;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.clock__dial-stage {
+  position: relative;
+  min-height: clamp(280px, 36vw, 420px);
+}
+
+.clock__dial-label {
+  position: absolute;
+  top: 50%;
+  left: clamp(0px, 2vw, 12px);
+  z-index: 2;
+  width: min(46%, 200px);
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transform: translateY(-50%);
+}
+
+.clock__dial-label span {
+  display: block;
+}
+
+.clock__dial {
+  /* test111.svg — pivot at ~(23.26, 294.61) in 315×590 viewBox */
+  --dial-pivot-x: 7.38%;
+  --dial-pivot-y: 49.93%;
+  --dial-hand-length: 76%;
+
+  position: relative;
+  width: min(100%, clamp(230px, 32vw, 360px));
+  margin: 0;
+  aspect-ratio: 315 / 590;
+}
+
+.clock__dial-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.clock__dial-glow {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clock__dial-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 11%;
+  width: 30%;
+  height: 22%;
+  transform: translateY(-50%);
+  background: radial-gradient(
+    ellipse at left center,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 42%,
+    transparent 72%
+  );
+}
+
+.clock__dial-marker {
+  position: absolute;
+  inset: 0;
+  transform-origin: var(--dial-pivot-x) var(--dial-pivot-y);
+  pointer-events: none;
+}
+
+.clock__dial-marker::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10.5%;
+  width: clamp(22px, 5vw, 29px);
+  height: 4px;
+  border-radius: 2px;
+  background: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+  transform: translateY(-50%);
+  transform-origin: 0 50%;
+}
+
+.clock__items-viewport {
+  position: relative;
+  overflow: hidden;
+  height: clamp(200px, 32vh, 320px);
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+}
+
+.clock__items-track {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+.clock__item {
+  display: flex;
+  align-items: center;
+  min-height: clamp(88px, 14vh, 140px);
+  margin: 0;
+  padding: clamp(10px, 1.5vw, 16px) 0;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: clamp(15px, 1.35vw, 18px);
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: left;
+}
+
+@media (max-width: 1024px) {
+  .clock__inner {
+    padding: 56px 20px 72px;
+  }
+
+  .clock__title {
+    margin-bottom: 28px;
+    font-size: clamp(26px, 7.5vw, 36px);
+  }
+
+  .clock__columns {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .clock__text {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .clock__features-pin {
+    margin-top: 48px;
+  }
+
+  .clock__features {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    min-height: 0;
+    padding: 40px 0 0;
+  }
+
+  .clock__items-viewport {
+    height: auto;
+    mask-image: none;
+  }
+
+  .clock__items-track {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .clock__item {
+    min-height: 0;
+  }
+
+  .clock__dial-stage {
+    min-height: 0;
+  }
+
+  .clock__dial-label {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 20px;
+    transform: none;
+    text-align: center;
+    font-size: clamp(15px, 4.5vw, 20px);
+  }
+
+  .clock__dial {
+    width: min(100%, 260px);
+    margin: 0 auto;
+  }
+
+  .clock__dial-art {
+    object-position: center center;
+  }
+
+  .clock__item {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clock__dial-glow,
+  .clock__dial-marker {
+    transition: none;
+  }
+}

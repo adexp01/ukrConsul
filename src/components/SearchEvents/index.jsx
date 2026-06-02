@@ -28,26 +28,28 @@ export const SearchEvents = () => {
 
       <div className="search-events__layout">
         <aside className="search-events__sidebar">
-          <div className="search-events__chips">
-            {CATEGORIES.map((item, index) => (
-              <button
-                key={item}
-                type="button"
-                className={`search-events__chip${index === 0 ? " search-events__chip--active" : ""}`}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+          <div className="search-events__sidebar-inner">
+            <div className="search-events__chips">
+              {CATEGORIES.map((item, index) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`search-events__chip${index === 0 ? " search-events__chip--active" : ""}`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
 
-          <div className="search-events__cta">
-            <p>
-              Якщо є тема, яку варто розкрити у форматі <b>«Поміж зброярів»</b>,
-              запропонуйте її, і ми розглянемо ваш запит.
-            </p>
-            <Button href="#" variant="primary" className="search-events__cta-btn">
-              Запропонувати тему
-            </Button>
+            <div className="search-events__cta">
+              <p>
+                Якщо є тема, яку варто розкрити у форматі <b>«Поміж зброярів»</b>,
+                запропонуйте її, і ми розглянемо ваш запит.
+              </p>
+              <Button href="#" variant="primary" className="search-events__cta-btn">
+                Запропонувати тему
+              </Button>
+            </div>
           </div>
         </aside>
 

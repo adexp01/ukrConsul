@@ -18,6 +18,14 @@
   display: grid;
   grid-template-columns: minmax(360px, 265px) minmax(0, 1fr);
   gap: 44px;
+  align-items: stretch;
+}
+
+@media (min-width: 1025px) {
+  .search-events__sidebar-inner {
+    position: sticky;
+    top: 104px;
+  }
 }
 
 .search-events__chips {
@@ -57,11 +65,6 @@
 
 .search-events__cta-btn .button2__label {
   font-size: 13px;
-}
-
-.search-events__cta-btn .button2__arrow {
-  width: 16px;
-  height: 16px;
 }
 
 .search-events__search {
