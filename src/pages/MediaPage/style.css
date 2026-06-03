@@ -34,12 +34,12 @@
     letter-spacing: -0.03em;
   }
 
-  .media-page .our-news-wrap {
+  .media-page .media-news-wrap {
     position: relative;
     background-color: #000;
   }
 
-  .media-page .our-news {
+  .media-page .media-news {
     position: relative;
     padding: 28px 20px 64px;
     background-color: #000;
@@ -47,10 +47,6 @@
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-  }
-
-  .media-page .our-news::before {
-    display: none;
   }
 
   .media-page .media-info {

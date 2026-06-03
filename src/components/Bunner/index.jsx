@@ -18,8 +18,7 @@ export const Bunner = () => {
   const TEXT_REVEAL_DURATION_MS = 2550;
 
   const [isPageLoaded, setIsPageLoaded] = useState(
-    () =>
-      typeof document !== "undefined" && document.readyState === "complete",
+    () => typeof document !== "undefined" && document.readyState === "complete",
   );
   const [canAnimateText, setCanAnimateText] = useState(false);
 
@@ -101,6 +100,23 @@ export const Bunner = () => {
     <section className="banner" aria-label="Hero banner">
       <div className="banner__inner">
         <div className="banner__top">
+          <div
+            className="banner__mobile-frame banner__mobile-only"
+            aria-hidden="true"
+          >
+            <svg
+              className="banner__mobile-frame-svg"
+              width="344"
+              viewBox="0 0 344 22"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0.5 21.5V8.5C0.5 4.08172 4.08172 0.5 8.5 0.5H335.5C339.918 0.5 343.5 4.08172 343.5 8.5V21.5"
+                fill="none"
+              />
+            </svg>
+          </div>
+
           <SpriteCanvas
             className="banner__ring"
             play={canAnimateText}

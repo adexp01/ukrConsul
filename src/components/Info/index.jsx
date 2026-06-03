@@ -41,11 +41,36 @@ export const Info = () => {
               scrub: 1.4,
             },
           })
-          .to(shieldImage, { y: -14, rotate: 2, duration: 0.28, ease: "sine.out" })
-          .to(shieldImage, { y: 10, rotate: -1.5, duration: 0.28, ease: "sine.inOut" })
-          .to(shieldImage, { y: -8, rotate: 1, duration: 0.28, ease: "sine.inOut" })
-          .to(shieldImage, { y: 6, rotate: -0.5, duration: 0.28, ease: "sine.inOut" })
-          .to(shieldImage, { y: 0, rotate: 0, duration: 0.28, ease: "sine.in" });
+          .to(shieldImage, {
+            y: -14,
+            rotate: 2,
+            duration: 0.28,
+            ease: "sine.out",
+          })
+          .to(shieldImage, {
+            y: 10,
+            rotate: -1.5,
+            duration: 0.28,
+            ease: "sine.inOut",
+          })
+          .to(shieldImage, {
+            y: -8,
+            rotate: 1,
+            duration: 0.28,
+            ease: "sine.inOut",
+          })
+          .to(shieldImage, {
+            y: 6,
+            rotate: -0.5,
+            duration: 0.28,
+            ease: "sine.inOut",
+          })
+          .to(shieldImage, {
+            y: 0,
+            rotate: 0,
+            duration: 0.28,
+            ease: "sine.in",
+          });
       });
 
       return () => mm.revert();
@@ -67,26 +92,28 @@ export const Info = () => {
             ))}
           </h2>
 
-          <div className="info-section__shield" aria-hidden="true">
-            <img ref={shieldRef} src={shield} alt="" />
-          </div>
+          <div className="info-section__orgs-inner">
+            <div className="info-section__shield" aria-hidden="true">
+              <img ref={shieldRef} src={shield} alt="" />
+            </div>
 
-          <div className="info-section__list-wrap">
-            <ul className="info-section__list">
-              {organizations.map((name) => (
-                <li key={name} className="info-section__list-item">
-                  {name}
-                </li>
-              ))}
+            <div className="info-section__list-wrap">
+              <ul className="info-section__list">
+                {organizations.map((name) => (
+                  <li key={name} className="info-section__list-item">
+                    {name}
+                  </li>
+                ))}
 
-              <Button
-                href="#"
-                variant="default"
-                className="info-section__about-btn"
-              >
-                {t("info.aboutBtn")}
-              </Button>
-            </ul>
+                <Button
+                  href="#"
+                  variant="default"
+                  className="info-section__about-btn"
+                >
+                  {t("info.aboutBtn")}
+                </Button>
+              </ul>
+            </div>
           </div>
         </div>
 

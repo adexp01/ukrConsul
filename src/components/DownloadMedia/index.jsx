@@ -19,7 +19,7 @@ export const DownloadMedia = () => {
           <h2 id="download-media-title" className="download-media__title">
             {t("media.download.title")}
           </h2>
-          <p className="download-media__intro">{t("media.download.intro")}</p>
+          {/* <p className="download-media__intro">{t("media.download.intro")}</p> */}
         </header>
 
         <span className="download-media__pill">{t("media.download.pill")}</span>

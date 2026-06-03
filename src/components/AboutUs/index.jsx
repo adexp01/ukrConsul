@@ -17,6 +17,14 @@ const SATELLITE_STATS = [
   { id: "funds", value: "20", position: "bottom-right" },
 ];
 
+const PIN_SCROLL_VH = 2.1;
+const PIN_SCRUB = 1.15;
+const PHASE_HOLD = 0.34;
+const PHASE_TITLE_FADE = 0.22;
+const PHASE_EXPAND = 0.44;
+const EXPAND_START = PHASE_HOLD + PHASE_TITLE_FADE;
+const EXPAND_COMPLETE = EXPAND_START + PHASE_EXPAND * 0.92;
+
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const buildRoundedPath = (points, radius = 12) => {
@@ -64,13 +72,17 @@ export const AboutUs = () => {
   const { t } = useLanguage();
   const titleLines = t("aboutUs.title");
   const sectionRef = useRef(null);
+  const pinRef = useRef(null);
+  const innerRef = useRef(null);
   const titleRef = useRef(null);
   const stageRef = useRef(null);
   const mainCardRef = useRef(null);
   const satelliteRefs = useRef({});
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isInteractive, setIsInteractive] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [line, setLine] = useState(null);
+  const connectorPathRef = useRef(null);
 
   const setSatelliteRef = (id) => (node) => {
     if (node) satelliteRefs.current[id] = node;
@@ -146,7 +158,7 @@ export const AboutUs = () => {
   );
 
   const handleSatelliteEnter = (id) => {
-    if (!isExpanded) return;
+    if (!isInteractive) return;
     setActiveId(id);
     updateConnector(id);
   };
@@ -165,6 +177,26 @@ export const AboutUs = () => {
   }, [activeId, updateConnector]);
 
   useEffect(() => {
+    const path = connectorPathRef.current;
+    if (!path || !line) return undefined;
+
+    const length = path.getTotalLength();
+    gsap.killTweensOf(path);
+    gsap.set(path, {
+      strokeDasharray: length,
+      strokeDashoffset: length,
+      opacity: 1,
+    });
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+
+    return () => gsap.killTweensOf(path);
+  }, [line, activeId]);
+
+  useEffect(() => {
     const refreshScrollTriggers = () => ScrollTrigger.refresh();
 
     window.addEventListener("load", refreshScrollTriggers);
@@ -177,96 +209,160 @@ export const AboutUs = () => {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1025px)", () => {
-        const section = sectionRef.current;
-        const title = titleRef.current;
-        if (!section) return;
+      mm.add(
+        "(min-width: 1025px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const section = sectionRef.current;
+          const pinWrap = pinRef.current;
+          const inner = innerRef.current;
+          const title = titleRef.current;
+          if (!section || !pinWrap || !inner) return undefined;
 
-        if (title) {
-          gsap.fromTo(
-            title,
-            { color: "#ffffff" },
-            {
-              color: "rgba(255, 255, 255, 0.55)",
-              ease: "none",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 72%",
-                end: "top 48%",
-                scrub: 0.75,
-              },
-            },
-          );
-        }
+          const satellites = SATELLITE_STATS.map(
+            (stat) => satelliteRefs.current[stat.id],
+          ).filter(Boolean);
+          const mainCard = mainCardRef.current;
+          if (!mainCard || satellites.length === 0) return undefined;
 
-        const satellites = SATELLITE_STATS.map(
-          (stat) => satelliteRefs.current[stat.id],
-        ).filter(Boolean);
-        const mainCard = section.querySelector(".about-us__card--main");
-        if (!mainCard || satellites.length === 0) return;
+          const stackSatellitesOnMain = () => {
+            const mainRect = mainCard.getBoundingClientRect();
+            const mainAnchor = {
+              x: mainRect.left + mainRect.width / 2,
+              y: mainRect.top + mainRect.height * 0.58,
+            };
 
-        const resetAnimationStart = () => {
-          gsap.set(mainCard, { scale: 1 });
-          satellites.forEach((satellite) => {
-            gsap.set(satellite, { x: 0, y: 0, scale: 1 });
-          });
+            satellites.forEach((satellite) => {
+              const satRect = satellite.getBoundingClientRect();
+              const satCx = satRect.left + satRect.width / 2;
+              const satCy = satRect.top + satRect.height / 2;
 
-          const mainRect = mainCard.getBoundingClientRect();
-          const mainAnchor = {
-            x: mainRect.left + mainRect.width / 2,
-            y: mainRect.top + mainRect.height * 0.58,
+              gsap.set(satellite, {
+                autoAlpha: 0,
+                x: mainAnchor.x - satCx,
+                y: mainAnchor.y - satCy,
+                scale: 0.9,
+              });
+            });
           };
 
-          satellites.forEach((satellite) => {
-            const satRect = satellite.getBoundingClientRect();
-            const satCx = satRect.left + satRect.width / 2;
-            const satCy = satRect.top + satRect.height / 2;
+          const resetPinnedScene = () => {
+            gsap.set(mainCard, { autoAlpha: 1, scale: 1 });
+            if (title) {
+              gsap.set(title, { autoAlpha: 1, color: "#ffffff" });
+            }
+            stackSatellitesOnMain();
+            setIsExpanded(false);
+            setIsInteractive(false);
+            setActiveId(null);
+            setLine(null);
+          };
 
-            gsap.set(satellite, {
-              autoAlpha: 1,
-              x: mainAnchor.x - satCx,
-              y: mainAnchor.y - satCy,
-              scale: 0.92,
+          resetPinnedScene();
+
+          const buildScrollTimeline = () => {
+            stackSatellitesOnMain();
+
+            const scrollTl = gsap.timeline({
+              defaults: { ease: "power2.inOut" },
+              scrollTrigger: {
+                trigger: pinWrap,
+                start: "top 14%",
+                end: () => `+=${window.innerHeight * PIN_SCROLL_VH}`,
+                pin: inner,
+                scrub: PIN_SCRUB,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                  const progress = self.progress;
+                  setIsExpanded(progress >= EXPAND_START);
+                  setIsInteractive(progress >= EXPAND_COMPLETE);
+                },
+                onLeave: () => {
+                  setIsExpanded(true);
+                  setIsInteractive(true);
+                  gsap.set(satellites, { clearProps: "transform" });
+                },
+                onLeaveBack: resetPinnedScene,
+              },
             });
-          });
-        };
 
-        resetAnimationStart();
-        gsap.set(mainCard, { autoAlpha: 1 });
+            scrollTl.to({}, { duration: PHASE_HOLD });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top 55%",
-            end: "+=420",
-            scrub: 0.85,
-            onEnter: () => setIsExpanded(false),
-            onLeaveBack: () => {
-              setIsExpanded(false);
-              setActiveId(null);
-              setLine(null);
-            },
-            onLeave: () => {},
-            onUpdate: (self) => {
-              setIsExpanded(self.progress > 0.55);
-            },
-          },
+            if (title) {
+              scrollTl.to(
+                title,
+                {
+                  autoAlpha: 0.22,
+                  color: "rgba(255, 255, 255, 0.38)",
+                  duration: PHASE_TITLE_FADE,
+                  ease: "power1.inOut",
+                },
+                ">",
+              );
+            }
+
+            scrollTl
+              .to(
+                satellites,
+                {
+                  autoAlpha: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  stagger: 0.1,
+                  duration: PHASE_EXPAND,
+                  ease: "power2.out",
+                },
+                ">",
+              )
+              .to(
+                mainCard,
+                {
+                  scale: 1.02,
+                  duration: PHASE_EXPAND * 0.85,
+                  ease: "power2.out",
+                },
+                "<0.06",
+              )
+              .set(satellites, { clearProps: "transform" });
+
+            return scrollTl;
+          };
+
+          const scrollTl = buildScrollTimeline();
+
+          const handleResize = () => {
+            if (scrollTl.scrollTrigger?.progress < EXPAND_START) {
+              stackSatellitesOnMain();
+            }
+          };
+
+          window.addEventListener("resize", handleResize);
+
+          return () => {
+            window.removeEventListener("resize", handleResize);
+            scrollTl.scrollTrigger?.kill();
+            scrollTl.kill();
+          };
+        },
+      );
+
+      mm.add("(min-width: 1025px) and (prefers-reduced-motion: reduce)", () => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        setIsExpanded(true);
+        setIsInteractive(true);
+        gsap.set(section.querySelectorAll(".about-us__card"), {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
         });
-
-        tl.to(mainCard, {
-          scale: 1.02,
-          duration: 0.4,
-        }).to(
-          satellites,
-          {
-            x: 0,
-            y: 0,
-            scale: 1,
-            stagger: 0.12,
-            duration: 0.5,
-          },
-          0.15,
-        );
+        const title = titleRef.current;
+        if (title) {
+          gsap.set(title, { autoAlpha: 0.55, color: "rgba(255, 255, 255, 0.55)" });
+        }
       });
 
       mm.add(
@@ -344,6 +440,7 @@ export const AboutUs = () => {
 
       mm.add("(max-width: 1024px)", () => {
         setIsExpanded(true);
+        setIsInteractive(true);
       });
 
       return () => mm.revert();
@@ -354,19 +451,20 @@ export const AboutUs = () => {
   return (
     <section
       ref={sectionRef}
-      className={`about-us${isExpanded ? " about-us--expanded" : ""}`}
+      className={`about-us${isExpanded ? " about-us--expanded" : ""}${isInteractive ? " about-us--interactive" : ""}${activeId ? " about-us--linked" : ""}`}
       aria-labelledby="about-us-title"
     >
       <div className="about-us__glow" aria-hidden="true" />
 
-      <div className="about-us__inner">
-        <h2 id="about-us-title" ref={titleRef} className="about-us__title">
-          {titleLines.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </h2>
+      <div ref={pinRef} className="about-us__pin">
+        <div ref={innerRef} className="about-us__inner">
+          <h2 id="about-us-title" ref={titleRef} className="about-us__title">
+            {titleLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </h2>
 
-        <div ref={stageRef} className="about-us__stage">
+          <div ref={stageRef} className="about-us__stage">
           <svg
             className="about-us__connector"
             aria-hidden="true"
@@ -374,7 +472,12 @@ export const AboutUs = () => {
             height="100%"
           >
             {line ? (
-              <path d={line} className="about-us__connector-line" fill="none" />
+              <path
+                ref={connectorPathRef}
+                d={line}
+                className="about-us__connector-line"
+                fill="none"
+              />
             ) : null}
           </svg>
 
@@ -400,7 +503,8 @@ export const AboutUs = () => {
               onMouseLeave={handleSatelliteLeave}
               onFocus={() => handleSatelliteEnter(stat.id)}
               onBlur={handleSatelliteLeave}
-              tabIndex={isExpanded ? 0 : -1}
+              tabIndex={isInteractive ? 0 : -1}
+              aria-disabled={!isInteractive}
             >
               <p className="about-us__card-label about-us__mobile-only">
                 {t(`aboutUs.satellites.${stat.id}.mobileLabel`)}
@@ -411,11 +515,12 @@ export const AboutUs = () => {
               <p className="about-us__card-value">{stat.value}</p>
             </article>
           ))}
-        </div>
+          </div>
 
-        <Button href="#" className="about-us__cta" variant="default">
-          {t("aboutUs.aboutBtn")}
-        </Button>
+          <Button href="#" className="about-us__cta" variant="default">
+            {t("aboutUs.aboutBtn")}
+          </Button>
+        </div>
       </div>
     </section>
   );

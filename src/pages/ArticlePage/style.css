@@ -46,7 +46,7 @@
 .article-page__related-title {
   margin: 0 0 32px;
   color: #ffffff;
-  font-size: clamp(28px, 3.5vw, 40px);
+  font-size: clamp(28px, 3.5vw, 52px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.02em;

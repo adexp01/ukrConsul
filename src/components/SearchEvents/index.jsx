@@ -14,6 +14,7 @@ const CATEGORIES = [
 ];
 
 export const SearchEvents = () => {
+  const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [activeEventId, setActiveEventId] = useState(
     SEARCH_EVENT_GROUPS[0].id,
   );
@@ -30,11 +31,12 @@ export const SearchEvents = () => {
         <aside className="search-events__sidebar">
           <div className="search-events__sidebar-inner">
             <div className="search-events__chips">
-              {CATEGORIES.map((item, index) => (
+              {CATEGORIES.map((item) => (
                 <button
                   key={item}
                   type="button"
-                  className={`search-events__chip${index === 0 ? " search-events__chip--active" : ""}`}
+                  className={`search-events__chip${activeCategory === item ? " search-events__chip--active" : ""}`}
+                  onClick={() => setActiveCategory(item)}
                 >
                   {item}
                 </button>

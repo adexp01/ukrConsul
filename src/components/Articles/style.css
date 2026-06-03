@@ -1,6 +1,6 @@
 .articles {
   width: 100%;
-  padding: 80px 48px 120px;
+  padding: 0px 48px 120px;
 }
 
 .articles__inner {
@@ -18,7 +18,7 @@
 .articles__title {
   margin: 0;
   color: #ffffff;
-  font-size: clamp(28px, 3.5vw, 40px);
+  font-size: clamp(28px, 3.5vw, 52px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.02em;

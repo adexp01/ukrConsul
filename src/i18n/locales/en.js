@@ -344,6 +344,49 @@ export const en = {
       },
     ],
   },
+  mediaNews: {
+    title: "News",
+    loadMore: "Load more articles",
+    categoriesAria: "News categories",
+    empty: "No articles in this category yet.",
+    filters: {
+      all: "All news",
+      gr: "GR",
+      export: "Export",
+      international: "International",
+      buildwithukraine: "BuildWithUkraine",
+      zbroyaexpo: "ZbroyaExpo",
+      investments: "Investments",
+      analytics: "Analytics",
+      events: "Events",
+    },
+    items: [
+      {
+        tag: "Export",
+        dateLabel: "March 12, 2026",
+        title:
+          "White Paper on changes in the defence industry: what solutions are already working for manufacturers",
+        excerpt:
+          "The Ukrainian Council of Defence Industry has prepared an analytical document, the White Paper on changes in the defence industry, outlining practical solutions for manufacturers.",
+      },
+      {
+        tag: "International",
+        dateLabel: "April 04, 2026",
+        title:
+          "Two associations join the Gunsmiths' Council: UAV schools and maritime drones",
+        excerpt:
+          "Two new industry associations have joined the Ukrainian Council of Defence Industry: the Independent Association of UAV Schools and the Association of Maritime Drones.",
+      },
+      {
+        tag: "GR",
+        dateLabel: "April 30, 2026",
+        title:
+          "A year of the Gunsmiths' Council: 300 manufacturers, 30+ regulatory decisions and new partnerships",
+        excerpt:
+          "On 25 February 2026, the Ukrainian Council of Defence Industry shared the results of its first year: 300+ manufacturers and dozens of sector reforms.",
+      },
+    ],
+  },
   media: {
     banner: {
       title: "Media",

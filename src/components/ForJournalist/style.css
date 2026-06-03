@@ -21,7 +21,7 @@
   flex-shrink: 0;
   margin: 0;
   color: #ffffff;
-  font-size: clamp(28px, 3.5vw, 40px);
+  font-size: clamp(28px, 3.5vw, 52px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -57,7 +57,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
   color: rgba(255, 255, 255, 0.85);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1;
 }

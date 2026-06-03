@@ -3,7 +3,7 @@ import { MediaBunner } from "../../components/MediaBunner";
 import { MainMedia } from "../../components/MainMedia";
 import { MediaInfo } from "../../components/MediaInfo";
 import { MediaItems } from "../../components/MediaItems";
-import { OurNews } from "../../components/OurNews";
+import { MediaNews } from "../../components/MediaNews";
 import { DownloadMedia } from "../../components/DownloadMedia";
 import { SendRequest } from "../../components/UI/SendRequest";
 import { ForJournalist } from "../../components/ForJournalist";
@@ -17,8 +17,8 @@ export const MediaPage = () => {
           <MediaBunner />
         </div>
 
-        <div className="our-news-wrap">
-          <OurNews />
+        <div className="media-news-wrap">
+          <MediaNews />
         </div>
 
         <MediaInfo />
@@ -26,7 +26,7 @@ export const MediaPage = () => {
         <MainMedia />
         <ForJournalist />
         <DownloadMedia />
-        <SendRequest />
+        {/* <SendRequest /> */}
       </div>
     </PageLayout>
   );

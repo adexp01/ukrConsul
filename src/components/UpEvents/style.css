@@ -167,7 +167,7 @@
 .up-events__time {
   margin: 0 0 14px;
   color: rgba(255, 255, 255, 0.55);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1;
   text-transform: lowercase;
@@ -206,6 +206,12 @@
   background: #6b8cff;
 }
 
+.up-events__badge-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
 .up-events__badge-text strong {
   font-weight: 700;
 }
@@ -223,9 +229,9 @@
 .up-events__event-title {
   margin: 0 0 20px;
   color: #ffffff;
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
   text-transform: uppercase;
 }
 
@@ -233,7 +239,7 @@
   margin: 0;
   max-width: 520px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.65;
 }
@@ -241,7 +247,7 @@
 .up-events__empty {
   margin: 0;
   color: rgba(255, 255, 255, 0.45);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .up-events__link {
@@ -250,8 +256,8 @@
   gap: 8px;
   margin-top: 28px;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1;
   text-decoration: none;
   transition: opacity 0.2s ease;

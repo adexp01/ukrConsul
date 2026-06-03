@@ -12,7 +12,7 @@ export const useBannerTabs = () => {
         { id: "capacity", label: t("banner.tabs.capacity") },
       ],
       mobileTabs: [
-        { id: "capacity", label: t("banner.tabs.capacity"), active: true },
+        { id: "capacity", label: t("banner.label"), active: true },
         { id: "partners", label: t("banner.tabs.partners"), active: false },
       ],
     }),
