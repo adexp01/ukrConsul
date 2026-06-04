@@ -1,0 +1,122 @@
+.about-us-banner {
+  position: relative;
+  width: 100%;
+  min-height: clamp(520px, 72vh, 820px);
+  padding: clamp(48px, 8vw, 88px) 0 clamp(56px, 9vw, 96px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.about-us-banner__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+  text-align: center;
+}
+
+.about-us-banner__title {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vw, 14px);
+  margin: 0 0 clamp(36px, 5vw, 52px);
+  color: #ffffff;
+  font-size: clamp(28px, 4.8vw, 56px);
+  font-weight: 600;
+  line-height: 82px;
+  letter-spacing: -4.8px;
+  text-transform: uppercase;
+}
+
+.about-us-banner__title-1 {
+  font-size: 80px;
+}
+
+.about-us-banner__title span {
+  display: block;
+}
+
+.about-us-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 36px);
+  margin-bottom: 180px;
+}
+
+.about-us-banner__cta {
+  flex-shrink: 0;
+}
+
+.about-us-banner__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.about-us-banner__contact-link:hover {
+  opacity: 0.82;
+}
+
+.about-us-banner__contact-arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.about-us-banner__text-visual {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.about-us-banner__text-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .about-us-banner {
+    min-height: auto;
+    padding: 32px 0 48px;
+  }
+
+  .about-us-banner__title {
+    margin-bottom: 28px;
+    font-size: clamp(22px, 6.8vw, 32px);
+    line-height: 1.12;
+  }
+
+  .about-us-banner__actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 36px;
+    gap: 16px;
+  }
+
+  .about-us-banner__cta {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .about-us-banner__contact-link {
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .about-us-banner__text-visual {
+    width: 100%;
+  }
+}

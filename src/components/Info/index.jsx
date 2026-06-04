@@ -3,23 +3,47 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
-import shield from "../../assets/shield.png";
+import defaultShield from "../../assets/shield.png";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export const Info = () => {
+export const Info = ({
+  contentKey = "info",
+  ctaContentKey,
+  shieldSrc = defaultShield,
+  aboutHref = "#",
+  testHref = "#",
+  applyHref = "#",
+  showCta = true,
+  showAboutBtn = true,
+  headingId = "info-orgs-heading",
+  ctaTitleId = "info-cta-title",
+  className = "",
+}) => {
   const { t } = useLanguage();
+  const copy = t(contentKey);
+  const ctaCopy = t(ctaContentKey ?? contentKey);
   const sectionRef = useRef(null);
   const shieldRef = useRef(null);
 
-  const organizations = t("info.organizations");
-  const headingLines = t("info.heading");
-  const ctaTitleLines = t("info.ctaTitle");
-  const ctaTitleMobileLines = Array.isArray(t("info.ctaTitleMobile"))
-    ? t("info.ctaTitleMobile")
+  const organizations = copy.organizations ?? [];
+  const headingLines = copy.heading ?? [];
+  const ctaTitleLines = ctaCopy.ctaTitle ?? [];
+  const ctaTitleMobileLines = Array.isArray(ctaCopy.ctaTitleMobile)
+    ? ctaCopy.ctaTitleMobile
     : ctaTitleLines;
+
+  const sectionClassName = [
+    "info-section",
+    !showCta && "info-section--orgs-only",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const sectionLabelId = showCta ? ctaTitleId : headingId;
 
   useGSAP(
     () => {
@@ -81,12 +105,12 @@ export const Info = () => {
   return (
     <section
       ref={sectionRef}
-      className="info-section"
-      aria-labelledby="info-cta-title"
+      className={sectionClassName}
+      aria-labelledby={sectionLabelId}
     >
       <div className="info-section__inner">
         <div className="info-section__orgs">
-          <h2 className="info-section__heading">
+          <h2 id={headingId} className="info-section__heading">
             {headingLines.map((line) => (
               <span key={line}>{line}</span>
             ))}
@@ -94,7 +118,7 @@ export const Info = () => {
 
           <div className="info-section__orgs-inner">
             <div className="info-section__shield" aria-hidden="true">
-              <img ref={shieldRef} src={shield} alt="" />
+              <img ref={shieldRef} src={shieldSrc} alt="" />
             </div>
 
             <div className="info-section__list-wrap">
@@ -105,46 +129,50 @@ export const Info = () => {
                   </li>
                 ))}
 
-                <Button
-                  href="#"
-                  variant="default"
-                  className="info-section__about-btn"
-                >
-                  {t("info.aboutBtn")}
-                </Button>
+                {showAboutBtn && copy.aboutBtn ? (
+                  <Button
+                    href={aboutHref}
+                    variant="default"
+                    className="info-section__about-btn"
+                  >
+                    {copy.aboutBtn}
+                  </Button>
+                ) : null}
               </ul>
             </div>
           </div>
         </div>
 
-        <article className="info-section__cta">
-          <div className="info-section__cta-glow" aria-hidden="true" />
+        {showCta ? (
+          <article className="info-section__cta">
+            <div className="info-section__cta-glow" aria-hidden="true" />
 
-          <h2 id="info-cta-title" className="info-section__cta-title">
-            <span className="info-section__cta-title-lines info-section__cta-title-lines--desktop">
-              {ctaTitleLines.map((line) => (
-                <span key={line}>{line}</span>
-              ))}
-            </span>
-            <span className="info-section__cta-title-lines info-section__cta-title-lines--mobile">
-              {ctaTitleMobileLines.map((line) => (
-                <span key={line}>{line}</span>
-              ))}
-            </span>
-          </h2>
+            <h2 id={ctaTitleId} className="info-section__cta-title">
+              <span className="info-section__cta-title-lines info-section__cta-title-lines--desktop">
+                {ctaTitleLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </span>
+              <span className="info-section__cta-title-lines info-section__cta-title-lines--mobile">
+                {ctaTitleMobileLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </span>
+            </h2>
 
-          <p className="info-section__cta-text">{t("info.ctaText")}</p>
+            <p className="info-section__cta-text">{ctaCopy.ctaText}</p>
 
-          <div className="info-section__cta-actions">
-            <Button href="#" variant="default">
-              {t("info.takeTest")}
-            </Button>
-            <a href="#" className="info-section__cta-link">
-              {t("info.applyDirectly")}
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </article>
+            <div className="info-section__cta-actions">
+              <Button href={testHref} variant="default">
+                {ctaCopy.takeTest}
+              </Button>
+              <a href={applyHref} className="info-section__cta-link">
+                {ctaCopy.applyDirectly}
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ) : null}
       </div>
     </section>
   );

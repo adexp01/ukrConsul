@@ -23,7 +23,11 @@ export const Header = () => {
           <img src={logo} alt={t("header.logoAlt")} />
         </a>
 
-        <div className="header__lang" role="group" aria-label={t("header.langLabel")}>
+        <div
+          className="header__lang"
+          role="group"
+          aria-label={t("header.langLabel")}
+        >
           <button
             type="button"
             className={`header__lang-btn${language === "en" ? " header__lang-btn--active" : ""}`}
@@ -72,7 +76,14 @@ export const Header = () => {
         aria-label="Main navigation"
       >
         <ul className="header__nav-list">
-          {["aboutUs", "getInvolved", "activities", "media", "events", "contact"].map((key) => (
+          {[
+            "aboutUs",
+            "getInvolved",
+            "activities",
+            "media",
+            "events",
+            "contact",
+          ].map((key) => (
             <li key={key}>
               <a
                 href={

@@ -1,0 +1,13 @@
+.about-us-page {
+  background-image: url("../../assets/bg3.svg");
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+
+.about-us-page__inner {
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(88px, 12vh, 120px) 0 ;
+}

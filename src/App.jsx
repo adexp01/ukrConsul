@@ -9,6 +9,8 @@ import { EventsPage } from "./pages/EventsPage";
 import { EventDetailPage } from "./pages/EventDetailPage";
 import { TrackPage } from "./pages/TrackPage";
 import { OfficePage } from "./pages/Office";
+import { AboutUsPage } from "./pages/AboutUsPage";
+
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +23,7 @@ function App() {
         <Route path="/events/details/:id" element={<EventDetailPage />} />
         <Route path="/track" element={<TrackPage />} />
         <Route path="/office" element={<OfficePage />} />
+        <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

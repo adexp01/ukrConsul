@@ -13,6 +13,11 @@
   padding-bottom: 80px;
 }
 
+.info-section--orgs-only .info-section__inner {
+  gap: 0;
+  padding-bottom: 0;
+}
+
 .info-section__orgs {
   display: flex;
   flex-wrap: wrap;

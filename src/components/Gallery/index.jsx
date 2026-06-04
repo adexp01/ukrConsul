@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import arrow from "../../assets/arrow.svg";
 import "./style.css";
@@ -9,6 +9,8 @@ import f4 from "../../assets/f4.png";
 import f5 from "../../assets/f5.png";
 import f6 from "../../assets/f6.png";
 import f7 from "../../assets/f7.png";
+
+const PHOTO_TRANSITION_MS = 560;
 
 const SLIDE_MEDIA = [
   {
@@ -51,6 +53,7 @@ const SLIDE_MEDIA = [
 export const Gallery = () => {
   const { t, language } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [leavingIndex, setLeavingIndex] = useState(null);
 
   const slides = useMemo(() => {
     const copy = t("gallery.slides");
@@ -75,9 +78,24 @@ export const Gallery = () => {
   const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
   const headingLines = t("gallery.heading");
 
-  const goTo = (index) => setActiveIndex(index);
+  useEffect(() => {
+    if (leavingIndex === null) return undefined;
+    const timer = window.setTimeout(
+      () => setLeavingIndex(null),
+      PHOTO_TRANSITION_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [leavingIndex]);
+
+  const goTo = (index) => {
+    if (index === activeIndex) return;
+    setLeavingIndex(activeIndex);
+    setActiveIndex(index);
+  };
+
   const goPrev = () => goTo(prevIndex);
   const goNext = () => goTo((activeIndex + 1) % slides.length);
+  const isPhotoTransitioning = leavingIndex !== null;
 
   return (
     <section className="gallery-section" aria-label="Projects gallery">
@@ -100,7 +118,25 @@ export const Gallery = () => {
             </button>
 
             <div className="gallery-section__main">
-              <img src={slide.image} alt={slide.title} />
+              {isPhotoTransitioning ? (
+                <img
+                  key={`leave-${leavingIndex}`}
+                  className="gallery-section__main-img gallery-section__main-img--leave"
+                  src={slides[leavingIndex].image}
+                  alt=""
+                  aria-hidden="true"
+                />
+              ) : null}
+              <img
+                key={`active-${activeIndex}`}
+                className={`gallery-section__main-img${
+                  isPhotoTransitioning
+                    ? " gallery-section__main-img--enter"
+                    : ""
+                }`}
+                src={slide.image}
+                alt={slide.title}
+              />
             </div>
           </div>
 
