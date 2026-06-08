@@ -15,9 +15,7 @@ const CATEGORIES = [
 
 export const SearchEvents = () => {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
-  const [activeEventId, setActiveEventId] = useState(
-    SEARCH_EVENT_GROUPS[0].id,
-  );
+  const [activeEventId, setActiveEventId] = useState();
 
   const toggleEvent = (id) => {
     setActiveEventId((current) => (current === id ? "" : id));
@@ -58,8 +56,8 @@ export const SearchEvents = () => {
         <section className="search-events__content">
           <label className="search-events__search">
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="8.5" cy="8.5" r="4.75" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M12 12L16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <circle cx="8.5" cy="8.5" r="4.75" stroke="#ffffff" strokeWidth="1.5" />
+              <path d="M12 12L16 16" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
             <input type="text" placeholder="Пошук події..." />
           </label>

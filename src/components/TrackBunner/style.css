@@ -1,6 +1,6 @@
 .track-bunner {
   width: 100%;
-  padding: clamp(48px, 8vw, 120px) 0 clamp(24px, 4vw, 40px);
+  padding: clamp(16px, 3vw, 32px) 48px;
   overflow: hidden;
 }
 

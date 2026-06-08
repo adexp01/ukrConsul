@@ -98,19 +98,33 @@ export const Anima = () => {
       </div>
 
       <div className="anima__mobile">
-        <div className="anima__mobile-tabs">
-          {mobileTabs.map((tab) => (
-            <span
-              key={tab.id}
-              className={`anima__tab${tab.active ? " anima__tab--active" : ""}`}
+        <div className="banner__top anima__banner-top">
+          <div className="banner__mobile-frame" aria-hidden="true">
+            <svg
+              className="banner__mobile-frame-svg"
+              width="344"
+              viewBox="0 0 344 22"
+              preserveAspectRatio="none"
             >
-              {tab.label}
-            </span>
-          ))}
-        </div>
+              <path
+                d="M0.5 21.5V8.5C0.5 4.08172 4.08172 0.5 8.5 0.5H335.5C339.918 0.5 343.5 4.08172 343.5 8.5V21.5"
+                fill="none"
+              />
+            </svg>
+          </div>
 
-        <div className="anima__mobile-frame">
-          <SpriteCanvas className="anima__ring" />
+          <SpriteCanvas className="banner__ring" />
+
+          <div className="banner__tabs-mobile">
+            {mobileTabs.map((tab) => (
+              <span
+                key={tab.id}
+                className={`banner__tab-mobile${tab.active ? " banner__tab-mobile--active" : ""}`}
+              >
+                {tab.label}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

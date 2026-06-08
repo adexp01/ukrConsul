@@ -11,8 +11,8 @@ export const TrackPage = () => {
   return (
     <PageLayout>
       <div className="track-page">
-        <TrackBunner />
         <TrackIntro />
+        <TrackBunner />
         <AnimationCards />
       </div>
 

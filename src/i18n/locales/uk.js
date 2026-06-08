@@ -12,6 +12,13 @@ export const uk = {
       events: "Заходи",
       contact: "Контакти",
     },
+    activitiesMenu: [
+      { id: "gr", label: "GR / Адвокація", href: "#" },
+      { id: "international", label: "Міжнародна діяльність", href: "#" },
+      { id: "regional", label: "Регіональний трек", href: "/track" },
+      { id: "youth", label: "Молодіжний трек", href: "/track" },
+      { id: "export", label: "Офіс підтримки експорту", href: "/office" },
+    ],
   },
   footer: {
     ctaTitle: "ДОЛУЧИТИСЬ ДО РАДИ ЗБРОЯРІВ",

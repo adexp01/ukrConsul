@@ -12,6 +12,13 @@ export const en = {
       events: "Events",
       contact: "Contact",
     },
+    activitiesMenu: [
+      { id: "gr", label: "GR / Advocacy", href: "#" },
+      { id: "international", label: "International activities", href: "#" },
+      { id: "regional", label: "Regional track", href: "/track" },
+      { id: "youth", label: "Youth track", href: "/track" },
+      { id: "export", label: "Export Support Office", href: "/office" },
+    ],
   },
   footer: {
     ctaTitle: "JOIN THE COUNCIL OF ARMS MAKERS",

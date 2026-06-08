@@ -233,7 +233,7 @@
 
   .footer__main {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 48px;
     padding-bottom: 40px;
   }
 
@@ -241,11 +241,20 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    padding-top: 80px;
   }
 
   .footer__legal-links {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .footer__legal:last-child {
+    margin-top: 80px;
+  }
+
+  .footer__socials {
+    margin-top: 48px;
   }
 }
