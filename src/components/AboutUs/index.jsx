@@ -361,7 +361,10 @@ export const AboutUs = () => {
         });
         const title = titleRef.current;
         if (title) {
-          gsap.set(title, { autoAlpha: 0.55, color: "rgba(255, 255, 255, 0.55)" });
+          gsap.set(title, {
+            autoAlpha: 0.55,
+            color: "rgba(255, 255, 255, 0.55)",
+          });
         }
       });
 
@@ -417,19 +420,16 @@ export const AboutUs = () => {
         },
       );
 
-      mm.add(
-        "(max-width: 1024px) and (prefers-reduced-motion: reduce)",
-        () => {
-          const section = sectionRef.current;
-          if (!section) return;
+      mm.add("(max-width: 1024px) and (prefers-reduced-motion: reduce)", () => {
+        const section = sectionRef.current;
+        if (!section) return;
 
-          gsap.set(section.querySelectorAll(".about-us__card"), {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-          });
-        },
-      );
+        gsap.set(section.querySelectorAll(".about-us__card"), {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+        });
+      });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
         const title = titleRef.current;
@@ -465,56 +465,56 @@ export const AboutUs = () => {
           </h2>
 
           <div ref={stageRef} className="about-us__stage">
-          <svg
-            className="about-us__connector"
-            aria-hidden="true"
-            width="100%"
-            height="100%"
-          >
-            {line ? (
-              <path
-                ref={connectorPathRef}
-                d={line}
-                className="about-us__connector-line"
-                fill="none"
-              />
-            ) : null}
-          </svg>
+            <svg
+              className="about-us__connector"
+              aria-hidden="true"
+              width="100%"
+              height="100%"
+            >
+              {line ? (
+                <path
+                  ref={connectorPathRef}
+                  d={line}
+                  className="about-us__connector-line"
+                  fill="none"
+                />
+              ) : null}
+            </svg>
 
-          <article
-            ref={mainCardRef}
-            className="about-us__card about-us__card--main"
-          >
-            <p className="about-us__card-label about-us__mobile-only">
-              {t("aboutUs.main.mobileLabel")}
-            </p>
-            <p className="about-us__card-desc about-us__desktop-only">
-              {t("aboutUs.main.description")}
-            </p>
-            <p className="about-us__card-value">{MAIN_STAT.value}</p>
-          </article>
-
-          {SATELLITE_STATS.map((stat) => (
             <article
-              key={stat.id}
-              ref={setSatelliteRef(stat.id)}
-              className={`about-us__card about-us__card--satellite about-us__card--${stat.position}${activeId === stat.id ? " about-us__card--active" : ""}`}
-              onMouseEnter={() => handleSatelliteEnter(stat.id)}
-              onMouseLeave={handleSatelliteLeave}
-              onFocus={() => handleSatelliteEnter(stat.id)}
-              onBlur={handleSatelliteLeave}
-              tabIndex={isInteractive ? 0 : -1}
-              aria-disabled={!isInteractive}
+              ref={mainCardRef}
+              className="about-us__card about-us__card--main"
             >
               <p className="about-us__card-label about-us__mobile-only">
-                {t(`aboutUs.satellites.${stat.id}.mobileLabel`)}
+                {t("aboutUs.main.mobileLabel")}
               </p>
               <p className="about-us__card-desc about-us__desktop-only">
-                {t(`aboutUs.satellites.${stat.id}.description`)}
+                {t("aboutUs.main.mobileLabel")}
               </p>
-              <p className="about-us__card-value">{stat.value}</p>
+              <p className="about-us__card-value">{MAIN_STAT.value}</p>
             </article>
-          ))}
+
+            {SATELLITE_STATS.map((stat) => (
+              <article
+                key={stat.id}
+                ref={setSatelliteRef(stat.id)}
+                className={`about-us__card about-us__card--satellite about-us__card--${stat.position}${activeId === stat.id ? " about-us__card--active" : ""}`}
+                onMouseEnter={() => handleSatelliteEnter(stat.id)}
+                onMouseLeave={handleSatelliteLeave}
+                onFocus={() => handleSatelliteEnter(stat.id)}
+                onBlur={handleSatelliteLeave}
+                tabIndex={isInteractive ? 0 : -1}
+                aria-disabled={!isInteractive}
+              >
+                <p className="about-us__card-label about-us__mobile-only">
+                  {t(`aboutUs.satellites.${stat.id}.mobileLabel`)}
+                </p>
+                <p className="about-us__card-desc about-us__desktop-only">
+                  {t(`aboutUs.satellites.${stat.id}.mobileLabel`)}
+                </p>
+                <p className="about-us__card-value">{stat.value}</p>
+              </article>
+            ))}
           </div>
 
           <Button href="#" className="about-us__cta" variant="default">

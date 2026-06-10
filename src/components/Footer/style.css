@@ -81,7 +81,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   margin-top: 68px;
 }
 
@@ -89,24 +89,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
   text-decoration: none;
   transition:
     transform 0.2s ease,
-    filter 0.2s ease;
+    background-color 0.2s ease;
+  border: none;
 }
 
 .footer__social-link:hover {
   transform: translateY(-1px);
-  filter: brightness(1.08);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .footer__social-icon {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 24px;
+  height: 24px;
+  border: none;
 }
 
 .footer__column-title {

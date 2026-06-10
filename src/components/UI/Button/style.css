@@ -1,6 +1,6 @@
 .button2 {
   --button2-height: 54px;
-  --button2-icon: 52px;
+  --button2-icon: 54px;
 
   position: relative;
   display: inline-grid;
@@ -35,10 +35,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px 0 24px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 0 8px 0 20px;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -48,8 +49,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--button2-icon);
-  height: 100%;
+  height: var(--button2-icon);
+  width: 62px;
 }
 
 .button2__icon-inner {
@@ -90,6 +91,7 @@
 
 /* Default — outlined shapes from button-second.svg */
 .button2--default {
+  --button2-icon: 54px;
   min-width: 180px;
 }
 
@@ -116,7 +118,6 @@
 @media (max-width: 1024px) {
   .button2 {
     --button2-height: 48px;
-    --button2-icon: 48px;
 
     min-width: 180px;
     width: 100%;
@@ -128,9 +129,8 @@
   }
 
   .button2__label {
-    padding: 0 8px 0 20px;
+    padding: 0 12px;
     font-size: 13px;
     white-space: normal;
-    text-align: center;
   }
 }

@@ -1,22 +1,147 @@
 .anima {
+  position: relative;
+  z-index: 2;
   width: 90%;
   margin: 0 auto;
   padding-top: 100px;
+  overflow: visible;
+}
+
+.anima__stage {
+  position: relative;
+  width: 95%;
+  min-height: clamp(380px, 92vw, 460px);
+  margin: 0 auto;
+  padding: clamp(8px, 3vw, 20px) 0 clamp(44px, 10vw, 56px);
+  overflow: visible;
+}
+
+.anima__center-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 90vw;
+  margin: 0 auto;
+  height: clamp(56px, 16vw, 72px);
+  transform: translate(-50%, calc(-50% + clamp(28px, 8vw, 36px)));
+  pointer-events: none;
+}
+
+.anima__center-frame-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  margin: 0 auto;
+  translate: 0% 20%;
+}
+
+.anima__center-frame-svg path {
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.anima__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: min(92vw, 380px);
+  max-width: 100%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.anima__center-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  width: 95vw;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.anima__center-line .banner__top-line-inner {
+  --tabs-reveal: 0%;
+}
+
+.anima__mobile-tabs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(92vw, 380px);
+  padding: 0 clamp(4px, 2vw, 12px);
+  transform: translate(-50%, calc(-50% - 8px));
+  pointer-events: none;
+}
+
+.text-reveal-inner {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.anima__mobile-tab {
+  flex: 0 1 auto;
+  max-width: 46%;
+  color: rgba(255, 255, 255, 0.36);
+  font-size: clamp(20px, 5.5vw, 28px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.anima__mobile-tab--active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.anima__mobile-tab:not(.anima__mobile-tab--active) {
+  text-align: right;
 }
 
 @media (min-width: 1025px) {
-  .anima .banner__tabs-inner {
-    --tabs-reveal: 0%;
+  .anima__stage {
+    min-height: clamp(700px, 62vw, 720px);
+    padding: 0;
   }
-}
 
-.anima__mobile {
-  display: none;
-}
+  .anima__center-frame {
+    top: 50%;
+    height: 72px;
+    transform: translate(-50%, calc(-52% + 36px));
+  }
 
-@media (min-width: 1025px) {
-  .anima__desktop {
-    display: block;
+  .anima__center-frame-svg {
+    width: 100%;
+    margin: 0;
+  }
+
+  .anima__ring {
+    width: clamp(700px, 62vw, 720px);
+    transform: translate(-50%, -52%);
+  }
+
+  .anima__center-line {
+    top: 50%;
+    width: 100vw;
+    padding: 0 clamp(24px, 4vw, 64px);
+    box-sizing: border-box;
+    transform: translate(-50%, calc(-52% - 12px));
+  }
+
+  .anima__mobile-tabs {
+    display: none;
   }
 }
 
@@ -27,16 +152,7 @@
     padding: 24px 20px 0;
   }
 
-  .anima__desktop {
+  .anima__center-line {
     display: none;
-  }
-
-  .anima__mobile {
-    display: block;
-    width: 100%;
-  }
-
-  .anima__banner-top {
-    margin-bottom: 0;
   }
 }

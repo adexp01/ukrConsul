@@ -10,6 +10,22 @@ import "./style.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+const CENTER_FRAME_PATH =
+  "M0.5 4.2C0.5 3.1 4 2.5 8 2.5H1364.5C1368.5 2.5 1372 3.1 1372 4.2";
+
+const CenterFrame = () => (
+  <div className="anima__center-frame" aria-hidden="true">
+    <svg
+      className="anima__center-frame-svg"
+      width="344"
+      viewBox="0 0 1373 22"
+      preserveAspectRatio="none"
+    >
+      <path d={CENTER_FRAME_PATH} fill="none" />
+    </svg>
+  </div>
+);
+
 export const Anima = () => {
   const { t } = useLanguage();
   const { tabs, mobileTabs } = useBannerTabs();
@@ -62,69 +78,49 @@ export const Anima = () => {
 
   return (
     <div className="anima">
-      <div className="anima__desktop">
-        <div className="banner__top" style={{ marginTop: 0 }}>
-          <SpriteCanvas className="banner__ring" />
+      <div className="anima__stage">
+        <CenterFrame />
 
-          <div ref={textRevealRef} className="banner__top-line">
-            <div className="banner__top-line-inner">
-              <p className="banner__top-line-base">
-                <span className="banner__top-line-label">
-                  {t("banner.label")}
-                </span>
-                <span className="banner__top-line-tabs">
-                  {tabs.map((tab) => (
-                    <span key={tab.id} className="banner__top-line-tab">
-                      {tab.label}
-                    </span>
-                  ))}
-                </span>
-              </p>
-              <p className="banner__top-line-fill" aria-hidden="true">
-                <span className="banner__top-line-label">
-                  {t("banner.label")}
-                </span>
-                <span className="banner__top-line-tabs">
-                  {tabs.map((tab) => (
-                    <span key={tab.id} className="banner__top-line-tab">
-                      {tab.label}
-                    </span>
-                  ))}
-                </span>
-              </p>
-            </div>
+        <SpriteCanvas className="banner__ring anima__ring" />
+
+        <div ref={textRevealRef} className="anima__center-line banner__top-line">
+          <div className="banner__top-line-inner text-reveal-inner">
+            <p className="banner__top-line-base">
+              <span className="banner__top-line-label">
+                {t("banner.label")}
+              </span>
+              <span className="banner__top-line-tabs">
+                {tabs.map((tab) => (
+                  <span key={tab.id} className="banner__top-line-tab">
+                    {tab.label}
+                  </span>
+                ))}
+              </span>
+            </p>
+            <p className="banner__top-line-fill" aria-hidden="true">
+              <span className="banner__top-line-label">
+                {t("banner.label")}
+              </span>
+              <span className="banner__top-line-tabs">
+                {tabs.map((tab) => (
+                  <span key={tab.id} className="banner__top-line-tab">
+                    {tab.label}
+                  </span>
+                ))}
+              </span>
+            </p>
           </div>
         </div>
-      </div>
 
-      <div className="anima__mobile">
-        <div className="banner__top anima__banner-top">
-          <div className="banner__mobile-frame" aria-hidden="true">
-            <svg
-              className="banner__mobile-frame-svg"
-              width="344"
-              viewBox="0 0 344 22"
-              preserveAspectRatio="none"
+        <div className="anima__mobile-tabs">
+          {mobileTabs.map((tab) => (
+            <span
+              key={tab.id}
+              className={`anima__mobile-tab${tab.active ? " anima__mobile-tab--active" : ""}`}
             >
-              <path
-                d="M0.5 21.5V8.5C0.5 4.08172 4.08172 0.5 8.5 0.5H335.5C339.918 0.5 343.5 4.08172 343.5 8.5V21.5"
-                fill="none"
-              />
-            </svg>
-          </div>
-
-          <SpriteCanvas className="banner__ring" />
-
-          <div className="banner__tabs-mobile">
-            {mobileTabs.map((tab) => (
-              <span
-                key={tab.id}
-                className={`banner__tab-mobile${tab.active ? " banner__tab-mobile--active" : ""}`}
-              >
-                {tab.label}
-              </span>
-            ))}
-          </div>
+              {tab.label}
+            </span>
+          ))}
         </div>
       </div>
     </div>
