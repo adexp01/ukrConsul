@@ -8,9 +8,9 @@ import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const RELATED_META = [
-  { id: 1, date: "2026-03-12", bg: "#dde6ed" },
-  { id: 2, date: "2026-04-04", bg: "#c8d4ea" },
-  { id: 3, date: "2026-04-30", bg: "#97a7d8" },
+  { id: 1, date: "2026-03-12" },
+  { id: 2, date: "2026-04-04" },
+  { id: 3, date: "2026-04-30" },
 ];
 
 export const ArticlePage = () => {
@@ -52,7 +52,6 @@ export const ArticlePage = () => {
               <Article
                 key={item.id}
                 id={item.id}
-                bg={item.bg}
                 tag={item.tag}
                 date={item.dateLabel}
                 title={item.title}

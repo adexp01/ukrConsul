@@ -22,52 +22,45 @@ const NEWS_LAYOUT = [
     id: 1,
     category: "export",
     date: "2026-03-12",
-    bg: "#dde6ed",
     contentIndex: 0,
   },
   {
     id: 2,
     category: "international",
     date: "2026-04-04",
-    bg: "#c8d4ea",
     contentIndex: 1,
   },
-  { id: 3, category: "gr", date: "2026-04-30", bg: "#c7cbeb", contentIndex: 2 },
+  { id: 3, category: "gr", date: "2026-04-30", contentIndex: 2 },
   {
     id: 4,
     category: "export",
     date: "2026-03-12",
-    bg: "#dde6ed",
     contentIndex: 0,
   },
   {
     id: 5,
     category: "international",
     date: "2026-04-04",
-    bg: "#c5d7f2",
     contentIndex: 1,
   },
-  { id: 6, category: "gr", date: "2026-04-30", bg: "#97a7d8", contentIndex: 2 },
+  { id: 6, category: "gr", date: "2026-04-30", contentIndex: 2 },
   {
     id: 7,
     category: "export",
     date: "2026-03-12",
-    bg: "#dde6ed",
     contentIndex: 0,
   },
   {
     id: 8,
     category: "international",
     date: "2026-04-04",
-    bg: "#c8d4ea",
     contentIndex: 1,
   },
-  { id: 9, category: "gr", date: "2026-04-30", bg: "#c7cbeb", contentIndex: 2 },
+  { id: 9, category: "gr", date: "2026-04-30", contentIndex: 2 },
   {
     id: 10,
     category: "export",
     date: "2026-03-12",
-    bg: "#c5d7f2",
     contentIndex: 0,
   },
   {
@@ -81,7 +74,6 @@ const NEWS_LAYOUT = [
     id: 12,
     category: "gr",
     date: "2026-04-30",
-    bg: "#c8d4ea",
     contentIndex: 2,
   },
 ];
@@ -162,7 +154,6 @@ export const MediaNews = () => {
               <Article
                 key={item.id}
                 id={item.id}
-                bg={item.bg}
                 tag={item.tag}
                 date={item.dateLabel}
                 title={item.title}

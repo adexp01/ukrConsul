@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ButtonGradients } from "./components/UI/Button";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { HomePage } from "./pages/HomePage";
 import { MediaPage } from "./pages/MediaPage";
@@ -14,6 +15,7 @@ import { AboutUsPage } from "./pages/AboutUsPage";
 function App() {
   return (
     <BrowserRouter>
+      <ButtonGradients />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -17,9 +17,9 @@ const FILTER_IDS = [
 ];
 
 const NEWS_META = [
-  { id: 1, category: "export", date: "2026-03-12", bg: "#dde6ed" },
-  { id: 2, category: "international", date: "2026-04-04", bg: "#c8d4ea" },
-  { id: 3, category: "gr", date: "2026-04-30", bg: "#97a7d8" },
+  { id: 1, category: "export", date: "2026-03-12" },
+  { id: 2, category: "international", date: "2026-04-04" },
+  { id: 3, category: "gr", date: "2026-04-30" },
 ];
 
 export const OurNews = () => {
@@ -88,7 +88,6 @@ export const OurNews = () => {
               <Article
                 key={item.id}
                 id={item.id}
-                bg={item.bg}
                 tag={item.tag}
                 date={item.dateLabel}
                 title={item.title}

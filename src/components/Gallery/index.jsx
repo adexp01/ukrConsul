@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
-import arrow from "../../assets/arrow.svg";
+import { NavArrows } from "../UI/Button";
 import "./style.css";
 import f1 from "../../assets/f1.png";
 import f2 from "../../assets/f2.png";
@@ -174,24 +174,13 @@ export const Gallery = () => {
               <span aria-hidden="true">→</span>
             </a>
 
-            <div className="gallery-section__nav">
-              <button
-                type="button"
-                className="gallery-section__nav-btn gallery-section__nav-btn--prev"
-                onClick={goPrev}
-                aria-label={t("gallery.prevSlide")}
-              >
-                <img src={arrow} alt="" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="gallery-section__nav-btn gallery-section__nav-btn--next"
-                onClick={goNext}
-                aria-label={t("gallery.nextSlide")}
-              >
-                <img src={arrow} alt="" aria-hidden="true" />
-              </button>
-            </div>
+            <NavArrows
+              className="gallery-section__nav"
+              onPrev={goPrev}
+              onNext={goNext}
+              prevLabel={t("gallery.prevSlide")}
+              nextLabel={t("gallery.nextSlide")}
+            />
           </div>
 
           <div

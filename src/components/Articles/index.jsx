@@ -4,11 +4,7 @@ import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const ARTICLE_META = [
-  { id: 1, bg: "#dde6ed" },
-  { id: 2, bg: "#bdd5ea" },
-  { id: 3, bg: "#97a7d8" },
-];
+const ARTICLE_META = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
 export const Articles = () => {
   const { t, language } = useLanguage();
@@ -39,7 +35,6 @@ export const Articles = () => {
             <Article
               key={article.id}
               id={article.id}
-              bg={article.bg}
               tag={article.tag}
               date={article.date}
               title={article.title}

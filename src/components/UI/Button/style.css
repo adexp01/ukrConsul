@@ -1,136 +1,274 @@
-.button2 {
-  --button2-height: 54px;
-  --button2-icon: 54px;
+.u-btn--1 {
+  --button-font:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  --button-text-color: #fff;
+  --button-blob-icon-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
+  --button-blob-icon-image-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
+  --button-blob-icon-position: center left -150%, center left 50%;
+  --button-blob-icon-position-hover: center left 50%, center left 150%;
+  --button-blob-scale: 0.875;
+  --button-icon-width: 58px;
+  --button-arrow-size: 12px;
+  --button-icon-offset: 5px;
+  --button-transition-duration: 0.6s;
+  --button-transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 
-  position: relative;
-  display: inline-grid;
-  grid-template-columns: minmax(0, 1fr) var(--button2-icon);
-  align-items: center;
-  width: fit-content;
-  min-width: 200px;
-  height: var(--button2-height);
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: #ffffff;
-  font-family: inherit;
-  text-decoration: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   cursor: pointer;
-  transition:
-    filter 0.2s ease,
-    transform 0.2s ease;
+  display: inline-flex;
+  font-weight: 400;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  align-items: stretch;
+  background: transparent;
+  border-radius: 0;
+  height: 48px;
+  width: fit-content;
+}
+.u-btn--1:not(:disabled) {
+  pointer-events: auto;
+}
+.u-btn--1 svg {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.u-btn--1 svg path {
+  transition-duration: var(--button-transition-duration);
+  transition-property: fill;
+  transition-timing-function: var(--button-transition-timing-function);
 }
 
-.button2__svg {
+.u-btn--1 .btn_label {
+  align-items: center;
+  background: var(--button-text-background);
+  border-radius: 12px 0 0 12px;
+  color: var(--button-text-color);
+  display: inline-flex;
+  font-family: var(--button-font);
+  font-weight: 600;
+  font-size: max(
+    0.75rem,
+    min(calc(0.75rem + 0.002 * (100vw - 27.5rem)), 0.875rem)
+  );
+  justify-content: flex-start;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-right: 16px;
+  overflow: visible;
+  padding: 8px 8px 8px 20px;
+  position: relative;
+  text-transform: uppercase;
+  transition-duration: var(--button-transition-duration);
+  transition-property:
+    background-color, color, margin-inline-end, padding-right;
+  transition-timing-function: var(--button-transition-timing-function);
+}
+.u-btn--1 .label_corner {
+  background: transparent;
+  display: block;
+  top: 0;
+  right: -16px;
+  bottom: 0;
+  position: absolute;
+  width: 18px;
+  height: 100%;
+}
+.u-btn--1 .label_corner svg path {
+  fill: var(--button-blob-fill);
+}
+.u-btn--1 .btn_icon {
+  background-color: transparent;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+  width: var(--button-icon-width);
+  height: 100%;
+  transform: scale(1);
+  transform-origin: center right;
+  transition-duration: var(--button-transition-duration);
+  transition-property: transform;
+  transition-timing-function: var(--button-transition-timing-function);
+}
+.u-btn--1 .btn_icon:before {
+  background-color: transparent;
+  background-image:
+    var(--button-blob-icon-image-hover), var(--button-blob-icon-image);
+  background-repeat: no-repeat;
+  background-position: var(--button-blob-icon-position);
+  background-size: var(--button-arrow-size) var(--button-arrow-size);
+  content: "";
+  top: 0;
+  left: var(--button-icon-offset);
+  position: absolute;
+  width: calc(100% - var(--button-icon-offset));
+  height: 100%;
+  transition-duration: var(--button-transition-duration);
+  transition-property: background-position;
+  transition-timing-function: var(--button-transition-timing-function);
+  z-index: 2;
+}
+.u-btn--1 .btn_icon svg path {
+  fill: var(--button-blob-fill);
+}
+.u-btn--1:hover .btn_label {
+  background: var(--button-text-background-hover);
+  color: var(--button-text-color);
+  margin-right: 12px;
+  padding-right: 14px;
+}
+.u-btn--1:hover .label_corner svg path {
+  fill: var(--button-blob-fill-hover);
+}
+.u-btn--1:hover .btn_icon {
+  transform: scale(var(--button-blob-scale));
+}
+.u-btn--1:hover .btn_icon:before {
+  background-position: var(--button-blob-icon-position-hover);
+}
+.u-btn--1:hover .btn_icon svg path {
+  fill: var(--button-blob-fill-hover);
+}
+
+/* =====================================================================
+   БЛОК 2a — PRIMARY (.-primary): помаранчевий градієнт
+   (SVG-форми беруть градієнт з url(), див. БЛОК 4)
+===================================================================== */
+.u-btn--1.-primary {
+  --button-text-background: linear-gradient(
+    180deg,
+    #fba050 -54.63%,
+    #e66618 84.26%
+  );
+  --button-text-background-hover: linear-gradient(
+    180deg,
+    #fba050 -54.63%,
+    #ff8236 84.26%
+  );
+  --button-blob-fill: url(#wwu-grad);
+  --button-blob-fill-hover: url(#wwu-grad-hover);
+}
+
+/* =====================================================================
+   БЛОК 2b — SECONDARY (.-dark): суцільний темний, без обведення
+     fill: #0B132A. Hover — трохи світліший тон.
+===================================================================== */
+.u-btn--1.-dark {
+  --button-text-background: #0b132a;
+  --button-text-background-hover: #141f3f;
+  --button-blob-fill: #0b132a;
+  --button-blob-fill-hover: #141f3f;
+  --button-icon-width: 70px;
+  --button-arrow-size: 12px;
+  --button-icon-offset: 5px;
+}
+
+.u-btn--icon {
+  --button-icon-width: 58px;
+  --button-arrow-size: 12px;
+  --button-blob-fill: #0b132a;
+  --button-blob-fill-hover: #141f3f;
+  --button-blob-scale: 0.875;
+  --button-transition-duration: 0.6s;
+  --button-transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
+
+  appearance: none;
+  cursor: pointer;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  text-decoration: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: var(--button-icon-width);
+  height: 48px;
+  color: inherit;
+}
+
+.u-btn--icon .btn_icon {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform var(--button-transition-duration)
+    var(--button-transition-timing-function);
+  font-style: normal;
+}
+
+.u-btn--icon svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-}
-
-.button2__label {
-  position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px 0 20px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
 }
 
-.button2__icon {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--button2-icon);
-  width: 62px;
+.u-btn--icon svg path {
+  fill: var(--button-blob-fill);
+  transition: fill var(--button-transition-duration)
+    var(--button-transition-timing-function);
 }
 
-.button2__icon-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: inherit;
+.u-btn--icon .btn_icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--button-arrow) no-repeat center / var(--button-arrow-size)
+    var(--button-arrow-size);
+  transition: transform var(--button-transition-duration)
+    var(--button-transition-timing-function);
 }
 
-.button2__arrow-path {
-  fill: currentColor;
-  pointer-events: none;
+.u-btn--icon.-right .btn_icon::before {
+  transform: translateX(3px);
 }
 
-.button2__arrow {
-  display: block;
-  width: 16px;
-  height: 10px;
+.u-btn--icon.-left .btn_icon::before {
+  transform: scaleX(-1) translateX(3px);
 }
 
-.button2__icon-inner img,
-.button2__icon-inner svg:not(.button2__arrow) {
-  display: block;
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+.u-btn--icon:hover .btn_icon {
+  transform: scale(var(--button-blob-scale));
 }
 
-/* Primary — orange gradient fill */
-.button2--primary:hover {
-  filter: brightness(1.06);
+.u-btn--icon:hover svg path {
+  fill: var(--button-blob-fill-hover);
 }
 
-.button2--primary:active {
-  transform: translateY(1px);
-  filter: brightness(0.96);
+.u-btn--icon.-right:hover .btn_icon::before {
+  transform: translateX(7px);
 }
 
-/* Default — outlined shapes from button-second.svg */
-.button2--default {
-  --button2-icon: 54px;
-  min-width: 180px;
+.u-btn--icon.-left:hover .btn_icon::before {
+  transform: scaleX(-1) translateX(7px);
 }
 
-.button2--default .button2__shape {
-  transition: stroke 0.2s ease;
-}
-
-.button2--default:hover {
-  filter: none;
-}
-
-.button2--default:hover .button2__shape {
-  stroke: rgba(255, 255, 255, 0.42);
-}
-
-.button2--default:active {
-  transform: translateY(1px);
-}
-
-.button2--default:active .button2__shape {
-  stroke: rgba(255, 255, 255, 0.55);
-}
-
-@media (max-width: 1024px) {
-  .button2 {
-    --button2-height: 48px;
-
-    min-width: 180px;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .button2--default {
-    min-width: 160px;
-  }
-
-  .button2__label {
-    padding: 0 12px;
-    font-size: 13px;
-    white-space: normal;
-  }
+.nav-arrows {
+  display: inline-flex;
+  gap: 0px;
 }

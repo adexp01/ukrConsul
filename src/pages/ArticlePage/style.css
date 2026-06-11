@@ -102,6 +102,12 @@
   }
 
   .article-page__related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .article-page__related-grid {
     grid-template-columns: 1fr;
     max-width: 480px;
     margin: 0 auto;
