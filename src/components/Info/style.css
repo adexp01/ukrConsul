@@ -185,8 +185,8 @@
 }
 
 .info-section__cta-title-lines--desktop > span:nth-child(4) {
-  align-self: flex-end;
-  margin-right: 8%;
+  align-self: flex-start;
+  margin-left: 20%;
 }
 
 .info-section__cta-text {

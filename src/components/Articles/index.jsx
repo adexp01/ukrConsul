@@ -24,10 +24,6 @@ export const Articles = () => {
           <h2 id="articles-title" className="articles__title">
             {t("articles.title")}
           </h2>
-
-          <Button href="#" variant="default" className="articles__all-media">
-            {t("articles.allMedia")}
-          </Button>
         </header>
 
         <div className="articles__grid">
@@ -42,6 +38,10 @@ export const Articles = () => {
             />
           ))}
         </div>
+
+        <Button href="#" variant="default" className="articles__all-media">
+          {t("articles.allMedia")}
+        </Button>
       </div>
     </section>
   );

@@ -116,7 +116,7 @@
 .footer__column-title {
   margin: 0 0 22px;
   color: rgba(255, 255, 255, 0.45);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1;
 }
@@ -219,6 +219,15 @@
     padding: 56px 24px 28px;
   }
 
+  .footer__social-link {
+    width: 48px;
+    height: 48px;
+  }
+
+  .footer__list {
+    margin-top: 50px;
+  }
+
   .footer__cta {
     flex-direction: column;
     align-items: flex-start;
@@ -249,13 +258,16 @@
   }
 
   .footer__legal-links {
+    order: 1;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    width: 100%;
   }
 
-  .footer__legal:last-child {
-    margin-top: 80px;
+  .footer__copyright {
+    order: 2;
+    margin-top: 78px;
   }
 
   .footer__socials {

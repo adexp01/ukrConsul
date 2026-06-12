@@ -256,8 +256,7 @@
   }
 
   .banner__tab-mobile--active {
-    color: #ffffff;
-    font-weight: 700;
+    color: rgba(255, 255, 255, 0.764);
   }
 
   .banner__tab-mobile:not(.banner__tab-mobile--active) {

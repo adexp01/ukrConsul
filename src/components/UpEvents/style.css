@@ -19,6 +19,12 @@
   flex-shrink: 0;
 }
 
+.up-events__icon svg {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
 .up-events__title {
   margin: 0;
   color: #ffffff;
@@ -69,7 +75,7 @@
   width: 62px;
   height: 40px;
   border-radius: 8px;
-  background: #8C8C8C30;
+  background: #8c8c8c30;
   border: none;
   color: #fff;
   font-size: 16px;
@@ -296,5 +302,19 @@
     align-self: flex-start;
     margin-top: 32px;
     padding-top: 0;
+  }
+
+  .up-events__title {
+    font-size: 36px;
+  }
+
+  .up-events__icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .up-events__header {
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -63,8 +63,6 @@ export const UpEvents = () => {
           <span className="up-events__icon" aria-hidden="true">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="56"
-              height="56"
               viewBox="0 0 56 56"
               fill="none"
             >
