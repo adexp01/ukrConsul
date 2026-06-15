@@ -90,7 +90,7 @@ export const en = {
       "Independent Association of UAV Schools of Ukraine",
       "UCDI INVESTOR CLUB",
     ],
-    ctaTitle: ["WANT TO JOIN", "THE GUNSMITHS", "COUNCIL", "ECOSYSTEM?"],
+    ctaTitle: ["WANT TO JOIN", "THE UKRAINIAN", "COUNCIL OF DEFENCE", "ECOSYSTEM?"],
     ctaTitleMobile: [
       "WANT TO",
       "JOIN THE",
