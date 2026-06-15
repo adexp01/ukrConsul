@@ -187,7 +187,7 @@ section.about-us::after {
 .about-us__card-desc {
   margin: 0 0 14px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 24px;
   letter-spacing: -2%;
@@ -487,7 +487,6 @@ section.about-us::after {
   top: -55%;
   left: 5%;
   width: 285px;
-  height: 141px;
   transform: translateX(-58%);
   opacity: 0.55;
   filter: blur(0.4px);
@@ -509,7 +508,6 @@ section.about-us::after {
 .about-us__card--bottom-left {
   bottom: 34%;
   width: 285px;
-  height: 141px;
   left: 10%;
   top: auto;
   transform: translateX(-58%);
@@ -525,7 +523,6 @@ section.about-us::after {
   top: 20%;
   right: 0;
   width: 285px;
-  height: 141px;
   top: auto;
   background: rgba(90, 90, 90, 0.14);
 }

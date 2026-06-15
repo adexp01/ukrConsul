@@ -26,7 +26,7 @@ export const en = {
     tagline: "The largest association of private arms manufacturers",
     ourCompany: "Our company",
     contacts: "Contacts",
-    forContact: "For communication:",
+    forContact: "For inquiries:",
     infoRequests: "Information requests:",
     copyright: "Copyright © 2026",
     privacy: "Privacy Policy",
@@ -43,9 +43,9 @@ export const en = {
   banner: {
     label: "Capacity",
     panelText:
-      "We unite industry associations, present a common position, and work with the state, military, and international partners to accelerate production and scaling of the defense industry.",
-    title: ["UKRAINIAN COUNCIL", "OF ARMS MAKERS"],
-    sendRequest: "Send a request",
+      "We unite industry associations, represent a common position (general stand/ unified position), and work with the government, military, and international partners to accelerate the production and scaling of the defense industry.",
+    title: ["UKRAINIAN COUNCIL", "OF DEFENSE INDUSTRIES"],
+    sendRequest: "Send inquiry",
     tabs: {
       industry: "Weaponry",
       partners: "Partnership",
@@ -53,40 +53,41 @@ export const en = {
     },
   },
   aboutUs: {
-    title: ["THE LARGEST", "ASSOCIATION OF PRIVATE", "ARMS", "MANUFACTURERS"],
+    title: ["THE LARGEST", "ASSOCIATION OF PRIVATE", "DEFENCE", "INDUSTRIES"],
     aboutBtn: "About us",
     main: {
-      mobileLabel: "Participants",
+      mobileLabel: "Companies united into a single defence ecosystem",
       description: "Companies united in one defence ecosystem",
     },
     satellites: {
       manufacturers: {
-        mobileLabel: "Manufacturers",
+        mobileLabel: "Private defence manufacturers in the ecosystem",
         description: "Private defence manufacturers in the ecosystem",
       },
       schools: {
-        mobileLabel: "UAV schools",
+        mobileLabel: "schools training the new generation",
         description: "UAV schools training the next generation",
       },
       funds: {
-        mobileLabel: "Venture funds",
+        mobileLabel:
+          "Private defence venture funds investing in defence innovations ",
         description:
           "Private defence venture funds investing in defence innovation",
       },
     },
   },
   info: {
-    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF ARMS MAKERS"],
+    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENSE INDUSTRIES"],
     aboutBtn: "About us",
     organizations: [
       "DEFENSE ALLIANCE OF UKRAINE",
-      "LEAGUE OF DEFENSE ENTERPRISES OF UKRAINE",
+      "League of Defense Companies of Ukraine",
       "RADIOELECTRONIC ALLIANCE OF UKRAINE",
       "UKRAINIAN ROBOTIC FORCES",
       "TECHOSYSTEM DEFENSE",
-      'ASSOCIATION OF MANUFACTURERS OF UAVS "ARMADA"',
-      "ASSOCIATION OF MARITIME DRONES",
-      "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
+      'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
+      "Unmanned Naval Association",
+      "Independent Association of UAV Schools of Ukraine",
       "UCDI INVESTOR CLUB",
     ],
     ctaTitle: ["WANT TO JOIN", "THE GUNSMITHS", "COUNCIL", "ECOSYSTEM?"],
@@ -104,7 +105,7 @@ export const en = {
   },
   gallery: {
     heading: ["ACROSS THE FULL", "SPECTRUM OF", "DEFENCE", "INNOVATION"],
-    discover: "Discover the project",
+    discover: "Learn more about the project",
     prevProject: "Previous project",
     prevSlide: "Previous slide",
     nextSlide: "Next slide",
@@ -682,7 +683,7 @@ export const en = {
   aboutUsPage: {
     banner: {
       title: [
-        "UKRAINIAN COUNCIL OF ARMS MAKERS",
+        "UKRAINIAN COUNCIL OF DEFENSE INDUSTRIES",
         "— THE LARGEST ASSOCIATION OF UKRAINE'S PRIVATE DEFENCE INDUSTRY",
       ],
       description:

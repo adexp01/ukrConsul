@@ -26,11 +26,14 @@ export const Footer = () => {
       <div className="footer__inner">
         <section className="footer__cta" aria-label="Call to action">
           <h2 className="footer__cta-title">{t("footer.ctaTitle")}</h2>
-          <Button href="mailto:official@ucdi.org.ua" variant="primary" className="footer__cta-button">
+          <Button
+            href="mailto:official@ucdi.org.ua"
+            variant="primary"
+            className="footer__cta-button"
+          >
             {t("footer.sendRequest")}
           </Button>
         </section>
-
 
         <div className="footer__main">
           <section className="footer__brand">
@@ -84,10 +87,10 @@ export const Footer = () => {
                 {t("footer.infoRequests")}
               </p>
               <a
-                href="mailto:official@ucdi.org.ua"
+                href="mailto:info@ucdi.org.ua"
                 className="footer__contact-value"
               >
-                official@ucdi.org.ua
+                info@ucdi.org.ua
               </a>
               <a href="tel:+380508329207" className="footer__contact-value">
                 (050) 832 92 07
