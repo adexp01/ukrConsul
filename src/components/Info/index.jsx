@@ -158,7 +158,7 @@ export const Info = ({
             <p className="info-section__cta-text">{ctaCopy.ctaText}</p>
 
             <div className="info-section__cta-actions">
-              <Button href={testHref} variant="primary">
+              <Button href="mailto:official@ucdi.org.ua" variant="primary">
                 {ctaCopy.takeTest}
               </Button>
               <a href={applyHref} className="info-section__cta-link">

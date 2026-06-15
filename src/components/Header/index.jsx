@@ -4,11 +4,11 @@ import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const NAV_ITEMS = [
-  { key: "aboutUs", href: "/about-us" },
+  // { key: "aboutUs", href: "/about-us" },
   // { key: "getInvolved", href: "/get-involved" },
-  { key: "activities", href: "/activities", hasDropdown: true },
-  { key: "media", href: "/media" },
-  { key: "events", href: "/events" },
+  // { key: "activities", href: "/activities", hasDropdown: true },
+  // { key: "media", href: "/media" },
+  // { key: "events", href: "/events" },
   // { key: "contact", href: "/contact" },
 ];
 

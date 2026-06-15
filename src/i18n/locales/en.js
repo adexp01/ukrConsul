@@ -21,7 +21,7 @@ export const en = {
     ],
   },
   footer: {
-    ctaTitle: "JOIN THE COUNCIL OF ARMS MAKERS",
+    ctaTitle: "JOIN THE UKRAINIAN COUNCIL OF DEFENCE INDUSTRIES",
     sendRequest: "Submit application",
     tagline: "The largest association of private arms manufacturers",
     ourCompany: "Our company",

@@ -165,7 +165,7 @@ export const Bunner = () => {
             ))}
           </h2>
 
-          <Button href="#" className="banner__cta">
+          <Button href="mailto:official@ucdi.org.ua" className="banner__cta">
             {t("banner.sendRequest")}
           </Button>
         </div>

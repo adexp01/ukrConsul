@@ -26,7 +26,7 @@ export const Footer = () => {
       <div className="footer__inner">
         <section className="footer__cta" aria-label="Call to action">
           <h2 className="footer__cta-title">{t("footer.ctaTitle")}</h2>
-          <Button href="#" variant="primary" className="footer__cta-button">
+          <Button href="mailto:official@ucdi.org.ua" variant="primary" className="footer__cta-button">
             {t("footer.sendRequest")}
           </Button>
         </section>
