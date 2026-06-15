@@ -43,7 +43,7 @@ export const en = {
   banner: {
     label: "Capacity",
     panelText:
-      "We unite industry associations, represent a common position (general stand/ unified position), and work with the government, military, and international partners to accelerate the production and scaling of the defense industry.",
+      "We unite industry associations, represent a common position and work with the government, military, and international partners to accelerate the production and scaling of the defense industry.",
     title: ["UKRAINIAN COUNCIL", "OF DEFENSE INDUSTRIES"],
     sendRequest: "Send inquiry",
     tabs: {
