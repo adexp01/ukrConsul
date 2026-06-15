@@ -4,7 +4,7 @@ import { Button } from "../../components/UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 
 export const NotFoundPage = () => {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   return (
     <PageLayout variant="not-found">
@@ -17,7 +17,7 @@ export const NotFoundPage = () => {
 
         <p className="not-found-page__text">{t("notFound.text")}</p>
 
-        <Button href="/" variant="primary" className="not-found-page__cta">
+        <Button href={localizePath("/")} variant="primary" className="not-found-page__cta">
           {t("notFound.cta")}
         </Button>
       </div>

@@ -23,7 +23,7 @@ const NEWS_META = [
 ];
 
 export const OurNews = () => {
-  const { t, language } = useLanguage();
+  const { t, language, localizePath } = useLanguage();
   const [activeFilter, setActiveFilter] = useState("all");
 
   const news = useMemo(() => {
@@ -52,7 +52,7 @@ export const OurNews = () => {
             {t("ourNews.title")}
           </h2>
 
-          <Button href="/media" variant="default" className="our-news__all-link">
+          <Button href={localizePath("/media")} variant="default" className="our-news__all-link">
             {t("ourNews.allNews")}
           </Button>
         </header>

@@ -10,15 +10,15 @@ import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "#", icon: instagram },
-  { id: "facebook", label: "Facebook", href: "#", icon: facebook },
-  { id: "linkedin", label: "LinkedIn", href: "#", icon: linkedin },
-  { id: "telegram", label: "Telegram", href: "#", icon: telegram },
-  { id: "x", label: "X", href: "#", icon: xIcon },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/ucdi_official/", icon: instagram },
+  { id: "facebook", label: "Facebook", href: "https://www.facebook.com/profile.php?id=61573734720256", icon: facebook },
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/105948600/admin/page-posts/published/", icon: linkedin },
+  { id: "telegram", label: "Telegram", href: "https://t.me/DefenderMedia", icon: telegram },
+  { id: "x", label: "X", href: "https://x.com/UCDI_Official", icon: xIcon },
 ];
 
 export const Footer = () => {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const companyLinks = t("footer.companyLinks");
 
   return (
@@ -37,7 +37,7 @@ export const Footer = () => {
 
         <div className="footer__main">
           <section className="footer__brand">
-            <a href="/" className="footer__logo">
+            <a href={localizePath("/")} className="footer__logo">
               <img src={logo} alt={t("header.logoAlt")} />
             </a>
             <p className="footer__tagline">{t("footer.tagline")}</p>
@@ -102,10 +102,10 @@ export const Footer = () => {
         <div className="footer__bottom">
           <p className="footer__copyright">{t("footer.copyright")}</p>
           <div className="footer__legal-links">
-            <a href="/privacy-policy" className="footer__legal">
+            <a href={localizePath("/privacy-policy")} className="footer__legal">
               {t("footer.privacy")}
             </a>
-            <a href="/terms" className="footer__legal">
+            <a href={localizePath("/terms")} className="footer__legal">
               {t("footer.terms")}
             </a>
           </div>

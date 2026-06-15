@@ -6,14 +6,14 @@ import "./style.css";
 
 export const EventDetailContent = () => {
   const { id } = useParams();
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   const events = t("eventDetails");
   const event = events?.[id];
   const labels = t("eventDetailsPage");
 
   if (!event) {
-    return <Navigate to="/events" replace />;
+    return <Navigate to={localizePath("/events")} replace />;
   }
 
   const formatLabel =
@@ -24,7 +24,7 @@ export const EventDetailContent = () => {
   return (
     <div className="event-detail__shell">
       <nav className="event-detail__breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/events" className="event-detail__breadcrumb-link">
+        <Link to={localizePath("/events")} className="event-detail__breadcrumb-link">
           {labels.breadcrumbEvents}
         </Link>
         <span className="event-detail__breadcrumb-sep" aria-hidden="true">

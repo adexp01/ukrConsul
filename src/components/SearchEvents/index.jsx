@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../UI/Button";
 import { SEARCH_EVENT_GROUPS } from "../../data/searchEventsCatalog";
+import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const CATEGORIES = [
@@ -14,6 +15,7 @@ const CATEGORIES = [
 ];
 
 export const SearchEvents = () => {
+  const { localizePath } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [activeEventId, setActiveEventId] = useState();
 
@@ -107,7 +109,7 @@ export const SearchEvents = () => {
                             <h3 className="search-events__event-title">{card.title}</h3>
                             <p className="search-events__event-text">{card.text}</p>
                             <Link
-                              to={`/events/details/${card.detailId}`}
+                              to={localizePath(`/events/details/${card.detailId}`)}
                               className="search-events__event-link"
                             >
                               Більше про подію

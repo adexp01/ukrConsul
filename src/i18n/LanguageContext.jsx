@@ -4,31 +4,53 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
 } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { en } from "./locales/en";
 import { uk } from "./locales/uk";
 import { getByPath } from "./getByPath";
+import {
+  DEFAULT_LANGUAGE,
+  getLanguageFromLocale,
+  getLocaleFromLanguage,
+  getLocaleFromPathname,
+  localizePath as buildLocalizedPath,
+  switchLanguagePath,
+} from "./localeRoutes";
 
 const STORAGE_KEY = "ucdi-lang";
 
 const TRANSLATIONS = { en, uk };
 
-const getInitialLanguage = () => {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "en" || stored === "uk") return stored;
-  return navigator.language.toLowerCase().startsWith("uk") ? "uk" : "en";
-};
-
 const LanguageContext = createContext(null);
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguageState] = useState(getInitialLanguage);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const urlLocale = getLocaleFromPathname(location.pathname);
+  const language = urlLocale
+    ? getLanguageFromLocale(urlLocale)
+    : DEFAULT_LANGUAGE;
 
-  const setLanguage = useCallback((lang) => {
-    setLanguageState(lang);
-    localStorage.setItem(STORAGE_KEY, lang);
-  }, []);
+  const setLanguage = useCallback(
+    (lang) => {
+      if (lang !== "en" && lang !== "uk") return;
+
+      localStorage.setItem(STORAGE_KEY, lang);
+      const nextPath = switchLanguagePath(location.pathname, lang);
+      const nextUrl = `${nextPath}${location.search}${location.hash}`;
+
+      if (nextUrl !== `${location.pathname}${location.search}${location.hash}`) {
+        navigate(nextUrl);
+      }
+    },
+    [location.hash, location.pathname, location.search, navigate],
+  );
+
+  const localizePath = useCallback(
+    (path) => buildLocalizedPath(path, language),
+    [language],
+  );
 
   useEffect(() => {
     document.documentElement.lang = language === "uk" ? "uk" : "en";
@@ -45,11 +67,13 @@ export const LanguageProvider = ({ children }) => {
 
     return {
       language,
+      locale: urlLocale ?? getLocaleFromLanguage(language),
       setLanguage,
+      localizePath,
       t,
       dict,
     };
-  }, [language, setLanguage]);
+  }, [language, localizePath, urlLocale]);
 
   return (
     <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>

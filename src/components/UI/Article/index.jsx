@@ -20,8 +20,8 @@ export const Article = ({
   description,
   className = "",
 }) => {
-  const { t } = useLanguage();
-  const articleHref = href ?? `/article/${id}`;
+  const { t, localizePath } = useLanguage();
+  const articleHref = localizePath(href ?? `/article/${id}`);
   const readLabel = t("articles.readArticle");
   const bodyText = excerpt ?? description;
   const colorVariant = variant ?? ((Number(id) - 1) % 3) + 1;

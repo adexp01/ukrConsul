@@ -17,7 +17,7 @@ const SOCIALS = [
 
 export const ArticleContent = () => {
   const { id } = useParams();
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
 
   const articles = t("articleContent.articles");
   const article = articles[id] ?? articles[3];
@@ -25,7 +25,7 @@ export const ArticleContent = () => {
   return (
     <div className="article-page__shell">
       <nav className="article-page__breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/media" className="article-page__breadcrumb-link">
+        <Link to={localizePath("/media")} className="article-page__breadcrumb-link">
           {t("articleContent.breadcrumbMedia")}
         </Link>
         <span className="article-page__breadcrumb-sep" aria-hidden="true">

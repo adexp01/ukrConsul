@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { stripLocalePrefix } from "../../i18n/localeRoutes";
 import "./style.css";
-import { useLocation } from "react-router-dom";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -54,7 +55,7 @@ export const UpEvents = () => {
     setSelectedDay(1);
   };
 
-  const isEventsPage = pathname === "/events";
+  const isEventsPage = stripLocalePrefix(pathname) === "/events";
 
   return (
     <section className="up-events" aria-labelledby="up-events-title">

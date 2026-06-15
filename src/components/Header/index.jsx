@@ -13,7 +13,7 @@ const NAV_ITEMS = [
 ];
 
 export const Header = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, localizePath, t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActivitiesOpen, setIsActivitiesOpen] = useState(false);
 
@@ -36,7 +36,7 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="header__left">
-        <a href="/" className="header__logo" onClick={closeMenu}>
+        <a href={localizePath("/")} className="header__logo" onClick={closeMenu}>
           <img src={logo} alt={t("header.logoAlt")} />
         </a>
 
@@ -126,7 +126,7 @@ export const Header = () => {
                       {activitiesMenu.map((menuItem) => (
                         <li key={menuItem.id}>
                           <a
-                            href={menuItem.href}
+                            href={localizePath(menuItem.href)}
                             className="header__dropdown-link"
                             onClick={closeMenu}
                           >
