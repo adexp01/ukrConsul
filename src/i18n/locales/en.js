@@ -47,7 +47,7 @@ export const en = {
     title: ["UKRAINIAN COUNCIL", "OF ARMS MAKERS"],
     sendRequest: "Send a request",
     tabs: {
-      industry: "Weaponry / Arms",
+      industry: "Weaponry",
       partners: "Partnership",
       capacity: "Development",
     },
@@ -112,7 +112,7 @@ export const en = {
       {
         title: "ZBROYA EXPO",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "We ensure a systematic presence of Ukrainian defence manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize booths, and support exhibitions at all stages. ",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",
@@ -125,20 +125,21 @@ export const en = {
       {
         title: "EXPORT MAP",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "A practical roadmap for Ukrainian defence manufacturers, explaining how to enter foreign markets. The outlined routes break down the process into clear steps: where to start, what documents to prepare, how to navigate licensing procedures, and more.",
         descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
+          "A practical roadmap for Ukrainian",
+          "arms manufacturers explaining how to",
+          "enter foreign markets.",
+          "The outlined routes break the process",
+          "into clear steps: where to start,",
+          "which documents to prepare, and more.",
+          "More details – https://export.ucdi.org.ua/",
         ],
       },
       {
         title: "AMONG GUNSMITHS",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "A series of closed professional meetings to establish cooperation between arms manufacturers, government bodies, and financial institutions.",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",
@@ -151,7 +152,7 @@ export const en = {
       {
         title: "BUILD WITH UKRAINE",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "We support manufacturers in entering international markets through a joint venture model with partners abroad. We help launch cooperation, integrate Ukrainian technologies into global supply chains, and scale production while maintaining key competencies within Ukraine.",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",
@@ -164,7 +165,7 @@ export const en = {
       {
         title: "DEALBOOK",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "The first analytical product of the UCDI Investor Club, which systematizes public and verified market data on deals, investors, verticals, and funding stages for 2023–2025.",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",
@@ -175,10 +176,10 @@ export const en = {
         ],
       },
       {
-        title: "WHITE PAPER OF CHANGE IN DI",
+        title: "WHITE PAPER OF CHANGES IN THE DEFENSE INDUSTRY ",
         titleLines: ["WHITE PAPER OF CHANGE", "IN DI"],
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "An analytical document that systematizes key decisions of 2025, current priorities for early 2026, and systemic barriers affecting the operations of Ukrainian defense industry manufacturers.",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",
@@ -189,9 +190,9 @@ export const en = {
         ],
       },
       {
-        title: "DEFENSE CLUSTER",
+        title: "DRONE AND CYBER COMPETITIONS ",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands, and support expositions at every stage.",
+          "Together with our partners, the Ukrainian Technological Sports Federation, we are forming a national team and organizing regional and national tournaments. We are introducing a new, officially recognized sport at the intersection of technology, education, and innovation.",
         descriptionLines: [
           "We ensure the systematic presence",
           "of Ukrainian defense manufacturers at key",

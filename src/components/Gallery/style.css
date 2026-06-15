@@ -208,6 +208,21 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
+  white-space: pre-line;
+}
+
+.gallery-section__desc-link {
+  color: #ee7d33;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.gallery-section__desc-link:hover {
+  color: #f5924f;
+  opacity: 0.9;
 }
 
 .gallery-section__desc--mobile {

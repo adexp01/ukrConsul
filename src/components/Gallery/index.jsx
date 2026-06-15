@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
@@ -11,6 +11,35 @@ import f6 from "../../assets/f6.png";
 import f7 from "../../assets/f7.png";
 
 const PHOTO_TRANSITION_MS = 560;
+
+const URL_PATTERN = /(https?:\/\/[^\s]+)/g;
+
+const linkifyText = (text) => {
+  if (!text) return null;
+
+  return text.split(URL_PATTERN).map((part, index) => {
+    if (!part.startsWith("http://") && !part.startsWith("https://")) {
+      return <Fragment key={index}>{part}</Fragment>;
+    }
+
+    const href = part.replace(/[.,;:!?)]+$/, "");
+    const trailing = part.slice(href.length);
+
+    return (
+      <Fragment key={index}>
+        <a
+          href={href}
+          className="gallery-section__desc-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {href}
+        </a>
+        {trailing}
+      </Fragment>
+    );
+  });
+};
 
 const SLIDE_MEDIA = [
   {
@@ -160,12 +189,12 @@ export const Gallery = () => {
             </div>
 
             <p className="gallery-section__desc gallery-section__desc--desktop">
-              {slide.description}
+              {linkifyText(slide.description)}
             </p>
 
             <div className="gallery-section__desc-lines gallery-section__desc--mobile">
               {slide.descriptionLines.map((line) => (
-                <span key={line}>{line}</span>
+                <span key={line}>{linkifyText(line)}</span>
               ))}
             </div>
 

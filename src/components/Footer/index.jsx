@@ -1,3 +1,4 @@
+// import logo from "../../assets/logo.png";
 import logo from "../../assets/logo.png";
 import { Button } from "../UI/Button";
 import instagram from "../../assets/ins.svg";

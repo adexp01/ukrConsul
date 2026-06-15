@@ -13,7 +13,7 @@ import "./style.css";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Bunner = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { tabs, mobileTabs } = useBannerTabs();
   const textRevealRef = useRef(null);
   const TEXT_ANIMATION_DELAY_MS = 1000;
@@ -99,7 +99,7 @@ export const Bunner = () => {
   const titleLines = t("banner.title");
 
   return (
-    <section className="banner" aria-label="Hero banner">
+    <section className={`banner banner--${language}`} aria-label="Hero banner">
       <div className="banner__inner">
         <div className="banner__top">
           <CenterFrame className="banner__mobile-only" />
