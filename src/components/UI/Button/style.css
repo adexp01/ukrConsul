@@ -1,7 +1,5 @@
 .u-btn--1 {
-  --button-font:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
-    sans-serif;
+  --button-font: "Fixel Display", sans-serif;
   --button-text-color: #fff;
   --button-blob-icon-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
   --button-blob-icon-image-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
@@ -34,8 +32,11 @@
   align-items: stretch;
   background: transparent;
   border-radius: 0;
-  height: 48px;
+  min-height: 48px;
+  height: auto;
   width: fit-content;
+  max-width: none;
+  overflow: visible;
 }
 .u-btn--1:not(:disabled) {
   pointer-events: auto;
@@ -54,26 +55,28 @@
   transition-timing-function: var(--button-transition-timing-function);
 }
 
-.u-btn--1 .btn_label {
+.u-btn--1 .btn_label,
+.u-btn--1 .button2__label {
   align-items: center;
   background: var(--button-text-background);
   border-radius: 12px 0 0 12px;
   color: var(--button-text-color);
   display: inline-flex;
+  flex-shrink: 0;
   font-family: var(--button-font);
-  font-weight: 600;
-  font-size: max(
-    0.75rem,
-    min(calc(0.75rem + 0.002 * (100vw - 27.5rem)), 0.875rem)
-  );
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
   justify-content: flex-start;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
   line-height: 1;
   margin-right: 16px;
+  max-width: none;
   overflow: visible;
   padding: 8px 8px 8px 20px;
   position: relative;
   text-transform: uppercase;
+  white-space: nowrap;
   transition-duration: var(--button-transition-duration);
   transition-property:
     background-color, color, margin-inline-end, padding-right;
@@ -95,11 +98,14 @@
 .u-btn--1 .btn_icon {
   background-color: transparent;
   display: inline-flex;
+  flex-shrink: 0;
   overflow: hidden;
   padding: 10px;
   position: relative;
   width: var(--button-icon-width);
-  height: 100%;
+  min-height: 48px;
+  height: auto;
+  align-self: stretch;
   transform: scale(1);
   transform-origin: center right;
   transition-duration: var(--button-transition-duration);

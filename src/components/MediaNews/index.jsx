@@ -3,7 +3,6 @@ import { Article } from "../UI/Article";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 import { Button } from "../UI/Button";
-import { ButtonTest } from "../UI/ButtonTest";
 
 const FILTER_IDS = [
   "all",
@@ -166,7 +165,7 @@ export const MediaNews = () => {
 
         {canLoadMore && visibleNews.length > 0 ? (
           <div className="media-news__footer">
-            <ButtonTest
+            <Button
               variant="default"
               onClick={() =>
                 setVisibleCount((count) =>
@@ -175,7 +174,7 @@ export const MediaNews = () => {
               }
             >
               {t("mediaNews.loadMore")}
-            </ButtonTest>
+            </Button>
           </div>
         ) : null}
       </div>

@@ -83,10 +83,10 @@ export const Footer = () => {
                 {t("footer.infoRequests")}
               </p>
               <a
-                href="mailto:info@ucdi.org.ua"
+                href="mailto:official@ucdi.org.ua"
                 className="footer__contact-value"
               >
-                info@ucdi.org.ua
+                official@ucdi.org.ua
               </a>
               <a href="tel:+380508329207" className="footer__contact-value">
                 (050) 832 92 07

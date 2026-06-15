@@ -41,24 +41,19 @@ export const en = {
     ],
   },
   banner: {
-    label: "You see ...",
+    label: "Capacity",
     panelText:
       "We unite industry associations, present a common position, and work with the state, military, and international partners to accelerate production and scaling of the defense industry.",
     title: ["UKRAINIAN COUNCIL", "OF ARMS MAKERS"],
     sendRequest: "Send a request",
     tabs: {
-      industry: "Ukraine’s private defence industry",
-      partners: "partners",
-      capacity: "capacity",
+      industry: "Weaponry / Arms",
+      partners: "Partnership",
+      capacity: "Development",
     },
   },
   aboutUs: {
-    title: [
-      "THE LARGEST",
-      "ASSOCIATION OF PRIVATE",
-      "ARMS",
-      "MANUFACTURERS",
-    ],
+    title: ["THE LARGEST", "ASSOCIATION OF PRIVATE", "ARMS", "MANUFACTURERS"],
     aboutBtn: "About us",
     main: {
       mobileLabel: "Participants",
@@ -94,12 +89,7 @@ export const en = {
       "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
       "UCDI INVESTOR CLUB",
     ],
-    ctaTitle: [
-      "WANT TO JOIN",
-      "THE GUNSMITHS",
-      "COUNCIL",
-      "ECOSYSTEM?",
-    ],
+    ctaTitle: ["WANT TO JOIN", "THE GUNSMITHS", "COUNCIL", "ECOSYSTEM?"],
     ctaTitleMobile: [
       "WANT TO",
       "JOIN THE",
@@ -299,11 +289,7 @@ export const en = {
     ],
   },
   sendRequest: {
-    title: [
-      "Writing about",
-      "Ukraine's defence industry?",
-      "Contact us",
-    ],
+    title: ["Writing about", "Ukraine's defence industry?", "Contact us"],
     description:
       "We will help you find an expert comment or materials on the Ukrainian defence industry, the Council's activities and its members.",
     cta: "Send a media request",
@@ -401,7 +387,11 @@ export const en = {
         "We cover Ukraine's defence industry, the activities of the Gunsmiths' Council, key decisions for the sector, international cooperation, and projects that help Ukrainian manufacturers scale domestically and abroad.",
     },
     info: {
-      title: ["Media projects —", "how we tell the story", "of the defence industry"],
+      title: [
+        "Media projects —",
+        "how we tell the story",
+        "of the defence industry",
+      ],
       columns: [
         "The Ukrainian Council of Defence Industry develops media projects that help explain the role of the defence industry to society, partners and international audiences.",
         "We work to ensure that Ukraine's defence industry is understood not only as a production sector, but as part of the economy, technological development, international cooperation and security.",
@@ -626,8 +616,7 @@ export const en = {
       ],
       registrationTitle:
         "Participation in the meeting is only possible with prior registration.",
-      registrationDeadline:
-        "Application deadline: 26 May by 12:00",
+      registrationDeadline: "Application deadline: 26 May by 12:00",
     },
     "asd-connect-2": {
       breadcrumbGroup: "Among armourers",
@@ -945,12 +934,7 @@ export const en = {
         "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
         "UCDI INVESTOR CLUB",
       ],
-      ctaTitle: [
-        "WANT TO",
-        "JOIN THE",
-        "GUNSMITHS' COUNCIL",
-        "ECOSYSTEM?",
-      ],
+      ctaTitle: ["WANT TO", "JOIN THE", "GUNSMITHS' COUNCIL", "ECOSYSTEM?"],
       ctaTitleMobile: [
         "WANT TO",
         "JOIN THE",

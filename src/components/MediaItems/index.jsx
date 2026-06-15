@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
-import { ButtonTest } from "../UI/ButtonTest";
 
 const MediaItemCard = ({ item, imagePlaceholder }) => {
   const isFeatured = item.layout === "featured";
@@ -33,9 +32,9 @@ const MediaItemCard = ({ item, imagePlaceholder }) => {
           )}
         </div>
 
-        <ButtonTest href={item.href} variant="default" className="media-item__cta">
+        <Button href={item.href} variant="default" className="media-item__cta">
           {item.cta}
-        </ButtonTest>
+        </Button>
       </div>
     </article>
   );

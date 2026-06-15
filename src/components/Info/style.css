@@ -179,12 +179,12 @@
   margin-right: 8%;
 }
 
-.info-section__cta-title-lines--desktop > span:nth-child(3) {
+.info-section__cta-title-lines--desktop > span:nth-child(3):not(:last-child) {
   align-self: flex-start;
   margin-left: 4%;
 }
 
-.info-section__cta-title-lines--desktop > span:nth-child(4) {
+.info-section__cta-title-lines--desktop > span:last-child {
   align-self: flex-start;
   margin-left: 20%;
 }

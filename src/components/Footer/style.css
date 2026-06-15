@@ -31,7 +31,6 @@
 
 .footer__cta-button {
   flex-shrink: 0;
-  max-width: 239px;
 }
 
 .footer__divider {
@@ -237,7 +236,6 @@
 
   .footer__cta-button {
     width: 100%;
-    max-width: 239px;
   }
 
   .footer__divider {

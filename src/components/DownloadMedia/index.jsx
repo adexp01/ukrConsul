@@ -4,7 +4,6 @@ import zipIcon from "../../assets/zipIcon.svg";
 import downloadIcon from "../../assets/downloadIcon.svg";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { ButtonTest } from "../UI/ButtonTest";
 
 const FILE_TYPES = ["PDF", "PDF", "ZIP"];
 
@@ -47,7 +46,7 @@ export const DownloadMedia = () => {
         </ul>
 
         <div className="download-media__actions">
-          <ButtonTest
+          <Button
             href="#"
             variant="primary"
             icon={
@@ -59,7 +58,7 @@ export const DownloadMedia = () => {
             }
           >
             {t("media.download.downloadZip")}
-          </ButtonTest>
+          </Button>
         </div>
       </div>
     </section>
