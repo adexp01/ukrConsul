@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import logo from "../../assets/logo.svg";
+import logoEn from "../../assets/logo.svg";
+import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export const Header = () => {
   const { language, setLanguage, localizePath, t } = useLanguage();
+  const logo = language === "uk" ? logoUk : logoEn;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActivitiesOpen, setIsActivitiesOpen] = useState(false);
 

@@ -21,9 +21,9 @@ export const en = {
     ],
   },
   footer: {
-    ctaTitle: "JOIN THE UKRAINIAN COUNCIL OF DEFENCE INDUSTRIES",
+    ctaTitle: "JOIN THE UKRAINIAN COUNCIL OF DEFENCE INDUSTRY",
     sendRequest: "Submit application",
-    tagline: "The largest association of private arms manufacturers",
+    tagline: "The largest association of private defence manufacturers",
     ourCompany: "Our company",
     contacts: "Contacts",
     forContact: "For inquiries:",
@@ -44,7 +44,7 @@ export const en = {
     label: "Capacity",
     panelText:
       "We unite industry associations, represent a common position and work with the government, military, and international partners to accelerate the production and scaling of the defense industry.",
-    title: ["UKRAINIAN COUNCIL", "OF DEFENSE INDUSTRIES"],
+    title: ["UKRAINIAN COUNCIL", "OF DEFENSE INDUSTRY"],
     sendRequest: "Send inquiry",
     tabs: {
       industry: "Weaponry",
@@ -53,7 +53,12 @@ export const en = {
     },
   },
   aboutUs: {
-    title: ["THE LARGEST", "ASSOCIATION OF PRIVATE", "DEFENCE", "INDUSTRIES"],
+    title: [
+      "THE LARGEST",
+      "ASSOCIATION OF PRIVATE",
+      "DEFENCE",
+      "MANUFACTURERS",
+    ],
     aboutBtn: "About us",
     main: {
       mobileLabel: "Companies united into a single defence ecosystem",
@@ -77,7 +82,7 @@ export const en = {
     },
   },
   info: {
-    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENSE INDUSTRIES"],
+    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENSE INDUSTRY"],
     aboutBtn: "About us",
     organizations: [
       "DEFENSE ALLIANCE OF UKRAINE",
@@ -90,12 +95,20 @@ export const en = {
       "Independent Association of UAV Schools of Ukraine",
       "UCDI INVESTOR CLUB",
     ],
-    ctaTitle: ["WANT TO JOIN", "THE UKRAINIAN", "COUNCIL OF DEFENCE", "ECOSYSTEM?"],
+    ctaTitle: [
+      "WANT TO JOIN",
+      "THE UKRAINIAN",
+      "COUNCIL OF DEFENCE",
+      "INDUSTRY",
+      "ECOSYSTEM?",
+    ],
     ctaTitleMobile: [
       "WANT TO",
       "JOIN THE",
-      "GUNSMITHS",
-      "COUNCIL",
+      "HE UKRAINIAN",
+      "COUNCIL OF",
+      "DEFENCE",
+      "INDUSTRY",
       "ECOSYSTEM?",
     ],
     ctaText:
@@ -104,7 +117,7 @@ export const en = {
     applyDirectly: "Apply directly",
   },
   gallery: {
-    heading: ["ACROSS THE FULL", "SPECTRUM OF", "DEFENCE", "INNOVATION"],
+    heading: ["Our projects and", "products in the ", "DEFENCE", "industry"],
     discover: "Learn more about the project",
     prevProject: "Previous project",
     prevSlide: "Previous slide",
@@ -138,7 +151,7 @@ export const en = {
         ],
       },
       {
-        title: "AMONG GUNSMITHS",
+        title: "AMONG ARMORERS",
         description:
           "A series of closed professional meetings to establish cooperation between arms manufacturers, government bodies, and financial institutions.",
         descriptionLines: [
@@ -263,6 +276,9 @@ export const en = {
     title: "LATEST ARTICLES",
     allMedia: "All media",
     readArticle: "Read article",
+    emptyTitle: "No articles yet",
+    emptyText:
+      "We're preparing stories about the Council and the defence industry — new publications will appear here soon.",
     items: [
       {
         tag: "News",
@@ -629,7 +645,7 @@ export const en = {
       format: "online",
       title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
       body: [
-        "The event will bring together defense product manufacturers, banking representatives and the Ministry of Strategic Industries to discuss the 5% lending programme launched in 2024.",
+        "The event will bring together defense product manufacturers, banking representatives and the Ministry of Strategic Industry to discuss the 5% lending programme launched in 2024.",
         "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand.",
       ],
       registrationTitle:
@@ -683,7 +699,7 @@ export const en = {
   aboutUsPage: {
     banner: {
       title: [
-        "UKRAINIAN COUNCIL OF DEFENSE INDUSTRIES",
+        "UKRAINIAN COUNCIL OF DEFENSE INDUSTRY",
         "— THE LARGEST ASSOCIATION OF UKRAINE'S PRIVATE DEFENCE INDUSTRY",
       ],
       description:

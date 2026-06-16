@@ -629,11 +629,6 @@ section.about-us::after {
     text-align: left;
   }
 
-  .about-us__title > span:nth-child(4) {
-    padding-left: 19%;
-    text-align: left;
-  }
-
   .about-us__stage {
     position: relative;
     width: 100%;
@@ -674,7 +669,6 @@ section.about-us::after {
     top: -15%;
     left: 0;
     width: 172px;
-    height: 102px;
     opacity: 1;
     filter: none;
     transform: none !important;
@@ -691,7 +685,6 @@ section.about-us::after {
     left: auto;
     bottom: auto;
     width: 172px;
-    height: 102px;
     background: rgba(95, 88, 82, 0.38);
     border-color: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(14px);
@@ -733,7 +726,6 @@ section.about-us::after {
     bottom: -5%;
     left: 50%;
     width: 172px;
-    height: 102px;
     background: rgba(36, 34, 32, 0.78);
     border-color: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);

@@ -7,7 +7,7 @@ import "./style.css";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
-const EVENT_KEYS = ["2025-04-10", "2025-04-20", "2025-04-22"];
+const EVENT_KEYS = [];
 
 const toKey = (year, month, day) =>
   `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -27,8 +27,11 @@ const getMonthGrid = (year, month) => {
 
 export const UpEvents = () => {
   const { t, language } = useLanguage();
-  const [viewDate, setViewDate] = useState(() => new Date(2025, 3, 1));
-  const [selectedDay, setSelectedDay] = useState(10);
+  const [viewDate, setViewDate] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
+  const [selectedDay, setSelectedDay] = useState(() => new Date().getDate());
   const { pathname } = useLocation();
 
   const events = useMemo(() => {

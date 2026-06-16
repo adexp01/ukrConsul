@@ -340,11 +340,11 @@
   }
 
   .gallery-section__heading > span:nth-child(2) {
-    padding-left: 40%;
+    padding-left: 20%;
   }
 
   .gallery-section__heading > span:nth-child(4) {
-    padding-left: 10%;
+    padding-left: 30%;
   }
 
   .gallery-section__slider {

@@ -1,5 +1,5 @@
-// import logo from "../../assets/logo.png";
-import logo from "../../assets/logo.png";
+import logoEn from "../../assets/logo.svg";
+import logoUk from "../../assets/logouk.svg";
 import { Button } from "../UI/Button";
 import instagram from "../../assets/ins.svg";
 import facebook from "../../assets/faceb.svg";
@@ -10,15 +10,36 @@ import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/ucdi_official/", icon: instagram },
-  { id: "facebook", label: "Facebook", href: "https://www.facebook.com/profile.php?id=61573734720256", icon: facebook },
-  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/105948600/admin/page-posts/published/", icon: linkedin },
-  { id: "telegram", label: "Telegram", href: "https://t.me/DefenderMedia", icon: telegram },
+  {
+    id: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/ucdi_official/",
+    icon: instagram,
+  },
+  {
+    id: "facebook",
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61573734720256",
+    icon: facebook,
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/105948600/admin/page-posts/published/",
+    icon: linkedin,
+  },
+  {
+    id: "telegram",
+    label: "Telegram",
+    href: "https://t.me/DefenderMedia",
+    icon: telegram,
+  },
   { id: "x", label: "X", href: "https://x.com/UCDI_Official", icon: xIcon },
 ];
 
 export const Footer = () => {
-  const { t, localizePath } = useLanguage();
+  const { t, localizePath, language } = useLanguage();
+  const logo = language === "uk" ? logoUk : logoEn;
   const companyLinks = t("footer.companyLinks");
 
   return (
@@ -92,8 +113,8 @@ export const Footer = () => {
               >
                 info@ucdi.org.ua
               </a>
-              <a href="tel:+380508329207" className="footer__contact-value">
-                (050) 832 92 07
+              <a href="tel:+380688764622" className="footer__contact-value">
+                +38 068 876 46 22
               </a>
             </div>
           </div>
