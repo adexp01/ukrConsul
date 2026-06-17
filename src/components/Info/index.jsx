@@ -15,7 +15,7 @@ export const Info = ({
   shieldSrc = defaultShield,
   aboutHref = "#",
   testHref = "#",
-  applyHref = "#",
+  applyHref = "https://forms.cloud.microsoft/pages/responsepage.aspx?id=2Nut6FpvHUy8VXfKXJzrZSw3IsbUBcFNjK9tBkyFmvFUNkM0OFg4QU5NWUU0RkhDUktJUjRZNjFZSy4u&route=shorturl",
   showCta = true,
   showAboutBtn = true,
   headingId = "info-orgs-heading",
@@ -161,7 +161,7 @@ export const Info = ({
               {/* <Button href="mailto:official@ucdi.org.ua" variant="primary">
                 {ctaCopy.takeTest}
               </Button> */}
-              <a href={applyHref} className="info-section__cta-link">
+              <a href={applyHref} className="info-section__cta-link" target="_blank">
                 {ctaCopy.applyDirectly}
                 <span aria-hidden="true">→</span>
               </a>

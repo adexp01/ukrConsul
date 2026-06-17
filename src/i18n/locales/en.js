@@ -243,8 +243,8 @@ export const en = {
       "December",
     ],
     events: {
-      "2025-04-10": {
-        time: "10-11 april / 09:00-12:00",
+      "2026-06-18": {
+        time: "18 june / 09:00-12:00",
         categoryLabel: "Open events:",
         categoryName: "Defense regions",
         format: "online",
@@ -252,8 +252,8 @@ export const en = {
         description:
           "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
-      "2025-04-20": {
-        time: "20 april / 14:00-17:00",
+      "2026-06-24": {
+        time: "24 june / 14:00-17:00",
         categoryLabel: "Closed events:",
         categoryName: "Among armourers",
         format: "offline",
@@ -261,8 +261,8 @@ export const en = {
         description:
           "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
-      "2025-04-22": {
-        time: "22 april / 10:00-13:00",
+      "2026-06-28": {
+        time: "28 june / 10:00-13:00",
         categoryLabel: "Open events:",
         categoryName: "UAV ecosystem",
         format: "online",

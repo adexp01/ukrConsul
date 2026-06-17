@@ -7,8 +7,6 @@ import "./style.css";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
-const EVENT_KEYS = [];
-
 const toKey = (year, month, day) =>
   `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
@@ -36,10 +34,7 @@ export const UpEvents = () => {
 
   const events = useMemo(() => {
     const translated = t("upEvents.events");
-    return EVENT_KEYS.reduce((acc, key) => {
-      if (translated[key]) acc[key] = translated[key];
-      return acc;
-    }, {});
+    return translated && typeof translated === "object" ? translated : {};
   }, [t, language]);
 
   const monthNames = t("upEvents.months");
