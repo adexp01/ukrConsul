@@ -43,8 +43,8 @@ export const en = {
   banner: {
     label: "Capacity",
     panelText:
-      "We unite industry associations, represent a common position and work with the government, military, and international partners to accelerate the production and scaling of the defense industry.",
-    title: ["UKRAINIAN COUNCIL", "OF DEFENSE INDUSTRY"],
+      "We unite industry associations, represent a common position and work with the government, military, and international partners to accelerate the production and scaling of the defence industry.",
+    title: ["UKRAINIAN COUNCIL", "OF DEFENCE INDUSTRY"],
     sendRequest: "Send inquiry",
     tabs: {
       industry: "Weaponry",
@@ -82,14 +82,14 @@ export const en = {
     },
   },
   info: {
-    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENSE INDUSTRY"],
+    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENCE INDUSTRY"],
     aboutBtn: "About us",
     organizations: [
-      "DEFENSE ALLIANCE OF UKRAINE",
-      "League of Defense Companies of Ukraine",
+      "DEFENCE ALLIANCE OF UKRAINE",
+      "League of Defence Companies of Ukraine",
       "RADIOELECTRONIC ALLIANCE OF UKRAINE",
       "UKRAINIAN ROBOTIC FORCES",
-      "TECHOSYSTEM DEFENSE",
+      "TECHOSYSTEM DEFENCE",
       'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
       "Unmanned Naval Association",
       "Independent Association of UAV Schools of Ukraine",
@@ -129,7 +129,7 @@ export const en = {
           "We ensure a systematic presence of Ukrainian defence manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize booths, and support exhibitions at all stages. ",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -156,7 +156,7 @@ export const en = {
           "A series of closed professional meetings to establish cooperation between arms manufacturers, government bodies, and financial institutions.",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -169,7 +169,7 @@ export const en = {
           "We support manufacturers in entering international markets through a joint venture model with partners abroad. We help launch cooperation, integrate Ukrainian technologies into global supply chains, and scale production while maintaining key competencies within Ukraine.",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -182,7 +182,7 @@ export const en = {
           "The first analytical product of the UCDI Investor Club, which systematizes public and verified market data on deals, investors, verticals, and funding stages for 2023–2025.",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -190,13 +190,13 @@ export const en = {
         ],
       },
       {
-        title: "WHITE PAPER OF CHANGES IN THE DEFENSE INDUSTRY ",
+        title: "WHITE PAPER OF CHANGES IN THE DEFENCE INDUSTRY ",
         titleLines: ["WHITE PAPER OF CHANGE", "IN DI"],
         description:
-          "An analytical document that systematizes key decisions of 2025, current priorities for early 2026, and systemic barriers affecting the operations of Ukrainian defense industry manufacturers.",
+          "An analytical document that systematizes key decisions of 2025, current priorities for early 2026, and systemic barriers affecting the operations of Ukrainian defence industry manufacturers.",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -209,7 +209,7 @@ export const en = {
           "Together with our partners, the Ukrainian Technological Sports Federation, we are forming a national team and organizing regional and national tournaments. We are introducing a new, officially recognized sport at the intersection of technology, education, and innovation.",
         descriptionLines: [
           "We ensure the systematic presence",
-          "of Ukrainian defense manufacturers at key",
+          "of Ukrainian defence manufacturers at key",
           "international exhibitions under the ZBROYA brand.",
           "We coordinate company participation,",
           "organize stands, and support",
@@ -246,11 +246,11 @@ export const en = {
       "2026-06-18": {
         time: "18 june / 09:00-12:00",
         categoryLabel: "Open events:",
-        categoryName: "Defense regions",
+        categoryName: "Defence regions",
         format: "online",
         title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
       "2026-06-24": {
         time: "24 june / 14:00-17:00",
@@ -259,7 +259,7 @@ export const en = {
         format: "offline",
         title: "DEFENCE INDUSTRY ROUNDTABLE",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
       "2026-06-28": {
         time: "28 june / 10:00-13:00",
@@ -268,7 +268,7 @@ export const en = {
         format: "online",
         title: "UAV ECOSYSTEM MEETUP",
         description:
-          "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
       },
     },
   },
@@ -284,7 +284,7 @@ export const en = {
         tag: "News",
         date: "March 12, 2026",
         title:
-          "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
+          "White Paper on Changes in the Defence Industry: What Solutions Are Already Working for ...",
         description:
           "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
       },
@@ -300,7 +300,7 @@ export const en = {
         tag: "News",
         date: "April 01, 2026",
         title:
-          "White Paper on Changes in the Defense Industry: What Solutions Are Already Working for ...",
+          "White Paper on Changes in the Defence Industry: What Solutions Are Already Working for ...",
         description:
           "The Ukrainian Council of Defence Industry has prepared an analytical document on changes in the defence industry, outlining practical solutions that are already working for manufacturers and identifying factors that limit broader scaling across the sector.",
       },
@@ -622,15 +622,15 @@ export const en = {
       breadcrumbTitle: "Software supply. Codification and procurement issues",
       time: "27 May 2026 / 15:30–19:00",
       categoryLabel: "Open events:",
-      categoryName: "Defense regions",
+      categoryName: "Defence regions",
       format: "offline",
       title:
         "AMONG ARMOURERS | SOFTWARE SUPPLY. CODIFICATION AND PROCUREMENT ISSUES",
       body: [
-        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
-        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
-        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
-        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
+        "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize stands and support exhibitions at all stages.",
       ],
       registrationTitle:
         "Participation in the meeting is only possible with prior registration.",
@@ -641,12 +641,12 @@ export const en = {
       breadcrumbTitle: "ASD-Connect platform presentation",
       time: "10 April / 09:00-12:00",
       categoryLabel: "Open events:",
-      categoryName: "Defense regions",
+      categoryName: "Defence regions",
       format: "online",
       title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
       body: [
-        "The event will bring together defense product manufacturers, banking representatives and the Ministry of Strategic Industry to discuss the 5% lending programme launched in 2024.",
-        "We ensure the systematic presence of Ukrainian defense industry manufacturers at key international exhibitions under the ZBROYA brand.",
+        "The event will bring together defence product manufacturers, banking representatives and the Ministry of Strategic Industry to discuss the 5% lending programme launched in 2024.",
+        "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand.",
       ],
       registrationTitle:
         "Participation in the meeting is only possible with prior registration.",
@@ -665,7 +665,7 @@ export const en = {
     hero: {
       title: ["Export support", "office"],
       description:
-        "A team that helps Ukrainian defense manufacturers navigate export procedures, compliance requirements and the rules of international markets.",
+        "A team that helps Ukrainian defence manufacturers navigate export procedures, compliance requirements and the rules of international markets.",
     },
     clock: {
       title: [
@@ -676,7 +676,7 @@ export const en = {
         "ABROAD",
       ],
       columns: [
-        "A dedicated focus of the Export Support Office is working with private international business in the defense industry, including through the Build with Ukraine model. We support requests from foreign companies seeking partners in Ukraine to establish joint ventures and develop and test new solutions.",
+        "A dedicated focus of the Export Support Office is working with private international business in the defence industry, including through the Build with Ukraine model. We support requests from foreign companies seeking partners in Ukraine to establish joint ventures and develop and test new solutions.",
         "Build with Ukraine is a model that involves establishing production lines in partner countries; exporting production technologies and integrating Ukrainian expertise into allied supply chains; and joint projects (co-production or JV formats) with Ukrainian companies.",
       ],
       dialLabel: ["KEY FEATURES OF", "BUILD WITH", "UKRAINE:"],
@@ -699,7 +699,7 @@ export const en = {
   aboutUsPage: {
     banner: {
       title: [
-        "UKRAINIAN COUNCIL OF DEFENSE INDUSTRY",
+        "UKRAINIAN COUNCIL OF DEFENCE INDUSTRY",
         "— THE LARGEST ASSOCIATION OF UKRAINE'S PRIVATE DEFENCE INDUSTRY",
       ],
       description:
@@ -942,11 +942,11 @@ export const en = {
     communities: {
       heading: ["COMMUNITIES", "IN THE COUNCIL ECOSYSTEM"],
       organizations: [
-        "DEFENSE ALLIANCE OF UKRAINE",
-        "LEAGUE OF DEFENSE ENTERPRISES OF UKRAINE",
+        "DEFENCE ALLIANCE OF UKRAINE",
+        "LEAGUE OF DEFENCE ENTERPRISES OF UKRAINE",
         "RADIOELECTRONIC ALLIANCE OF UKRAINE",
         "UKRAINIAN ROBOTIC FORCES",
-        "TECHOSYSTEM DEFENSE",
+        "TECHOSYSTEM DEFENCE",
         'ASSOCIATION OF BPS MANUFACTURERS "ARMADA"',
         "ASSOCIATION OF MARITIME DRONES",
         "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
