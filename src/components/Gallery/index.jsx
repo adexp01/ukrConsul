@@ -2,12 +2,12 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
-import f1 from "../../assets/f1.png";
+import f1 from "../../assets/image1.jpg";
 import f2 from "../../assets/f2.png";
 import f3 from "../../assets/f3.png";
-import f4 from "../../assets/f4.png";
+import f4 from "../../assets/zel.png";
 import f5 from "../../assets/f5.png";
-import f6 from "../../assets/f6.png";
+import f6 from "../../assets/image2.png";
 import f7 from "../../assets/f7.png";
 
 const PHOTO_TRANSITION_MS = 560;
