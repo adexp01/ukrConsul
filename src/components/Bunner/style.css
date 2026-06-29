@@ -61,7 +61,7 @@
 .banner__top-line-fill {
   display: flex;
   align-items: baseline;
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(154px, 6vw, 168px);
   margin: 0;
   font-family: inherit;
   font-size: clamp(28px, 3.2vw, 32px);

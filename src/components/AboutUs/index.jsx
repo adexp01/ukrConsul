@@ -8,11 +8,11 @@ import "./style.css";
 
 const MAIN_STAT = {
   id: "companies",
-  value: "350+",
+  value: "400+",
 };
 
 const SATELLITE_STATS = [
-  { id: "manufacturers", value: "300+", position: "top-left" },
+  { id: "manufacturers", value: "360+", position: "top-left" },
   { id: "schools", value: "28", position: "bottom-left" },
   { id: "funds", value: "20", position: "bottom-right" },
 ];
@@ -517,9 +517,9 @@ export const AboutUs = () => {
             ))}
           </div>
 
-          <Button href="#" className="about-us__cta" variant="default">
+          {/* <Button href="#" className="about-us__cta" variant="default">
             {t("aboutUs.aboutBtn")}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

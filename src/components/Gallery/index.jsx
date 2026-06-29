@@ -198,10 +198,10 @@ export const Gallery = () => {
               ))}
             </div>
 
-            <a href="#" className="gallery-section__link">
+            {/* <a href="#" className="gallery-section__link">
               {t("gallery.discover")}
               <span aria-hidden="true">→</span>
-            </a>
+            </a> */}
 
             <NavArrows
               className="gallery-section__nav"

@@ -55,6 +55,7 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     document.documentElement.lang = language === "uk" ? "uk" : "en";
     document.documentElement.dataset.language = language;
+    document.title = language === "uk" ? "Рада зброярів" : "UCDI";
   }, [language]);
 
   const value = useMemo(() => {

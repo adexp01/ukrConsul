@@ -15,7 +15,7 @@ export const Info = ({
   shieldSrc = defaultShield,
   aboutHref = "#",
   testHref = "#",
-  applyHref = "https://forms.cloud.microsoft/pages/responsepage.aspx?id=2Nut6FpvHUy8VXfKXJzrZSw3IsbUBcFNjK9tBkyFmvFUNkM0OFg4QU5NWUU0RkhDUktJUjRZNjFZSy4u&route=shorturl",
+  applyHref,
   showCta = true,
   showAboutBtn = true,
   headingId = "info-orgs-heading",
@@ -37,6 +37,7 @@ export const Info = ({
   const ctaTitleMobileLines = Array.isArray(ctaCopy.ctaTitleMobile)
     ? ctaCopy.ctaTitleMobile
     : ctaTitleLines;
+  const formHref = applyHref ?? copy.applyHref;
 
   const sectionClassName = [
     "info-section",
@@ -124,7 +125,7 @@ export const Info = ({
                   </li>
                 ))}
 
-                {showAboutBtn && copy.aboutBtn ? (
+                {/* {showAboutBtn && copy.aboutBtn ? (
                   <Button
                     href={aboutHref}
                     variant="default"
@@ -132,7 +133,7 @@ export const Info = ({
                   >
                     {copy.aboutBtn}
                   </Button>
-                ) : null}
+                ) : null} */}
               </ul>
             </div>
           </div>
@@ -161,7 +162,7 @@ export const Info = ({
               {/* <Button href="mailto:official@ucdi.org.ua" variant="primary">
                 {ctaCopy.takeTest}
               </Button> */}
-              <a href={applyHref} className="info-section__cta-link" target="_blank">
+              <a href={formHref} className="info-section__cta-link" target="_blank">
                 {ctaCopy.applyDirectly}
                 <span aria-hidden="true">→</span>
               </a>

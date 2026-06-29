@@ -172,18 +172,18 @@ export const UpEvents = () => {
               <p className="up-events__empty">{t("upEvents.noEvents")}</p>
             )}
 
-            <a href="#" className="up-events__link">
+            {/* <a href="#" className="up-events__link">
               {t("upEvents.discover")}
               <span aria-hidden="true">→</span>
-            </a>
+            </a> */}
 
-            {isEventsPage ? (
+            {/* {isEventsPage ? (
               <></>
             ) : (
               <Button href="#" variant="default" className="up-events__all-btn">
                 {t("upEvents.allEvents")}
               </Button>
-            )}
+            )} */}
           </article>
         </div>
 

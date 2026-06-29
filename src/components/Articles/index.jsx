@@ -48,13 +48,13 @@ export const Articles = () => {
           )}
         </div>
 
-        <Button
+        {/* <Button
           href={localizePath("/media")}
           variant="default"
           className="articles__all-media"
         >
           {t("articles.allMedia")}
-        </Button>
+        </Button> */}
       </div>
     </section>
   );

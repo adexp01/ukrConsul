@@ -2,8 +2,13 @@ import { Header } from "../Header";
 import { Footer } from "../Footer";
 import "./style.css";
 import { Anima } from "../Anima";
+import { useLocation } from "react-router-dom";
 
 export const PageLayout = ({ children, variant }) => {
+  const { pathname } = useLocation();
+
+  const isEventsPage = pathname.includes("/events");
+
   const shellClass = variant
     ? `page-shell page-shell--${variant}`
     : "page-shell";
@@ -17,9 +22,11 @@ export const PageLayout = ({ children, variant }) => {
         <Header />
       </div>
       <main className={layoutClass}>{children}</main>
-      <div className="anima-wrap">
-        <Anima />
-      </div>
+      {!isEventsPage && (
+        <div className="anima-wrap">
+          <Anima />
+        </div>
+      )}
       <Footer />
     </div>
   );

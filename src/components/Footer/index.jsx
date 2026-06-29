@@ -82,14 +82,14 @@ export const Footer = () => {
           </section>
 
           <div className="footer__column">
-            <h3 className="footer__column-title">{t("footer.ourCompany")}</h3>
+            {/* <h3 className="footer__column-title">{t("footer.ourCompany")}</h3>
             <ul className="footer__list">
               {companyLinks.map((item) => (
                 <li key={item}>
                   <a href="#">{item}</a>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
 
           <div className="footer__column footer__column--contacts">

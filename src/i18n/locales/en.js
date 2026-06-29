@@ -47,7 +47,7 @@ export const en = {
     title: ["UKRAINIAN COUNCIL", "OF DEFENCE INDUSTRY"],
     sendRequest: "Send inquiry",
     tabs: {
-      industry: "Weaponry",
+      industry: "Defence",
       partners: "Partnership",
       capacity: "Development",
     },
@@ -82,7 +82,7 @@ export const en = {
     },
   },
   info: {
-    heading: ["ASSOCIATIONS INCLUDED", "IN THE COUNCIL OF DEFENCE INDUSTRY"],
+    heading: ["Associations", "Represented in UCDI"],
     aboutBtn: "About us",
     organizations: [
       "DEFENCE ALLIANCE OF UKRAINE",
@@ -115,6 +115,8 @@ export const en = {
       "Take a short test and find out which association or community suits you best.",
     takeTest: "Take the test",
     applyDirectly: "Apply directly",
+    applyHref:
+      "https://forms.cloud.microsoft/pages/responsepage.aspx?id=2Nut6FpvHUy8VXfKXJzrZSw3IsbUBcFNjK9tBkyFmvFUQTM0QVJUVkwwN0Q0M1JIU08zT1k0UzJERi4u&route=shorturl",
   },
   gallery: {
     heading: ["Our projects and", "products in the ", "DEFENCE", "industry"],
@@ -243,33 +245,33 @@ export const en = {
       "December",
     ],
     events: {
-      "2026-06-18": {
-        time: "18 june / 09:00-12:00",
-        categoryLabel: "Open events:",
-        categoryName: "Defence regions",
-        format: "online",
-        title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
-        description:
-          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-      },
-      "2026-06-24": {
-        time: "24 june / 14:00-17:00",
-        categoryLabel: "Closed events:",
-        categoryName: "Among armourers",
-        format: "offline",
-        title: "DEFENCE INDUSTRY ROUNDTABLE",
-        description:
-          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-      },
-      "2026-06-28": {
-        time: "28 june / 10:00-13:00",
-        categoryLabel: "Open events:",
-        categoryName: "UAV ecosystem",
-        format: "online",
-        title: "UAV ECOSYSTEM MEETUP",
-        description:
-          "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
-      },
+      // "2026-06-18": {
+      //   time: "18 june / 09:00-12:00",
+      //   categoryLabel: "Open events:",
+      //   categoryName: "Defence regions",
+      //   format: "online",
+      //   title: "PRESENTATION OF THE ASD-CONNECT PLATFORM",
+      //   description:
+      //     "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+      // },
+      // "2026-06-24": {
+      //   time: "24 june / 14:00-17:00",
+      //   categoryLabel: "Closed events:",
+      //   categoryName: "Among armourers",
+      //   format: "offline",
+      //   title: "DEFENCE INDUSTRY ROUNDTABLE",
+      //   description:
+      //     "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+      // },
+      // "2026-06-28": {
+      //   time: "28 june / 10:00-13:00",
+      //   categoryLabel: "Open events:",
+      //   categoryName: "UAV ecosystem",
+      //   format: "online",
+      //   title: "UAV ECOSYSTEM MEETUP",
+      //   description:
+      //     "We ensure the systematic presence of Ukrainian defence industry manufacturers at key international exhibitions under the ZBROYA brand. We coordinate the participation of companies, organize stands, and support exhibitions at all stages.",
+      // },
     },
   },
   articles: {
