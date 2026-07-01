@@ -506,6 +506,9 @@ export const en = {
     breadcrumbMedia: "Media",
     share: "Share",
     imagePlaceholder: "Image",
+    loading: "Loading article…",
+    notFound: "Article not found.",
+    noContent: "No content yet.",
     articles: {
       1: {
         tag: "Export",
@@ -714,104 +717,78 @@ export const en = {
     ecoSystem: {
       title: "BOARD AND ECOSYSTEM",
       intro:
-        "The Council's Board is the governing body that shapes ecosystem development strategy, represents members' interests and coordinates key areas of work.",
+        "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Focus",
+      focusDescription:
+        "Strategic representation of the Council and engagement with international partners.",
       members: [
         {
-          id: "kamyshin",
-          name: "OLEKSANDR KAMYSHIN",
-          role: "Chair of the Board",
-          description:
-            "Coordinates the Council's strategic development, represents members in dialogue with the state and international partners, and sets the Board's work priorities.",
+          id: "filimonov",
+          name: "Yaroslav Filimonov",
+          role: "Radioelectronic Alliance of Ukraine",
         },
         {
-          id: "fedirko",
-          name: "IHOR FEDIRKO",
-          role: "Deputy Chair of the Board",
-          description:
-            "Oversees operational coordination of the Board, supports key Council initiatives and engagement with industry associations.",
+          id: "rudominskyi",
+          name: "Mykhailo Rudominskyi",
+          role: "Techosystem Defense",
         },
         {
-          id: "kovalenko",
-          name: "MARIIA KOVALENKO",
-          role: "Board member",
-          description:
-            "Leads international cooperation and communication with partners working with Ukrainian defence technology manufacturers.",
+          id: "vysotska",
+          name: "Yuliia Vysotska",
+          role: "League of Defence Companies of Ukraine",
         },
         {
-          id: "melnyk",
-          name: "ANDRII MELNYK",
-          role: "Board member",
-          description:
-            "Supports production and technology initiatives, coordinating collaboration among ecosystem participants on scaling manufacturing.",
+          id: "buchatskyi",
+          name: "Evelin Buchatskyi",
+          role: "UCDI Investor Club",
         },
         {
-          id: "shevchenko",
-          name: "OLENA SHEVCHENKO",
-          role: "Board member",
-          description:
-            "Responsible for education and talent programmes in the sector, developing cooperation with UAV schools and professional communities.",
+          id: "honcharuk",
+          name: "Vasyl Honcharuk",
+          role: 'Association of Manufacturers of Unmanned Systems "Armada"',
         },
         {
-          id: "bondar",
-          name: "VITALII BONDAR",
-          role: "Board member",
-          description:
-            "Works on investment and venture initiatives that support defence startups and private manufacturers.",
+          id: "vasylchenko",
+          name: "Maksym Vasylchenko",
+          role: "Ukrainian Robotic Forces",
         },
         {
-          id: "lysenko",
-          name: "KATERYNA LYSENKO",
-          role: "Board member",
-          description:
-            "Coordinates analytical work and preparation of the Council's positions on regulatory changes in the defence industry.",
+          id: "kanin",
+          name: "Denys Kanin",
+          role: "Unmanned Naval Association",
         },
         {
-          id: "savchenko",
-          name: "DMYTRO SAVCHENKO",
-          role: "Board member",
-          description:
-            "Supports export assistance projects and cooperation with the Export Support Office within joint Council initiatives.",
-        },
-        {
-          id: "hyhorenko",
-          name: "YULIIA HYHORENKO",
-          role: "Board member",
-          description:
-            "Leads communications and media activities, developing public representation of the Council and its members.",
-        },
-        {
-          id: "kravchenko",
-          name: "SERHII KRAVCHENKO",
-          role: "Board member",
-          description:
-            "Coordinates engagement with government institutions and supports implementation of joint decisions to accelerate defence industry development.",
+          id: "platonenko",
+          name: "Artem Platonenko",
+          role: "Independent Association of UAV Schools of Ukraine",
         },
       ],
     },
     whatWeDo: {
       title: "WHAT WE DO",
       imagePlaceholder: "image",
+      prevLabel: "Previous directions",
+      nextLabel: "Next directions",
       items: [
         {
           id: "policy",
           icon: "cube",
-          title: "POLICY & REGULATORY",
+          title: "Policy & Regulatory",
           description:
             "We collect manufacturers' challenges and work with the state on solutions that help the market grow faster and operate under clear rules.",
         },
         {
           id: "international",
           icon: "globe",
-          title: "INTERNATIONAL REPRESENTATION",
+          title: "International Representation",
           description:
             "We represent the interests of Ukrainian defence manufacturers internationally, coordinate participation in exhibitions and support dialogue with partners and institutions.",
         },
         {
           id: "coordination",
           icon: "layers",
-          title: "ECOSYSTEM COORDINATION",
+          title: "Ecosystem Development",
           description:
             "We bring together associations, manufacturers and communities in joint initiatives to accelerate production scaling and defence technology development.",
         },
@@ -836,11 +813,18 @@ export const en = {
       imagePlaceholder: "image",
       rows: [
         {
-          id: "row-1",
+          id: "leadership",
+          title: "Leadership / Management:",
           members: [
             {
-              id: "popova",
+              id: "fedirko",
               column: 1,
+              name: "IHOR FEDIRKO",
+              role: "Executive Director",
+            },
+            {
+              id: "popova",
+              column: 2,
               name: "MARIIA POPOVA",
               role: "Chief Operating Officer",
             },
@@ -865,30 +849,26 @@ export const en = {
           ],
         },
         {
-          id: "row-2",
+          id: "international",
+          title: "International Direction:",
           members: [
             {
-              id: "antsane",
-              column: 2,
-              name: "ANNA ANTSANE",
-              role: "Head of international events",
-            },
-            {
               id: "tabur",
-              column: 4,
+              column: 1,
               name: "ANTON TABUR",
               role: "Head of international partnerships",
             },
             {
-              id: "vedrovska",
-              column: 5,
-              name: "VALENTYNA VEDROVSKA",
-              role: "Head of government relations",
+              id: "poladova",
+              column: 2,
+              name: "DIANA POLADOVA",
+              role: "PR manager",
             },
           ],
         },
         {
-          id: "row-3",
+          id: "events-communications",
+          title: "National Events / Communications:",
           members: [
             {
               id: "golumbiovska",
@@ -902,40 +882,47 @@ export const en = {
               name: "BOHDANA MOTRECHKO",
               role: "Head of national events",
             },
+          ],
+        },
+        {
+          id: "industry-gr",
+          title: "Industry Engagement / GR:",
+          members: [
+            {
+              id: "vedrovska",
+              column: 1,
+              name: "VALENTYNA VEDROVSKA",
+              role: "Head of government relations",
+            },
             {
               id: "borovyk",
-              column: 4,
+              column: 2,
               name: "DARIA BOROVYK",
               role: "Industry engagement coordinator",
             },
             {
               id: "demchuk",
-              column: 6,
+              column: 3,
               name: "DMYTRO DEMCHUK",
               role: "Head of military engagement",
             },
           ],
         },
         {
-          id: "row-4",
+          id: "development-production",
+          title: "Development / Production:",
           members: [
             {
               id: "yaremenko",
-              column: 2,
+              column: 1,
               name: "ANDRII YAREMENKO",
               role: "Development programme manager",
             },
             {
               id: "milyutin",
-              column: 3,
+              column: 2,
               name: "VITALII MILYUTIN",
               role: "Advisor for manufacturer engagement",
-            },
-            {
-              id: "poladova",
-              column: 5,
-              name: "DIANA POLADOVA",
-              role: "PR manager",
             },
           ],
         },

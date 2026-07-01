@@ -1,4 +1,5 @@
 import { useLanguage } from "../../i18n/LanguageContext";
+import { getTeamMemberImage } from "./memberImages";
 import "./style.css";
 
 export const Team = ({ contentKey = "aboutUsPage.team" }) => {
@@ -17,37 +18,47 @@ export const Team = ({ contentKey = "aboutUsPage.team" }) => {
           {copy.title}
         </h2>
 
-        <div className="team__mosaic">
-          {rows.map((row, rowIndex) => {
+        <div className="team__groups">
+          {rows.map((row) => {
             const members = row.members ?? [];
 
-            return members.map((member) => (
-              <article
-                key={member.id ?? member.name}
-                className="team__member"
-                style={{
-                  "--team-col": member.column,
-                  "--team-row": rowIndex + 1,
-                }}
-              >
-                <div className="team__photo" aria-hidden="true">
-                  {member.image ? (
-                    <img
-                      src={member.image}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <span className="team__photo-placeholder">
-                      {copy.imagePlaceholder}
-                    </span>
-                  )}
+            return (
+              <section key={row.id} className="team__group">
+                {row.title ? (
+                  <h3 className="team__group-title">{row.title}</h3>
+                ) : null}
+
+                <div className="team__members">
+                  {members.map((member) => {
+                    const photoSrc = getTeamMemberImage(member);
+
+                    return (
+                      <article
+                        key={member.id ?? member.name}
+                        className="team__member"
+                      >
+                        <div className="team__photo" aria-hidden="true">
+                          {photoSrc ? (
+                            <img
+                              src={photoSrc}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          ) : (
+                            <span className="team__photo-placeholder">
+                              {copy.imagePlaceholder}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="team__name">{member.name}</h4>
+                        <p className="team__role">{member.role}</p>
+                      </article>
+                    );
+                  })}
                 </div>
-                <h3 className="team__name">{member.name}</h3>
-                <p className="team__role">{member.role}</p>
-              </article>
-            ));
+              </section>
+            );
           })}
         </div>
       </div>

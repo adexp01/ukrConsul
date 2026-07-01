@@ -14,6 +14,8 @@ export const Article = ({
   bg,
   tag,
   date,
+  dateLabel,
+  isoDate,
   title,
   excerpt,
   href,
@@ -24,7 +26,11 @@ export const Article = ({
   const articleHref = localizePath(href ?? `/article/${id}`);
   const readLabel = t("articles.readArticle");
   const bodyText = excerpt ?? description;
-  const colorVariant = variant ?? ((Number(id) - 1) % 3) + 1;
+  const displayDate = dateLabel ?? date;
+  const machineDate = isoDate ?? date;
+  const colorVariant =
+    variant ??
+    (Number.isFinite(Number(id)) ? ((Number(id) - 1) % 3) + 1 : 1);
   const colorClass = bg ? "" : `news-card--${colorVariant}`;
 
   return (
@@ -58,8 +64,8 @@ export const Article = ({
                 <span className="news-card__tag-dot" aria-hidden="true" />
                 {tag}
               </span>
-              <time className="news-card__date" dateTime={date}>
-                {date}
+              <time className="news-card__date" dateTime={machineDate}>
+                {displayDate}
               </time>
             </span>
             <h3 className="news-card__title">{title}</h3>

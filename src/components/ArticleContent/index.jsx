@@ -1,9 +1,14 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import instagram from "../../assets/ins.svg";
 import facebook from "../../assets/faceb.svg";
 import linkedin from "../../assets/linked.svg";
 import telegram from "../../assets/tg.svg";
 import xIcon from "../../assets/x.svg";
+import {
+  formatNewsDate,
+  getCategoryLabel,
+  resolveNewsAssetUrl,
+} from "../../api/news";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -15,12 +20,63 @@ const SOCIALS = [
   { id: "x", label: "X", href: "#", icon: xIcon },
 ];
 
-export const ArticleContent = () => {
-  const { id } = useParams();
-  const { t, localizePath } = useLanguage();
+const renderBlock = (block) => {
+  switch (block.type) {
+    case "text":
+      return (
+        <p key={block.id} className="article-page__text">
+          {block.content}
+        </p>
+      );
+    case "subheading":
+      return (
+        <h2 key={block.id} className="article-page__subheading">
+          {block.content}
+        </h2>
+      );
+    case "image":
+      return (
+        <figure key={block.id} className="article-page__figure">
+          <img
+            src={resolveNewsAssetUrl(block.src)}
+            alt={block.alt ?? ""}
+            className="article-page__figure-image"
+            loading="lazy"
+          />
+        </figure>
+      );
+    default:
+      return null;
+  }
+};
 
-  const articles = t("articleContent.articles");
-  const article = articles[id] ?? articles[3];
+export const ArticleContent = ({ article, loading = false }) => {
+  const { t, language, localizePath } = useLanguage();
+
+  if (loading) {
+    return (
+      <div className="article-page__shell" role="status" aria-live="polite">
+        <p className="article-page__status">{t("articleContent.loading")}</p>
+      </div>
+    );
+  }
+
+  if (!article) {
+    return (
+      <div className="article-page__shell" role="status">
+        <p className="article-page__status">{t("articleContent.notFound")}</p>
+        <Link to={localizePath("/media")} className="article-page__breadcrumb-link">
+          {t("articleContent.breadcrumbMedia")}
+        </Link>
+      </div>
+    );
+  }
+
+  const filters = t("ourNews.filters");
+  const tag = getCategoryLabel(article.category, filters);
+  const isoDate = article.createdAt?.slice(0, 10) ?? "";
+  const dateLabel = formatNewsDate(article.createdAt, language);
+  const blocks = article.blocks ?? [];
 
   return (
     <div className="article-page__shell">
@@ -31,9 +87,7 @@ export const ArticleContent = () => {
         <span className="article-page__breadcrumb-sep" aria-hidden="true">
           &gt;
         </span>
-        <span className="article-page__breadcrumb-current">
-          {article.title}
-        </span>
+        <span className="article-page__breadcrumb-current">{article.title}</span>
       </nav>
 
       <div className="article-page__frame">
@@ -50,26 +104,36 @@ export const ArticleContent = () => {
                     <rect width="10" height="10" rx="2" fill="#19238E" />
                   </svg>
                 </span>
-                {article.tag}
+                {tag}
               </span>
-              <time className="article-page__date" dateTime={article.date}>
-                {article.dateLabel}
+              <time className="article-page__date" dateTime={isoDate}>
+                {dateLabel}
               </time>
             </div>
 
             <h1 className="article-page__title">{article.title}</h1>
           </header>
 
-          <div className="article-page__visual" aria-hidden="true">
-            <span className="article-page__visual-placeholder">
-              {t("articleContent.imagePlaceholder")}
-            </span>
+          <div className="article-page__visual">
+            {article.mainImage ? (
+              <img
+                src={resolveNewsAssetUrl(article.mainImage)}
+                alt=""
+                className="article-page__visual-image"
+              />
+            ) : (
+              <span className="article-page__visual-placeholder">
+                {t("articleContent.imagePlaceholder")}
+              </span>
+            )}
           </div>
 
           <div className="article-page__body">
-            {article.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {blocks.length > 0
+              ? blocks.map(renderBlock)
+              : (
+                <p className="article-page__text">{t("articleContent.noContent")}</p>
+              )}
           </div>
 
           <footer className="article-page__share">

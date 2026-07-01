@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 export const PageLayout = ({ children, variant }) => {
   const { pathname } = useLocation();
 
-  const isEventsPage = pathname.includes("/events");
+  const shouldHideAnima =
+    pathname.includes("/events") || pathname.includes("/about-us");
 
   const shellClass = variant
     ? `page-shell page-shell--${variant}`
@@ -22,7 +23,7 @@ export const PageLayout = ({ children, variant }) => {
         <Header />
       </div>
       <main className={layoutClass}>{children}</main>
-      {!isEventsPage && (
+      {!shouldHideAnima && (
         <div className="anima-wrap">
           <Anima />
         </div>

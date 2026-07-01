@@ -38,9 +38,15 @@ export const AboutUsBanner = () => {
               →
             </span>
           </a>
+          <div className="about-us-banner__description">
+            Ми представляємо спільну позицію галузі, допомагаємо виробникам
+            взаємодіяти з державою, військовими та міжнародними партнерами,
+            підтримуємо масштабування українських оборонних рішень в Україні та
+            за кордоном.
+          </div>
         </div>
       </div>
-      <figure className="about-us-banner__text-visual">
+      {/* <figure className="about-us-banner__text-visual">
         <img
           className="about-us-banner__text-image"
           src={bannerTextImage}
@@ -48,7 +54,7 @@ export const AboutUsBanner = () => {
           loading="eager"
           decoding="async"
         />
-      </figure>
+      </figure> */}
     </section>
   );
 };

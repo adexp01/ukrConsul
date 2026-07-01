@@ -1,21 +1,23 @@
 import { useMemo } from "react";
 import { Article } from "../UI/Article";
-import { Button } from "../UI/Button";
+import { mapNewsToCard } from "../../api/news";
+import { useNews } from "../../hooks/useNews";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const ARTICLE_META = [];
+const HOME_ARTICLES_LIMIT = 3;
 
 export const Articles = () => {
-  const { t, language, localizePath } = useLanguage();
+  const { t, language } = useLanguage();
+  const { news, loading } = useNews();
 
-  const articles = useMemo(() => {
-    const items = t("articles.items");
-    return ARTICLE_META.map((meta, index) => ({
-      ...meta,
-      ...items[index],
-    }));
-  }, [t, language]);
+  const articles = useMemo(
+    () =>
+      news
+        .slice(0, HOME_ARTICLES_LIMIT)
+        .map((item) => mapNewsToCard(item, { t, language })),
+    [news, t, language],
+  );
 
   const hasArticles = articles.length > 0;
 
@@ -29,32 +31,26 @@ export const Articles = () => {
         </header>
 
         <div className="articles__grid">
-          {hasArticles ? (
-            articles.map((article) => (
+          {!loading && hasArticles ? (
+            articles.map((article, index) => (
               <Article
                 key={article.id}
                 id={article.id}
+                variant={(index % 3) + 1}
                 tag={article.tag}
-                date={article.date}
+                dateLabel={article.dateLabel}
+                isoDate={article.isoDate}
                 title={article.title}
                 description={article.description}
               />
             ))
-          ) : (
+          ) : !loading ? (
             <div className="articles__empty" role="status">
               <p className="articles__empty-title">{t("articles.emptyTitle")}</p>
               <p className="articles__empty-text">{t("articles.emptyText")}</p>
             </div>
-          )}
+          ) : null}
         </div>
-
-        {/* <Button
-          href={localizePath("/media")}
-          variant="default"
-          className="articles__all-media"
-        >
-          {t("articles.allMedia")}
-        </Button> */}
       </div>
     </section>
   );

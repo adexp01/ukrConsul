@@ -3,6 +3,8 @@ import { Article } from "../UI/Article";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 import { Button } from "../UI/Button";
+import { mapNewsToCard } from "../../api/news";
+import { useNews } from "../../hooks/useNews";
 
 const FILTER_IDS = [
   "all",
@@ -16,82 +18,19 @@ const FILTER_IDS = [
   "events",
 ];
 
-const NEWS_LAYOUT = [
-  {
-    id: 1,
-    category: "export",
-    date: "2026-03-12",
-    contentIndex: 0,
-  },
-  {
-    id: 2,
-    category: "international",
-    date: "2026-04-04",
-    contentIndex: 1,
-  },
-  { id: 3, category: "gr", date: "2026-04-30", contentIndex: 2 },
-  {
-    id: 4,
-    category: "export",
-    date: "2026-03-12",
-    contentIndex: 0,
-  },
-  {
-    id: 5,
-    category: "international",
-    date: "2026-04-04",
-    contentIndex: 1,
-  },
-  { id: 6, category: "gr", date: "2026-04-30", contentIndex: 2 },
-  {
-    id: 7,
-    category: "export",
-    date: "2026-03-12",
-    contentIndex: 0,
-  },
-  {
-    id: 8,
-    category: "international",
-    date: "2026-04-04",
-    contentIndex: 1,
-  },
-  { id: 9, category: "gr", date: "2026-04-30", contentIndex: 2 },
-  {
-    id: 10,
-    category: "export",
-    date: "2026-03-12",
-    contentIndex: 0,
-  },
-  {
-    id: 11,
-    category: "international",
-    date: "2026-04-04",
-    bg: "#dde6ed",
-    contentIndex: 1,
-  },
-  {
-    id: 12,
-    category: "gr",
-    date: "2026-04-30",
-    contentIndex: 2,
-  },
-];
-
 const INITIAL_VISIBLE = 6;
 const LOAD_STEP = 3;
 
 export const MediaNews = () => {
   const { t, language } = useLanguage();
+  const { news, loading } = useNews();
   const [activeFilter, setActiveFilter] = useState("all");
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
 
-  const news = useMemo(() => {
-    const items = t("mediaNews.items");
-    return NEWS_LAYOUT.map((meta) => ({
-      ...meta,
-      ...items[meta.contentIndex],
-    }));
-  }, [t, language]);
+  const cards = useMemo(
+    () => news.map((item) => mapNewsToCard(item, { t, language })),
+    [news, t, language],
+  );
 
   const filters = useMemo(() => {
     const labels = t("mediaNews.filters");
@@ -99,9 +38,9 @@ export const MediaNews = () => {
   }, [t, language]);
 
   const filteredNews = useMemo(() => {
-    if (activeFilter === "all") return news;
-    return news.filter((item) => item.category === activeFilter);
-  }, [activeFilter, news]);
+    if (activeFilter === "all") return cards;
+    return cards.filter((item) => item.category === activeFilter);
+  }, [activeFilter, cards]);
 
   const visibleNews = filteredNews.slice(0, visibleCount);
   const canLoadMore = visibleCount < filteredNews.length;
@@ -146,15 +85,17 @@ export const MediaNews = () => {
         </div>
 
         <div className="media-news__grid" role="tabpanel">
-          {visibleNews.length === 0 ? (
+          {!loading && visibleNews.length === 0 ? (
             <p className="media-news__empty">{t("mediaNews.empty")}</p>
           ) : (
-            visibleNews.map((item) => (
+            visibleNews.map((item, index) => (
               <Article
                 key={item.id}
                 id={item.id}
+                variant={(index % 3) + 1}
                 tag={item.tag}
-                date={item.dateLabel}
+                dateLabel={item.dateLabel}
+                isoDate={item.isoDate}
                 title={item.title}
                 excerpt={item.excerpt}
                 href={`/article/${item.id}`}

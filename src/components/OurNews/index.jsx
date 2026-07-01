@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { Article } from "../UI/Article";
 import { Button } from "../UI/Button";
+import { mapNewsToCard } from "../../api/news";
+import { useNews } from "../../hooks/useNews";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -16,23 +18,15 @@ const FILTER_IDS = [
   "events",
 ];
 
-const NEWS_META = [
-  { id: 1, category: "export", date: "2026-03-12" },
-  { id: 2, category: "international", date: "2026-04-04" },
-  { id: 3, category: "gr", date: "2026-04-30" },
-];
-
 export const OurNews = () => {
   const { t, language, localizePath } = useLanguage();
+  const { news, loading } = useNews();
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const news = useMemo(() => {
-    const items = t("ourNews.items");
-    return NEWS_META.map((meta, index) => ({
-      ...meta,
-      ...items[index],
-    }));
-  }, [t, language]);
+  const cards = useMemo(
+    () => news.map((item) => mapNewsToCard(item, { t, language })),
+    [news, t, language],
+  );
 
   const filters = useMemo(() => {
     const labels = t("ourNews.filters");
@@ -40,9 +34,9 @@ export const OurNews = () => {
   }, [t, language]);
 
   const visibleNews = useMemo(() => {
-    if (activeFilter === "all") return news;
-    return news.filter((item) => item.category === activeFilter);
-  }, [activeFilter, news]);
+    if (activeFilter === "all") return cards;
+    return cards.filter((item) => item.category === activeFilter);
+  }, [activeFilter, cards]);
 
   return (
     <section className="our-news" aria-labelledby="our-news-title">
@@ -81,15 +75,17 @@ export const OurNews = () => {
         </div>
 
         <div className="our-news__grid" role="tabpanel">
-          {visibleNews.length === 0 ? (
+          {!loading && visibleNews.length === 0 ? (
             <p className="our-news__empty">{t("ourNews.empty")}</p>
           ) : (
-            visibleNews.map((item) => (
+            visibleNews.map((item, index) => (
               <Article
                 key={item.id}
                 id={item.id}
+                variant={(index % 3) + 1}
                 tag={item.tag}
-                date={item.dateLabel}
+                dateLabel={item.dateLabel}
+                isoDate={item.isoDate}
                 title={item.title}
                 excerpt={item.excerpt}
                 href={`/article/${item.id}`}
