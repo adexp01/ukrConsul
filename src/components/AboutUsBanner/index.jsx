@@ -1,6 +1,5 @@
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
-import bannerTextImage from "../../assets/text.png";
 import "./style.css";
 
 export const AboutUsBanner = () => {
@@ -38,23 +37,15 @@ export const AboutUsBanner = () => {
               →
             </span>
           </a>
-          <div className="about-us-banner__description">
-            Ми представляємо спільну позицію галузі, допомагаємо виробникам
-            взаємодіяти з державою, військовими та міжнародними партнерами,
-            підтримуємо масштабування українських оборонних рішень в Україні та
-            за кордоном.
-          </div>
         </div>
+
+        <p className="about-us-banner__description">
+          Ми представляємо спільну позицію галузі, допомагаємо виробникам
+          взаємодіяти з державою, військовими та міжнародними партнерами,
+          підтримуємо масштабування українських оборонних рішень в Україні та за
+          кордоном.
+        </p>
       </div>
-      {/* <figure className="about-us-banner__text-visual">
-        <img
-          className="about-us-banner__text-image"
-          src={bannerTextImage}
-          alt={copy.description}
-          loading="eager"
-          decoding="async"
-        />
-      </figure> */}
     </section>
   );
 };

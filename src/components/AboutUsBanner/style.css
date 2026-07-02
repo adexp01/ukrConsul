@@ -36,14 +36,12 @@
   max-width: 400px;
   font-family: Fixel Display;
   font-weight: 400;
-  font-style: Regular;
   font-size: 18px;
-  leading-trim: NONE;
   line-height: 22px;
-  letter-spacing: -2%;
+  letter-spacing: -0.02em;
   text-align: center;
   color: #fff;
-  margin-top: 120px;
+  margin: 120px auto 0;
 }
 
 .about-us-banner__title-1 {
@@ -60,7 +58,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(20px, 3vw, 36px);
-  margin-bottom: 180px;
+  margin-bottom: 0;
 }
 
 .about-us-banner__cta {
@@ -116,8 +114,13 @@
     flex-direction: column;
     width: 100%;
     max-width: 320px;
-    margin-bottom: 36px;
     gap: 16px;
+  }
+
+  .about-us-banner__description {
+    margin-top: 36px;
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .about-us-banner__cta {
