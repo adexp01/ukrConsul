@@ -35,6 +35,8 @@ const renderBlock = (block) => {
         </h2>
       );
     case "image":
+      if (!block.src) return null;
+
       return (
         <figure key={block.id} className="article-page__figure">
           <img
@@ -114,19 +116,15 @@ export const ArticleContent = ({ article, loading = false }) => {
             <h1 className="article-page__title">{article.title}</h1>
           </header>
 
-          <div className="article-page__visual">
-            {article.mainImage ? (
+          {article.mainImage ? (
+            <div className="article-page__visual">
               <img
                 src={resolveNewsAssetUrl(article.mainImage)}
                 alt=""
                 className="article-page__visual-image"
               />
-            ) : (
-              <span className="article-page__visual-placeholder">
-                {t("articleContent.imagePlaceholder")}
-              </span>
-            )}
-          </div>
+            </div>
+          ) : null}
 
           <div className="article-page__body">
             {blocks.length > 0
