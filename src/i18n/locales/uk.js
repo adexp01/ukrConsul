@@ -79,15 +79,39 @@ export const uk = {
     heading: ["АСОЦІАЦІЇ, ЯКІ ВХОДЯТЬ", "ДО РАДИ ЗБРОЯРІВ"],
     aboutBtn: "Про нас",
     organizations: [
-      "ОБОРОННИЙ АЛЬЯНС УКРАЇНИ",
-      "ЛІГА ОБОРОННИХ ПІДПРИЄМСТВ УКРАЇНИ",
-      "РАДІОЕЛЕКТРОННИЙ АЛЬЯНС УКРАЇНИ",
-      "УКРАЇНСЬКІ РОБОТИЗОВАНІ СИЛИ",
-      "TECHOSYSTEM DEFENCE",
-      'АСОЦІАЦІЯ ВИРОБНИКІВ БПЛА "АРМАДА"',
-      "АСОЦІАЦІЯ МОРСЬКИХ ДРОНІВ",
-      "НЕЗАЛЕЖНА АСОЦІАЦІЯ ШКІЛ БПЛА УКРАЇНИ",
-      "ІНВЕСТИЦІЙНИЙ КЛУБ UCDI",
+      {
+        name: "ОБОРОННИЙ АЛЬЯНС УКРАЇНИ",
+        href: "https://defencealliance.org.ua/",
+      },
+      {
+        name: "ЛІГА ОБОРОННИХ ПІДПРИЄМСТВ УКРАЇНИ",
+        href: "https://www.ldc.org.ua/",
+      },
+      {
+        name: "РАДІОЕЛЕКТРОННИЙ АЛЬЯНС УКРАЇНИ",
+        href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
+      },
+      {
+        name: "УКРАЇНСЬКІ РОБОТИЗОВАНІ СИЛИ",
+        href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
+      },
+      {
+        name: "TECHOSYSTEM DEFENCE",
+        href: "https://techosystem.org/",
+      },
+      {
+        name: 'АСОЦІАЦІЯ ВИРОБНИКІВ БПЛА "АРМАДА"',
+        href: "https://www.armada.net.ua/",
+      },
+      {
+        name: "АСОЦІАЦІЯ МОРСЬКИХ ДРОНІВ",
+        href: "https://www.unmanned-naval.org/",
+      },
+      {
+        name: "НЕЗАЛЕЖНА АСОЦІАЦІЯ ШКІЛ БПЛА УКРАЇНИ",
+        href: "https://uavs.in.ua/",
+      },
+      { name: "ІНВЕСТИЦІЙНИЙ КЛУБ UCDI" },
     ],
     ctaTitle: ["ХОЧЕТЕ ДОЛУЧИТИСЯ", "ДО ЕКОСИСТЕМИ", "РАДИ ЗБРОЯРІВ?"],
     ctaTitleMobile: [
@@ -923,15 +947,39 @@ export const uk = {
     communities: {
       heading: ["СПІЛЬНОТИ", "В ЕКОСИСТЕМІ РАДИ"],
       organizations: [
-        "ОБОРОННИЙ АЛЬЯНС УКРАЇНИ",
-        "ЛІГА ОБОРОННИХ ПІДПРИЄМСТВ УКРАЇНИ",
-        "РАДІОЕЛЕКТРОННИЙ АЛЬЯНС УКРАЇНИ",
-        "УКРАЇНСЬКІ РОБОТИЗОВАНІ СИЛИ",
-        "TECHOSYSTEM DEFENCE",
-        "АСОЦІАЦІЯ ВИРОБНИКІВ БПС «АРМАДА»",
-        "АСОЦІАЦІЯ МОРСЬКИХ ДРОНІВ",
-        "НЕЗАЛЕЖНА АСОЦІАЦІЯ ШКІЛ БПЛА УКРАЇНИ",
-        "UCDI INVESTOR CLUB",
+        {
+          name: "ОБОРОННИЙ АЛЬЯНС УКРАЇНИ",
+          href: "https://defencealliance.org.ua/",
+        },
+        {
+          name: "ЛІГА ОБОРОННИХ ПІДПРИЄМСТВ УКРАЇНИ",
+          href: "https://www.ldc.org.ua/",
+        },
+        {
+          name: "РАДІОЕЛЕКТРОННИЙ АЛЬЯНС УКРАЇНИ",
+          href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
+        },
+        {
+          name: "УКРАЇНСЬКІ РОБОТИЗОВАНІ СИЛИ",
+          href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
+        },
+        {
+          name: "TECHOSYSTEM DEFENCE",
+          href: "https://techosystem.org/",
+        },
+        {
+          name: "АСОЦІАЦІЯ ВИРОБНИКІВ БПС «АРМАДА»",
+          href: "https://www.armada.net.ua/",
+        },
+        {
+          name: "АСОЦІАЦІЯ МОРСЬКИХ ДРОНІВ",
+          href: "https://www.unmanned-naval.org/",
+        },
+        {
+          name: "НЕЗАЛЕЖНА АСОЦІАЦІЯ ШКІЛ БПЛА УКРАЇНИ",
+          href: "https://uavs.in.ua/",
+        },
+        { name: "UCDI INVESTOR CLUB" },
       ],
       ctaTitle: ["ХОЧЕТЕ", "ПРИЄДНАТИСЯ", "ДО ЕКОСИСТЕМИ", "РАДИ ЗБРОЯРІВ?"],
       ctaTitleMobile: [

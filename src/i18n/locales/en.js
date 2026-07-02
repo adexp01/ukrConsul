@@ -85,15 +85,39 @@ export const en = {
     heading: ["Associations", "Represented in UCDI"],
     aboutBtn: "About us",
     organizations: [
-      "DEFENCE ALLIANCE OF UKRAINE",
-      "League of Defence Companies of Ukraine",
-      "RADIOELECTRONIC ALLIANCE OF UKRAINE",
-      "UKRAINIAN ROBOTIC FORCES",
-      "TECHOSYSTEM DEFENCE",
-      'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
-      "Unmanned Naval Association",
-      "Independent Association of UAV Schools of Ukraine",
-      "UCDI INVESTOR CLUB",
+      {
+        name: "DEFENCE ALLIANCE OF UKRAINE",
+        href: "https://defencealliance.org.ua/",
+      },
+      {
+        name: "League of Defence Companies of Ukraine",
+        href: "https://www.ldc.org.ua/",
+      },
+      {
+        name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
+        href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
+      },
+      {
+        name: "UKRAINIAN ROBOTIC FORCES",
+        href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
+      },
+      {
+        name: "TECHOSYSTEM DEFENCE",
+        href: "https://techosystem.org/",
+      },
+      {
+        name: 'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
+        href: "https://www.armada.net.ua/",
+      },
+      {
+        name: "Unmanned Naval Association",
+        href: "https://www.unmanned-naval.org/",
+      },
+      {
+        name: "Independent Association of UAV Schools of Ukraine",
+        href: "https://uavs.in.ua/",
+      },
+      { name: "UCDI INVESTOR CLUB" },
     ],
     ctaTitle: [
       "WANT TO JOIN",
@@ -937,15 +961,39 @@ export const en = {
     communities: {
       heading: ["COMMUNITIES", "IN THE COUNCIL ECOSYSTEM"],
       organizations: [
-        "DEFENCE ALLIANCE OF UKRAINE",
-        "LEAGUE OF DEFENCE ENTERPRISES OF UKRAINE",
-        "RADIOELECTRONIC ALLIANCE OF UKRAINE",
-        "UKRAINIAN ROBOTIC FORCES",
-        "TECHOSYSTEM DEFENCE",
-        'ASSOCIATION OF BPS MANUFACTURERS "ARMADA"',
-        "ASSOCIATION OF MARITIME DRONES",
-        "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
-        "UCDI INVESTOR CLUB",
+        {
+          name: "DEFENCE ALLIANCE OF UKRAINE",
+          href: "https://defencealliance.org.ua/",
+        },
+        {
+          name: "LEAGUE OF DEFENCE ENTERPRISES OF UKRAINE",
+          href: "https://www.ldc.org.ua/",
+        },
+        {
+          name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
+          href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
+        },
+        {
+          name: "UKRAINIAN ROBOTIC FORCES",
+          href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
+        },
+        {
+          name: "TECHOSYSTEM DEFENCE",
+          href: "https://techosystem.org/",
+        },
+        {
+          name: 'ASSOCIATION OF BPS MANUFACTURERS "ARMADA"',
+          href: "https://www.armada.net.ua/",
+        },
+        {
+          name: "ASSOCIATION OF MARITIME DRONES",
+          href: "https://www.unmanned-naval.org/",
+        },
+        {
+          name: "INDEPENDENT ASSOCIATION OF UAV SCHOOLS OF UKRAINE",
+          href: "https://uavs.in.ua/",
+        },
+        { name: "UCDI INVESTOR CLUB" },
       ],
       ctaTitle: ["WANT TO", "JOIN THE", "GUNSMITHS' COUNCIL", "ECOSYSTEM?"],
       ctaTitleMobile: [

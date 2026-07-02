@@ -119,11 +119,33 @@ export const Info = ({
 
             <div ref={listWrapRef} className="info-section__list-wrap">
               <ul className="info-section__list">
-                {organizations.map((name) => (
-                  <li key={name} className="info-section__list-item">
-                    {name}
-                  </li>
-                ))}
+                {organizations.map((organization) => {
+                  const name =
+                    typeof organization === "string"
+                      ? organization
+                      : organization.name;
+                  const href =
+                    typeof organization === "string"
+                      ? null
+                      : organization.href;
+
+                  return (
+                    <li key={name} className="info-section__list-item">
+                      {href ? (
+                        <a
+                          href={href}
+                          className="info-section__list-link"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {name}
+                        </a>
+                      ) : (
+                        name
+                      )}
+                    </li>
+                  );
+                })}
 
                 {/* {showAboutBtn && copy.aboutBtn ? (
                   <Button
