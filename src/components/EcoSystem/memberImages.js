@@ -16,9 +16,10 @@ import v1 from "../../assets/v1.png";
 import max1 from "../../assets/max1.png";
 import den1 from "../../assets/den1.png";
 import artem1 from "../../assets/artem1.png";
+import o1 from "../../assets/o1.png";
 
 export const ECO_SYSTEM_MEMBER_IMAGES = {
-  kamyshin: photo01,
+  kamyshin: o1,
   fedirko: photo02,
   kovalenko: photo03,
   melnyk: photo04,
