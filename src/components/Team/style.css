@@ -202,17 +202,115 @@
 }
 
 @media (max-width: 760px) {
+  .team {
+    padding-block: 32px 48px;
+  }
+
+  .team__inner {
+    padding: 0;
+  }
+
+  .team__title {
+    padding: 0 24px;
+    font-size: 56px;
+    line-height: 0.95;
+  }
+
+  .team__group {
+    padding: 36px 0 40px;
+  }
+
+  .team__group-title {
+    padding: 0 24px;
+    font-size: 30px;
+    line-height: 34px;
+  }
+
   .team__members {
-    justify-content: center;
+    display: flex;
+    gap: 24px;
+    width: 100vw;
+    box-sizing: border-box;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: clamp(24px, 15vw, 124px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: clamp(24px, 15vw, 124px);
+    scrollbar-width: none;
+  }
+
+  .team__members::-webkit-scrollbar {
+    display: none;
+  }
+
+  .team__member {
+    flex: 0 0 min(455px, calc(100vw - 72px));
+    width: min(455px, calc(100vw - 72px));
+    height: auto;
+    scroll-snap-align: start;
+  }
+
+  .team__photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 455 / 524;
+    border-radius: 18px;
+  }
+
+  .team__name {
+    margin-top: 24px;
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .team__role {
+    margin-top: 4px;
+    font-size: 24px;
+    line-height: 30px;
   }
 }
 
 @media (max-width: 520px) {
   .team__title {
     text-align: center;
+    font-size: 42px;
+  }
+
+  .team__group-title {
+    gap: 14px;
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  .team__group-title::before {
+    width: 12px;
+    height: 12px;
   }
 
   .team__members {
-    grid-template-columns: minmax(0, 328px);
+    gap: 18px;
+    padding-inline: 24px;
+    scroll-padding-left: 24px;
+  }
+
+  .team__member {
+    flex-basis: min(328px, calc(100vw - 72px));
+    width: min(328px, calc(100vw - 72px));
+  }
+
+  .team__photo {
+    aspect-ratio: 328 / 379;
+    border-radius: 14px;
+  }
+
+  .team__name {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .team__role {
+    font-size: 18px;
+    line-height: 24px;
   }
 }
