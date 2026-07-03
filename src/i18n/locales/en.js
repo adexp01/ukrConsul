@@ -142,6 +142,220 @@ export const en = {
     applyHref:
       "https://forms.cloud.microsoft/pages/responsepage.aspx?id=2Nut6FpvHUy8VXfKXJzrZSw3IsbUBcFNjK9tBkyFmvFUQTM0QVJUVkwwN0Q0M1JIU08zT1k0UzJERi4u&route=shorturl",
   },
+  joinPage: {
+    eyebrow: "Get involved",
+    title: [
+      "JOIN THE LARGEST",
+      "COMMUNITY OF UKRAINE'S",
+      "DEFENCE INDUSTRY",
+    ],
+    text:
+      "The Ukrainian Council of Defence Industry unites associations, manufacturers, investors, educational initiatives and partners working on the development of Ukraine's defence industry.",
+    primaryCta: "Submit an application",
+    secondaryCta: "Contact the team",
+    email: "official@ucdi.org.ua",
+    applyHref:
+      "https://forms.cloud.microsoft/pages/responsepage.aspx?id=2Nut6FpvHUy8VXfKXJzrZSw3IsbUBcFNjK9tBkyFmvFUQTM0QVJUVkwwN0Q0M1JIU08zT1k0UzJERi4u&route=shorturl",
+    audience: {
+      kicker: "Who it is for",
+      title: "Who we invite",
+      items: [
+        {
+          title: "Manufacturers",
+          text: "Companies building defence products, technologies and solutions for the security and defence forces.",
+        },
+        {
+          title: "Associations",
+          text: "Industry associations representing manufacturers and technology communities.",
+        },
+        {
+          title: "Training communities",
+          text: "Schools, training centres and teams preparing operators and specialists for defence technologies.",
+        },
+        {
+          title: "Partners",
+          text: "Investors, funds, international organisations and experts helping Ukraine's defence industry grow.",
+        },
+      ],
+    },
+    process: {
+      kicker: "How it works",
+      title: "Three steps to cooperation",
+      steps: [
+        {
+          title: "Application",
+          text: "Fill out a short form and tell us about your organisation, area of work and expectations.",
+        },
+        {
+          title: "Introduction",
+          text: "The Council team will contact you, clarify the details and help define the right format of participation.",
+        },
+        {
+          title: "Onboarding",
+          text: "After alignment, you join the relevant community or workstream of the Council.",
+        },
+      ],
+    },
+    final: {
+      title: "Ready to join?",
+      text: "Submit an application and we will get back to you with next steps for your organisation.",
+    },
+    finalCta: {
+      title: [
+        "Become part",
+        "of a community",
+        "strengthening",
+        "Ukraine's defence industry",
+      ],
+      text:
+        "If your organisation works in defence manufacturing, technology, investment, training, exports or sector support, submit an application. We will help define the participation format that best matches your profile.",
+    },
+    format: {
+      title: "Define your format of participation",
+      text:
+        "If you are a manufacturer, technology team, UAV school, investor or service company, you can join the Council through one of the associations or structures that are already part of it. The Council team will help determine which participation format best matches your profile and area of work.",
+    },
+    participationFormats: {
+      ariaLabel: "Participation formats in the Council",
+      benefitsTitle: "What participation provides:",
+      partnerCta: "Propose a partnership",
+      partnerHref: "mailto:official@ucdi.org.ua",
+      items: [
+        {
+          title: "I represent a defence manufacturer",
+          text:
+            "You can join through one of the specialised associations that are part of the Council of Defence Industry, or contact the Council team to determine the right participation track.",
+          benefits: [
+            "access to a professional community of manufacturers;",
+            "participation in joint advocacy for defence industry decisions;",
+            "opportunities to join industry events, international exhibitions and B2B formats;",
+            "access to practical materials, explainers and consultation formats.",
+          ],
+        },
+        {
+          title: "I represent an industry association",
+          text:
+            "Associations can join the Council's shared work, represent the position of their members and strengthen coordination across the defence industry.",
+          benefits: [
+            "joint representation of association members' interests;",
+            "coordination with adjacent defence industry areas;",
+            "participation in working groups, events and international initiatives;",
+            "access to the Council's communications and expert support.",
+          ],
+        },
+        {
+          title: "I represent an investor or fund",
+          text:
+            "Investors and funds can work with the Council to find relevant teams, understand industry needs and develop partnerships with Ukraine's defence industry.",
+          benefits: [
+            "introductions to verified teams and manufacturers;",
+            "understanding of current needs and sector development areas;",
+            "participation in partnership and B2B formats;",
+            "access to industry expertise and market context.",
+          ],
+        },
+        {
+          title: "I represent a UAV school or educational initiative",
+          text:
+            "Educational teams can join the Council ecosystem to strengthen training for specialists, operators and technical teams working with defence technologies.",
+          benefits: [
+            "cooperation with manufacturers and technology communities;",
+            "participation in specialised educational and practical initiatives;",
+            "sharing experience and training standards;",
+            "opportunities to find partners for joint programmes.",
+          ],
+        },
+        {
+          title: "I represent a partner",
+          text:
+            "Service companies, international organisations and expert teams can propose partnerships that support Ukrainian manufacturers and develop the defence ecosystem.",
+          benefits: [
+            "opportunities to offer useful services to Council members;",
+            "participation in joint events, programmes and communications formats;",
+            "access to the professional network of Ukraine's defence industry;",
+            "cooperation with teams scaling defence solutions.",
+          ],
+        },
+      ],
+    },
+    processSlider: {
+      title: ["How joining or", "connecting to the", "ecosystem works"],
+      navigationLabel: "Steps for joining the ecosystem",
+      steps: [
+        {
+          shortTitle: "You submit an application",
+          title: "You submit an application",
+          text:
+            "Fill out the website form and briefly describe your organisation, area of work and expected participation format.",
+        },
+        {
+          shortTitle: "The Council team reviews the request",
+          title: "The Council team reviews the request",
+          text:
+            "We review the information, identify the relevant direction and, if needed, clarify the details of your request.",
+        },
+        {
+          shortTitle: "We define the participation format",
+          title: "We define the participation format",
+          text:
+            "Together we choose which association, community or partnership format is the best fit for joining the Council ecosystem.",
+        },
+        {
+          shortTitle: "We align next steps",
+          title: "We align next steps",
+          text:
+            "After the format is agreed, the Council team shares the next actions, contacts and practical materials to start cooperation.",
+        },
+      ],
+    },
+    ecosystem: {
+      title: ["WHO IS ALREADY", "PART OF THE", "COUNCIL ECOSYSTEM"],
+      cardCta: "Visit",
+      formatCta: "Find out which participation format suits you",
+      formatHref: "mailto:official@ucdi.org.ua",
+      navigationLabel: "Community navigation",
+      prevLabel: "Previous communities",
+      nextLabel: "Next communities",
+      items: [
+        {
+          title: "Defence Alliance of Ukraine",
+          text:
+            "A community working to develop a competitive Ukrainian defence industry for the Defence Forces of Ukraine. The Alliance unites industry and state efforts, supports long-term sector development, innovation, public-private partnership and international capital engagement.",
+          href: "https://defencealliance.org.ua/",
+        },
+        {
+          title: "League of Defence Companies of Ukraine",
+          text:
+            "An association of Ukrainian private manufacturers of weapons and military equipment. The League represents domestic producers, supports the development of the defence-industrial complex and helps improve conditions for the industry.",
+          href: "https://www.ldc.org.ua/",
+        },
+        {
+          title: "Radioelectronic Alliance of Ukraine",
+          text:
+            "An association of EW and electronic intelligence manufacturers created to develop Ukraine's radioelectronic sector. The community represents manufacturers, strengthens coordination and works on solutions critical for modern warfare.",
+          href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
+        },
+        {
+          title: "Ukrainian Robotic Forces",
+          text:
+            "A community of teams and manufacturers developing robotic defence solutions, supporting cooperation between developers and helping scale practical technologies for the frontline.",
+          href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
+        },
+        {
+          title: "Techosystem Defense",
+          text:
+            "An association of defence technology companies working on innovation, government engagement and conditions for scaling Ukrainian defence tech solutions.",
+          href: "https://techosystem.org/",
+        },
+        {
+          title: 'Association of Unmanned Systems Manufacturers "Armada"',
+          text:
+            "A professional association of unmanned systems manufacturers representing the industry, supporting producer coordination and developing Ukrainian unmanned solutions.",
+          href: "https://www.armada.net.ua/",
+        },
+      ],
+    },
+  },
   gallery: {
     heading: ["Our projects and", "products in the ", "DEFENCE", "industry"],
     discover: "Learn more about the project",

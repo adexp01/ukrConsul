@@ -8,7 +8,7 @@ export const PageLayout = ({ children, variant }) => {
   const { pathname } = useLocation();
 
   const shouldHideAnima =
-    pathname.includes("/events") || pathname.includes("/about-us");
+    pathname.includes("/events") || pathname.includes("/about-us") || pathname.includes("/join");
 
   const shellClass = variant
     ? `page-shell page-shell--${variant}`

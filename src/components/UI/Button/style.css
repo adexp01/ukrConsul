@@ -198,8 +198,10 @@
 }
 
 .u-btn--icon {
-  --button-blob-fill: #0b132a;
-  --button-blob-fill-hover: #141f3f;
+  --button-blob-fill: transparent;
+  --button-blob-fill-hover: transparent;
+  --button-blob-stroke: rgba(255, 255, 255, 0.18);
+  --button-blob-stroke-hover: rgba(255, 255, 255, 0.36);
   --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' viewBox='0 0 10 10'%3E%3Cpath fill='%23fff' d='M7.703 5.8H.398V4.6h7.305l-3.36-3.36.855-.84 4.8 4.8-4.8 4.8-.855-.84 3.36-3.36Z'/%3E%3C/svg%3E");
   --button-arrow-size: 10px;
   --button-blob-scale: 0.875;
@@ -247,7 +249,12 @@
 
 .u-btn--icon svg path {
   fill: var(--button-blob-fill);
-  transition: fill var(--button-transition-duration)
+  stroke: var(--button-blob-stroke);
+  stroke-width: 1.5;
+  transition:
+    fill var(--button-transition-duration)
+      var(--button-transition-timing-function),
+    stroke var(--button-transition-duration)
     var(--button-transition-timing-function);
 }
 
@@ -276,6 +283,7 @@
 
 .u-btn--icon:hover svg path {
   fill: var(--button-blob-fill-hover);
+  stroke: var(--button-blob-stroke-hover);
 }
 
 .u-btn--icon.-right:hover .btn_icon::before {
@@ -284,6 +292,33 @@
 
 .u-btn--icon.-left:hover .btn_icon::before {
   transform: scaleX(-1) translateX(7px);
+}
+
+.u-btn--icon.-solid {
+  --button-blob-fill: #0b132a;
+  --button-blob-fill-hover: #141f3f;
+  --button-blob-stroke: transparent;
+  --button-blob-stroke-hover: transparent;
+}
+
+.u-btn--icon:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.u-btn--icon:disabled .btn_icon,
+.u-btn--icon:disabled:hover .btn_icon {
+  transform: none;
+}
+
+.u-btn--icon:disabled.-right .btn_icon::before,
+.u-btn--icon:disabled.-right:hover .btn_icon::before {
+  transform: translateX(3px);
+}
+
+.u-btn--icon:disabled.-left .btn_icon::before,
+.u-btn--icon:disabled.-left:hover .btn_icon::before {
+  transform: scaleX(-1) translateX(3px);
 }
 
 .nav-arrows {

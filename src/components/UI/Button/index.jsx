@@ -91,14 +91,16 @@ export const Button = ({
 export const IconButton = ({
   href = "#",
   direction = "right",
+  variant = "outline",
   className = "",
   onClick,
   type = "button",
   ...props
 }) => {
   const directionClass = direction === "left" ? "-left" : "-right";
+  const variantClass = variant === "solid" ? "-solid" : "-outline";
   const blobPath = direction === "left" ? ICON_BLOB_LEFT_PATH : ICON_BLOB_PATH;
-  const classNames = `u-btn--icon ${directionClass}${className ? ` ${className}` : ""}`;
+  const classNames = `u-btn--icon ${directionClass} ${variantClass}${className ? ` ${className}` : ""}`;
   const icon = (
     <i className="btn_icon" aria-hidden="true">
       <svg
@@ -139,17 +141,24 @@ export const NavArrows = ({
   onNext,
   prevLabel = "Previous",
   nextLabel = "Next",
+  variant = "solid",
+  prevDisabled = false,
+  nextDisabled = false,
   className = "",
 }) => (
   <div className={`nav-arrows${className ? ` ${className}` : ""}`}>
     <IconButton
       direction="left"
+      variant={variant}
       aria-label={prevLabel}
+      disabled={prevDisabled}
       {...(onPrev ? { onClick: onPrev } : { href: prevHref })}
     />
     <IconButton
       direction="right"
+      variant={variant}
       aria-label={nextLabel}
+      disabled={nextDisabled}
       {...(onNext ? { onClick: onNext } : { href: nextHref })}
     />
   </div>

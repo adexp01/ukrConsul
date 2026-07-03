@@ -1,0 +1,13 @@
+.join-page {
+  min-height: calc(100vh - 88px);
+  color: #ffffff;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.84) 48%,
+      #000000 100%
+    ),
+    url("../../assets/bg1.svg") center top / cover no-repeat,
+    #000000;
+}

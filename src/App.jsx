@@ -14,6 +14,7 @@ import { EventDetailPage } from "./pages/EventDetailPage";
 import { TrackPage } from "./pages/TrackPage";
 import { OfficePage } from "./pages/Office";
 import { AboutUsPage } from "./pages/AboutUsPage";
+import { JoinPage } from "./pages/JoinPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="track" element={<TrackPage />} />
             <Route path="office" element={<OfficePage />} />
             <Route path="about-us" element={<AboutUsPage />} />
+            <Route path="join" element={<JoinPage />} />
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
