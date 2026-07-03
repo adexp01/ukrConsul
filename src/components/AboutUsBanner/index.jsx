@@ -2,6 +2,15 @@ import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
+const renderLineWithBreaks = (line) =>
+  line
+    .split(/<br\s*\/?>/i)
+    .flatMap((part, partIndex, parts) =>
+      partIndex < parts.length - 1
+        ? [part, <br key={`${line}-break-${partIndex}`} />]
+        : [part],
+    );
+
 export const AboutUsBanner = () => {
   const { t } = useLanguage();
   const copy = t("aboutUsPage.banner");
@@ -17,7 +26,7 @@ export const AboutUsBanner = () => {
         <h1 id="about-us-banner-title" className="about-us-banner__title">
           {copy.title.map((line, index) => (
             <span key={line} className={`about-us-banner__title-${index + 1}`}>
-              {line}
+              {renderLineWithBreaks(line)}
             </span>
           ))}
         </h1>
