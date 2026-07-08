@@ -1,11 +1,27 @@
-import { useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { NavArrows } from "../UI/Button";
 import "./style.css";
+import m111 from "../../assets/m111.png";
+import m112 from "../../assets/m112.png";
+import m113 from "../../assets/m113.png";
+import m114 from "../../assets/m114.png";
+import m115 from "../../assets/m115.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const iconMap = {
+  diamond: m111,
+  eagle: m112,
+  links: m113,
+  zigzag: m114,
+  cross: m115,
+};
+
+const VISIBLE_CARDS = 3;
 
 export const AnimationCards = () => {
   const { t } = useLanguage();
@@ -14,84 +30,111 @@ export const AnimationCards = () => {
   const items = Array.isArray(t("track.cards.items"))
     ? t("track.cards.items")
     : [];
+  const maxStartIndex = Math.max(0, items.length - VISIBLE_CARDS);
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleItems = useMemo(
+    () => items.slice(startIndex, startIndex + VISIBLE_CARDS),
+    [items, startIndex],
+  );
+
+  const goPrev = () => {
+    setStartIndex((currentIndex) => Math.max(0, currentIndex - 1));
+  };
+
+  const goNext = () => {
+    setStartIndex((currentIndex) => Math.min(maxStartIndex, currentIndex + 1));
+  };
 
   useGSAP(
     () => {
       const section = sectionRef.current;
       if (!section) return;
 
-      const title = section.querySelector(".animation-cards__title");
-      const rows = gsap.utils.toArray(".animation-cards__row", section);
-      if (!title || !rows.length) return;
+      const cards = gsap.utils.toArray(".animation-cards__card", section);
+      const nav = section.querySelector(".animation-cards__nav");
+      if (!cards.length) return;
 
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(title, { autoAlpha: 0, y: 20 });
-        gsap.set(rows, { autoAlpha: 0, y: 16 });
+        gsap.set(cards, { autoAlpha: 0, y: 18 });
+        if (nav) gsap.set(nav, { autoAlpha: 0, y: 10 });
 
-        gsap.to(title, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 85%",
-            once: true,
-          },
-        });
-
-        gsap.to(rows, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power2.out",
-          delay: 0.12,
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             start: "top 82%",
             once: true,
           },
         });
+
+        tl.to(cards, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+        });
+
+        if (nav) {
+          tl.to(
+            nav,
+            { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out" },
+            "-=0.2",
+          );
+        }
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([title, ...rows], { autoAlpha: 1, clearProps: "transform" });
+        gsap.set([cards, nav].filter(Boolean), {
+          autoAlpha: 1,
+          clearProps: "transform",
+        });
       });
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [items.length] },
+    { scope: sectionRef, dependencies: [visibleItems] },
   );
+
+  if (items.length === 0) return null;
 
   return (
     <section
       ref={sectionRef}
       className="animation-cards"
-      aria-labelledby="animation-cards-title"
+      aria-label={titleLines.join(" ")}
     >
       <div className="animation-cards__glow" aria-hidden="true" />
 
       <div className="animation-cards__inner">
-        <h2 id="animation-cards-title" className="animation-cards__title">
-          {titleLines.map((line) => (
-            <span key={line}>{line}</span>
+        <div className="animation-cards__grid">
+          {visibleItems.map((item) => (
+            <article key={item.id} className="animation-cards__card">
+              <img
+                src={iconMap[item.icon]}
+                alt=""
+                className="animation-cards__icon"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 className="animation-cards__card-title">{item.title}</h3>
+              <p className="animation-cards__card-text">{item.text}</p>
+            </article>
           ))}
-        </h2>
+        </div>
 
-        <ol className="animation-cards__list">
-          {items.map((item, index) => (
-            <li key={item.id} className="animation-cards__row">
-              <span className="animation-cards__index" aria-hidden="true">
-                {index + 1}
-              </span>
-              <h3 className="animation-cards__row-title">{item.title}</h3>
-              <p className="animation-cards__row-text">{item.text}</p>
-            </li>
-          ))}
-        </ol>
+        <NavArrows
+          className="animation-cards__nav"
+          variant="outline"
+          onPrev={goPrev}
+          onNext={goNext}
+          prevLabel={t("gallery.prevSlide")}
+          nextLabel={t("gallery.nextSlide")}
+          prevDisabled={startIndex === 0}
+          nextDisabled={startIndex === maxStartIndex}
+        />
       </div>
     </section>
   );

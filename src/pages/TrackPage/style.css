@@ -1,11 +1,6 @@
 .track-page {
   position: relative;
   min-height: calc(100vh - 88px);
-  background-color: #000;
-  background-image: url("../../assets/bg1.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center top;
 }
 
 .track-page::after {

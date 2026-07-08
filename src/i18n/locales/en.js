@@ -906,9 +906,18 @@ export const en = {
   },
   office: {
     hero: {
-      title: ["Export support", "office"],
+      title: ["Activities"],
       description:
-        "A team that helps Ukrainian defence manufacturers navigate export procedures, compliance requirements and the rules of international markets.",
+        "We consolidate industry associations, manufacturers, investors, educational communities and partners working in defence technologies.",
+      tabsLabel: "Activity areas",
+      tabs: [
+        { id: "gr", label: "GR / Advocacy", href: "#" },
+        { id: "international", label: "International track", href: "#" },
+        { id: "regional", label: "Regional track", href: "/track" },
+        { id: "youth", label: "Youth track", href: "/track" },
+        { id: "export", label: "Export Support Office", href: "/office" },
+      ],
+      emptyTab: "This tab is empty for now:",
     },
     clock: {
       title: [
@@ -930,13 +939,104 @@ export const en = {
       ],
     },
     exportMap: {
-      title: "EXPORT MAP",
+      title: "GR / Advocacy",
+      description:
+        "The Council's GR track represents the consolidated position of private defence manufacturers in cooperation with public authorities.",
       cardLeft:
-        "The map explains key stages, procedures and requirements companies face when preparing for export, and shows the main formats of international work: from direct export to joint production and partnerships abroad.",
+        "Our goal is to ensure that rules for the defence industry reflect real operating conditions for manufacturers, reduce regulatory risks and create predictable conditions for scaling Ukraine's defence industry.",
       cardRight:
-        "A practical product of the Export Support Office that helps manufacturers understand possible routes to external markets.",
+        "We systematically collect company requests, identify regulatory barriers and prepare concrete solutions: changes to legislation, bylaws and procedures.",
       cta: "Export Map",
       ctaHref: "#",
+    },
+    workFocus: {
+      title: "What we work on",
+      description:
+        "The Council's GR team works on decisions that reduce regulatory uncertainty for manufacturers and create clear conditions for the sector's growth.",
+      dialLabel: ["Among the key", "areas of", "work:"],
+      items: [
+        "Monitoring the implementation of the Defence City regime, analyzing manufacturers' issues, and preparing changes to regulatory acts",
+        "Expanding the non-public regime for financial and statistical reporting for defence manufacturers",
+        "Expanding the non-public regime for financial and statistical reporting for defence manufacturers",
+      ],
+    },
+    decisions: {
+      title: "Adopted decisions",
+      description:
+        "With the Council's participation, a number of decisions have been advanced that are already changing operating conditions for defence manufacturers.",
+      label: "Among them:",
+      prevLabel: "Previous decisions",
+      nextLabel: "Next decisions",
+      items: [
+        {
+          id: "defence-city",
+          text: "Adoption and launch of the Defence City legal regime",
+        },
+        {
+          id: "vat-robotics",
+          text: "VAT exemption for ground robotic systems supported by the Verkhovna Rada of Ukraine",
+        },
+        {
+          id: "restricted-data",
+          text: "Restricting access to sensitive data about defence industry enterprises",
+        },
+      ],
+    },
+    whiteBook: {
+      title: "White Book of defence industry changes",
+      description:
+        "An analytical document by the Council that systematizes key legislative, regulatory and procedural changes for Ukrainian defence industry manufacturers.",
+      note: "The document covers 2025 and the current agenda for the beginning of 2026.",
+      label: "It includes:",
+      downloadLabel: "Download the book",
+      downloadHref: "#",
+      items: [
+        "decisions that have already had a practical effect for the market;",
+        "regulatory priorities that still need to be completed;",
+        "systemic barriers that slow down production scaling;",
+        "practical recommendations for manufacturers on adapting to new rules.",
+      ],
+    },
+    grMeetups: {
+      title: "Among defence manufacturers GR",
+      description:
+        '"Among defence manufacturers GR" is a closed meeting format for defence manufacturers focused on legislative, regulatory and procedural changes in the sector.',
+      joinLabel: "Join consultations",
+      allLabel: "View all events",
+      allHref: "#",
+      events: [
+        {
+          id: "asd-connect-1",
+          meta: "April 10  /  09:00-12:00",
+          title: "ASD-CONNECT platform presentation",
+          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
+          href: "#",
+        },
+        {
+          id: "asd-connect-2",
+          meta: "April 10  /  09:00-12:00",
+          title: "ASD-CONNECT platform presentation",
+          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
+          href: "#",
+        },
+      ],
+    },
+    services: {
+      title: "Our services",
+      items: [
+        {
+          title: "Analytics and training",
+          text: "We analyze real export cases and prepare practical training modules for manufacturers.",
+        },
+        {
+          title: "Front Office",
+          text: "We receive company requests and provide consultations on export procedures.",
+        },
+        {
+          title: "Expert support for regulatory changes",
+          text: "We consolidate the market position and prepare proposals for the government on changing rules.",
+        },
+      ],
     },
   },
   aboutUsPage: {

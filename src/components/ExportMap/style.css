@@ -2,8 +2,16 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  isolation: isolate;
-  background-color: #000;
+  background:
+    linear-gradient(180deg, #020202 0%, rgba(2, 2, 2, 0.78) 18%, rgba(2, 2, 2, 0.86) 78%, #02071c 100%),
+    radial-gradient(
+      ellipse at 34% 10%,
+      rgba(216, 102, 24, 0.18) 0%,
+      rgba(42, 25, 17, 0.26) 34%,
+      transparent 68%
+    ),
+    url("../../assets/bg2.svg") center top / cover no-repeat,
+    #020202;
 }
 
 .export-map::before,
@@ -12,241 +20,177 @@
   position: absolute;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
 }
 
 .export-map::before {
   top: 0;
-  height: clamp(96px, 14vw, 180px);
-  background: linear-gradient(
-    180deg,
-    #000 0%,
-    rgba(0, 0, 0, 0.92) 18%,
-    rgba(0, 0, 0, 0.55) 48%,
-    rgba(0, 0, 0, 0.12) 78%,
-    transparent 100%
-  );
+  height: 150px;
+  background: linear-gradient(180deg, #020202 0%, rgba(2, 2, 2, 0) 100%);
 }
 
 .export-map::after {
   bottom: 0;
-  height: clamp(96px, 14vw, 180px);
-  background: linear-gradient(
-    0deg,
-    #000 0%,
-    rgba(0, 0, 0, 0.92) 18%,
-    rgba(0, 0, 0, 0.55) 48%,
-    rgba(0, 0, 0, 0.12) 78%,
-    transparent 100%
-  );
-}
-
-.export-map__backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-color: #000;
-  background-image: url("../../assets/bg2.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-}
-
-.export-map__glow {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.export-map__visual {
-  position: absolute;
-  right: -4%;
-  bottom: -6%;
-  z-index: 2;
-  width: min(72vw, 920px);
-  max-height: 92%;
-  height: auto;
-  object-fit: contain;
-  object-position: right bottom;
-  pointer-events: none;
-  user-select: none;
+  height: 150px;
+  background: linear-gradient(0deg, #02071c 0%, rgba(2, 7, 28, 0) 100%);
 }
 
 .export-map__inner {
   position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  min-height: clamp(520px, 62vw, 680px);
-  padding: clamp(48px, 6vw, 72px) 48px clamp(56px, 7vw, 80px);
-}
-
-.export-map__connector {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.export-map__title-anchor {
-  display: inline;
-}
-
-.export-map__connector-path {
-  stroke: rgba(255, 255, 255, 0.16);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.export-map__connector-dash {
-  stroke: #FF7D20;
-  stroke-width: 4;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
+  z-index: 2;
+  min-height: 720px;
+  padding: 74px 60px 86px;
 }
 
 .export-map__head {
   position: relative;
-  z-index: 2;
-  margin-bottom: clamp(32px, 5vw, 56px);
+  z-index: 3;
+  max-width: 510px;
 }
 
 .export-map__title {
   margin: 0;
   color: #ffffff;
-  font-size: clamp(32px, 4.8vw, 56px);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-family: "Fixel Display", sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 68px;
+  letter-spacing: -0.06em;
   text-transform: uppercase;
 }
 
+.export-map__description {
+  max-width: 380px;
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Fixel Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
 .export-map__stage {
-  position: relative;
+  position: absolute;
+  inset: 190px auto auto 118px;
+  width: min(720px, calc(100% - 180px));
+  height: 345px;
   z-index: 2;
-  flex: 1;
-  min-height: clamp(280px, 36vw, 380px);
+  margin-top: 80px;
+}
+
+.export-map__line {
+  position: absolute;
+  top: 0;
+  left: 72px;
+  width: 430px;
+  height: 265px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  pointer-events: none;
+}
+
+.export-map__line::before {
+  content: "";
+  position: absolute;
+  top: -58px;
+  left: 0;
+  width: 1px;
+  height: 58px;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.export-map__line-accent {
+  position: absolute;
+  top: -2px;
+  left: 88px;
+  width: 24px;
+  height: 4px;
+  border-radius: 999px;
+  background: #ff7d20;
+  box-shadow: 0 0 12px rgba(255, 125, 32, 0.5);
 }
 
 .export-map__card {
   position: absolute;
-  max-width: min(420px, 46vw);
-  padding: clamp(18px, 2.2vw, 24px) clamp(20px, 2.4vw, 28px);
-  border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-  will-change: opacity, transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .export-map__card,
-  .export-map__cta-wrap {
-    will-change: auto;
-  }
+  width: 360px;
+  min-height: 118px;
+  padding: 24px 28px;
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
 }
 
 .export-map__card p {
   margin: 0;
-  font-size: clamp(14px, 1.25vw, 17px);
-  font-weight: 500;
-  line-height: 1.5;
+  font-family: "Fixel Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
 }
 
 .export-map__card--left {
-  top: 38%;
+  top: 175px;
   left: 0;
   z-index: 2;
-  background: #b8c6e0;
-  color: #0c1220;
+  background: #c7d9ff;
+  color: #1b2740;
 }
 
 .export-map__card--right {
-  top: 8%;
-  left: 30%;
+  top: 40px;
+  left: 430px;
   z-index: 3;
-  max-width: min(360px, 38vw);
-  background: #6f7ec4;
-  color: #0a0e18;
-}
-
-.export-map__cta-wrap {
-  position: relative;
-  z-index: 2;
-  align-self: flex-start;
-  margin-top: auto;
-  width: fit-content;
-  margin-top: 50px;
-  will-change: opacity, transform;
-}
-
-.export-map__cta {
-  position: relative;
-}
-
-.export-map__cta.button2 {
-  min-width: 220px;
+  background: #7188d6;
+  color: #ffffff;
 }
 
 @media (max-width: 1024px) {
-  .export-map::before,
-  .export-map::after {
-    height: clamp(72px, 18vw, 120px);
-  }
-
-  .export-map__connector {
-    display: none;
-  }
-
-  .export-map__visual {
-    right: -18%;
-    bottom: -4%;
-    width: 115%;
-    opacity: 0.55;
-  }
-
   .export-map__inner {
     min-height: auto;
-    padding: 40px 20px 48px;
+    padding: 58px 20px 64px;
   }
 
   .export-map__head {
-    margin-bottom: 24px;
+    max-width: 100%;
   }
 
   .export-map__title {
-    font-size: clamp(28px, 8vw, 40px);
+    font-size: clamp(42px, 10vw, 56px);
+    line-height: 1.04;
+  }
+
+  .export-map__description {
+    max-width: 440px;
   }
 
   .export-map__stage {
+    position: relative;
+    inset: auto;
     display: flex;
+    width: 100%;
+    height: auto;
     flex-direction: column;
     gap: 14px;
-    min-height: 0;
-    margin-bottom: 28px;
+    margin-top: 38px;
+  }
+
+  .export-map__line {
+    display: none;
   }
 
   .export-map__card {
     position: relative;
     top: auto;
-    right: auto;
     left: auto;
-    max-width: 100%;
-  }
-
-  .export-map__card--right {
-    right: auto;
+    width: 100%;
+    min-height: auto;
   }
 
   .export-map__card p {
     font-size: 14px;
-  }
-
-  .export-map__cta-wrap {
-    width: 100%;
-    max-width: 320px;
+    line-height: 19px;
   }
 }
