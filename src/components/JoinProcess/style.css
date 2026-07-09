@@ -88,6 +88,10 @@
   text-transform: uppercase;
 }
 
+.join-process__step-title span {
+  display: block;
+}
+
 .join-process__step-text {
   max-width: 320px;
   margin: 12px 0 0;
@@ -140,8 +144,8 @@
 
 .join-process__tabs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(180px, 1fr));
-  gap: clamp(20px, 5vw, 84px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 2.5vw, 32px);
 }
 
 .join-process__tab {

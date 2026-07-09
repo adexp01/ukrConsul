@@ -143,12 +143,46 @@
   display: block;
 }
 
+.office-tab-intro {
+  padding: 48px 48px 0;
+  background: #020202;
+}
+
+.office-tab-intro__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-family: "Fixel Display", sans-serif;
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 82px;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.office-tab-intro__title span {
+  display: block;
+}
+
+.office-tab-intro__text {
+  max-width: 470px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Fixel Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
 .office-hero__text {
   position: relative;
   z-index: 1;
   max-width: 470px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(255, 255, 255, 0.72);
   font-family: "Fixel Display", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -241,6 +275,21 @@
   .office-hero {
     min-height: auto;
     padding: 82px 20px 56px;
+  }
+
+  .office-tab-intro {
+    padding: 36px 20px 0;
+  }
+
+  .office-tab-intro__title {
+    font-size: clamp(42px, 10vw, 64px);
+    line-height: 1.02;
+  }
+
+  .office-tab-intro__text {
+    max-width: 420px;
+    font-size: 14px;
+    line-height: 19px;
   }
 
   .office-hero__visual {

@@ -20,13 +20,14 @@ import b16 from "../../assets/b16.png";
 
 export const OfficePage = () => {
   const { t } = useLanguage();
-  const titleLines = t("office.hero.title");
-  const tabs = t("office.hero.tabs");
-  const [activeTabId, setActiveTabId] = useState("gr");
+  const heroCopy = t("office.hero");
+  const tabs = heroCopy.tabs;
+  const [activeTabId, setActiveTabId] = useState("export");
   const activeTab = tabs.find((tab) => tab.id === activeTabId);
   const isGrTab = activeTabId === "gr";
   const isExportTab = activeTabId === "export";
   const isInternationalTab = activeTabId === "international";
+  const exportIntro = heroCopy.tabContent?.export;
 
   return (
     <PageLayout>
@@ -68,15 +69,15 @@ export const OfficePage = () => {
           </div>
 
           <h1 id="office-hero-title" className="office-hero__title">
-            {titleLines.map((line) => (
+            {heroCopy.title.map((line) => (
               <span key={line}>{line}</span>
             ))}
           </h1>
-          <p className="office-hero__text">{t("office.hero.description")}</p>
+          <p className="office-hero__text">{heroCopy.description}</p>
 
           <nav
             className="office-hero__tabs"
-            aria-label={t("office.hero.tabsLabel")}
+            aria-label={heroCopy.tabsLabel}
           >
             {tabs.map((tab) => (
               <button
@@ -96,7 +97,6 @@ export const OfficePage = () => {
 
         {isGrTab ? (
           <>
-            <ExportMap />
             <OfficeWorkFocus />
             <OfficeDecisions />
             <OfficeWhiteBook />
@@ -104,6 +104,20 @@ export const OfficePage = () => {
           </>
         ) : isExportTab ? (
           <>
+            {exportIntro ? (
+              <section
+                className="office-tab-intro"
+                aria-labelledby="office-export-intro-title"
+              >
+                <h2 id="office-export-intro-title" className="office-tab-intro__title">
+                  {exportIntro.title.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </h2>
+                <p className="office-tab-intro__text">{exportIntro.description}</p>
+              </section>
+            ) : null}
+            <ExportMap />
             <OfficeServices />
             <Clock />
             <Articles />

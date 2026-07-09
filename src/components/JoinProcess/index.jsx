@@ -108,7 +108,7 @@ export const JoinProcess = () => {
           <div ref={trackRef} className="join-process__steps-track">
             {steps.map((step, index) => (
               <article
-                key={step.title}
+                key={step.shortTitle}
                 className={`join-process__step${
                   activeIndex === index ? " is-active" : ""
                 }`}
@@ -116,7 +116,13 @@ export const JoinProcess = () => {
                 <span className="join-process__number">
                   {String(index + 1).padStart(2, "0")}.
                 </span>
-                <h3 className="join-process__step-title">{step.title}</h3>
+                <h3 className="join-process__step-title">
+                  {(Array.isArray(step.title) ? step.title : [step.title]).map(
+                    (line) => (
+                      <span key={line}>{line}</span>
+                    ),
+                  )}
+                </h3>
                 <p className="join-process__step-text">{step.text}</p>
               </article>
             ))}
@@ -140,7 +146,7 @@ export const JoinProcess = () => {
           <div className="join-process__tabs">
             {steps.map((step, index) => (
               <button
-                key={step.title}
+                key={step.shortTitle}
                 className={`join-process__tab${activeIndex === index ? " is-active" : ""}`}
                 type="button"
                 aria-current={activeIndex === index ? "step" : undefined}

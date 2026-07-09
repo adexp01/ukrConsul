@@ -19,14 +19,15 @@
 }
 
 .footer__cta-title {
-  max-width: 700px;
-  margin: 0;
-  color: #ffffff;
-  font-size: clamp(28px, 3.8vw, 52px);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-family: Fixel Display;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 44px;
+  leading-trim: CAP_HEIGHT;
+  line-height: 44px;
+  letter-spacing: -4%;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
 .footer__cta-button {

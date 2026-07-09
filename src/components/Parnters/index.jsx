@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
-import partnersRow1 from "../../assets/comm1.svg";
-import partnersRow2 from "../../assets/comm2.svg";
+import partnersRow1 from "../../assets/comm1.png";
+import partnersRow2 from "../../assets/comm2.png";
 import "./style.css";
 
 const MARQUEE_COPIES = 3;

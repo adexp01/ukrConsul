@@ -4,6 +4,7 @@ import { Button } from "../UI/Button";
 import { SEARCH_EVENT_GROUPS } from "../../data/searchEventsCatalog";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import plus from "../../assets/plus.svg";
 
 const CATEGORIES = [
   "Закриті заходи",
@@ -14,10 +15,53 @@ const CATEGORIES = [
   "Релевантні події",
 ];
 
+const matchesSearchQuery = (item, query) => {
+  if (!query) {
+    return true;
+  }
+
+  const haystack = [
+    item.title,
+    item.summary,
+    ...(item.cards?.flatMap((card) => [card.title, card.text, card.date]) ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return haystack.includes(query);
+};
+
+const SearchField = ({ className, value, onChange }) => (
+  <label className={`search-events__search ${className}`.trim()}>
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="8.5" cy="8.5" r="4.75" stroke="#ffffff" strokeWidth="1.5" />
+      <path d="M12 12L16 16" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+    <input
+      type="search"
+      placeholder="Пошук події..."
+      value={value}
+      onChange={onChange}
+      aria-label="Пошук події"
+    />
+  </label>
+);
+
 export const SearchEvents = () => {
   const { localizePath } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [activeEventId, setActiveEventId] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredGroups = SEARCH_EVENT_GROUPS.filter((item) =>
+    matchesSearchQuery(item, normalizedQuery),
+  );
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   const toggleEvent = (id) => {
     setActiveEventId((current) => (current === id ? "" : id));
@@ -30,20 +74,28 @@ export const SearchEvents = () => {
       <div className="search-events__layout">
         <aside className="search-events__sidebar">
           <div className="search-events__sidebar-inner">
-            <div className="search-events__chips">
-              {CATEGORIES.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={`search-events__chip${activeCategory === item ? " search-events__chip--active" : ""}`}
-                  onClick={() => setActiveCategory(item)}
-                >
-                  {item}
-                </button>
-              ))}
+            <div className="search-events__filters">
+              <div className="search-events__chips">
+                {CATEGORIES.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    className={`search-events__chip${activeCategory === item ? " search-events__chip--active" : ""}`}
+                    onClick={() => setActiveCategory(item)}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+
+              <SearchField
+                className="search-events__search--toolbar"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             </div>
 
-            <div className="search-events__cta">
+            <div className="search-events__cta search-events__desktop-cta">
               <p>
                 Якщо є тема, яку варто розкрити у форматі <b>«Поміж зброярів»</b>,
                 запропонуйте її, і ми розглянемо ваш запит.
@@ -56,17 +108,15 @@ export const SearchEvents = () => {
         </aside>
 
         <section className="search-events__content">
-          <label className="search-events__search">
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="8.5" cy="8.5" r="4.75" stroke="#ffffff" strokeWidth="1.5" />
-              <path d="M12 12L16 16" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <input type="text" placeholder="Пошук події..." />
-          </label>
+          <SearchField
+            className="search-events__search--content"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
 
           <div className="search-events__group-head">
             <h2>
-              Закриті заходи <span>21</span>
+              Закриті заходи <span>{filteredGroups.length}</span>
             </h2>
             <p>
               Закриті події для спільноти Ради зброярів: компаній-учасниць,
@@ -75,7 +125,11 @@ export const SearchEvents = () => {
           </div>
 
           <div className="search-events__list">
-            {SEARCH_EVENT_GROUPS.map((item) => {
+            {filteredGroups.length === 0 ? (
+              <p className="search-events__empty">Нічого не знайдено. Спробуйте інший запит.</p>
+            ) : null}
+
+            {filteredGroups.map((item) => {
               const isOpen = activeEventId === item.id;
 
               return (
@@ -90,8 +144,35 @@ export const SearchEvents = () => {
                     aria-expanded={isOpen}
                   >
                     <span className="search-events__item-name">{item.title}</span>
-                    <span className="search-events__item-add" aria-hidden="true">
-                      {isOpen ? "−" : "+"}
+                    <span
+                      className={`search-events__item-add${isOpen ? " search-events__item-add--open" : ""}`}
+                      aria-hidden="true"
+                    >
+                      {isOpen ? (
+                        <svg
+                          className="search-events__item-add-icon"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M16 10L4 10"
+                            stroke="white"
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      ) : (
+                        <img
+                          src={plus}
+                          width={20}
+                          height={20}
+                          alt=""
+                          className="search-events__item-add-icon"
+                        />
+                      )}
                     </span>
                   </button>
 
@@ -123,6 +204,18 @@ export const SearchEvents = () => {
                 </article>
               );
             })}
+          </div>
+
+          <div className="search-events__mobile-footer search-events__mobile-only">
+            <div className="search-events__cta">
+              <p>
+                Якщо є тема, яку варто розкрити у форматі <b>«Поміж зброярів»</b>,
+                запропонуйте її, і ми розглянемо ваш запит.
+              </p>
+              <Button href="#" variant="primary" className="search-events__cta-btn">
+                Запропонувати тему
+              </Button>
+            </div>
           </div>
         </section>
       </div>

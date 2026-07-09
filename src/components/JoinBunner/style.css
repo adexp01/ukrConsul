@@ -2,8 +2,7 @@
   position: relative;
   width: 100%;
   min-height: clamp(420px, 48vw, 620px);
-  padding: clamp(68px, 8vw, 112px) clamp(20px, 4vw, 48px)
-    clamp(56px, 7vw, 96px);
+  padding: 152px 48px 96px;
   box-sizing: border-box;
   overflow: hidden;
   background:

@@ -306,6 +306,12 @@ export const en = {
           text:
             "After the format is agreed, the Council team shares the next actions, contacts and practical materials to start cooperation.",
         },
+        {
+          shortTitle: "You join the community",
+          title: ["YOU JOIN", "THE COMMUNITY'S", "WORK"],
+          text:
+            "After completing the formal steps and paying the membership fee, the organisation joins the relevant Council ecosystem direction and gains access to the internal app, events, working groups, consultation formats and community projects.",
+        },
       ],
     },
     ecosystem: {
@@ -642,7 +648,7 @@ export const en = {
     banner: {
       title: "Media",
       description:
-        "We cover Ukraine's defence industry, the activities of the Gunsmiths' Council, key decisions for the sector, international cooperation, and projects that help Ukrainian manufacturers scale domestically and abroad.",
+        "We tell the story of Ukraine's defence industry, the Council's activities, key decisions for the sector, international cooperation, and projects that help Ukrainian manufacturers scale in Ukraine and abroad.",
     },
     info: {
       title: [
@@ -910,6 +916,13 @@ export const en = {
       description:
         "We consolidate industry associations, manufacturers, investors, educational communities and partners working in defence technologies.",
       tabsLabel: "Activity areas",
+      tabContent: {
+        export: {
+          title: ["EXPORT", "SUPPORT OFFICE"],
+          description:
+            "This team helps Ukrainian defence manufacturers navigate export procedures, compliance requirements and external market regulations.",
+        },
+      },
       tabs: [
         { id: "gr", label: "GR / Advocacy", href: "#" },
         { id: "international", label: "International track", href: "#" },
@@ -939,13 +952,10 @@ export const en = {
       ],
     },
     exportMap: {
-      title: "GR / Advocacy",
-      description:
-        "The Council's GR track represents the consolidated position of private defence manufacturers in cooperation with public authorities.",
       cardLeft:
-        "Our goal is to ensure that rules for the defence industry reflect real operating conditions for manufacturers, reduce regulatory risks and create predictable conditions for scaling Ukraine's defence industry.",
+        "Preparing a product for external markets requires going through multiple stages, procedures and requirements. This section systematizes key export preparation areas, explains process logic and shows which international work formats are available to manufacturers.",
       cardRight:
-        "We systematically collect company requests, identify regulatory barriers and prepare concrete solutions: changes to legislation, bylaws and procedures.",
+        "The Export Support Office is a practical Council product that helps manufacturers understand export routes, compliance requirements and formats for international cooperation.",
       cta: "Export Map",
       ctaHref: "#",
     },

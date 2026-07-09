@@ -1,8 +1,10 @@
 .media-bunner {
   position: relative;
   width: 100%;
-  padding-top: 188px;
-  padding-bottom: 100px;
+  min-height: clamp(360px, 42vw, 520px);
+  padding: clamp(96px, 10vw, 148px) clamp(48px, 5vw, 60px)
+    clamp(72px, 8vw, 112px);
+  box-sizing: border-box;
   overflow: hidden;
   background-image: url("../../assets/bg1.svg");
   background-size: cover;
@@ -19,14 +21,13 @@
 .media-bunner__head {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 40px 64px;
   margin-bottom: clamp(32px, 5vw, 56px);
 }
 
 .media-bunner__desc {
   max-width: 520px;
-  margin: 0 0 0 auto;
   padding-top: 0.4em;
   color: rgba(255, 255, 255, 0.92);
   font-size: clamp(14px, 1.35vw, 18px);
@@ -39,13 +40,6 @@
   border-radius: 16px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
-}
-
-.media-bunner__visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
 }
 
 @media (max-width: 1024px) {
