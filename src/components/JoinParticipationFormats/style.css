@@ -86,8 +86,11 @@
   line-height: 1;
 }
 
+.join-participation-card.is-open .join-participation-card__toggle {
+  color: #e7691a;
+}
+
 .join-participation-card__body {
-  max-width: 680px;
   padding: 0 28px 28px;
 }
 

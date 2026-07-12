@@ -101,6 +101,7 @@ export const OfficePage = () => {
             <OfficeDecisions />
             <OfficeWhiteBook />
             <OfficeGrMeetups />
+            <Articles />
           </>
         ) : isExportTab ? (
           <>

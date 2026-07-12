@@ -73,6 +73,43 @@
   margin: 0 auto;
 }
 
+.animation-cards__title {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto clamp(56px, 7vw, 72px);
+  color: #ffffff;
+  font-family: "Fixel Display", sans-serif;
+  font-size: 68px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 68px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.animation-cards__title span {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.animation-cards__title span:nth-child(1) {
+  margin-left: clamp(72px, 14vw, 186px);
+}
+
+.animation-cards__title span:nth-child(2) {
+  margin-left: 0;
+}
+
+.animation-cards__title span:nth-child(3) {
+  margin-left: clamp(108px, 20vw, 272px);
+}
+
+.animation-cards__title span:nth-child(4) {
+  margin-left: clamp(42px, 8vw, 112px);
+}
+
 .animation-cards__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -80,7 +117,7 @@
 }
 
 .animation-cards__card {
-  min-height: 200px;
+  min-height: 317px;
   padding: 28px 24px 26px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
@@ -94,8 +131,8 @@
 
 .animation-cards__icon {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   margin-bottom: 38px;
 }
@@ -127,9 +164,42 @@
   margin: 28px auto 0;
 }
 
+@media (min-width: 1025px) {
+  .animation-cards__title span {
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 1024px) {
   .animation-cards {
     padding: 62px 20px 72px;
+  }
+
+  .animation-cards__title {
+    margin-bottom: 40px;
+    font-size: clamp(34px, 8vw, 52px);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+
+  .animation-cards__title span {
+    white-space: normal;
+  }
+
+  .animation-cards__title span:nth-child(1) {
+    margin-left: 12%;
+  }
+
+  .animation-cards__title span:nth-child(2) {
+    margin-left: 0;
+  }
+
+  .animation-cards__title span:nth-child(3) {
+    margin-left: 20%;
+  }
+
+  .animation-cards__title span:nth-child(4) {
+    margin-left: 7%;
   }
 
   .animation-cards::before {

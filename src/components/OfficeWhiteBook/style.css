@@ -73,7 +73,6 @@
 .office-white-book__card {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.58fr);
   min-height: 392px;
   margin-top: 66px;
   overflow: hidden;
@@ -94,7 +93,7 @@
 }
 
 .office-white-book__note {
-  max-width: 720px;
+  max-width: fit-content;
   margin: 0;
   padding: 16px 22px;
   border: 1px solid rgba(255, 255, 255, 0.12);

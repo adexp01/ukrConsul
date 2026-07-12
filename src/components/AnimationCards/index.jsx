@@ -104,11 +104,17 @@ export const AnimationCards = () => {
     <section
       ref={sectionRef}
       className="animation-cards"
-      aria-label={titleLines.join(" ")}
+      aria-labelledby="animation-cards-title"
     >
       <div className="animation-cards__glow" aria-hidden="true" />
 
       <div className="animation-cards__inner">
+        <h2 id="animation-cards-title" className="animation-cards__title">
+          {titleLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </h2>
+
         <div className="animation-cards__grid">
           {visibleItems.map((item) => (
             <article key={item.id} className="animation-cards__card">
