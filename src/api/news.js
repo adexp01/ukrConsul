@@ -1,8 +1,14 @@
 import { getNewsApiUrl, resolveAssetUrl } from "./config";
+import { LOCAL_NEWS } from "../data/localNews";
 
 export const resolveNewsAssetUrl = resolveAssetUrl;
 
-export const fetchNews = async () => {
+const byNewestFirst = (a, b) =>
+  new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0);
+
+const isPublished = (item) => item.published !== false;
+
+const fetchCrmNews = async () => {
   const response = await fetch(getNewsApiUrl());
 
   if (!response.ok) {
@@ -10,15 +16,31 @@ export const fetchNews = async () => {
   }
 
   const payload = await response.json();
-  const items = Array.isArray(payload)
+
+  return Array.isArray(payload)
     ? payload
     : (payload?.data ?? payload?.news ?? []);
+};
 
-  return items
-    .filter((item) => item.published !== false)
-    .sort(
-      (a, b) => new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0),
-    );
+export const fetchNews = async () => {
+  // Статті з коду (src/data/localNews.js) показуються завжди —
+  // навіть якщо CRM недоступна.
+  const local = LOCAL_NEWS.filter(isPublished);
+
+  let remote = [];
+  try {
+    remote = (await fetchCrmNews()).filter(isPublished);
+  } catch (error) {
+    console.error("[news] CRM недоступна, показуємо лише локальні статті", error);
+  }
+
+  const localIds = new Set(local.map((item) => String(item.id)));
+  const merged = [
+    ...local,
+    ...remote.filter((item) => !localIds.has(String(item.id))),
+  ];
+
+  return merged.sort(byNewestFirst);
 };
 
 export const formatNewsDate = (isoDate, language) => {
