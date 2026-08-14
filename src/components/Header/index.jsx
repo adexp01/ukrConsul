@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import logoEn from "../../assets/logo.svg";
 import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
 const NAV_ITEMS = [
-  // { key: "aboutUs", href: "/about-us" },
+  { key: "aboutUs", href: "/about-us" },
+  { key: "media", href: "/media" },
   // { key: "getInvolved", href: "/get-involved" },
   // { key: "activities", href: "/activities", hasDropdown: true },
-  // { key: "media", href: "/media" },
   // { key: "events", href: "/events" },
   // { key: "contact", href: "/contact" },
 ];
@@ -107,7 +108,7 @@ export const Header = () => {
                   onMouseLeave={() => setIsActivitiesOpen(false)}
                 >
                   <a
-                    href={item.href}
+                    href={localizePath(item.href)}
                     className="header__nav-link header__nav-link--trigger"
                     aria-expanded={isActivitiesOpen}
                     aria-haspopup="true"
@@ -144,13 +145,13 @@ export const Header = () => {
 
             return (
               <li key={item.key} className="header__nav-item">
-                <a
-                  href={item.href}
+                <Link
+                  to={localizePath(item.href)}
                   className="header__nav-link"
                   onClick={closeMenu}
                 >
                   {t(`header.nav.${item.key}`)}
-                </a>
+                </Link>
               </li>
             );
           })}
