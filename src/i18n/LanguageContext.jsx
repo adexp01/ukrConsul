@@ -74,7 +74,11 @@ export const LanguageProvider = ({ children }) => {
       t,
       dict,
     };
-  }, [language, localizePath, urlLocale]);
+    // setLanguage обовʼязково в залежностях: усередині він замикається на
+    // поточному pathname. Без нього перехід у межах однієї мови
+    // (/en → /en/media) лишає в контексті стару функцію, і перемикач
+    // мови веде на головну замість поточної сторінки.
+  }, [language, localizePath, setLanguage, urlLocale]);
 
   return (
     <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>

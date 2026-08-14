@@ -64,26 +64,41 @@ const IconBlob = ({ path = ICON_BLOB_PATH }) => (
 
 export const Button = ({
   children = "Take the test",
-  href = "#",
+  href,
   variant = "primary",
   className = "",
+  onClick,
+  type = "button",
   ...props
 }) => {
   const isPrimary = variant === "primary";
   const variantClass = isPrimary ? "-primary" : "-dark";
+  const classNames = `u-btn--1 ${variantClass}${className ? ` ${className}` : ""}`;
 
-  return (
-    <a
-      href={href}
-      className={`u-btn--1 ${variantClass}${className ? ` ${className}` : ""}`}
-      {...props}
-    >
+  const content = (
+    <>
       <span className="btn_label button2__label">
         {children}
         <LabelCorner />
       </span>
 
       <IconBlob />
+    </>
+  );
+
+  // Кнопка-дія (наприклад «Завантажити ще») має бути <button>, а не <a href="#">:
+  // інакше браузер переходить за порожнім якорем і сторінку кидає вгору.
+  if (!href) {
+    return (
+      <button type={type} className={classNames} onClick={onClick} {...props}>
+        {content}
+      </button>
+    );
+  }
+
+  return (
+    <a href={href} className={classNames} onClick={onClick} {...props}>
+      {content}
     </a>
   );
 };
