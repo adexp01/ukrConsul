@@ -50,6 +50,9 @@ export const MediaNews = () => {
     setVisibleCount(INITIAL_VISIBLE);
   };
 
+  // Поки жодної статті немає — секцію «Новини» не показуємо взагалі
+  if (!loading && cards.length === 0) return null;
+
   return (
     <section className="media-news" aria-labelledby="media-news-title">
       <div className="media-news__glow" aria-hidden="true" />
