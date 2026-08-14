@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Articles } from "../../components/Articles";
 import { Clock } from "../../components/Clock";
 import { ExportMap } from "../../components/ExportMap";
@@ -30,6 +31,54 @@ export const OfficePage = () => {
   const heroCopy = t("office.hero");
   const tabs = heroCopy.tabs;
   const [activeTabId, setActiveTabId] = useState("export");
+  const tabsRef = useRef(null);
+  const isFirstRender = useRef(true);
+
+  /*
+   * Вкладки підмінюють цілі секції, а разом з ними — висоту сторінки.
+   * ScrollTrigger рахує свої позиції один раз при монтуванні, тож без
+   * перерахунку анімації нижніх блоків (циферблат, фокус роботи) лишались
+   * у стартовому стані: заголовки з autoAlpha 0 так і не проявлялись.
+   */
+  useLayoutEffect(() => {
+    const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(frame);
+  }, [activeTabId]);
+
+  // Перемкнули вкладку — повертаємось до її початку, а не лишаємось
+  // на висоті скролу попередньої
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const tabs = tabsRef.current;
+    if (!tabs) return;
+
+    const top = tabs.getBoundingClientRect().top + window.scrollY - 24;
+    window.scrollTo({ top, behavior: "instant" });
+  }, [activeTabId]);
+
+  // Картинки вантажаться після монтування й зсувають усе нижче за собою
+  useEffect(() => {
+    const images = Array.from(document.querySelectorAll(".office-page img"));
+    const pending = images.filter((image) => !image.complete);
+    if (pending.length === 0) return undefined;
+
+    const refresh = () => ScrollTrigger.refresh();
+    pending.forEach((image) => {
+      image.addEventListener("load", refresh);
+      image.addEventListener("error", refresh);
+    });
+
+    return () => {
+      pending.forEach((image) => {
+        image.removeEventListener("load", refresh);
+        image.removeEventListener("error", refresh);
+      });
+    };
+  }, [activeTabId]);
   const activeTab = tabs.find((tab) => tab.id === activeTabId);
   const isGrTab = activeTabId === "gr";
   const isExportTab = activeTabId === "export";
@@ -87,6 +136,7 @@ export const OfficePage = () => {
           <p className="office-hero__text">{heroCopy.description}</p>
 
           <nav
+            ref={tabsRef}
             className="office-hero__tabs"
             aria-label={heroCopy.tabsLabel}
           >
