@@ -1,12 +1,13 @@
 import { PageLayout } from "../../components/PageLayout";
 import { MediaBunner } from "../../components/MediaBunner";
-import { MainMedia } from "../../components/MainMedia";
-import { MediaInfo } from "../../components/MediaInfo";
-import { MediaItems } from "../../components/MediaItems";
 import { MediaNews } from "../../components/MediaNews";
-import { DownloadMedia } from "../../components/DownloadMedia";
-import { SendRequest } from "../../components/UI/SendRequest";
-import { ForJournalist } from "../../components/ForJournalist";
+// Тимчасово приховані секції /media — розкоментувати, коли будуть готові матеріали
+// import { MainMedia } from "../../components/MainMedia";
+// import { MediaInfo } from "../../components/MediaInfo";
+// import { MediaItems } from "../../components/MediaItems";
+// import { DownloadMedia } from "../../components/DownloadMedia";
+// import { SendRequest } from "../../components/UI/SendRequest";
+// import { ForJournalist } from "../../components/ForJournalist";
 import "./style.css";
 
 export const MediaPage = () => {
@@ -21,11 +22,11 @@ export const MediaPage = () => {
           <MediaNews />
         </div>
 
-        <MediaInfo />
-        <MediaItems />
-        <MainMedia />
-        <ForJournalist />
-        <DownloadMedia />
+        {/* <MediaInfo /> */}
+        {/* <MediaItems /> */}
+        {/* <MainMedia /> */}
+        {/* <ForJournalist /> */}
+        {/* <DownloadMedia /> */}
         {/* <SendRequest /> */}
       </div>
     </PageLayout>

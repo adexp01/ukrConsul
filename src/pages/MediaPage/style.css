@@ -1,3 +1,32 @@
+/* Desktop: спільна сітка для /media — банер і новини по одному лівому краю,
+   що збігається з відступом хедера (48px, і 24px на ≤1200px) */
+
+@media (min-width: 1025px) {
+  .media-page .media-bunner {
+    padding-inline: 0;
+  }
+
+  .media-page .media-bunner__inner,
+  .media-page .media-news__inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-inline: 48px;
+    box-sizing: border-box;
+  }
+
+  .media-page .media-news__inner {
+    padding-bottom: clamp(64px, 7vw, 120px);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .media-page .media-bunner__inner,
+  .media-page .media-news__inner {
+    padding-inline: 24px;
+  }
+}
+
 /* Mobile-only overrides for /media — desktop styles stay in each component */
 
 @media (max-width: 1024px) {
