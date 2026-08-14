@@ -1,6 +1,6 @@
 .partners {
-  --partners-fade: clamp(20px, 2.5vw, 48px);
-  --partners-bg: #05070b;
+  /* Ширина, на якій крайні картки розчиняються (ціла картка + запас) */
+  --partners-fade: clamp(72px, 11vw, 180px);
   --marquee-shift: 800px;
   position: relative;
   width: 100%;
@@ -24,41 +24,30 @@
   text-transform: uppercase;
 }
 
+/*
+ * Краї стрічки гасимо маскою, а не заливкою поверх.
+ * Раніше тут лежали дві шторки кольору #05070b: на темному фоні вони
+ * читались як сірий наліт поверх білих карток, а вузької смуги (48px)
+ * не вистачало, щоб сховати розрізану картку.
+ */
 .partners__rows {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: clamp(14px, 2.2vw, 20px);
-}
-
-.partners__rows::before,
-.partners__rows::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-  width: var(--partners-fade);
-  pointer-events: none;
-}
-
-.partners__rows::before {
-  left: 0;
-  background: linear-gradient(
+  -webkit-mask-image: linear-gradient(
     90deg,
-    var(--partners-bg) 0%,
-    rgba(5, 7, 11, 0.6) 55%,
-    transparent 100%
+    rgba(0, 0, 0, 0) 0%,
+    #000 var(--partners-fade),
+    #000 calc(100% - var(--partners-fade)),
+    rgba(0, 0, 0, 0) 100%
   );
-}
-
-.partners__rows::after {
-  right: 0;
-  background: linear-gradient(
-    270deg,
-    var(--partners-bg) 0%,
-    rgba(5, 7, 11, 0.6) 55%,
-    transparent 100%
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    #000 var(--partners-fade),
+    #000 calc(100% - var(--partners-fade)),
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
@@ -139,9 +128,10 @@
     display: none;
   }
 
-  .partners__rows::before,
-  .partners__rows::after {
-    display: none;
+  /* На мобільному стрічку гортають пальцем — маска тут тільки заважає */
+  .partners__rows {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

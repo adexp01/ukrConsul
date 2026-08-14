@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import partnersRow1 from "../../assets/comm1.png";
 import partnersRow2 from "../../assets/comm2.png";
@@ -18,6 +18,13 @@ export const Parnters = ({ titleKey = "track.partners.title", description }) => 
   const title = t(titleKey);
   const topTrackRef = useRef(null);
   const bottomTrackRef = useRef(null);
+
+  // Перерахунок кроку доступний і ззовні ефекту — по ньому б'ють onLoad картинок
+  const updateShift = useCallback(() => {
+    [topTrackRef.current, bottomTrackRef.current]
+      .filter(Boolean)
+      .forEach(setMarqueeShift);
+  }, []);
 
   useLayoutEffect(() => {
     const tracks = [topTrackRef.current, bottomTrackRef.current].filter(Boolean);
@@ -53,9 +60,9 @@ export const Parnters = ({ titleKey = "track.partners.title", description }) => 
             alt=""
             className={`partners__strip ${aspectClass}`}
             draggable={false}
-            loading={index === 0 ? "lazy" : undefined}
             decoding="async"
             aria-hidden={index > 0}
+            onLoad={updateShift}
           />
         ))}
       </div>

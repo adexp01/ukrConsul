@@ -1,8 +1,30 @@
+/*
+ * Фон сторінки — один суцільний шар, як на «Про нас». Раніше стояла пласка
+ * заливка #020202, і там, де секція власного фону не має (партнери, новини),
+ * на межах було видно перепад кольору.
+ */
 .office-page {
   position: relative;
   min-height: calc(100vh - 88px);
   padding-top: 80px;
-  background: #020202;
+  background-image:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%),
+    linear-gradient(
+      180deg,
+      #060609 0%,
+      #00031c 29.34%,
+      #091127 50%,
+      #00031c 70.66%,
+      #060609 100%
+    );
+  background-size:
+    100% clamp(180px, 22vw, 300px),
+    100% 107.9vw;
+  background-position:
+    bottom center,
+    top center;
+  background-repeat: no-repeat, repeat-y;
+  background-color: #000;
 }
 
 .office-hero {
