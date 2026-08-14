@@ -6,10 +6,14 @@
     clamp(72px, 8vw, 112px);
   box-sizing: border-box;
   overflow: hidden;
-  background-image: url("../../assets/bg1.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  /* Блок 1 з макета — чистий CSS-градієнт, тому нічого не обрізається */
+  background: linear-gradient(
+    180deg,
+    #11224e 0%,
+    #09121f 30%,
+    #000 60%,
+    #1b0f03 100%
+  );
 }
 
 .media-bunner__inner {
