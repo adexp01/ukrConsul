@@ -17,11 +17,11 @@
     ),
     linear-gradient(
       180deg,
-      #060609 0%,
-      #00031c 29.34%,
-      #091127 50%,
-      #00031c 70.66%,
-      #060609 100%
+      #050403 0%,
+      #140b04 29.34%,
+      #24150a 50%,
+      #140b04 70.66%,
+      #050403 100%
     );
   background-size:
     100% clamp(180px, 22vw, 300px),
@@ -45,17 +45,18 @@
   align-items: center;
   justify-content: flex-start;
   padding: 78px 48px 76px;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.48) 0%,
-      rgba(0, 0, 0, 0.28) 42%,
-      rgba(0, 0, 0, 0.88) 100%
-    ),
-    url("../../assets/bg1.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  /*
+   * Хедер більше не малює власну копію bg1.svg: вона масштабувалась
+   * через cover на блок висотою 620px і не збігалася з фоном сторінки,
+   * тому на нижньому краї лишався перепад. Тепер тут лише легке
+   * затемнення, а градієнт несе сторінка.
+   */
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.16) 46%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .office-hero::before {
@@ -482,4 +483,37 @@
 
 .office-page .clock__backdrop {
   background-color: transparent;
+}
+
+/*
+ * Тепле світло на стику хедера й контенту.
+ *
+ * У Figma перехід згладжує не градієнт секції, а окремий еліпс 1105×665
+ * (x 168, y 606) із заливкою Linear помаранчевим на 10% і сильним Layer blur —
+ * він лежить поверх фону й перекриває межу, тому шва там просто немає.
+ * Експорт із Figma розтягнутий на 63.76% по висоті й 38.37% по ширині
+ * від власних розмірів — це і є радіус розмиття, ≈420px.
+ */
+.office-page::before {
+  content: "";
+  position: absolute;
+  top: 606px;
+  left: 50%;
+  z-index: 2;
+  width: min(1105px, 78vw);
+  height: 665px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ff7a1a 0%, #a34a15 100%);
+  opacity: 0.1;
+  filter: blur(210px);
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .office-page::before {
+    top: 420px;
+    height: 460px;
+    filter: blur(150px);
+  }
 }
