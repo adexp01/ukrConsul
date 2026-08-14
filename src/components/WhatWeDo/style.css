@@ -73,13 +73,41 @@
   text-transform: uppercase;
 }
 
+.what-we-do__viewport {
+  /*
+   * container-type дає одиниці cqw — ширину саме цього вікна, а не сторінки.
+   * Завдяки цьому ширина картки й крок зсуву рахуються з однієї величини.
+   */
+  container-type: inline-size;
+  overflow: hidden;
+}
+
 .what-we-do__cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  --gap: 16px;
+  --card-width: calc(
+    (100cqw - (var(--per-view, 3) - 1) * var(--gap)) / var(--per-view, 3)
+  );
+
+  display: flex;
+  gap: var(--gap);
+  transform: translate3d(
+    calc(-1 * var(--offset, 0) * (var(--card-width) + var(--gap))),
+    0,
+    0
+  );
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .what-we-do__cards {
+    transition: none;
+  }
 }
 
 .what-we-do__card {
+  flex: 0 0 var(--card-width);
+  box-sizing: border-box;
   min-height: 202px;
   padding: 26px 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -147,10 +175,6 @@
 }
 
 @media (max-width: 900px) {
-  .what-we-do__cards {
-    grid-template-columns: 1fr;
-  }
-
   .what-we-do__card {
     min-height: 0;
   }
@@ -174,13 +198,16 @@
     text-align: center;
   }
 
-  .what-we-do__cards {
-    display: flex;
-    gap: 20px;
+  .what-we-do__viewport {
     width: 100vw;
     margin-inline: calc(50% - 50vw);
     padding-inline: 26px;
-    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .what-we-do__cards {
+    --gap: 20px;
+    --card-width: min(478px, calc(100vw - 120px));
   }
 
   .what-we-do__controls {
@@ -188,7 +215,6 @@
   }
 
   .what-we-do__card {
-    flex: 0 0 min(478px, calc(100vw - 120px));
     min-height: 382px;
     padding: 42px 30px 36px;
     border-color: rgba(255, 255, 255, 0.1);
@@ -230,13 +256,16 @@
     font-size: 40px;
   }
 
-  .what-we-do__cards {
-    gap: 14px;
+  .what-we-do__viewport {
     padding-inline: 22px;
   }
 
+  .what-we-do__cards {
+    --gap: 14px;
+    --card-width: min(330px, calc(100vw - 86px));
+  }
+
   .what-we-do__card {
-    flex-basis: min(330px, calc(100vw - 86px));
     min-height: 270px;
     padding: 30px 22px;
   }

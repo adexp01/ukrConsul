@@ -1068,6 +1068,12 @@ export const en = {
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Focus",
+      focusCta: "About focus",
+      focusMember: {
+        id: "kamyshin",
+        name: "Oleksandr Kamyshin",
+        role: "Chairman of the Board",
+      },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
       members: [
