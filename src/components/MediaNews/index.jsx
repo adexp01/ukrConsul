@@ -21,6 +21,9 @@ const FILTER_IDS = [
 const INITIAL_VISIBLE = 6;
 const LOAD_STEP = 3;
 
+// Таби категорій приховані, поки статей мало. Поставити true — і вони повернуться.
+const SHOW_FILTERS = false;
+
 export const MediaNews = () => {
   const { t, language } = useLanguage();
   const { news, loading } = useNews();
@@ -54,7 +57,10 @@ export const MediaNews = () => {
   if (!loading && cards.length === 0) return null;
 
   return (
-    <section className="media-news" aria-labelledby="media-news-title">
+    <section
+      className={`media-news${SHOW_FILTERS ? "" : " media-news--no-filters"}`}
+      aria-labelledby="media-news-title"
+    >
       <div className="media-news__glow" aria-hidden="true" />
 
       <div className="media-news__inner">
@@ -64,28 +70,30 @@ export const MediaNews = () => {
           </h2>
         </header>
 
-        <div
-          className="media-news__filters"
-          role="tablist"
-          aria-label={t("mediaNews.categoriesAria")}
-        >
-          {filters.map((filter) => {
-            const isActive = activeFilter === filter.id;
+        {SHOW_FILTERS ? (
+          <div
+            className="media-news__filters"
+            role="tablist"
+            aria-label={t("mediaNews.categoriesAria")}
+          >
+            {filters.map((filter) => {
+              const isActive = activeFilter === filter.id;
 
-            return (
-              <button
-                key={filter.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={`media-news__filter${isActive ? " media-news__filter--active" : ""}`}
-                onClick={() => handleFilterChange(filter.id)}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
-        </div>
+              return (
+                <button
+                  key={filter.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`media-news__filter${isActive ? " media-news__filter--active" : ""}`}
+                  onClick={() => handleFilterChange(filter.id)}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
 
         <div className="media-news__grid" role="tabpanel">
           {!loading && visibleNews.length === 0 ? (
