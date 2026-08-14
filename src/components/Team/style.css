@@ -123,10 +123,15 @@
   background: #ff7a1a;
 }
 
+/*
+ * У дизайні — рівно чотири колонки по 328px із проміжком 20px (разом 1372px).
+ * Фіксована ширина картки не влазила в контейнер (1360px при вікні 1440px),
+ * тому четверта колонка зривалась на новий рядок. Тепер колонки тягнуться.
+ */
 .team__members {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 328px);
-  gap: 48px 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
   align-items: start;
   justify-content: start;
 }
@@ -134,15 +139,14 @@
 .team__member {
   display: flex;
   flex-direction: column;
-  width: 328px;
-  height: 456px;
+  width: 100%;
   opacity: 1;
 }
 
 .team__photo {
   flex: 0 0 auto;
-  width: 328px;
-  height: 379px;
+  width: 100%;
+  aspect-ratio: 328 / 379;
   border-radius: 12px;
   overflow: hidden;
   background:
@@ -197,7 +201,7 @@
 
 @media (max-width: 1024px) {
   .team__members {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 328px));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
 

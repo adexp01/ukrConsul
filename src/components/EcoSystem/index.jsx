@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { getEcoSystemMemberImage } from "./memberImages";
 import "./style.css";
@@ -7,31 +6,9 @@ export const EcoSystem = () => {
   const { t } = useLanguage();
   const copy = t("aboutUsPage.ecoSystem");
   const members = copy.members ?? [];
-  const memberCount = members.length;
-  const focusMember = copy.focusMember;
-  const cards = focusMember
-    ? [
-        {
-          ...focusMember,
-          focusDescription: copy.focusDescription,
-        },
-        ...members,
-      ]
-    : members;
-  const [flippedCardId, setFlippedCardId] = useState(null);
+  const focusText = copy.focusDescription;
 
-  const showFocus = (event, cardId) => {
-    event.stopPropagation();
-    setFlippedCardId(cardId);
-  };
-
-  const hideFocus = (cardId) => {
-    setFlippedCardId((currentCardId) =>
-      currentCardId === cardId ? null : currentCardId,
-    );
-  };
-
-  if (memberCount === 0) return null;
+  if (members.length === 0) return null;
 
   return (
     <section className="eco-system" aria-labelledby="eco-system-title">
@@ -46,55 +23,42 @@ export const EcoSystem = () => {
         </div>
 
         <div className="eco-system__members" role="list">
-          {cards.map((member) => {
-            const cardId = member.id ?? member.name;
+          {/*
+            Перша картка — не персона, а фокус правління: бейдж «Фокус» і опис.
+            Раніше тут була картка голови правління, яка на ховер перевертались
+            на цей самий текст; у дизайні лишився тільки текст.
+          */}
+          {focusText ? (
+            <article
+              role="listitem"
+              className="eco-system__member eco-system__member--focus"
+            >
+              <span className="eco-system__focus">
+                <span className="eco-system__focus-icon" aria-hidden="true" />
+                {copy.focusLabel}
+              </span>
+              <p className="eco-system__focus-text">{focusText}</p>
+            </article>
+          ) : null}
+
+          {members.map((member) => {
             const thumbSrc = getEcoSystemMemberImage(member);
-            const isFlipped = flippedCardId === cardId;
-            const focusText = member.focusDescription ?? member.role;
 
             return (
               <article
-                key={cardId}
+                key={member.id ?? member.name}
                 role="listitem"
-                className={`eco-system__member eco-system__member--focus-card${isFlipped ? " is-flipped" : ""}`}
-                tabIndex={0}
-                onClick={() => hideFocus(cardId)}
+                className="eco-system__member"
               >
-                <div className="eco-system__flip-inner">
-                  <div className="eco-system__flip-face eco-system__flip-face--front">
-                    <div className="eco-system__member-thumb" aria-hidden="true">
-                      {thumbSrc ? (
-                        <img
-                          src={thumbSrc}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : (
-                        <span>{copy.imagePlaceholder}</span>
-                      )}
-                    </div>
-                    <h3 className="eco-system__member-name">{member.name}</h3>
-                    <p className="eco-system__member-role">{member.role}</p>
-                    <button
-                      className="eco-system__focus-cta"
-                      type="button"
-                      onClick={(event) => showFocus(event, cardId)}
-                      aria-pressed={isFlipped}
-                    >
-                      <span>{copy.focusCta}</span>
-                      <span aria-hidden="true">→</span>
-                    </button>
-                  </div>
-
-                  <div className="eco-system__flip-face eco-system__flip-face--back">
-                    <span className="eco-system__focus">
-                      <span className="eco-system__focus-icon" aria-hidden="true" />
-                      {copy.focusLabel}
-                    </span>
-                    <p className="eco-system__focus-text">{focusText}</p>
-                  </div>
+                <div className="eco-system__member-thumb" aria-hidden="true">
+                  {thumbSrc ? (
+                    <img src={thumbSrc} alt="" loading="lazy" decoding="async" />
+                  ) : (
+                    <span>{copy.imagePlaceholder}</span>
+                  )}
                 </div>
+                <h3 className="eco-system__member-name">{member.name}</h3>
+                <p className="eco-system__member-role">{member.role}</p>
               </article>
             );
           })}

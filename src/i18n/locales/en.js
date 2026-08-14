@@ -102,7 +102,7 @@ export const en = {
         href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
       },
       {
-        name: "TECHOSYSTEM DEFENCE",
+        name: "TECHOSYSTEM DEFENSE",
         href: "https://techosystem.org/",
       },
       {
@@ -1056,7 +1056,7 @@ export const en = {
         "— THE LARGEST ASSOCIATION OF UKRAINE'S PRIVATE DEFENCE INDUSTRY",
       ],
       description:
-        "We consolidate industry associations, manufacturers, investors, educational communities and partners working in defence technologies. The Council represents the market's common position and works with the state, military and international partners to accelerate production, scaling and development of Ukraine's defence industry.",
+        "We represent the industry's common position, help manufacturers engage with the state, the military and international partners, and support the scaling of Ukrainian defence solutions in Ukraine and abroad.",
       joinCta: "Join the Council",
       contactCta: "Contact us",
       joinHref: "/get-involved",
@@ -1068,12 +1068,6 @@ export const en = {
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Focus",
-      focusCta: "About focus",
-      focusMember: {
-        id: "kamyshin",
-        name: "Oleksandr Kamyshin",
-        role: "Chairman of the Board",
-      },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
       members: [
@@ -1166,120 +1160,91 @@ export const en = {
       title: "TEAM",
       imagePlaceholder: "image",
       rows: [
-        {
-          id: "leadership",
-          title: "Leadership / Management:",
-          members: [
-            {
-              id: "fedirko",
-              column: 1,
-              name: "IHOR FEDIRKO",
-              role: "Executive Director",
-            },
-            {
-              id: "popova",
-              column: 2,
-              name: "MARIIA POPOVA",
-              role: "Chief Operating Officer",
-            },
-            {
-              id: "shamota",
-              column: 3,
-              name: "MARIIA SHAMOTA",
-              role: "Deputy for industry engagement",
-            },
-            {
-              id: "svynchuk",
-              column: 4,
-              name: "ROKSOLANA SVYNCHUK",
-              role: "Deputy for international affairs",
-            },
-            {
-              id: "shvets",
-              column: 6,
-              name: "OLENA SHVETS",
-              role: "Head of partnerships",
-            },
-          ],
-        },
-        {
-          id: "international",
-          title: "International Direction:",
-          members: [
-            {
-              id: "tabur",
-              column: 1,
-              name: "ANTON TABUR",
-              role: "Head of international partnerships",
-            },
-            {
-              id: "poladova",
-              column: 2,
-              name: "DIANA POLADOVA",
-              role: "PR manager",
-            },
-          ],
-        },
-        {
-          id: "events-communications",
-          title: "National Events / Communications:",
-          members: [
-            {
-              id: "golumbiovska",
-              column: 1,
-              name: "ANASTASIIA HOLUMBIOVSKA",
-              role: "Head of communications",
-            },
-            {
-              id: "motrechko",
-              column: 3,
-              name: "BOHDANA MOTRECHKO",
-              role: "Head of national events",
-            },
-          ],
-        },
-        {
-          id: "industry-gr",
-          title: "Industry Engagement / GR:",
-          members: [
-            {
-              id: "vedrovska",
-              column: 1,
-              name: "VALENTYNA VEDROVSKA",
-              role: "Head of government relations",
-            },
-            {
-              id: "borovyk",
-              column: 2,
-              name: "DARIA BOROVYK",
-              role: "Industry engagement coordinator",
-            },
-            {
-              id: "demchuk",
-              column: 3,
-              name: "DMYTRO DEMCHUK",
-              role: "Head of military engagement",
-            },
-          ],
-        },
-        {
-          id: "development-production",
-          title: "Development / Production:",
-          members: [
-            {
-              id: "yaremenko",
-              column: 1,
-              name: "ANDRII YAREMENKO",
-              role: "Development programme manager",
-            },
-            {
-              id: "milyutin",
-              column: 2,
-              name: "VITALII MILYUTIN",
-              role: "Advisor for manufacturer engagement",
-            },
-          ],
-        },
+      {
+        id: "management",
+        members: [
+          {
+            id: "fedirko",
+            name: "IHOR FEDIRKO",
+            role: "Executive Director",
+          },
+          {
+            id: "popova",
+            name: "MARIIA POPOVA",
+            role: "Chief Operating Officer",
+          },
+          {
+            id: "shamota",
+            name: "MARIIA SHAMOTA",
+            role: "Deputy for industry engagement",
+          },
+          {
+            id: "svynchuk",
+            name: "ROKSOLANA SVYNCHUK",
+            role: "Deputy for international affairs",
+          },
+          {
+            id: "shvets",
+            name: "OLENA SHVETS",
+            role: "Head of partnerships",
+          },
+          {
+            id: "tabur",
+            name: "ANTON TABUR",
+            role: "Head of international partnerships",
+          },
+        ],
+      },
+      {
+        id: "communications",
+        members: [
+          {
+            id: "poladova",
+            name: "DIANA POLADOVA",
+            role: "PR manager",
+          },
+          {
+            id: "golumbiovska",
+            name: "ANASTASIIA HOLUMBIOVSKA",
+            role: "Head of communications",
+          },
+          {
+            id: "motrechko",
+            name: "BOHDANA MOTRECHKO",
+            role: "Head of national events",
+          },
+        ],
+      },
+      {
+        id: "industry",
+        members: [
+          {
+            id: "vedrovska",
+            name: "VALENTYNA VEDROVSKA",
+            role: "Head of government relations",
+          },
+          {
+            id: "borovyk",
+            name: "DARIA BOROVYK",
+            role: "Industry engagement coordinator",
+          },
+          {
+            id: "demchuk",
+            name: "DMYTRO DEMCHUK",
+            role: "Head of military engagement",
+          },
+          {
+            id: "yaremenko",
+            name: "ANDRII YAREMENKO",
+            role: "Development programme manager",
+          },
+          {
+            id: "milyutin",
+            name: "VITALII MILYUTIN",
+            role: "Advisor for manufacturer engagement",
+          },
+        ],
+      },
       ],
     },
     communities: {
@@ -1302,7 +1267,7 @@ export const en = {
           href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
         },
         {
-          name: "TECHOSYSTEM DEFENCE",
+          name: "TECHOSYSTEM DEFENSE",
           href: "https://techosystem.org/",
         },
         {
