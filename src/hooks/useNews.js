@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { fetchNews } from "../api/news";
+import { useEffect, useMemo, useState } from "react";
+import { fetchNews, localizeNewsItem } from "../api/news";
+import { useLanguage } from "../i18n/LanguageContext";
 
 let cachedNews = null;
 let fetchPromise = null;
@@ -23,7 +24,10 @@ const loadNews = () => {
 };
 
 export const useNews = () => {
-  const [news, setNews] = useState(cachedNews ?? []);
+  const { language } = useLanguage();
+  // У кеші лежать «сирі» записи з усіма мовами; переклад накладається нижче,
+  // тому перемикання мови не тягне повторний запит.
+  const [rawNews, setRawNews] = useState(cachedNews ?? []);
   const [loading, setLoading] = useState(!cachedNews);
   const [error, setError] = useState(null);
 
@@ -33,7 +37,7 @@ export const useNews = () => {
     loadNews()
       .then((data) => {
         if (!cancelled) {
-          setNews(data);
+          setRawNews(data);
           setLoading(false);
         }
       })
@@ -48,6 +52,11 @@ export const useNews = () => {
       cancelled = true;
     };
   }, []);
+
+  const news = useMemo(
+    () => rawNews.map((item) => localizeNewsItem(item, language)),
+    [rawNews, language],
+  );
 
   return { news, loading, error };
 };

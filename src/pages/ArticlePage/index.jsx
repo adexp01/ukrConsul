@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { PageLayout } from "../../components/PageLayout";
 import { ArticleContent } from "../../components/ArticleContent";
 import { Article } from "../../components/UI/Article";
@@ -12,18 +12,20 @@ import "./style.css";
 const RELATED_ARTICLES_LIMIT = 3;
 
 export const ArticlePage = () => {
+  // Параметр маршруту — слаг, але старі посилання з UUID теж мають працювати
   const { id } = useParams();
-  const { t, language } = useLanguage();
+  const { t, language, localizePath } = useLanguage();
   const { news, loading } = useNews();
 
   const article = useMemo(
-    () => news.find((item) => item.id === id) ?? null,
+    () =>
+      news.find((item) => item.slug === id || String(item.id) === id) ?? null,
     [news, id],
   );
 
   const relatedArticles = useMemo(() => {
     const cards = news
-      .filter((item) => item.id !== id)
+      .filter((item) => item.id !== article?.id)
       .slice(0, RELATED_ARTICLES_LIMIT)
       .map((item) => mapNewsToCard(item, { t, language }));
 
@@ -32,7 +34,14 @@ export const ArticlePage = () => {
     return news
       .slice(0, RELATED_ARTICLES_LIMIT)
       .map((item) => mapNewsToCard(item, { t, language }));
-  }, [news, id, t, language]);
+  }, [news, article, t, language]);
+
+  // Зайшли за UUID — тихо переставляємо адресу на людський слаг
+  if (article && article.slug && article.slug !== id) {
+    return (
+      <Navigate to={localizePath(`/article/${article.slug}`)} replace />
+    );
+  }
 
   return (
     <PageLayout>
@@ -59,7 +68,7 @@ export const ArticlePage = () => {
                   isoDate={item.isoDate}
                   title={item.title}
                   excerpt={item.excerpt}
-                  href={`/article/${item.id}`}
+                  href={item.href}
                 />
               ))}
             </div>

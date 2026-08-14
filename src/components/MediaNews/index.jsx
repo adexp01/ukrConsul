@@ -109,7 +109,7 @@ export const MediaNews = () => {
                 isoDate={item.isoDate}
                 title={item.title}
                 excerpt={item.excerpt}
-                href={`/article/${item.id}`}
+                href={item.href}
               />
             ))
           )}

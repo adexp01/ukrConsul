@@ -1,5 +1,6 @@
 import { getNewsApiUrl, resolveAssetUrl } from "./config";
 import { LOCAL_NEWS } from "../data/localNews";
+import { assignUniqueSlugs } from "./slug";
 
 export const resolveNewsAssetUrl = resolveAssetUrl;
 
@@ -40,7 +41,22 @@ export const fetchNews = async () => {
     ...remote.filter((item) => !localIds.has(String(item.id))),
   ];
 
-  return merged.sort(byNewestFirst);
+  // CRM віддає лише UUID — слаги збираємо тут, до того як дані підуть у компоненти
+  return assignUniqueSlugs(merged.sort(byNewestFirst));
+};
+
+/**
+ * Накладає переклад на запис новини.
+ *
+ * Базові поля (title / blocks / mainImage) — українською, як їх віддає CRM.
+ * Якщо в записі є `i18n[language]`, його поля перекривають базові.
+ * Немає перекладу для мови — повертається оригінал.
+ */
+export const localizeNewsItem = (item, language) => {
+  const translation = item?.i18n?.[language];
+  if (!translation) return item;
+
+  return { ...item, ...translation };
 };
 
 export const formatNewsDate = (isoDate, language) => {
@@ -73,8 +89,12 @@ export const getNewsExcerpt = (item, maxLength = 160) => {
 export const mapNewsToCard = (item, { t, language }) => {
   const filters = t("ourNews.filters");
 
+  const slug = item.slug ?? item.id;
+
   return {
     id: item.id,
+    slug,
+    href: `/article/${slug}`,
     category: item.category,
     tag: getCategoryLabel(item.category, filters),
     isoDate: item.createdAt?.slice(0, 10) ?? "",
