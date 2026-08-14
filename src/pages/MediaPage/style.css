@@ -50,11 +50,14 @@
     position: relative;
     z-index: 2;
     padding: 20px 20px 44px;
-    background-color: #000;
-    background-image: url("../../assets/bg1.svg");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    /* той самий градієнт із макета, що й на десктопі */
+    background: linear-gradient(
+      180deg,
+      #11224e 0%,
+      #09121f 30%,
+      #000 60%,
+      #1b0f03 100%
+    );
   }
 
   .media-page .media-bunner h1.media-bunner__title {
@@ -65,17 +68,20 @@
 
   .media-page .media-news-wrap {
     position: relative;
-    background-color: #000;
+    background-color: #1b0f03;
   }
 
   .media-page .media-news {
     position: relative;
     padding: 28px 20px 64px;
-    background-color: #000;
-    background-image: url("../../assets/bg2.svg");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-color: #1b0f03;
+    background-image: linear-gradient(
+      180deg,
+      rgba(8, 9, 10, 0) 0%,
+      #08090a 30%,
+      #120b05 60%,
+      #1b0e04 100%
+    );
   }
 
   .media-page .media-info {
