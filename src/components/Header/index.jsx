@@ -5,13 +5,14 @@ import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
+// Порядок і склад — як у дизайні шапки.
+// «Діяльність» веде на /office: це та сама сторінка з табами напрямів.
 const NAV_ITEMS = [
   { key: "aboutUs", href: "/about-us" },
+  { key: "getInvolved", href: "/join" },
+  { key: "activities", href: "/office" },
   { key: "media", href: "/media" },
-  // { key: "getInvolved", href: "/get-involved" },
-  // { key: "activities", href: "/activities", hasDropdown: true },
-  // { key: "events", href: "/events" },
-  // { key: "contact", href: "/contact" },
+  { key: "events", href: "/events" },
 ];
 
 export const Header = () => {

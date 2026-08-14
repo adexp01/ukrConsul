@@ -1059,8 +1059,8 @@ export const en = {
         "We represent the industry's common position, help manufacturers engage with the state, the military and international partners, and support the scaling of Ukrainian defence solutions in Ukraine and abroad.",
       joinCta: "Join the Council",
       contactCta: "Contact us",
-      joinHref: "/get-involved",
-      contactHref: "/contact",
+      joinHref: "/join",
+      contactHref: "mailto:official@ucdi.org.ua",
     },
     ecoSystem: {
       title: "BOARD AND ECOSYSTEM",

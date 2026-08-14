@@ -12,7 +12,7 @@ const renderLineWithBreaks = (line) =>
     );
 
 export const AboutUsBanner = () => {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const copy = t("aboutUsPage.banner");
 
   return (
@@ -33,14 +33,17 @@ export const AboutUsBanner = () => {
 
         <div className="about-us-banner__actions">
           <Button
-            href={copy.joinHref}
+            href={localizePath(copy.joinHref)}
             variant="primary"
             className="about-us-banner__cta"
           >
             {copy.joinCta}
           </Button>
 
-          <a href={copy.contactHref} className="about-us-banner__contact-link">
+          <a
+            href={localizePath(copy.contactHref)}
+            className="about-us-banner__contact-link"
+          >
             <span>{copy.contactCta}</span>
             <span className="about-us-banner__contact-arrow" aria-hidden="true">
               →
