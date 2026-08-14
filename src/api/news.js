@@ -76,9 +76,24 @@ export const formatNewsDate = (isoDate, language) => {
 export const getCategoryLabel = (category, filters = {}) =>
   filters[category] ?? category ?? "";
 
+/**
+ * Прибирає markdown-акценти з тексту.
+ *
+ * У картках і тизерах немає місця для розмітки, тому `**жирний**`
+ * і `[текст](url)` там мають виглядати просто як текст.
+ */
+export const stripInlineMarkup = (value) =>
+  String(value ?? "")
+    .replace(/\[([^\]]+)\]\(https?:\/\/[^\s)]*\)/g, "$1")
+    .replace(/\*{1,3}/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export const getNewsExcerpt = (item, maxLength = 160) => {
-  const textBlock = item.blocks?.find((block) => block.type === "text");
-  const text = textBlock?.content?.trim() ?? "";
+  const textBlock = item.blocks?.find(
+    (block) => block.type === "text" && stripInlineMarkup(block.content),
+  );
+  const text = stripInlineMarkup(textBlock?.content);
 
   if (!text) return "";
   if (text.length <= maxLength) return text;
