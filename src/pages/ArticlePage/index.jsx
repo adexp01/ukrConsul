@@ -15,12 +15,14 @@ export const ArticlePage = () => {
   // Параметр маршруту — слаг, але старі посилання з UUID теж мають працювати
   const { id } = useParams();
   const { t, language, localizePath } = useLanguage();
-  const { news, loading } = useNews();
+  // Саму статтю шукаємо серед усіх — англійська має відкриватись і з /ua,
+  // якщо на неї дали пряме посилання. А ось «Схожі» вже за мовою локалі.
+  const { news, allNews, loading } = useNews();
 
   const article = useMemo(
     () =>
-      news.find((item) => item.slug === id || String(item.id) === id) ?? null,
-    [news, id],
+      allNews.find((item) => item.slug === id || String(item.id) === id) ?? null,
+    [allNews, id],
   );
 
   const relatedArticles = useMemo(() => {

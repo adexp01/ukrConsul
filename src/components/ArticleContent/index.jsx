@@ -9,6 +9,7 @@ import {
   getCategoryLabel,
   resolveNewsAssetUrl,
 } from "../../api/news";
+import { renderRichText } from "../RichText";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -25,13 +26,13 @@ const renderBlock = (block) => {
     case "text":
       return (
         <p key={block.id} className="article-page__text">
-          {block.content}
+          {renderRichText(block.content)}
         </p>
       );
     case "subheading":
       return (
         <h2 key={block.id} className="article-page__subheading">
-          {block.content}
+          {renderRichText(block.content)}
         </h2>
       );
     case "image":
@@ -47,6 +48,34 @@ const renderBlock = (block) => {
           />
         </figure>
       );
+    case "gallery": {
+      const images = (block.images ?? []).filter((image) => image.src);
+      if (images.length === 0) return null;
+
+      // Одна колонка для пари, дві — для більших наборів
+      const modifier = images.length <= 2 ? "duo" : "grid";
+
+      return (
+        <div
+          key={block.id}
+          className={`article-page__gallery article-page__gallery--${modifier}`}
+        >
+          {images.map((image, index) => (
+            <figure
+              key={`${block.id}-${index}`}
+              className="article-page__gallery-item"
+            >
+              <img
+                src={resolveNewsAssetUrl(image.src)}
+                alt={image.alt ?? ""}
+                className="article-page__gallery-image"
+                loading="lazy"
+              />
+            </figure>
+          ))}
+        </div>
+      );
+    }
     default:
       return null;
   }

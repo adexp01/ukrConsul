@@ -53,10 +53,18 @@ export const useNews = () => {
     };
   }, []);
 
-  const news = useMemo(
+  // allNews — усе, що є; news — лише те, що доречно показувати на цій локалі.
+  // Записи без поля lang (створені до його появи або вручну в адмінці)
+  // показуються на обох мовах, щоб нічого не зникло непомітно.
+  const allNews = useMemo(
     () => rawNews.map((item) => localizeNewsItem(item, language)),
     [rawNews, language],
   );
 
-  return { news, loading, error };
+  const news = useMemo(
+    () => allNews.filter((item) => !item.lang || item.lang === language),
+    [allNews, language],
+  );
+
+  return { news, allNews, loading, error };
 };

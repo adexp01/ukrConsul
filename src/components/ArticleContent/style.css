@@ -327,3 +327,59 @@
     border-left: none;
   }
 }
+
+/* ─── Галерея: кілька знімків підряд у статті ─────────────────────────── */
+
+.article-page__gallery {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+  margin: clamp(20px, 2.5vw, 32px) 0;
+}
+
+.article-page__gallery--duo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.article-page__gallery--grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+}
+
+.article-page__gallery-item {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.article-page__gallery-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .article-page__gallery--duo,
+  .article-page__gallery--grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Інлайн-розмітка в тексті статей ─────────────────────────────────── */
+
+.rich-text__link {
+  color: #ee7d33;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.rich-text__link:hover {
+  color: #f5924f;
+}
+
+.article-page__text strong,
+.article-page__subheading strong {
+  font-weight: 600;
+}
