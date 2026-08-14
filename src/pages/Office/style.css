@@ -11,6 +11,12 @@
     linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%),
     linear-gradient(
       180deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.72) 62%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
       #060609 0%,
       #00031c 29.34%,
       #091127 50%,
@@ -19,11 +25,13 @@
     );
   background-size:
     100% clamp(180px, 22vw, 300px),
+    100% 1180px,
     100% 107.9vw;
   background-position:
     bottom center,
+    top center,
     top center;
-  background-repeat: no-repeat, repeat-y;
+  background-repeat: no-repeat, no-repeat, repeat-y;
   background-color: #000;
 }
 
@@ -57,7 +65,7 @@
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, transparent 24%),
-    linear-gradient(0deg, #020202 0%, rgba(2, 2, 2, 0.88) 14%, transparent 42%);
+    linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.5) 18%, transparent 46%);
   pointer-events: none;
 }
 
@@ -443,4 +451,35 @@
     margin-inline: -16px;
     padding-inline: 16px;
   }
+}
+
+/*
+ * Стики між секціями вкладок.
+ *
+ * Кожна секція малювала власну непрозору підкладку зі своїм кольором:
+ * .office-tab-intro — плаский #020202, .export-map — #000,
+ * .office-services — градієнт від #02071c. На межах це давало чіткі
+ * горизонтальні лінії. Тепер крізь них видно суцільний фон сторінки,
+ * а власне світло секцій лишається.
+ */
+.office-page .office-tab-intro {
+  background: transparent;
+}
+
+.office-page .export-map {
+  background-color: transparent;
+}
+
+.office-page .office-services {
+  background: linear-gradient(
+    180deg,
+    rgba(2, 7, 28, 0) 0%,
+    rgba(2, 7, 28, 0.72) 22%,
+    rgba(2, 7, 28, 0.72) 74%,
+    rgba(2, 7, 28, 0) 100%
+  );
+}
+
+.office-page .clock__backdrop {
+  background-color: transparent;
 }
