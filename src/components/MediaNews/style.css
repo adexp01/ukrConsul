@@ -3,28 +3,21 @@
   width: 100%;
   padding-top: 30px;
   overflow: hidden;
-  background-color: #000;
-  background-image: url("../../assets/bg2.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  /* Блок 2 з макета. Верх градієнта прозорий, тому під ним лежить
+     кінцевий колір блоку 1 (#1B0F03) — стик виходить безшовний. */
+  background-color: #1b0f03;
+  background-image: linear-gradient(
+    180deg,
+    rgba(8, 9, 10, 0) 0%,
+    #08090a 30%,
+    #120b05 60%,
+    #1b0e04 100%
+  );
 }
 
+/* Теплий радіальний блик більше не потрібен — тепло вже є в градієнті макета */
 .media-news__glow {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  z-index: 0;
-  width: min(920px, 92vw);
-  height: min(520px, 70vw);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(160, 75, 35, 0.16) 0%,
-    rgba(80, 40, 20, 0.06) 42%,
-    transparent 72%
-  );
+  display: none;
 }
 
 .media-news__inner {
@@ -37,6 +30,11 @@
 
 .media-news__header {
   margin-bottom: clamp(24px, 3vw, 32px);
+}
+
+/* Без табів заголовок «Новини» має триматися на тій самій відстані від сітки */
+.media-news--no-filters .media-news__header {
+  margin-bottom: clamp(32px, 4vw, 44px);
 }
 
 .media-news__title {
