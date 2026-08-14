@@ -17,6 +17,7 @@ export const Info = ({
   testHref = "#",
   applyHref,
   showCta = true,
+  showOrgs = true,
   showAboutBtn = true,
   headingId = "info-orgs-heading",
   ctaTitleId = "info-cta-title",
@@ -101,6 +102,7 @@ export const Info = ({
       aria-labelledby={sectionLabelId}
     >
       <div className="info-section__inner">
+        {showOrgs ? (
         <div ref={orgsRef} className="info-section__orgs">
           <h2 id={headingId} className="info-section__heading">
             {headingLines.map((line) => (
@@ -160,6 +162,8 @@ export const Info = ({
             </div>
           </div>
         </div>
+
+        ) : null}
 
         {showCta ? (
           <article className="info-section__cta">

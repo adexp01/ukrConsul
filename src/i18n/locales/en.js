@@ -911,6 +911,135 @@ export const en = {
     cta: "Back to home",
   },
   office: {
+    exhibition: {
+      title: "Exhibition activities",
+      accentText:
+        "The Ukrainian Council of Defence Industry ensures a systematic presence of Ukrainian manufacturers at key international defence exhibitions. We organise consolidated national stands, coordinate company participation, work with organisers and help manufacturers build contacts with foreign partners and official delegations.",
+      cardTitle: "Ukraine's consolidated stand",
+      cardText:
+        "The consolidated stand under the ZBROYA brand brings Ukrainian manufacturers together and presents Ukraine's defence industry as a single technological ecosystem.",
+      statement: [
+        "ZBROYA is the shared",
+        "international identity",
+        "of Ukraine's defence industry.",
+      ],
+      statementColumns: [
+        "Under this brand Ukraine presents its entire defence ecosystem to the world: state and private manufacturers, research teams, engineers, scientists, volunteers, state institutions and international partners.",
+        "ZBROYA shows Ukraine's defence industry as a single, technological system proven in combat.",
+      ],
+      expositions: {
+        title: "Ukrainian expositions",
+        prevLabel: "Previous exposition",
+        nextLabel: "Next exposition",
+        items: [
+          {
+            id: "dalo-2025",
+            title: "DALO Industry Days 2025, Denmark",
+            description:
+              "Ukraine was represented at DALO Industry Days by a single national stand under the ZBROYA brand for the first time. Ukrainian manufacturers presented unmanned systems, C2/ISR solutions, electronic warfare and reconnaissance equipment, sensors and other technologies built on combat experience.",
+          },
+        ],
+      },
+      ctaTitle: ["WANT TO JOIN", "THE UKRAINIAN", "EXPOSITION?"],
+      ctaText:
+        "Join the consolidated ZBROYA stands at leading international defence exhibitions and present your technologies to international partners, customers and the professional community.",
+      applyDirectly: "Submit an application",
+      applyHref: "/join",
+    },
+    partnership: {
+      title: "Partnership",
+      accentText:
+        "The partnership programmes of the Ukrainian Council of Defence Industry are designed for companies, institutions and organisations that want to become systemic partners of Ukraine's private defence industry.",
+      cardText:
+        "We bring together business, international organisations, investors, the expert community and defence technology manufacturers in joint projects and long-term initiatives aimed at developing the industry, strengthening international cooperation and scaling Ukrainian defence capabilities.",
+      cta: "Become a partner",
+      ctaHref: "/join",
+      programs: {
+        title: "Partnership programmes",
+        cta: "Become a partner",
+        ctaHref: "/join",
+        items: [
+          {
+            id: "capabilities",
+            title: "Capability development",
+            description: [
+              "Support for the systematic development of private defence manufacturers — from creating a product to scaling production and entering international markets.",
+              "The programme includes training formats, workshops and the involvement of partners and experts according to company needs at different stages: R&D, small-batch production, scaling, export and international cooperation.",
+            ],
+            stagesTitle: "Key stages:",
+            stages: [
+              {
+                title: "Product creation / R&D",
+                description:
+                  "Shaping the idea and prototype, testing the product, collecting feedback from the military, setting up the R&D process, basic legal and operational setup of the company, preparing the product for production.",
+              },
+              {
+                title: "Small-batch production",
+                description:
+                  "Setting up production processes, managing defence projects, planning production and logistics, quality control systems, preparing to fulfil state contracts.",
+              },
+              {
+                title: "Scaling production",
+                description:
+                  "Shaping the company's development strategy, preparing investment projects, working with grant programmes and funds, strengthening management capacity, protecting technologies and intellectual property.",
+              },
+              {
+                title: "Export and international markets",
+                description:
+                  "Preparing for international cooperation, complying with defence export procedures, working with international defence companies, preparing proposals for foreign customers, entering international markets.",
+              },
+            ],
+          },
+          { id: "future", title: "The future of the industry", description: [] },
+          { id: "resilience", title: "Security and resilience", description: [] },
+        ],
+      },
+      formats: {
+        title: ["Partnership", "formats"],
+        prevLabel: "Previous formats",
+        nextLabel: "Next formats",
+        items: [
+          {
+            id: "resident",
+            title: "Community resident",
+            description:
+              "A participation format for companies and organisations that want to be part of the Council's professional community, join open industry events, professional dialogue and the exchange of expertise.",
+          },
+          {
+            id: "project",
+            title: "Project partner",
+            description:
+              "A partnership programme for companies and organisations that want to join specific projects and initiatives of the Council, combining expertise, resources and effort to develop Ukraine's private defence industrial sector.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
+          },
+          {
+            id: "development",
+            title: "Development partner",
+            description:
+              "A partnership format for companies and organisations that want to contribute to the development of Ukraine's private defence industrial sector, combining expertise, resources and effort in joint industry projects and initiatives.",
+          },
+          {
+            id: "technology",
+            title: "Technology partner",
+            description:
+              "A partnership programme for companies that want to contribute to the development of Ukraine's private defence industrial sector by offering technologies, solutions and expertise useful to Ukrainian manufacturers.",
+          },
+          {
+            id: "media",
+            title: "Media partnership",
+            description:
+              "A partnership programme for media and communication platforms to cover Ukraine's private defence industrial sector, run joint information projects and promote Ukrainian defence technologies.",
+          },
+        ],
+      },
+      partners: {
+        title: "Our partners",
+        description:
+          "The Ukrainian Council of Defence Industry develops partnerships with Ukrainian and international organisations, businesses, investors, media, industry associations and expert communities to strengthen Ukraine's private defence industry",
+      },
+      newsTitle: "Build with Ukraine news",
+    },
     hero: {
       title: ["Activities"],
       description:
@@ -925,9 +1054,9 @@ export const en = {
       },
       tabs: [
         { id: "gr", label: "GR / Advocacy", href: "#" },
-        { id: "international", label: "International track", href: "#" },
-        { id: "regional", label: "Regional track", href: "/track" },
-        { id: "youth", label: "Youth track", href: "/track" },
+        { id: "international", label: "International activities", href: "#" },
+        { id: "exhibition", label: "Exhibition activities", href: "#" },
+        { id: "partnership", label: "Partner ecosystem", href: "#" },
         { id: "export", label: "Export Support Office", href: "/office" },
       ],
       emptyTab: "This tab is empty for now:",

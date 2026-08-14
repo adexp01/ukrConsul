@@ -3,55 +3,37 @@
   width: 100%;
   padding: clamp(72px, 8vw, 100px) 0 clamp(48px, 5vw, 64px);
   overflow: hidden;
-  background:
-    linear-gradient(
-      180deg,
-      #000 0%,
-      rgba(0, 0, 0, 0.82) 12%,
-      rgba(0, 0, 0, 0.08) 34%,
-      rgba(0, 0, 0, 0.12) 72%,
-      rgba(0, 0, 0, 0.78) 92%,
-      #000 100%
-    ),
-    radial-gradient(
-      ellipse 90% 70% at 50% 0%,
-      rgba(18, 35, 89, 0.38) 0%,
-      rgba(8, 15, 42, 0.62) 48%,
-      rgba(5, 8, 25, 0.92) 100%
-    ),
-    #050819;
+  /* Підкладки немає — крізь секцію видно фон сторінки */
   isolation: isolate;
 }
 
-.what-we-do::before,
-.what-we-do::after {
+/* Синє світло секції окремим шаром — щоб згасити його маскою на краях */
+.what-we-do::before {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  inset: 0;
   z-index: 1;
-  height: clamp(120px, 18vw, 220px);
   pointer-events: none;
-}
-
-.what-we-do::before {
-  top: 0;
-  background: linear-gradient(
-    180deg,
-    #000 0%,
-    rgba(0, 0, 0, 0.78) 20%,
-    rgba(0, 0, 0, 0.34) 56%,
-    rgba(0, 0, 0, 0) 100%
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 18%,
+    rgba(18, 35, 89, 0.42) 0%,
+    rgba(8, 15, 42, 0.34) 48%,
+    rgba(5, 8, 25, 0) 100%
   );
-}
-
-.what-we-do::after {
-  bottom: 0;
-  background: linear-gradient(
+  /* Світло гасне на краях секції, щоб перехід у фон сторінки був без шва */
+  -webkit-mask-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.48) 52%,
-    #000 100%
+    #000 14%,
+    #000 86%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    #000 14%,
+    #000 86%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 

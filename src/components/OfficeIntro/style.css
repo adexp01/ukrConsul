@@ -1,0 +1,99 @@
+.office-intro {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 56px);
+}
+
+.office-intro__inner {
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.office-intro__title {
+  max-width: 14ch;
+  margin: 0 0 clamp(36px, 5vw, 64px);
+  color: #ffffff;
+  font-size: clamp(36px, 4.6vw, 56px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/*
+ * Дві репліки зі зсувом: акцентна вгорі праворуч, світла нижче ліворуч.
+ * Сітка з двох рядків і двох колонок тримає цей зсув без абсолютних позицій,
+ * тож блок не ламається, коли тексту більше чи менше.
+ */
+.office-intro__stage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 40px) clamp(24px, 4vw, 72px);
+  align-items: start;
+}
+
+.office-intro__card {
+  max-width: 502px;
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.office-intro__card p {
+  margin: 0;
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+.office-intro__card--accent {
+  grid-column: 2;
+  grid-row: 1;
+  background: #6f7ec4;
+  color: #0a0e18;
+}
+
+.office-intro__card--light {
+  grid-column: 1;
+  grid-row: 2;
+  background: #b8c6e0;
+  color: #0c1220;
+}
+
+.office-intro__card-title {
+  margin: 0 0 14px;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.office-intro__cta {
+  margin-top: clamp(28px, 3.4vw, 48px);
+}
+
+@media (max-width: 900px) {
+  .office-intro__stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .office-intro__card--accent,
+  .office-intro__card--light {
+    grid-column: 1;
+    grid-row: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .office-intro__title {
+    max-width: none;
+    font-size: 42px;
+  }
+
+  .office-intro__card {
+    border-radius: 14px;
+  }
+}

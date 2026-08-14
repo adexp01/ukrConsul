@@ -13,9 +13,9 @@ const setMarqueeShift = (track) => {
   track.style.setProperty("--marquee-shift", `${strip.offsetWidth}px`);
 };
 
-export const Parnters = () => {
+export const Parnters = ({ titleKey = "track.partners.title", description }) => {
   const { t } = useLanguage();
-  const title = t("track.partners.title");
+  const title = t(titleKey);
   const topTrackRef = useRef(null);
   const bottomTrackRef = useRef(null);
 
@@ -68,6 +68,10 @@ export const Parnters = () => {
         <h2 id="partners-title" className="partners__title">
           {title}
         </h2>
+
+        {description ? (
+          <p className="partners__lead">{description}</p>
+        ) : null}
 
         <div className="partners__rows">
           {renderRow(partnersRow1, "partners__strip--row1", topTrackRef, "left")}

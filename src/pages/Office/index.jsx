@@ -3,7 +3,14 @@ import { Articles } from "../../components/Articles";
 import { Clock } from "../../components/Clock";
 import { ExportMap } from "../../components/ExportMap";
 import { OfficeDecisions } from "../../components/OfficeDecisions";
+import { OfficeExpositions } from "../../components/OfficeExpositions";
 import { OfficeGrMeetups } from "../../components/OfficeGrMeetups";
+import { OfficeIntro } from "../../components/OfficeIntro";
+import { OfficePartnerFormats } from "../../components/OfficePartnerFormats";
+import { OfficePartnerPrograms } from "../../components/OfficePartnerPrograms";
+import { OfficeStatement } from "../../components/OfficeStatement";
+import { Parnters } from "../../components/Parnters";
+import { Info } from "../../components/Info";
 import { OfficeServices } from "../../components/OfficeServices";
 import { OfficeWhiteBook } from "../../components/OfficeWhiteBook";
 import { OfficeWorkFocus } from "../../components/OfficeWorkFocus";
@@ -27,7 +34,11 @@ export const OfficePage = () => {
   const isGrTab = activeTabId === "gr";
   const isExportTab = activeTabId === "export";
   const isInternationalTab = activeTabId === "international";
+  const isExhibitionTab = activeTabId === "exhibition";
+  const isPartnershipTab = activeTabId === "partnership";
   const exportIntro = heroCopy.tabContent?.export;
+  const exhibition = t("office.exhibition");
+  const partnership = t("office.partnership");
 
   return (
     <PageLayout>
@@ -125,6 +136,46 @@ export const OfficePage = () => {
           </>
         ) : isInternationalTab ? (
           <TrackContent />
+        ) : isExhibitionTab ? (
+          <>
+            <OfficeIntro
+              titleId="office-exhibition-title"
+              title={exhibition.title}
+              accentText={exhibition.accentText}
+              cardTitle={exhibition.cardTitle}
+              cardText={exhibition.cardText}
+            />
+            <OfficeStatement
+              titleId="office-exhibition-statement"
+              lines={exhibition.statement}
+              columns={exhibition.statementColumns}
+            />
+            <OfficeExpositions copy={exhibition.expositions} />
+            <Info
+              contentKey="office.exhibition"
+              showOrgs={false}
+              ctaTitleId="office-exhibition-cta"
+              applyHref={exhibition.applyHref}
+            />
+          </>
+        ) : isPartnershipTab ? (
+          <>
+            <OfficeIntro
+              titleId="office-partnership-title"
+              title={partnership.title}
+              accentText={partnership.accentText}
+              cardText={partnership.cardText}
+              ctaLabel={partnership.cta}
+              ctaHref={partnership.ctaHref}
+            />
+            <OfficePartnerPrograms copy={partnership.programs} />
+            <OfficePartnerFormats copy={partnership.formats} />
+            <Parnters
+              titleKey="office.partnership.partners.title"
+              description={partnership.partners.description}
+            />
+            <Articles titleKey="office.partnership.newsTitle" />
+          </>
         ) : (
           <section className="office-empty-tab" aria-live="polite">
             <p>

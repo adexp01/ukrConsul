@@ -1,0 +1,123 @@
+.partner-formats {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(48px, 6vw, 88px);
+}
+
+.partner-formats__inner {
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+/* Другий рядок заголовка зсунутий, як у макеті */
+.partner-formats__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 clamp(36px, 4.4vw, 64px);
+  color: #ffffff;
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 700;
+  line-height: 1.42;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.partner-formats__title span:nth-child(2) {
+  margin-left: clamp(0px, 4vw, 64px);
+}
+
+.partner-formats__viewport {
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.partner-formats__track {
+  --gap: 20px;
+  --card-width: calc(
+    (100cqw - (var(--per-view, 3) - 1) * var(--gap)) / var(--per-view, 3)
+  );
+
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+  transform: translate3d(
+    calc(-1 * var(--offset, 0) * (var(--card-width) + var(--gap))),
+    0,
+    0
+  );
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-formats__track {
+    transition: none;
+  }
+}
+
+.partner-formats__card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 var(--card-width);
+  box-sizing: border-box;
+  min-height: 320px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(17, 25, 55, 0.5);
+}
+
+.partner-formats__card-title {
+  margin: 0 0 18px;
+  color: #ffffff;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
+}
+
+.partner-formats__card-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 15px;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+.partner-formats__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 24px;
+  color: #ff7a1a;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.partner-formats__link:hover {
+  text-decoration: underline;
+}
+
+.partner-formats__controls {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+@media (max-width: 900px) {
+  .partner-formats__title {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .partner-formats__title span:nth-child(2) {
+    margin-left: 0;
+  }
+
+  .partner-formats__card {
+    min-height: 0;
+  }
+}

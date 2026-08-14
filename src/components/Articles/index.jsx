@@ -7,7 +7,7 @@ import "./style.css";
 
 const HOME_ARTICLES_LIMIT = 3;
 
-export const Articles = () => {
+export const Articles = ({ titleKey = "articles.title" }) => {
   const { t, language } = useLanguage();
   const { news, loading } = useNews();
 
@@ -26,7 +26,7 @@ export const Articles = () => {
       <div className="articles__inner">
         <header className="articles__header">
           <h2 id="articles-title" className="articles__title">
-            {t("articles.title")}
+            {t(titleKey)}
           </h2>
         </header>
 

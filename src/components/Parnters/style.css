@@ -164,3 +164,13 @@
     animation-duration: 46s;
   }
 }
+
+/* Опис під заголовком — потрібен на вкладці «Партнерська екосистема» */
+.partners__lead {
+  max-width: 474px;
+  margin: 20px 0 clamp(28px, 3vw, 44px);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
