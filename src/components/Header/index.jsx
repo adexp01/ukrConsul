@@ -19,10 +19,22 @@ export const Header = () => {
   const logo = language === "uk" ? logoUk : logoEn;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActivitiesOpen, setIsActivitiesOpen] = useState(false);
+  // Вгорі сторінки шапка прозора й зливається з фоном; щойно контент
+  // починає під неї заходити — заливаємо її підкладкою
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const activitiesMenu = Array.isArray(t("header.activitiesMenu"))
     ? t("header.activitiesMenu")
     : [];
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+
+    handleScroll(); // сторінку могли відкрити вже прокрученою
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -37,7 +49,9 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header
+      className={`header${isScrolled ? " header--scrolled" : ""}`}
+    >
       <div className="header__left">
         <a href={localizePath("/")} className="header__logo" onClick={closeMenu}>
           <img src={logo} alt={t("header.logoAlt")} />

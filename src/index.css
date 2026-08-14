@@ -88,6 +88,11 @@ h2 {
   font-weight: 500 !important;
 }
 
+/*
+ * Контейнер шапки прозорий: раніше він малював власну копію bg1.svg, і на
+ * сторінках з іншим фоном (як /media) на межі 88px було видно шов.
+ * Підкладку тепер вмикає сама шапка при скролі — див. .header--scrolled.
+ */
 .header-container {
   position: fixed;
   top: 0;
@@ -97,10 +102,7 @@ h2 {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
-  background-image: url("./assets/bg1.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  background: transparent;
 }
 
 .home-page {
