@@ -549,3 +549,22 @@
 .office-page .office-gr-meetups::after {
   background: none;
 }
+
+/*
+ * Ті самі шторки, але в решті секцій вкладок. Найпомітніша —
+ * .export-map::before: чиста чорна заливка на верхньому краї, через яку
+ * теплий фон обривався рівно там, де починається «EXPORT MAP».
+ */
+.office-page .export-map::before,
+.office-page .export-map::after,
+.office-page .office-services::before,
+.office-page .office-services::after,
+.office-page .clock__backdrop::before,
+.office-page .clock__backdrop::after,
+.office-page .animation-cards::before,
+.office-page .animation-cards::after,
+.office-page .track-page::after,
+.office-page .track-page__bg-blue::before,
+.office-page .track-page__bg-blue::after {
+  background: none;
+}
