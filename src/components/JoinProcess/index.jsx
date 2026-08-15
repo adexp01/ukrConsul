@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import shield from "../../assets/shield.png";
+import { ShieldSequence } from "../ShieldSequence";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -130,15 +130,7 @@ export const JoinProcess = () => {
 
           <div className="join-process__media" aria-hidden="true">
             <div className="join-process__glow" />
-            <img
-              src={shield}
-              alt=""
-              className="join-process__shield"
-              width={200}
-              height={200}
-              loading="lazy"
-              decoding="async"
-            />
+            <ShieldSequence className="join-process__shield" />
           </div>
         </div>
 

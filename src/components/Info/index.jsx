@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
-import defaultShield from "../../assets/shield.png";
+import { ShieldSequence } from "../ShieldSequence";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export const Info = ({
   contentKey = "info",
   ctaContentKey,
-  shieldSrc = defaultShield,
   aboutHref = "#",
   testHref = "#",
   applyHref,
@@ -116,7 +115,7 @@ export const Info = ({
               className="info-section__shield"
               aria-hidden="true"
             >
-              <img src={shieldSrc} alt="" />
+              <ShieldSequence />
             </div>
 
             <div ref={listWrapRef} className="info-section__list-wrap">
