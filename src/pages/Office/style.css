@@ -66,7 +66,7 @@
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, transparent 24%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.5) 18%, transparent 46%);
+    linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, transparent 46%);
   pointer-events: none;
 }
 
@@ -516,4 +516,36 @@
     height: 460px;
     filter: blur(150px);
   }
+}
+
+/*
+ * Секції вкладок, що лишались із власними непрозорими фонами.
+ * Кожна ставила свій колір (#010205, #020616, #05070b), і на верхній межі
+ * кожної з них лягала смуга — найпомітніше на GR, де синій блок
+ * «Над чим працюємо» врізався в теплий фон сторінки.
+ */
+.office-page .office-work-focus,
+.office-page .office-decisions,
+.office-page .office-white-book,
+.office-page .office-gr-meetups,
+.office-page .animation-cards,
+.office-page .track-page__bg-blue {
+  background: none;
+}
+
+/*
+ * У цих секцій світло живе в ::before/::after — градієнти, що впираються
+ * в непрозорий #02071c / #020616 на своєму краї. Саме вони й малювали
+ * синю смугу під табами на вкладці GR. Гасимо їх тут, на фоні сторінки
+ * секції й так лежать без власної підкладки.
+ */
+.office-page .office-work-focus::before,
+.office-page .office-work-focus::after,
+.office-page .office-decisions::before,
+.office-page .office-decisions::after,
+.office-page .office-white-book::before,
+.office-page .office-white-book::after,
+.office-page .office-gr-meetups::before,
+.office-page .office-gr-meetups::after {
+  background: none;
 }
