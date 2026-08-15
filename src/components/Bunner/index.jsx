@@ -16,26 +16,36 @@ export const Bunner = () => {
   const { t, language } = useLanguage();
   const { tabs, mobileTabs } = useBannerTabs();
   const textRevealRef = useRef(null);
-  const TEXT_ANIMATION_DELAY_MS = 1000;
-  const TEXT_REVEAL_DURATION_MS = 2550;
+  const TEXT_ANIMATION_DELAY_MS = 150;
+  const TEXT_REVEAL_DURATION_MS = 1900;
+  // Скільки максимум чекаємо на шрифти, перш ніж стартувати без них
+  const FONTS_TIMEOUT_MS = 700;
 
-  const [isPageLoaded, setIsPageLoaded] = useState(
-    () => typeof document !== "undefined" && document.readyState === "complete",
-  );
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [canAnimateText, setCanAnimateText] = useState(false);
 
+  // Чекаємо тільки на шрифти заголовка, а не на подію load: та спрацьовує
+  // аж коли доїде кожна картинка сторінки, і перший екран стоїть порожній.
   useEffect(() => {
     if (isPageLoaded) return undefined;
 
-    const markLoaded = () => setIsPageLoaded(true);
+    let cancelled = false;
+    const markLoaded = () => {
+      if (!cancelled) setIsPageLoaded(true);
+    };
 
-    if (document.readyState === "complete") {
+    const timer = window.setTimeout(markLoaded, FONTS_TIMEOUT_MS);
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(markLoaded).catch(markLoaded);
+    } else {
       markLoaded();
-      return undefined;
     }
 
-    window.addEventListener("load", markLoaded, { once: true });
-    return () => window.removeEventListener("load", markLoaded);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [isPageLoaded]);
 
   useEffect(() => {

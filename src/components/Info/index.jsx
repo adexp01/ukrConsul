@@ -59,6 +59,53 @@ export const Info = ({
 
       const mm = gsap.matchMedia();
 
+      // Поява заголовка й списку — рядок за рядком, коли блок входить у вікно
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const heading = orgs.querySelectorAll(".info-section__heading span");
+        const items = listWrap.querySelectorAll(".info-section__list-item");
+        const targets = [...heading, ...items];
+        if (targets.length === 0) return undefined;
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: orgs,
+            start: "top 80%",
+            once: true,
+          },
+        });
+
+        timeline
+          .fromTo(
+            heading,
+            { y: 24, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power2.out",
+              stagger: 0.09,
+            },
+          )
+          .fromTo(
+            items,
+            { y: 18, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: "power2.out",
+              stagger: 0.07,
+            },
+            0.2,
+          );
+
+        return () => {
+          timeline.scrollTrigger?.kill();
+          timeline.kill();
+          gsap.set(targets, { clearProps: "all" });
+        };
+      });
+
       mm.add(
         "(min-width: 1025px) and (prefers-reduced-motion: no-preference)",
         () => {

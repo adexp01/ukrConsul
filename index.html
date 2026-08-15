@@ -5,6 +5,30 @@
     <link rel="icon" type="image/svg+xml" href="/fav.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCDI</title>
+    <!--
+      Перші кадри кільця на головному екрані. Без цього вони починають
+      вантажитись аж після того, як виконається бандл, і екран стоїть порожній.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/animation/frames/SHIELD_ALPHA_00000.webp"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/animation/frames/SHIELD_ALPHA_00002.webp"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/animation/frames/SHIELD_ALPHA_00004.webp"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/animation/frames/SHIELD_ALPHA_00006.webp"
+    />
   </head>
   <body>
     <div id="root"></div>
