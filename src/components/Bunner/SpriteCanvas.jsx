@@ -4,17 +4,23 @@ import { useIsMobile } from "../../hooks/IsMobile";
 const SOURCE_FRAME_COUNT = 179;
 const FRAME_STEP = 2;
 const DEFAULT_FPS = 32;
-const INITIAL_BATCH = 28;
-const LOAD_CONCURRENCY = 3;
+// Скільки кадрів чекаємо перед стартом. 28 кадрів — це майже мегабайт навіть
+// у WebP, і весь цей час на першому екрані порожньо; 12 вистачає, решта
+// доїжджає вже під час програвання.
+const INITIAL_BATCH = 12;
+const LOAD_CONCURRENCY = 6;
 
 const LUMINANCE_THRESHOLD = 38;
 const LUMINANCE_FEATHER = 28;
 
+/*
+ * Кадри лежать у public/ і віддаються як є. Раніше тут був
+ * new URL('../../../public/...', import.meta.url) — через нього Vite тягнув
+ * усі 180 кадрів ще й у свій asset-пайплайн, і в збірку потрапляли дві копії
+ * послідовності замість однієї (близько 45 МБ на рівному місці).
+ */
 const frameSrc = (index) =>
-  new URL(
-    `../../../public/animation/frames/SHIELD_ALPHA_${String(index).padStart(5, "0")}.png`,
-    import.meta.url,
-  ).href;
+  `/animation/frames/SHIELD_ALPHA_${String(index).padStart(5, "0")}.webp`;
 
 const buildPlaybackIndices = () => {
   const indices = [];
