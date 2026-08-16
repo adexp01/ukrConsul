@@ -17,7 +17,7 @@ export const Bunner = () => {
   const { tabs, mobileTabs } = useBannerTabs();
   const textRevealRef = useRef(null);
   const TEXT_ANIMATION_DELAY_MS = 150;
-  const TEXT_REVEAL_DURATION_MS = 1900;
+  const TEXT_REVEAL_DURATION_MS = 2800;
   // Скільки максимум чекаємо на шрифти, перш ніж стартувати без них
   const FONTS_TIMEOUT_MS = 700;
 

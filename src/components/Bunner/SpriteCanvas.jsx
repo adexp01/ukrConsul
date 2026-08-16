@@ -32,6 +32,7 @@ const buildPlaybackIndices = () => {
 
 const PLAYBACK_INDICES = buildPlaybackIndices();
 const PLAYBACK_FRAME_COUNT = PLAYBACK_INDICES.length;
+const LAST_SLOT = PLAYBACK_FRAME_COUNT - 1;
 
 const getProcessScale = (isMobile) => (isMobile ? 0.55 : 0.85);
 
@@ -132,6 +133,9 @@ export const SpriteCanvas = ({
     let isVisible = true;
     let isPlaying = false;
     let isBatchReady = false;
+    // Кільце збирається один раз і лишається зібраним. Раніше цикл починався
+    // спочатку — щити щоразу зникали й розліталися наново.
+    let hasFinished = false;
 
     const frames = new Array(PLAYBACK_FRAME_COUNT).fill(null);
     const fps = getPlaybackFps(playbackDurationMs);
@@ -160,6 +164,11 @@ export const SpriteCanvas = ({
 
       if (slotIndex === 0) {
         setCanvasSizeFromFrame(frame);
+        if (!hasFinished) drawFrame(frame);
+      }
+
+      // Останній кадр міг доїхати вже після завершення програвання
+      if (hasFinished && slotIndex === LAST_SLOT) {
         drawFrame(frame);
       }
     };
@@ -177,7 +186,14 @@ export const SpriteCanvas = ({
           drawFrame(frame);
         }
 
-        currentFrame = (currentFrame + 1) % PLAYBACK_FRAME_COUNT;
+        if (currentFrame >= LAST_SLOT) {
+          // Дійшли до кінця — зупиняємось на зібраному кільці
+          isPlaying = false;
+          hasFinished = true;
+          return;
+        }
+
+        currentFrame += 1;
         lastFrameTime = time;
       }
     };
@@ -202,6 +218,13 @@ export const SpriteCanvas = ({
 
     const pausePlayback = () => {
       isPlaying = false;
+
+      // Якщо кільце вже зібралось — лишаємо його зібраним
+      if (hasFinished) {
+        if (frames[LAST_SLOT]) drawFrame(frames[LAST_SLOT]);
+        return;
+      }
+
       currentFrame = 0;
       lastFrameTime = 0;
 
@@ -211,7 +234,7 @@ export const SpriteCanvas = ({
     };
 
     const startPlayback = () => {
-      if (prefersReducedMotion || !playRef.current) return;
+      if (prefersReducedMotion || !playRef.current || hasFinished) return;
 
       currentFrame = 0;
       lastFrameTime = 0;
@@ -254,7 +277,14 @@ export const SpriteCanvas = ({
         if (isCancelled) return;
 
         if (prefersReducedMotion) {
+          // Без анімації показуємо одразу зібране кільце, а не порожній кадр
           isPlaying = false;
+          hasFinished = true;
+          const finalFrame = await loadSlot(LAST_SLOT);
+          if (finalFrame && !isCancelled) {
+            setCanvasSizeFromFrame(finalFrame);
+            drawFrame(finalFrame);
+          }
           return;
         }
 
