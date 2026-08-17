@@ -47,9 +47,10 @@
 
 .header__logo img {
   display: block;
-  width: auto;
+  /* Обидві мовні версії — 507×96, тому висоту не фіксуємо:
+     інакше при перемиканні мови логотип розтягує по-різному */
   width: 211px;
-  height: 40.093px;
+  height: auto;
 }
 
 .header__lang {
@@ -239,11 +240,8 @@
   }
 
   .header__logo img {
-    width: auto;
-    max-width: min(58vw, 220px);
-    height: 36px;
-    object-fit: contain;
-    object-position: left center;
+    width: min(58vw, 211px);
+    height: auto;
   }
 
   .header__menu-btn {
