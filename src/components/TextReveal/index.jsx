@@ -22,6 +22,39 @@ const TEXT_BLOCKS = "p, li, blockquote, figcaption";
 const MIN_TEXT_LENGTH = 24;
 
 /*
+ * Елементи, які підіймаються разом із текстом: картки, зображення, рамки,
+ * кнопки. Без них сторінка виглядала дивно — текст живий, а коробки навколо
+ * нього просто стоять.
+ *
+ * Класи ловимо по закінченню, а не по підрядку: `[class*='__card']` чіпляв би
+ * і `__card-title`, і `__cards`, тобто заголовок усередині картки поїхав би
+ * окремо від неї.
+ */
+const CLASS_TOKENS = [
+  "__card",
+  "-card",
+  "__frame",
+  "__media",
+  "__tile",
+  "__stat",
+  "__badge",
+  "__logo",
+  "__visual",
+  "__image",
+  "__photo",
+  "__stage",
+];
+
+const ELEMENTS = [
+  "img",
+  ...CLASS_TOKENS.flatMap((token) => [
+    `[class$='${token}']`,
+    `[class*='${token} ']`,
+  ]),
+  ".u-btn--1",
+].join(", ");
+
+/*
  * Блоки, які мають власну хореографію — рушій їх не торкається, інакше дві
  * анімації почнуть перебивати одна одну.
  */
@@ -43,14 +76,64 @@ const SKIP_CONTAINERS = [
   "[data-reveal='off']",
 ].join(", ");
 
+/*
+ * Тут рушій не піднімає елементи, але текст лишає собі: у цих секціях картки,
+ * картинки й панелі вже мають свій сценарій (пінування, каруселі, біжуча
+ * стрічка), і другий рух по тих самих вузлах збивав би перший.
+ */
+const SKIP_ELEMENTS = [
+  ".banner",
+  ".about-us",
+  ".export-map",
+  ".animation-cards",
+  ".track-bunner",
+  ".track-cooperation",
+  ".partners__track",
+  ".info-section",
+  ".office-decisions",
+  ".office-white-book",
+  ".office-gr-meetups",
+  ".office-expositions__stage",
+  "[data-reveal-elements='off']",
+].join(", ");
+
 const MASK_CLASS = "tr-mask";
 const DONE_ATTR = "data-tr";
+
+/** Менше — це вже не елемент, а крапка чи стрілка: рухати нема сенсу */
+const MIN_ELEMENT_SIZE = 24;
+
+/** Більше — це вже не елемент, а сам блок: підіймати його цілком дивно */
+const MAX_ELEMENT_SCREENS = 1.4;
 
 const isSkipped = (el) => el.closest(SKIP_CONTAINERS) !== null;
 
 const isHidden = (el) => {
   const rect = el.getBoundingClientRect();
   return rect.width === 0 && rect.height === 0;
+};
+
+/**
+ * Чи має сенс піднімати цей елемент.
+ *
+ * Картинка, яка ще не завантажилась, займає нуль місця — тому для неї міряємо
+ * місце, відведене батьком, інакше половина ілюстрацій лишилась би без появи.
+ */
+const isMovableElement = (el) => {
+  const { position } = getComputedStyle(el);
+  // fixed/sticky тримаються на transform — наш зсув зламав би їм позицію
+  if (position === "fixed" || position === "sticky") return false;
+
+  let rect = el.getBoundingClientRect();
+  if (el.tagName === "IMG" && rect.height < MIN_ELEMENT_SIZE) {
+    rect = el.parentElement?.getBoundingClientRect() ?? rect;
+  }
+
+  if (rect.width < MIN_ELEMENT_SIZE || rect.height < MIN_ELEMENT_SIZE) {
+    return false;
+  }
+
+  return rect.height <= window.innerHeight * MAX_ELEMENT_SCREENS;
 };
 
 /**
@@ -133,9 +216,26 @@ export const TextRevealEngine = () => {
 
       // Групуємо по секціях: усередині секції заголовок веде, текст іде за ним
       const groups = new Map();
+      const elements = [];
+
+      /*
+       * Спершу елементи, і тільки найзовнішніші: якщо піднімається картка, її
+       * картинку й кнопку окремо не рухаємо — вони їдуть разом із нею.
+       */
+      document.querySelectorAll(ELEMENTS).forEach((el) => {
+        if (el.hasAttribute(DONE_ATTR) || isSkipped(el) || isHidden(el)) return;
+        if (el.closest(SKIP_ELEMENTS)) return;
+        if (el.closest(`[${DONE_ATTR}="element"]`)) return;
+        if (!isMovableElement(el)) return;
+
+        el.setAttribute(DONE_ATTR, "element");
+        elements.push(el);
+      });
 
       const register = (el, kind) => {
         if (el.hasAttribute(DONE_ATTR) || isSkipped(el) || isHidden(el)) return;
+        // Текст усередині картки, яка сама піднімається, окремо не анімуємо
+        if (el.closest(`[${DONE_ATTR}="element"]`)) return;
         el.setAttribute(DONE_ATTR, kind);
 
         const group = el.closest("section, article, footer, header") ?? el;
@@ -149,6 +249,39 @@ export const TextRevealEngine = () => {
         if (el.querySelector(HEADINGS)) return;
         register(el, "text");
       });
+
+      /*
+       * Елементи ведемо не таймлайном секції, а батчем: інакше в довгій секції
+       * усі картки «з'явилися» б ще за екраном, і вниз ми доскролювали б до вже
+       * нерухомих. Батч збирає ті, що заходять разом, і дає їм чергу.
+       */
+      if (elements.length) {
+        gsap.set(elements, {
+          opacity: 0,
+          y: 32,
+          scale: 0.97,
+          transformOrigin: "50% 85%",
+        });
+
+        ScrollTrigger.batch(elements, {
+          start: "top 92%",
+          once: true,
+          interval: 0.1,
+          batchMax: 4,
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.95,
+              ease: "power3.out",
+              stagger: 0.09,
+              overwrite: true,
+              // Знімаємо все за собою, щоб не блокувати ховери й свої transform
+              clearProps: "transform,opacity,willChange",
+            }),
+        }).forEach((trigger) => triggers.push(trigger));
+      }
 
       groups.forEach(({ heads, texts }, group) => {
         const lines = [];
