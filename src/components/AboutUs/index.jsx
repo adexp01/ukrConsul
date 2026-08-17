@@ -164,21 +164,39 @@ export const AboutUs = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [activeId, updateConnector]);
 
+  /*
+   * Промальовування лінії.
+   *
+   * Тут навмисно немає `getTotalLength()`, хоча це стандартний спосіб.
+   * Проблема з ним у тому, що довжина міряється один раз, у момент запуску, і
+   * все подальше залежить від того, чи справді ця цифра збіглася з тим, що
+   * зараз у DOM. Варто їй виявитись меншою за реальну — і пунктир починає
+   * повторюватись: перша частина лінії суцільна, далі прогалина. Ззовні це
+   * виглядає рівно як «лінія не домальовується до кінця».
+   *
+   * Натомість у самого <path> стоїть pathLength="1": браузер сам приводить
+   * довжину до одиниці, тому «весь шлях» — це завжди рівно 1, скільки б
+   * пікселів він не мав насправді й коли б його не переміряли.
+   *
+   * І ще одне: щойно анімація добігла, пунктир вимикається зовсім. Стан
+   * спокою в такий спосіб не залежить від жодних обчислень — це просто
+   * суцільна лінія, і обірватись їй нема на чому.
+   */
   useEffect(() => {
     const path = connectorPathRef.current;
     if (!path || !line) return undefined;
 
-    const length = path.getTotalLength();
     gsap.killTweensOf(path);
     gsap.set(path, {
-      strokeDasharray: length,
-      strokeDashoffset: length,
+      strokeDasharray: 1,
+      strokeDashoffset: 1,
       opacity: 1,
     });
     gsap.to(path, {
       strokeDashoffset: 0,
       duration: 0.5,
       ease: "power2.out",
+      onComplete: () => gsap.set(path, { strokeDasharray: "none" }),
     });
 
     return () => gsap.killTweensOf(path);
@@ -497,6 +515,8 @@ export const AboutUs = () => {
                 <path
                   ref={connectorPathRef}
                   d={line}
+                  /* Уся довжина шляху = 1, див. пояснення біля анімації */
+                  pathLength="1"
                   className="about-us__connector-line"
                   fill="none"
                 />
