@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import {
+  PROFILES_WITH_PRODUCT,
   PROFILES_WITHOUT_STAGE,
+  resolveEmail,
   resolveFormHref,
   resolveResultId,
 } from "./mapping";
@@ -13,34 +15,54 @@ const FOCUSABLE =
   'button:not([disabled]), a[href], input, [tabindex]:not([tabindex="-1"])';
 
 /**
- * Поп-ап «Долучитися»: два кроки — хто ви і на якому ви етапі — після чого
- * показуємо, яка спільнота Ради підходить, і ведемо на відповідну анкету.
+ * Поп-ап «Долучитися».
  *
- * Для медіа другий крок пропускаємо: питання про етап компанії для редакції
- * не має сенсу.
+ * Кроків стільки, скільки потрібно саме цій людині: виробника питаємо ще й про
+ * напрям продукції, редакції не питаємо про етап компанії. Тому лічильник і
+ * смужка прогресу рахуються від фактичного набору кроків, а не від сталої.
  */
 export const JoinQuizModal = ({ isOpen, onClose }) => {
   const { t, language } = useLanguage();
   const copy = t("joinQuiz");
 
-  const [profileId, setProfileId] = useState(null);
-  const [stageId, setStageId] = useState(null);
+  const [answers, setAnswers] = useState({});
   const dialogRef = useRef(null);
   const restoreFocusRef = useRef(null);
 
-  const skipsStage = profileId && PROFILES_WITHOUT_STAGE.includes(profileId);
-  const isResult = Boolean(profileId && (stageId || skipsStage));
-  const step = isResult ? 3 : profileId ? 2 : 1;
+  const { profile, product } = answers;
 
-  const reset = useCallback(() => {
-    setProfileId(null);
-    setStageId(null);
-  }, []);
+  // Послідовність кроків залежить від відповідей
+  const steps = useMemo(() => {
+    const list = ["profile"];
+    if (profile && PROFILES_WITH_PRODUCT.includes(profile))
+      list.push("product");
+    if (profile && !PROFILES_WITHOUT_STAGE.includes(profile))
+      list.push("stage");
+    return list;
+  }, [profile]);
+
+  const answeredCount = steps.filter((step) => answers[step]).length;
+  const isResult = answeredCount === steps.length && Boolean(profile);
+  const currentStep = steps[isResult ? steps.length - 1 : answeredCount];
+
+  const reset = useCallback(() => setAnswers({}), []);
+
+  const pick = (step, value) =>
+    setAnswers((prev) =>
+      // Змінили профіль — попередні уточнення втрачають сенс
+      step === "profile" ? { profile: value } : { ...prev, [step]: value },
+    );
 
   const goBack = () => {
-    if (stageId) return setStageId(null);
-    if (profileId) return setProfileId(null);
-    onClose();
+    const order = ["stage", "product", "profile"];
+    const last = order.find((step) => answers[step]);
+    if (!last) return onClose();
+
+    setAnswers((prev) => {
+      const next = { ...prev };
+      delete next[last];
+      return next;
+    });
   };
 
   // Запам'ятовуємо, звідки відкрили, блокуємо скрол сторінки під поп-апом
@@ -117,39 +139,22 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const totalSteps = skipsStage ? 1 : 2;
-  const currentStep = isResult ? totalSteps : step;
-  const progress = (currentStep / totalSteps) * 100;
+  /*
+   * Поки профіль не обраний, ми ще не знаємо, чи буде крок про напрям
+   * продукції, тому показуємо найдовший можливий шлях — інакше на першому
+   * питанні стояло б «01 / 01», ніби тест уже закінчився.
+   */
+  const LONGEST_PATH = 3;
+  const totalSteps = answeredCount === 0 ? LONGEST_PATH : steps.length;
+  const stepNumber = isResult ? totalSteps : answeredCount + 1;
+  const progress = (stepNumber / totalSteps) * 100;
 
-  const resultId = isResult
-    ? resolveResultId(profileId, skipsStage ? null : stageId)
-    : null;
+  const resultId = isResult ? resolveResultId(profile, product) : null;
   const result = resultId ? copy.results[resultId] : null;
   const formHref = resultId ? resolveFormHref(resultId, language) : null;
+  const email = resultId ? resolveEmail(resultId) : null;
 
-  const renderOptions = (items, onPick, activeId) => (
-    <ul className="join-quiz__options">
-      {items.map((item, index) => (
-        <li key={item.id}>
-          <button
-            type="button"
-            className={`join-quiz__option${
-              activeId === item.id ? " is-active" : ""
-            }`}
-            onClick={() => onPick(item.id)}
-          >
-            <span className="join-quiz__option-index" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <span className="join-quiz__option-label">{item.label}</span>
-            <span className="join-quiz__option-arrow" aria-hidden="true">
-              →
-            </span>
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
+  const question = isResult ? null : copy.steps[currentStep];
 
   return createPortal(
     <div
@@ -182,7 +187,7 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
               type="button"
               className="join-quiz__back"
               onClick={goBack}
-              disabled={step === 1}
+              disabled={answeredCount === 0}
             >
               <span aria-hidden="true">←</span>
               {copy.back}
@@ -193,19 +198,22 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
               role="progressbar"
               aria-valuemin={1}
               aria-valuemax={totalSteps}
-              aria-valuenow={currentStep}
+              aria-valuenow={stepNumber}
             >
               <span style={{ width: `${progress}%` }} />
             </div>
 
             <p className="join-quiz__counter">
-              <strong>{String(currentStep).padStart(2, "0")}</strong> /{" "}
+              <strong>{String(stepNumber).padStart(2, "0")}</strong> /{" "}
               {String(totalSteps).padStart(2, "0")}
             </p>
           </div>
         )}
 
-        <div className="join-quiz__card" key={isResult ? "result" : step}>
+        <div
+          className="join-quiz__card"
+          key={isResult ? `result-${resultId}` : currentStep}
+        >
           {isResult ? (
             <div className="join-quiz__result">
               <button
@@ -223,31 +231,68 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
               </h2>
               <p className="join-quiz__result-text">{result.description}</p>
 
-              <Button
-                href={formHref}
-                target="_blank"
-                rel="noreferrer"
-                className="join-quiz__submit"
-              >
-                {copy.submit}
-              </Button>
+              <p className="join-quiz__result-next">
+                <span>{copy.nextLabel}</span>
+                {copy.nextText}
+              </p>
+
+              <div className="join-quiz__result-actions">
+                <Button
+                  href={formHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="join-quiz__submit"
+                >
+                  {copy.submit}
+                </Button>
+
+                <a
+                  className="join-quiz__contact"
+                  href={`mailto:${email}?subject=${encodeURIComponent(
+                    `${copy.mailSubject}: ${result.title}`,
+                  )}`}
+                >
+                  {copy.contact}
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           ) : (
             <>
               <h2 id="join-quiz-title" className="join-quiz__title">
-                {step === 1 ? copy.steps.profile.title : copy.steps.stage.title}
+                {question.title}
               </h2>
-              <p className="join-quiz__subtitle">
-                {step === 1 ? copy.steps.profile.text : copy.steps.stage.text}
-              </p>
+              <p className="join-quiz__subtitle">{question.text}</p>
 
-              {step === 1
-                ? renderOptions(
-                    copy.steps.profile.options,
-                    setProfileId,
-                    profileId,
-                  )
-                : renderOptions(copy.steps.stage.options, setStageId, stageId)}
+              <ul className="join-quiz__options">
+                {question.options.map((item, index) => (
+                  <li key={item.id}>
+                    <button
+                      type="button"
+                      className={`join-quiz__option${
+                        answers[currentStep] === item.id ? " is-active" : ""
+                      }`}
+                      onClick={() => pick(currentStep, item.id)}
+                    >
+                      <span
+                        className="join-quiz__option-index"
+                        aria-hidden="true"
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="join-quiz__option-label">
+                        {item.label}
+                      </span>
+                      <span
+                        className="join-quiz__option-arrow"
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </>
           )}
         </div>

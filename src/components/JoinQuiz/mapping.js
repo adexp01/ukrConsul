@@ -1,12 +1,12 @@
 /*
  * Маршрутизація тесту «Долучитися».
  *
- * Форм п'ять: чотири різні анкети плюс окрема англомовна версія анкети для
- * виробників і партнерів — її підбираємо за мовою сайту.
+ * Ідея тесту — розвести людей по асоціаціях, тому на саму Раду не веде жоден
+ * результат: якщо профіль неочевидний, це «Оборонний альянс України».
  *
- * Таблиця RESULT_BY_ANSWER свідомо розписана повністю, клітинка за клітинкою:
- * так будь-яку пару «профіль + етап» можна перекинути на іншу форму, не
- * розбираючись у логіці. Ключ — `${profileId}:${stageId}`.
+ * Крок «на якому ви етапі» на маршрут не впливає — він потрібен команді для
+ * розуміння контексту. Асоціацію визначають профіль і, для виробників,
+ * напрям продукції.
  */
 
 export const FORMS = {
@@ -20,65 +20,96 @@ export const FORMS = {
   media: "https://forms.cloud.microsoft/e/2vXp8Fi1rU",
 };
 
+export const CONTACT_EMAIL = "official@ucdi.org.ua";
+
+/** Профілі першого кроку */
 export const PROFILE_IDS = [
   "manufacturer",
   "investor",
   "uavSchool",
-  "partner",
+  "techTeam",
   "association",
   "media",
 ];
 
+/** Другий крок — тільки для виробників */
+export const PRODUCT_IDS = [
+  "uav",
+  "naval",
+  "ground",
+  "ew",
+  "armour",
+  "weapons",
+  "optics",
+  "software",
+  "components",
+  "demining",
+  "other",
+];
+
 export const STAGE_IDS = ["startup", "operating", "scaling", "international"];
 
-// Профілі, для яких питання про етап не має сенсу — одразу показуємо результат
+/** Кому показуємо крок про напрям продукції */
+export const PROFILES_WITH_PRODUCT = ["manufacturer"];
+
+/** Кому питання про етап не пасує */
 export const PROFILES_WITHOUT_STAGE = ["media"];
 
-/** Яка форма стоїть за кожним результатом */
-export const RESULT_FORMS = {
-  manufacturers: "manufacturers",
-  investorClub: "investor",
-  uavSchools: "manufacturers",
-  partnership: "manufacturers",
-  association: "manufacturers",
-  internationalTrack: "international",
+/*
+ * Асоціація за відповідями. Ключ для виробників — `manufacturer:<напрям>`,
+ * для решти профілів — сам профіль. Розписано клітинка за клітинкою, щоб
+ * будь-який напрям можна було перекинути в іншу асоціацію одним рядком.
+ */
+export const RESULT_BY_ANSWER = {
+  "manufacturer:uav": "defenceAlliance",
+  "manufacturer:naval": "navalDrones",
+  "manufacturer:ground": "roboticForces",
+  "manufacturer:ew": "radioelectronic",
+  "manufacturer:armour": "league",
+  "manufacturer:weapons": "defenceAlliance",
+  "manufacturer:optics": "radioelectronic",
+  "manufacturer:software": "defenceAlliance",
+  "manufacturer:components": "league",
+  "manufacturer:demining": "defenceAlliance",
+  "manufacturer:other": "defenceAlliance",
+
+  investor: "investorClub",
+  uavSchool: "uavSchools",
+  techTeam: "defenceAlliance",
+  association: "defenceAlliance",
   media: "media",
 };
 
-export const RESULT_BY_ANSWER = {
-  "manufacturer:startup": "manufacturers",
-  "manufacturer:operating": "manufacturers",
-  "manufacturer:scaling": "manufacturers",
-  "manufacturer:international": "internationalTrack",
-
-  "investor:startup": "investorClub",
-  "investor:operating": "investorClub",
-  "investor:scaling": "investorClub",
-  "investor:international": "investorClub",
-
-  "uavSchool:startup": "uavSchools",
-  "uavSchool:operating": "uavSchools",
-  "uavSchool:scaling": "uavSchools",
-  "uavSchool:international": "internationalTrack",
-
-  "partner:startup": "partnership",
-  "partner:operating": "partnership",
-  "partner:scaling": "partnership",
-  "partner:international": "internationalTrack",
-
-  "association:startup": "association",
-  "association:operating": "association",
-  "association:scaling": "association",
-  "association:international": "internationalTrack",
-
-  "media:none": "media",
+/** Форма й адреса для кожної асоціації */
+export const RESULT_TARGETS = {
+  defenceAlliance: { form: "manufacturers", email: CONTACT_EMAIL },
+  navalDrones: { form: "manufacturers", email: CONTACT_EMAIL },
+  roboticForces: { form: "manufacturers", email: CONTACT_EMAIL },
+  radioelectronic: { form: "manufacturers", email: CONTACT_EMAIL },
+  league: { form: "manufacturers", email: CONTACT_EMAIL },
+  uavSchools: { form: "manufacturers", email: CONTACT_EMAIL },
+  investorClub: { form: "investor", email: CONTACT_EMAIL },
+  media: { form: "media", email: CONTACT_EMAIL },
 };
 
-export const resolveResultId = (profileId, stageId) =>
-  RESULT_BY_ANSWER[`${profileId}:${stageId ?? "none"}`] ?? "manufacturers";
+const FALLBACK_RESULT = "defenceAlliance";
+
+export const resolveResultId = (profileId, productId) => {
+  if (!profileId) return FALLBACK_RESULT;
+
+  if (PROFILES_WITH_PRODUCT.includes(profileId)) {
+    return RESULT_BY_ANSWER[`${profileId}:${productId}`] ?? FALLBACK_RESULT;
+  }
+
+  return RESULT_BY_ANSWER[profileId] ?? FALLBACK_RESULT;
+};
 
 export const resolveFormHref = (resultId, language) => {
-  const form = FORMS[RESULT_FORMS[resultId] ?? "manufacturers"];
+  const target = RESULT_TARGETS[resultId] ?? RESULT_TARGETS[FALLBACK_RESULT];
+  const form = FORMS[target.form];
   if (typeof form === "string") return form;
   return form[language] ?? form.uk;
 };
+
+export const resolveEmail = (resultId) =>
+  (RESULT_TARGETS[resultId] ?? RESULT_TARGETS[FALLBACK_RESULT]).email;
