@@ -89,10 +89,34 @@ export const AboutUs = () => {
         { x: m.right, y: m.cy },
       ];
     } else if (stat?.position === "top-left") {
+      /*
+       * Найдовший шлях, і єдиний, який мусить когось обійти.
+       *
+       * Раніше лінія йшла з нижнього краю картки прямо вниз і потім праворуч —
+       * тобто наскрізь по картці «Школи БПЛА», по її ж цифрі. Видно це було
+       * добре: у наведеному стані з'єднувач лежить вище за ненаведені картки
+       * (z-index 5 проти 4), тож він малювався просто поверх сусіда.
+       *
+       * Тепер лінія одразу відходить праворуч у вільний коридор між тією
+       * карткою й головною, і вже там спускається. Ширину коридора рахуємо по
+       * фактичному краю сусіда, а не константою: на вужчих екранах сцена
+       * стискається, і зазор між ними змінюється.
+       */
+      const blocker = stage.querySelector(".about-us__card--bottom-left");
+      const blockerRight = blocker
+        ? blocker.getBoundingClientRect().right - stageRect.left
+        : 0;
+      const railX = Math.min(
+        Math.max(blockerRight + 20, m.left - 48),
+        m.left - 14,
+      );
+
       points = [
         { x: s.cx, y: s.bottom },
-        { x: s.cx, y: m.top + 28 },
-        { x: m.left + 36, y: m.top + 28 },
+        { x: s.cx, y: s.bottom + 34 },
+        { x: railX, y: s.bottom + 34 },
+        { x: railX, y: m.top + 28 },
+        { x: m.left, y: m.top + 28 },
       ];
     } else {
       points = [

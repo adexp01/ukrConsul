@@ -62,7 +62,12 @@
   position: relative;
   display: grid;
   grid-template-columns: minmax(280px, 1fr) minmax(260px, 380px) 32px;
-  align-items: end;
+  /*
+   * `start`, а не `end`: інакше колонка з текстом, якщо вона виявиться вищою
+   * за фото, росте вгору — і заголовок на найдовшому слайді підстрибує на
+   * 12 px. З верхнім рівнянням висота тексту вже ні на що не впливає.
+   */
+  align-items: start;
   gap: 24px 32px;
 }
 
@@ -185,22 +190,40 @@
   }
 }
 
+/*
+ * Блок притиснутий до верху фото, а не відцентрований.
+ *
+ * Було `justify-content: center`, і через це на кожному слайді все їхало:
+ * заміряно, верх заголовка гуляв від 18 до 118 px, початок опису — від 123
+ * до 248, стрілки — від 310 до 410. Причина проста: заголовки бувають від
+ * одного до чотирьох рядків, описи — від трьох до шести, і центрування
+ * розкидало цю різницю на обидва боки.
+ *
+ * У макеті заголовок стоїть на одній висоті на всіх слайдах (≈13 % від
+ * верху фото), тому тут фіксований відступ зверху, а стрілки притиснуті до
+ * низу через `margin-top: auto`. Довжину опису це не чіпає — він просто
+ * росте вниз, від нерухомого заголовка.
+ */
 .gallery-section__content {
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100%;
+  padding-top: 56px;
 }
 
 .gallery-section__content-head {
   display: flex;
-  align-items: center;
+  /* Цифра рівняється по верхньому рядку заголовка, а не по його центру:
+     інакше на чотирирядковому заголовку вона з'їжджає на середину */
+  align-items: flex-start;
   gap: 14px;
   margin-bottom: 20px;
 }
 
 .gallery-section__index {
+  margin-top: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -271,8 +294,10 @@
   font-size: 18px;
 }
 
+/* Стрілки стоять біля нижнього краю фото — на всіх слайдах однаково */
 .gallery-section__nav {
-  padding-top: 40px;
+  margin-top: auto;
+  padding-top: 24px;
 }
 
 .gallery-section__pagination {
@@ -321,6 +346,7 @@
   .gallery-section__content {
     grid-row: 2;
     grid-column: 1;
+    padding-top: 0;
   }
 
   .gallery-section__pagination {
