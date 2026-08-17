@@ -210,9 +210,16 @@ section.about-us {
     rgba(61, 75, 216, 0) 100%
   );
   bottom: 10%;
-  left: 60%;
+  /*
+   * Зсув живе в `left`, а не в `transform: translateX(-85%)`.
+   * Причина: GSAP анімує цій картці scale, а inline-трансформ повністю
+   * заміняє CSS-ний. Поки що бібліотека сама перечитувала −85 % у пікселі й
+   * зберігала їх, але тримати позицію в тій самій властивості, куди пише
+   * анімація, — це чекати на зсув при першому ж рефакторингу.
+   * 221px = 85 % від min-width 260px.
+   */
+  left: calc(60% - 221px);
   min-width: 260px;
-  transform: translateX(-85%);
   z-index: 6;
   overflow: hidden;
   border: 4px solid transparent;
@@ -436,7 +443,7 @@ section.about-us {
 }
 
 @media (min-width: 1025px) {
-  .about-us:not(.about-us--interactive) .about-us__card--satellite {
+  section.about-us:not(.about-us--interactive) .about-us__card--satellite {
     pointer-events: none;
   }
 }
@@ -496,11 +503,24 @@ section.about-us:not(.about-us--expanded) .about-us__card--satellite {
   transition: filter 0.6s ease;
 }
 
+/*
+ * Ось тут блок і «розсипався» вкінці.
+ *
+ * У картки в CSS стояло `transform: translateX(-58%)`, а GSAP на розкритті
+ * писав у той самий transform свої `x/y` — і CSS-ний зсув зникав. Поки
+ * анімація тримала inline-стиль, картка стояла правильно; в кінці таймлайну
+ * `clearProps: "transform"` його прибирав, CSS-ний −58 % вертався, і картка
+ * стрибала на 133 px (58 % від 230 px) убік — заміряно.
+ * Той самий −58 % ламав і ховер: правило `:hover { transform: none }`
+ * зсувало картку на ті ж 133 px з-під курсора.
+ *
+ * Тому зсув перенесено в `left`: тепер стан спокою в CSS збігається з тим,
+ * куди анімація ставить картку (x: 0), і прибирати нічого не потрібно.
+ */
 .about-us__card--top-left {
   top: -55%;
   left: 5%;
   width: 285px;
-  transform: translateX(-58%);
   opacity: 0.55;
   filter: blur(0.4px);
   background: rgba(120, 120, 120, 0.08);
@@ -523,13 +543,6 @@ section.about-us:not(.about-us--expanded) .about-us__card--satellite {
   width: 285px;
   left: 10%;
   top: auto;
-  transform: translateX(-58%);
-}
-
-.about-us__card--bottom-left.about-us__card--active,
-.about-us--interactive .about-us__card--bottom-left:hover,
-.about-us--interactive .about-us__card--bottom-left:focus-visible {
-  transform: none;
 }
 
 /*
@@ -544,12 +557,6 @@ section.about-us:not(.about-us--expanded) .about-us__card--satellite {
   right: 0;
   width: 285px;
   background: rgba(90, 90, 90, 0.14);
-}
-
-.about-us__card--bottom-right.about-us__card--active,
-.about-us--interactive .about-us__card--bottom-right:hover,
-.about-us--interactive .about-us__card--bottom-right:focus-visible {
-  transform: none;
 }
 
 .about-us__cta {
@@ -743,7 +750,8 @@ section.about-us:not(.about-us--expanded) .about-us__card--satellite {
   /* Шкіл БпЛА — знизу зліва */
   .about-us__card--bottom-left {
     bottom: -5%;
-    left: 50%;
+    /* 99.76px = 58 % від 172px — той самий зсув, що був у transform */
+    left: calc(50% - 99.76px);
     width: 172px;
     background: rgba(36, 34, 32, 0.78);
     border-color: rgba(255, 255, 255, 0.06);

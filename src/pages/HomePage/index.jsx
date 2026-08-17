@@ -37,7 +37,7 @@ export const HomePage = () => {
       <main className="home-page">
         <Bunner />
       </main>
-      <div className="about-us">
+      <div className="about-us-wrap">
         <AboutUs />
       </div>
       <div className="info">

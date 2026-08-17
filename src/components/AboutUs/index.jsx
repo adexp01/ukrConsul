@@ -17,11 +17,18 @@ const SATELLITE_STATS = [
   { id: "funds", value: "20", position: "bottom-right" },
 ];
 
-const PIN_SCROLL_VH = 2.1;
+const PIN_SCROLL_VH = 2.6;
 const PIN_SCRUB = 1.15;
-const PHASE_HOLD = 0.34;
-const PHASE_TITLE_FADE = 0.22;
-const PHASE_EXPAND = 0.44;
+const PHASE_HOLD = 0.2;
+const PHASE_TITLE_FADE = 0.14;
+const PHASE_EXPAND = 0.28;
+/*
+ * Остання фаза — «витримка»: картки вже на місцях, нічого не рухається, але
+ * секція ще приколота. Без неї стан «усе розкрито» існував лише в останніх
+ * 3 % прокрутки піна: людина доводила анімацію до кінця й на наступному ж
+ * кроці колеса блок їхав геть — навести мишку на картку було просто нікуди.
+ */
+const PHASE_SETTLE = 0.38;
 const EXPAND_START = PHASE_HOLD + PHASE_TITLE_FADE;
 const EXPAND_COMPLETE = EXPAND_START + PHASE_EXPAND * 0.92;
 
@@ -234,7 +241,28 @@ export const AboutUs = () => {
               defaults: { ease: "power2.inOut" },
               scrollTrigger: {
                 trigger: pinWrap,
-                start: "top 14%",
+                /*
+                 * Блок має стояти по центру екрана, а не на фіксованих 14 %
+                 * від верху: висота самого блока стала (630 px), а екрани
+                 * різні, тому раніше на 1080 px під карточками лишалося
+                 * майже 300 px пустоти, а на 760 px вони впритул тиснулися
+                 * до низу. Відступ рахуємо від фактичної висоти блока —
+                 * функція перечитується на кожному refresh.
+                 */
+                start: () => {
+                  const blockHeight = inner.offsetHeight;
+                  // шапка фіксована й лежить поверх сторінки, тому «центр
+                  // екрана» для людини — це центр того, що нижче за неї
+                  const headerHeight =
+                    document.querySelector(".header")?.offsetHeight ?? 0;
+                  const free = window.innerHeight - headerHeight - blockHeight;
+                  const offset = Math.max(
+                    24,
+                    Math.round(headerHeight + free / 2),
+                  );
+
+                  return `top ${offset}px`;
+                },
                 end: () => `+=${window.innerHeight * PIN_SCROLL_VH}`,
                 pin: inner,
                 scrub: PIN_SCRUB,
@@ -292,7 +320,9 @@ export const AboutUs = () => {
                 },
                 "<0.06",
               )
-              .set(satellites, { clearProps: "transform" });
+              .set(satellites, { clearProps: "transform" })
+              // витримка: блок стоїть на місці й доступний для мишки
+              .to({}, { duration: PHASE_SETTLE });
 
             return scrollTl;
           };
