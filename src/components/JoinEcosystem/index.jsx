@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import { Button, NavArrows } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 const VISIBLE_CARD_COUNT = 3;
 
 export const JoinEcosystem = () => {
+  const { openJoinQuiz } = useJoinQuiz();
   const { t } = useLanguage();
   const copy = t("joinPage.ecosystem");
   const joinCopy = t("joinPage");
@@ -60,14 +62,18 @@ export const JoinEcosystem = () => {
 
         <div className="join-ecosystem__footer">
           <div className="join-ecosystem__actions">
-            <Button href={joinCopy.applyHref} variant="primary" target="_blank" rel="noreferrer">
+            <Button onClick={openJoinQuiz} variant="primary">
               {joinCopy.primaryCta}
             </Button>
 
-            <a href={copy.formatHref} className="join-ecosystem__format-link">
+            <button
+              type="button"
+              onClick={openJoinQuiz}
+              className="join-ecosystem__format-link"
+            >
               {copy.formatCta}
               <span aria-hidden="true">→</span>
-            </a>
+            </button>
           </div>
 
           <NavArrows

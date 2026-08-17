@@ -111,7 +111,13 @@
   gap: 24px 34px;
 }
 
+/* Тепер це <button>, а не <a> — скидаємо стандартні стилі кнопки */
 .join-ecosystem__format-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 10px;

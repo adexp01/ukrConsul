@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "../UI/Button";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
+import { isJoinTarget } from "../JoinQuiz/joinCta";
 import "./style.css";
 
 /**
@@ -7,6 +9,7 @@ import "./style.css";
  * усередині опис, картки етапів і кнопка.
  */
 export const OfficePartnerPrograms = ({ copy }) => {
+  const { openJoinQuiz } = useJoinQuiz();
   const items = copy?.items ?? [];
   const [openId, setOpenId] = useState(items[0]?.id ?? null);
 
@@ -40,11 +43,17 @@ export const OfficePartnerPrograms = ({ copy }) => {
                     aria-controls={panelId}
                     onClick={() => setOpenId(isOpen ? null : item.id)}
                   >
-                    <span className="partner-programs__index" aria-hidden="true">
+                    <span
+                      className="partner-programs__index"
+                      aria-hidden="true"
+                    >
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="partner-programs__name">{item.title}</span>
-                    <span className="partner-programs__toggle" aria-hidden="true">
+                    <span
+                      className="partner-programs__toggle"
+                      aria-hidden="true"
+                    >
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
@@ -84,7 +93,12 @@ export const OfficePartnerPrograms = ({ copy }) => {
 
                     {copy.cta ? (
                       <div className="partner-programs__cta">
-                        <Button href={copy.ctaHref} variant="primary">
+                        <Button
+                          {...(isJoinTarget(copy.ctaHref)
+                            ? { onClick: openJoinQuiz }
+                            : { href: copy.ctaHref })}
+                          variant="primary"
+                        >
                           {copy.cta}
                         </Button>
                       </div>

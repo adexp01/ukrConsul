@@ -351,7 +351,8 @@
 
   .join-quiz__bar {
     gap: 12px;
-    padding: 12px;
+    /* справа лишаємо місце під хрестик, інакше він накриває лічильник */
+    padding: 12px 52px 12px 12px;
     border-radius: 14px;
   }
 
@@ -388,6 +389,7 @@
   .join-quiz__restart {
     position: static;
     align-self: flex-end;
-    margin-bottom: 16px;
+    /* так само тікаємо з-під хрестика */
+    margin: 0 40px 16px 0;
   }
 }

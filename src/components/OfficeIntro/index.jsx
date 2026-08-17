@@ -1,4 +1,6 @@
 import { Button } from "../UI/Button";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
+import { isJoinTarget } from "../JoinQuiz/joinCta";
 import "./style.css";
 
 /**
@@ -16,33 +18,40 @@ export const OfficeIntro = ({
   ctaLabel,
   ctaHref,
   titleId,
-}) => (
-  <section className="office-intro" aria-labelledby={titleId}>
-    <div className="office-intro__inner">
-      <h2 id={titleId} className="office-intro__title">
-        {title}
-      </h2>
+}) => {
+  const { openJoinQuiz } = useJoinQuiz();
+  const ctaProps = isJoinTarget(ctaHref)
+    ? { onClick: openJoinQuiz }
+    : { href: ctaHref };
 
-      <div className="office-intro__stage">
-        <article className="office-intro__card office-intro__card--accent">
-          <p>{accentText}</p>
-        </article>
+  return (
+    <section className="office-intro" aria-labelledby={titleId}>
+      <div className="office-intro__inner">
+        <h2 id={titleId} className="office-intro__title">
+          {title}
+        </h2>
 
-        <article className="office-intro__card office-intro__card--light">
-          {cardTitle ? (
-            <h3 className="office-intro__card-title">{cardTitle}</h3>
-          ) : null}
-          <p>{cardText}</p>
-        </article>
-      </div>
+        <div className="office-intro__stage">
+          <article className="office-intro__card office-intro__card--accent">
+            <p>{accentText}</p>
+          </article>
 
-      {ctaLabel ? (
-        <div className="office-intro__cta">
-          <Button href={ctaHref} variant="primary">
-            {ctaLabel}
-          </Button>
+          <article className="office-intro__card office-intro__card--light">
+            {cardTitle ? (
+              <h3 className="office-intro__card-title">{cardTitle}</h3>
+            ) : null}
+            <p>{cardText}</p>
+          </article>
         </div>
-      ) : null}
-    </div>
-  </section>
-);
+
+        {ctaLabel ? (
+          <div className="office-intro__cta">
+            <Button {...ctaProps} variant="primary">
+              {ctaLabel}
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+};

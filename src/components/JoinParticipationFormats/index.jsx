@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 export const JoinParticipationFormats = () => {
+  const { openJoinQuiz } = useJoinQuiz();
   const { t } = useLanguage();
   const joinCopy = t("joinPage");
   const copy = t("joinPage.participationFormats");
@@ -13,10 +15,7 @@ export const JoinParticipationFormats = () => {
   if (items.length === 0) return null;
 
   return (
-    <section
-      className="join-participation"
-      aria-label={copy.ariaLabel}
-    >
+    <section className="join-participation" aria-label={copy.ariaLabel}>
       <div className="join-participation__inner">
         <div className="join-participation__list">
           {items.map((item, index) => {
@@ -43,7 +42,10 @@ export const JoinParticipationFormats = () => {
                   <span className="join-participation-card__title">
                     {item.title}
                   </span>
-                  <span className="join-participation-card__toggle" aria-hidden="true">
+                  <span
+                    className="join-participation-card__toggle"
+                    aria-hidden="true"
+                  >
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>
@@ -68,10 +70,8 @@ export const JoinParticipationFormats = () => {
                     </ul>
 
                     <Button
-                      href={joinCopy.applyHref}
+                      onClick={openJoinQuiz}
                       className="join-participation-card__cta"
-                      target="_blank"
-                      rel="noreferrer"
                     >
                       {joinCopy.primaryCta}
                     </Button>

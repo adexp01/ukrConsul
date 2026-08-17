@@ -80,13 +80,11 @@
   pointer-events: none;
 }
 
-.partners__strip--row1 {
-  aspect-ratio: 1322 / 191;
-}
-
-.partners__strip--row2 {
-  aspect-ratio: 1440 / 191;
-}
+/*
+ * Тут стояли жорсткі aspect-ratio 1322/191 і 1440/191 — вони не збігалися з
+ * реальними пропорціями стрічок, і логотипи розтягувало по горизонталі.
+ * Тепер ширину визначає сама картинка (width: auto при фіксованій висоті).
+ */
 
 .partners__track:hover {
   animation-play-state: paused;
