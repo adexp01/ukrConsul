@@ -1,0 +1,24 @@
+/*
+ * Маска нічого не додає до висоти: жодних padding чи margin. Хвостики літер
+ * можуть зрізатись, поки рядок їде, — цього не видно, бо текст у руху; а після
+ * завершення клас .tr-revealed знімає обрізання зовсім.
+ */
+.tr-mask {
+  display: block;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Анімація відпрацювала — обрізати більше нічого не треба */
+.tr-revealed > .tr-mask,
+.tr-mask.tr-revealed {
+  overflow: visible;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-mask {
+    overflow: visible;
+    will-change: auto;
+  }
+}

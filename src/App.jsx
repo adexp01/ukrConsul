@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ButtonGradients } from "./components/UI/Button";
 import { JoinQuizProvider } from "./components/JoinQuiz/JoinQuizContext";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { TextRevealEngine } from "./components/TextReveal";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { LegacyRedirect } from "./i18n/LegacyRedirect";
 import { LocaleOutlet } from "./i18n/LocaleOutlet";
@@ -24,6 +25,7 @@ function App() {
         <JoinQuizProvider>
           <ButtonGradients />
           <ScrollToTop />
+          <TextRevealEngine />
           <Routes>
             <Route path="/" element={<Navigate to="/en" replace />} />
             <Route path="/:locale" element={<LocaleOutlet />}>
