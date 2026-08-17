@@ -56,41 +56,23 @@
    * Хедер більше не малює власну копію bg1.svg: вона масштабувалась
    * через cover на блок висотою 620px і не збігалася з фоном сторінки,
    * тому на нижньому краї лишався перепад. Тепер тут лише легке
-   * затемнення, а градієнт несе сторінка.
+   * затемнення під меню, і воно сходить на нуль ще до низу блоку —
+   * інакше на нижньому краї героя знову з'являється рівна лінія.
    */
   background-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.42) 0%,
-    rgba(0, 0, 0, 0.16) 46%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(0, 0, 0, 0.12) 34%,
+    rgba(0, 0, 0, 0) 62%
   );
 }
 
-.office-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, transparent 24%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, transparent 46%);
-  pointer-events: none;
-}
-
-.office-hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 0;
-  height: 42%;
-  background: radial-gradient(
-    ellipse at 50% 100%,
-    rgba(216, 102, 24, 0.12) 0%,
-    rgba(10, 8, 8, 0.42) 38%,
-    rgba(2, 2, 2, 0.94) 88%
-  );
-  pointer-events: none;
-}
+/*
+ * Тут стояв ще один шар: радіальне затемнення на нижні 42% героя, яке
+ * доходило до rgba(2, 2, 2, 0.94). Воно обривалося рівно на нижньому краї
+ * блоку — саме та горизонтальна лінія під табами, що видно на всіх табах.
+ * Тепле світло внизу малює .office-page::before, дублювати його не треба.
+ */
 
 .office-hero__visual {
   position: relative;
