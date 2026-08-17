@@ -1,9 +1,7 @@
 .banner {
   width: 100%;
   max-width: 100%;
-  margin-top: 310px;
   position: relative;
-  padding-bottom: 150px;
   overflow-x: clip;
 }
 
@@ -16,6 +14,48 @@
 .banner__top {
   position: relative;
   margin-bottom: 32px;
+}
+
+/*
+ * Перший екран — рівно один екран, як у макеті.
+ *
+ * Було так: `margin-top: 310px` плюс фіксовані відступи 120 і 20 px і
+ * `padding-bottom: 150px`. Сума цих чисел не має нічого спільного з висотою
+ * вікна, тому на високому екрані внизу лишалась порожнеча, а на низькому
+ * заголовок з кнопкою виїжджали за межі першого екрана.
+ *
+ * Тепер висота задана вікном, а нижня група (текст, заголовок, кнопка)
+ * притиснута до низу через margin-top: auto. Кільце з рискою табів стоїть на
+ * 40 % висоти вікна — на цій висоті воно і в дизайні.
+ */
+@media (min-width: 1025px) {
+  .banner {
+    display: flex;
+    min-height: calc(100vh - 88px);
+    /* У макеті під кнопкою лишається близько 7 % висоти екрана */
+    padding-bottom: clamp(40px, 7vh, 100px);
+  }
+
+  .banner__inner {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .banner__top {
+    margin-top: max(0px, calc(40vh - 88px));
+    margin-bottom: 0;
+  }
+
+  /* Уся нижня група — до низу екрана */
+  .banner__panel {
+    margin-top: auto;
+  }
+
+  /* Повітря між абзацом і заголовком — як у макеті */
+  .banner__hero {
+    margin-top: clamp(20px, 4vh, 56px);
+  }
 }
 
 .banner__ring {
@@ -34,7 +74,12 @@
     left: 50%;
     top: 50%;
     z-index: 2;
-    width: clamp(700px, 62vw, 720px);
+    /*
+     * Обмежуємо ще й висотою вікна: інакше на низькому екрані кільце
+     * діаметром 720 px залазило б під шапку. У макеті його діаметр — близько
+     * половини висоти першого екрана.
+     */
+    width: min(62vw, 52vh, 720px);
     transform: translate(-50%, -52%);
   }
 }
@@ -153,7 +198,8 @@
 .banner__text {
   max-width: 420px;
   margin: 0;
-  margin-top: 120px;
+  /* Основну відстань тримає margin-top: auto на .banner__panel */
+  margin-top: clamp(20px, 3.5vh, 40px);
   color: #ffffffb2;
   font-size: 16px;
   font-weight: 400;
