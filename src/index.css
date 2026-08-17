@@ -75,13 +75,25 @@ body {
   max-width: 100%;
   overflow-x: clip;
   font-family: "Fixel Display", "Fixel Fallback", Arial, sans-serif;
-  background-color: #000;
+  /* Фон усієї сторінки за макетом; увесь декор — це шар PageGradients поверх */
+  background-color: #050508;
 }
 
 #root {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
+}
+
+/*
+ * Обгортка сторінки. position: relative потрібен, щоб шар градієнтів
+ * (position: absolute; inset: 0) розтягнувся рівно на всю висоту сторінки,
+ * разом із футером.
+ */
+.page-shell {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 h1,
@@ -137,99 +149,37 @@ h2 {
   min-height: 100vh;
   padding-top: 88px;
   overflow-x: clip;
-  background-image: url("./assets/bg1.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: #000;
 }
 
 .about-us {
-  background-image: url("./assets/bg2.svg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: #000;
+  position: relative;
 }
 
+/*
+ * Секції головної не малюють власного фону: він один на всю сторінку і живе
+ * в PageGradients. Раніше кожна з них натягувала свій bg*.svg через cover, і
+ * саме на їхніх стиках з'являлися ті смуги, які доводилось замальовувати
+ * чорними градієнтами зверху й знизу.
+ */
 .info,
 .gallery,
 .up-events-wrap,
 .articles-wrap,
 .anima-wrap {
   position: relative;
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: #000;
 }
-
-
 
 .info {
   min-height: 100vh;
-  background-image: url("./assets/bg111.svg");
 }
 
-.gallery {
-  background-image: url("./assets/bg4.svg");
-}
-
-.up-events-wrap {
-  background-image: url("./assets/bg5.svg");
-}
-
-.articles-wrap {
-  background-image: url("./assets/bg5.svg");
-}
 .anima-wrap {
-  position: relative;
-  background-image: url("./assets/bg6.svg");
-  background-size: cover;
-  background-position: center;
   padding-block: 300px;
-}
-
-.anima-wrap::before,
-.anima-wrap::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 180px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.anima-wrap::before {
-  top: 0;
-  background: linear-gradient(to bottom, #000000d1, transparent);
-}
-
-.anima-wrap::after {
-  bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.181), transparent);
-}
-
-.info::after,
-.gallery::after,
-.up-events-wrap::after,
-.articles-wrap::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  height: 160px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 85%);
-  pointer-events: none;
 }
 
 @media (max-width: 1024px) {
   .header-container {
     background-color: #0b1a33;
-    background-image: none;
   }
 
   .home-page {
@@ -238,32 +188,6 @@ h2 {
 
   .anima-wrap {
     padding-block: 160px;
-  }
-
-  .anima-wrap::before,
-  .anima-wrap::after {
-    height: 72px;
-  }
-
-  .anima-wrap::before {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent);
-  }
-
-  .anima-wrap::after {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.12), transparent);
-  }
-
-  .info::after,
-  .gallery::after,
-  .up-events-wrap::after,
-  .articles-wrap::after {
-    height: 72px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 72%);
-  }
-
-  .up-events-wrap::after {
-    height: 30px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 72%);
   }
 
   .gallery {

@@ -1,0 +1,220 @@
+/*
+ * Геометрія й кольори — з макета, шар у шар.
+ *
+ * Кожен градієнт складається з двох прямокутних шарів однакової висоти;
+ * другий шар у макеті повернутий на 180°, тому тут він записаний тими самими
+ * стопами, але з напрямком 0deg — це та сама заливка, лише знизу вгору.
+ */
+
+.page-gradients {
+  /*
+   * На ширині макета й вище — рівно ті числа, що в дизайні.
+   * Нижче 1024 px висоти зменшуються пропорційно ширині: на телефоні сторінка
+   * утричі довша й удвічі вужча, і блок на 1784 px там займав би зовсім іншу
+   * частку екрана, ніж задумано.
+   */
+  /*
+   * Масштаб зберігаємо як довжину, а не як число: `100vw / 1440` у CSS дає
+   * довжину, тому clamp() із числами тут просто не порахувався б, і всі
+   * висоти стали б нульовими. Отже одиниця масштабу — 1px, а розміри
+   * записані як `calc(<число> * var(--gradient-unit))`.
+   */
+  --gradient-unit: 1px;
+  --gradient-gap: calc(60 * var(--gradient-unit));
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .page-gradients {
+    /* Пропорційно ширині, але не дрібніше 0.42 від макета */
+    --gradient-unit: clamp(0.42px, 100vw / 1440, 0.72px);
+  }
+}
+
+.page-gradients__stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gradient-gap);
+  width: 100%;
+}
+
+.page-gradients__block {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Два шари ділять висоту блока навпіл — як flex-1 у макеті */
+.page-gradients__layer {
+  display: block;
+  flex: 1 0 0;
+  min-height: 0;
+  width: 100%;
+}
+
+/* —— Градієнт 1 —— 1784 px: два шари по 892 —— */
+
+.page-gradients__block--1 {
+  height: calc(1784 * var(--gradient-unit));
+}
+
+.page-gradients__block--1 .page-gradients__layer--a {
+  background-image: linear-gradient(
+    180deg,
+    rgb(17, 34, 78) 0%,
+    rgb(9, 18, 31) 30%,
+    rgb(0, 0, 0) 60%,
+    rgb(27, 15, 3) 100%
+  );
+}
+
+.page-gradients__block--1 .page-gradients__layer--b {
+  background-image: linear-gradient(
+    0deg,
+    rgba(8, 9, 10, 0) 0%,
+    rgb(8, 9, 10) 30%,
+    rgb(18, 11, 5) 60%,
+    rgb(27, 14, 4) 100%
+  );
+}
+
+/* —— Градієнти 2 і 3 —— 1554 px: два шари по 777 —— */
+
+.page-gradients__block--2,
+.page-gradients__block--3 {
+  height: calc(1554 * var(--gradient-unit));
+}
+
+.page-gradients__block--2 .page-gradients__layer--a,
+.page-gradients__block--3 .page-gradients__layer--a {
+  background-image: linear-gradient(
+    0deg,
+    rgba(17, 34, 78, 0.5) 0%,
+    rgba(0, 5, 55, 0.5) 41.346%,
+    #060609 100%
+  );
+}
+
+.page-gradients__block--2 .page-gradients__layer--b,
+.page-gradients__block--3 .page-gradients__layer--b {
+  background-image: linear-gradient(
+    180deg,
+    rgba(17, 34, 78, 0.5) 0%,
+    rgba(0, 5, 55, 0.5) 41.346%,
+    #050505 100%
+  );
+}
+
+/* —— Градієнт 4 —— 1784 px: два шари по 892 —— */
+
+.page-gradients__block--4 {
+  height: calc(1784 * var(--gradient-unit));
+}
+
+.page-gradients__block--4 .page-gradients__layer--a {
+  background-image: linear-gradient(
+    180deg,
+    rgba(5, 5, 8, 0.2) 0%,
+    rgba(17, 18, 78, 0.32) 30%,
+    rgba(17, 34, 78, 0.42) 60%,
+    rgb(27, 15, 3) 100%
+  );
+}
+
+.page-gradients__block--4 .page-gradients__layer--b {
+  background-image: linear-gradient(
+    0deg,
+    rgba(8, 9, 10, 0) 0%,
+    rgb(8, 9, 10) 30%,
+    rgb(18, 11, 5) 60%,
+    rgb(27, 14, 4) 100%
+  );
+}
+
+/* —— Градієнт 5 —— 753 px, один шар, прив'язаний до низу сторінки —— */
+
+.page-gradients__block--5 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: calc(753 * var(--gradient-unit));
+}
+
+.page-gradients__block--5 .page-gradients__layer--a {
+  background-image: linear-gradient(
+    0deg,
+    rgba(17, 34, 78, 0.5) 0%,
+    rgba(0, 5, 55, 0.5) 41.346%,
+    #060609 100%
+  );
+}
+
+/* —— Декоративні кола ——
+ *
+ * У макеті це еліпс 1105×665 із гаусовим розмиттям. Тут — радіальний
+ * градієнт із такою ж світлою серединою й плавним згасанням: візуально це те
+ * саме, але без filter: blur() на елементі завбільшки з пів екрана, який
+ * коштує браузеру перемальовки на кожен кадр скролу.
+ *
+ * По горизонталі коло в макеті стоїть по центру (168 px зліва, 167 справа),
+ * тому й тут центроване, а не прив'язане до лівого краю.
+ */
+
+.page-gradients {
+  /*
+   * Еліпс у макеті 1105×665, але розмиття вибігає за його рамку: в SVG, який
+   * віддає Figma, поле навколо еліпса рівно 424 px з кожного боку. Тому сам
+   * елемент робимо на два таких поля більшим, а світлу серцевину лишаємо
+   * розміром з еліпс — інакше сяйво обривається там, де в макеті воно ще
+   * тягнеться, і градієнт виглядає вужчим, ніж має бути.
+   */
+  --circle-spread: 424;
+  --circle-width: calc((1105 + 2 * var(--circle-spread)) * var(--gradient-unit));
+  --circle-height: calc((665 + 2 * var(--circle-spread)) * var(--gradient-unit));
+}
+
+.page-gradients__circle {
+  position: absolute;
+  left: 50%;
+  display: block;
+  width: var(--circle-width);
+  height: var(--circle-height);
+  transform: translateX(-50%);
+  /*
+   * Стопи: до ~28 % — це ще тіло еліпса (1105 з 1953 по ширині), далі йде
+   * згасання, яке в макеті дає гаусове розмиття.
+   */
+  background-image: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(120, 74, 26, 0.62) 0%,
+    rgba(114, 70, 25, 0.58) 18%,
+    rgba(97, 59, 21, 0.48) 30%,
+    rgba(72, 43, 15, 0.33) 45%,
+    rgba(45, 27, 9, 0.19) 62%,
+    rgba(22, 13, 4, 0.07) 80%,
+    rgba(8, 9, 10, 0) 100%
+  );
+}
+
+/*
+ * Верхня межа самого еліпса — за 606 px від верху сторінки, тому елемент
+ * піднімаємо ще на поле розмиття.
+ */
+.page-gradients__circle--one {
+  top: calc((606 - var(--circle-spread)) * var(--gradient-unit));
+}
+
+/* Позицію другого кола рахує компонент: 351 px від нижньої межі свого блока */
+.page-gradients__circle--two {
+  top: 0;
+}

@@ -7,6 +7,7 @@ import { Gallery } from "../../components/Gallery";
 import { Articles } from "../../components/Articles";
 import { Anima } from "../../components/Anima";
 import { Footer } from "../../components/Footer";
+import { PageGradients } from "../../components/PageGradients";
 import { EVENTS_ENABLED } from "../../config/features";
 
 /*
@@ -20,7 +21,16 @@ const UpEvents = lazy(() =>
 
 export const HomePage = () => {
   return (
-    <div>
+    <div className="page-shell">
+      {/*
+        Фон сторінки: чорний плюс градієнти з макета. Стоїть першим і лежить
+        під усім контентом (z-index: -1), тому нічого не перекриває.
+      */}
+      <PageGradients
+        blocks={[1, 2, 3, 4]}
+        circleTwoAnchor=".articles-wrap"
+      />
+
       <div className="header-container">
         <Header />
       </div>
