@@ -3,6 +3,7 @@ import { ButtonGradients } from "./components/UI/Button";
 import { JoinQuizProvider } from "./components/JoinQuiz/JoinQuizContext";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { TextRevealEngine } from "./components/TextReveal";
+import { EVENTS_ENABLED } from "./config/features";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { LegacyRedirect } from "./i18n/LegacyRedirect";
 import { LocaleOutlet } from "./i18n/LocaleOutlet";
@@ -32,8 +33,15 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="media" element={<MediaPage />} />
               <Route path="article/:id" element={<ArticlePage />} />
-              <Route path="events" element={<EventsPage />} />
-              <Route path="events/details/:id" element={<EventDetailPage />} />
+              {EVENTS_ENABLED ? (
+                <Route path="events" element={<EventsPage />} />
+              ) : null}
+              {EVENTS_ENABLED ? (
+                <Route
+                  path="events/details/:id"
+                  element={<EventDetailPage />}
+                />
+              ) : null}
               <Route path="track" element={<TrackPage />} />
               <Route path="office" element={<OfficePage />} />
               <Route path="about-us" element={<AboutUsPage />} />

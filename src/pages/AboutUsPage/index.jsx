@@ -3,14 +3,12 @@ import { AboutUsBanner } from "../../components/AboutUsBanner";
 import { EcoSystem } from "../../components/EcoSystem";
 import { WhatWeDo } from "../../components/WhatWeDo";
 import { Team } from "../../components/Team";
+import { TEAM_ENABLED } from "../../config/features";
 import { Info } from "../../components/Info";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
-import { useSeo } from "../../seo/useSeo";
 
 export const AboutUsPage = () => {
-  useSeo("aboutUs", { path: "about-us" });
-
   const { t } = useLanguage();
 
   return (
@@ -30,7 +28,7 @@ export const AboutUsPage = () => {
             />
           </div>
           <WhatWeDo />
-          <Team />
+          {TEAM_ENABLED ? <Team /> : null}
         </div>
       </section>
     </PageLayout>

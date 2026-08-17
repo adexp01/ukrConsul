@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logoEn from "../../assets/logo.svg";
 import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { EVENTS_ENABLED } from "../../config/features";
 import "./style.css";
 
 // Порядок і склад — як у дизайні шапки.
@@ -12,7 +13,7 @@ const NAV_ITEMS = [
   { key: "getInvolved", href: "/join" },
   { key: "activities", href: "/office" },
   { key: "media", href: "/media" },
-  { key: "events", href: "/events" },
+  ...(EVENTS_ENABLED ? [{ key: "events", href: "/events" }] : []),
 ];
 
 export const Header = () => {
@@ -50,11 +51,13 @@ export const Header = () => {
   };
 
   return (
-    <header
-      className={`header${isScrolled ? " header--scrolled" : ""}`}
-    >
+    <header className={`header${isScrolled ? " header--scrolled" : ""}`}>
       <div className="header__left">
-        <a href={localizePath("/")} className="header__logo" onClick={closeMenu}>
+        <a
+          href={localizePath("/")}
+          className="header__logo"
+          onClick={closeMenu}
+        >
           <img src={logo} alt={t("header.logoAlt")} />
         </a>
 

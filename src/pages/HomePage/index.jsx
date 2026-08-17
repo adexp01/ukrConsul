@@ -7,11 +7,9 @@ import { UpEvents } from "../../components/UpEvents";
 import { Articles } from "../../components/Articles";
 import { Anima } from "../../components/Anima";
 import { Footer } from "../../components/Footer";
-import { useSeo } from "../../seo/useSeo";
+import { EVENTS_ENABLED } from "../../config/features";
 
 export const HomePage = () => {
-  useSeo("home");
-
   return (
     <div>
       <div className="header-container">
@@ -29,9 +27,11 @@ export const HomePage = () => {
       <div className="gallery">
         <Gallery />
       </div>
-      <div className="up-events-wrap">
-        <UpEvents />
-      </div>
+      {EVENTS_ENABLED ? (
+        <div className="up-events-wrap">
+          <UpEvents />
+        </div>
+      ) : null}
       <div className="articles-wrap">
         <Articles />
       </div>
