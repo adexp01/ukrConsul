@@ -1,4 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+/*
+ * Резервний шрифт із підігнаними метриками.
+ *
+ * Поки Fixel Display їде по мережі, текст малюється Arial — і раніше в момент
+ * підміни рядки стрибали, бо в Arial інша ширина літер і інші вертикальні
+ * метрики. Тут Arial масштабований так, щоб середня ширина літери й висоти
+ * збігались із Fixel: підміна перестає бути помітною.
+ *
+ * Числа не з таблиць, а з реальних вимірів: десять типових рядків сайту
+ * (укр. і лат., 400 і 700) відрендерені Fixel і Arial, узяте середнє
+ * відношення ширин — 1.0259. Вертикальні метрики — з файлу шрифта
+ * (ascender 900, descender 190, lineGap 290 при unitsPerEm 1000),
+ * поділені на цей самий коефіцієнт.
+ */
+@font-face {
+  font-family: "Fixel Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans");
+  size-adjust: 102.59%;
+  ascent-override: 87.73%;
+  descent-override: 18.52%;
+  line-gap-override: 28.27%;
+}
 
 *,
 *::before,
@@ -6,9 +27,14 @@
   box-sizing: border-box;
 }
 
+/*
+ * .subset — той самий Fixel, але лише латиниця, кирилиця, цифри й пунктуація,
+ * які реально трапляються в текстах: 87 КБ на чотири ваги замість 216 КБ.
+ * Саме вага й була причиною того, що шрифт не встигав до першого малювання.
+ */
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Regular.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Regular.subset.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -16,7 +42,7 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Medium.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Medium.subset.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -24,7 +50,7 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-SemiBold.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-SemiBold.subset.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -32,7 +58,7 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Bold.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Bold.subset.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -48,7 +74,7 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
-  font-family: "Fixel Display";
+  font-family: "Fixel Display", "Fixel Fallback", Arial, sans-serif;
   background-color: #000;
 }
 
@@ -66,7 +92,7 @@ h5,
 h6,
 p,
 span {
-  font-family: "Fixel Display";
+  font-family: "Fixel Display", "Fixel Fallback", Arial, sans-serif;
 }
 
 h1 {
