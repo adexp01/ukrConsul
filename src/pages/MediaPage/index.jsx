@@ -9,8 +9,11 @@ import { MediaNews } from "../../components/MediaNews";
 // import { SendRequest } from "../../components/UI/SendRequest";
 // import { ForJournalist } from "../../components/ForJournalist";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 export const MediaPage = () => {
+  useSeo("media", { path: "media" });
+
   return (
     <PageLayout>
       <div className="media-page">

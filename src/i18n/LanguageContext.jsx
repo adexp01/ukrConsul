@@ -52,10 +52,11 @@ export const LanguageProvider = ({ children }) => {
     [language],
   );
 
+  // `document.title` і решту мета-тегів ставить SEO-шар (`useSeo` на кожній
+  // сторінці) — тут лишається тільки атрибут мови на <html>.
   useEffect(() => {
     document.documentElement.lang = language === "uk" ? "uk" : "en";
     document.documentElement.dataset.language = language;
-    document.title = language === "uk" ? "Рада зброярів" : "UCDI";
   }, [language]);
 
   const value = useMemo(() => {

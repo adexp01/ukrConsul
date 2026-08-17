@@ -7,8 +7,11 @@ import { UpEvents } from "../../components/UpEvents";
 import { Articles } from "../../components/Articles";
 import { Anima } from "../../components/Anima";
 import { Footer } from "../../components/Footer";
+import { useSeo } from "../../seo/useSeo";
 
 export const HomePage = () => {
+  useSeo("home");
+
   return (
     <div>
       <div className="header-container">

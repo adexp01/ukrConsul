@@ -1,5 +1,6 @@
 import { PageLayout } from "../../components/PageLayout";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 const isNumberedSectionTitle = (title) => /^\d+\.\s/.test(title);
 
@@ -110,6 +111,8 @@ const SECTIONS = [
 ];
 
 export const PrivacyPolicyPage = () => {
+  useSeo("privacyPolicy", { path: "privacy-policy" });
+
   return (
     <PageLayout>
       <article className="privacy-page">

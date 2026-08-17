@@ -19,6 +19,7 @@ import { OfficeWhiteBook } from "../../components/OfficeWhiteBook";
 import { OfficeWorkFocus } from "../../components/OfficeWorkFocus";
 import { PageLayout } from "../../components/PageLayout";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useSeo } from "../../seo/useSeo";
 import { TrackContent } from "../TrackPage";
 import "./style.css";
 import b11 from "../../assets/b11.png";
@@ -31,6 +32,8 @@ import b16 from "../../assets/b16.png";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export const OfficePage = () => {
+  useSeo("office", { path: "office" });
+
   const { t } = useLanguage();
   const heroCopy = t("office.hero");
   const tabs = heroCopy.tabs;

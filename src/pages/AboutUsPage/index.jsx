@@ -6,8 +6,11 @@ import { Team } from "../../components/Team";
 import { Info } from "../../components/Info";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 export const AboutUsPage = () => {
+  useSeo("aboutUs", { path: "about-us" });
+
   const { t } = useLanguage();
 
   return (

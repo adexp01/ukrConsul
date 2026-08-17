@@ -5,6 +5,7 @@ import { AnimationCards } from "../../components/AnimationCards";
 import { Parnters } from "../../components/Parnters";
 import "./style.css";
 import { Articles } from "../../components/Articles";
+import { useSeo } from "../../seo/useSeo";
 
 export const TrackContent = () => (
   <>
@@ -23,6 +24,8 @@ export const TrackContent = () => (
 );
 
 export const TrackPage = () => {
+  useSeo("track", { path: "track" });
+
   return (
     <PageLayout>
       <TrackContent />

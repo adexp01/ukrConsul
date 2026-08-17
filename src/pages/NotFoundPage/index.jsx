@@ -2,8 +2,11 @@ import { PageLayout } from "../../components/PageLayout";
 import notFound from "../../assets/errorPage.png";
 import { Button } from "../../components/UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useSeo } from "../../seo/useSeo";
 
 export const NotFoundPage = () => {
+  useSeo("notFound");
+
   const { t, localizePath } = useLanguage();
 
   return (

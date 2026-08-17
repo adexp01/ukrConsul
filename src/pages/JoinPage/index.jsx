@@ -6,8 +6,11 @@ import { JoinParticipationFormats } from "../../components/JoinParticipationForm
 import { JoinProcess } from "../../components/JoinProcess";
 import { JoinFinalCta } from "../../components/JoinFinalCta";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 export const JoinPage = () => {
+  useSeo("join", { path: "join" });
+
   return (
     <PageLayout>
       <main className="join-page">

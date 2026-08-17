@@ -4,9 +4,14 @@ import { PageLayout } from "../../components/PageLayout";
 import { ArticleContent } from "../../components/ArticleContent";
 import { Article } from "../../components/UI/Article";
 import { SendRequest } from "../../components/UI/SendRequest";
-import { mapNewsToCard } from "../../api/news";
+import {
+  getNewsExcerpt,
+  mapNewsToCard,
+  resolveNewsAssetUrl,
+} from "../../api/news";
 import { useNews } from "../../hooks/useNews";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useSeo } from "../../seo/useSeo";
 import "./style.css";
 
 const RELATED_ARTICLES_LIMIT = 3;
@@ -37,6 +42,23 @@ export const ArticlePage = () => {
       .slice(0, RELATED_ARTICLES_LIMIT)
       .map((item) => mapNewsToCard(item, { t, language }));
   }, [news, article, t, language]);
+
+  // Мета-теги статті. Поки CRM віддає дані, лишається фолбек із seo/config;
+  // соцмережі й так бачать те, що поклав пререндер у статичний HTML.
+  useSeo("article", {
+    path: `article/${article?.slug ?? id}`,
+    overrides: {
+      title: article?.title,
+      description: article ? getNewsExcerpt(article, 180) : undefined,
+      image: article?.mainImage
+        ? resolveNewsAssetUrl(article.mainImage)
+        : undefined,
+      imageAlt: article?.title,
+      type: article ? "article" : "website",
+      publishedTime: article?.createdAt,
+      noindex: !loading && !article,
+    },
+  });
 
   // Зайшли за UUID — тихо переставляємо адресу на людський слаг
   if (article && article.slug && article.slug !== id) {
