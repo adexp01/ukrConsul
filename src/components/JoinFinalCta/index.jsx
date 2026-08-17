@@ -1,10 +1,12 @@
 import bgElements from "../../assets/bgElements.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { Button } from "../UI/Button";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 export const JoinFinalCta = () => {
   const { t } = useLanguage();
+  const { openJoinQuiz } = useJoinQuiz();
   const joinCopy = t("joinPage");
   const copy = t("joinPage.finalCta");
 
@@ -30,11 +32,12 @@ export const JoinFinalCta = () => {
           <p className="join-final-cta__text">{copy.text}</p>
 
           <div className="join-final-cta__actions">
-            <Button href={joinCopy.applyHref} target="_blank" rel="noreferrer">
-              {joinCopy.primaryCta}
-            </Button>
+            <Button onClick={openJoinQuiz}>{joinCopy.primaryCta}</Button>
 
-            <a href={`mailto:${joinCopy.email}`} className="join-final-cta__link">
+            <a
+              href={`mailto:${joinCopy.email}`}
+              className="join-final-cta__link"
+            >
               {joinCopy.secondaryCta}
               <span aria-hidden="true">→</span>
             </a>

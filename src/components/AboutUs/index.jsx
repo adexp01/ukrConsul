@@ -69,7 +69,7 @@ const buildRoundedPath = (points, radius = 12) => {
 };
 
 export const AboutUs = () => {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
   const titleLines = t("aboutUs.title");
   const sectionRef = useRef(null);
   const pinRef = useRef(null);
@@ -517,9 +517,13 @@ export const AboutUs = () => {
             ))}
           </div>
 
-          {/* <Button href="#" className="about-us__cta" variant="default">
+          <Button
+            href={localizePath("/about-us")}
+            className="about-us__cta"
+            variant="default"
+          >
             {t("aboutUs.aboutBtn")}
-          </Button> */}
+          </Button>
         </div>
       </div>
     </section>

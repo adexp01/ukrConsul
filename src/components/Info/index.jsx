@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "../UI/Button";
 import { ShieldSequence } from "../ShieldSequence";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -12,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export const Info = ({
   contentKey = "info",
   ctaContentKey,
-  aboutHref = "#",
+  aboutHref = "/about-us",
   testHref = "#",
   applyHref,
   showCta = true,
@@ -22,7 +23,8 @@ export const Info = ({
   ctaTitleId = "info-cta-title",
   className = "",
 }) => {
-  const { t } = useLanguage();
+  const { t, localizePath } = useLanguage();
+  const { openJoinQuiz } = useJoinQuiz();
   const copy = t(contentKey);
   const ctaCopy = t(ctaContentKey ?? contentKey);
   const sectionRef = useRef(null);
@@ -149,66 +151,65 @@ export const Info = ({
     >
       <div className="info-section__inner">
         {showOrgs ? (
-        <div ref={orgsRef} className="info-section__orgs">
-          <h2 id={headingId} className="info-section__heading">
-            {headingLines.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-          </h2>
+          <div ref={orgsRef} className="info-section__orgs">
+            <h2 id={headingId} className="info-section__heading">
+              {headingLines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h2>
 
-          <div ref={orgsInnerRef} className="info-section__orgs-inner">
-            <div
-              ref={shieldWrapRef}
-              className="info-section__shield"
-              aria-hidden="true"
-            >
-              <ShieldSequence />
-            </div>
+            <div ref={orgsInnerRef} className="info-section__orgs-inner">
+              <div
+                ref={shieldWrapRef}
+                className="info-section__shield"
+                aria-hidden="true"
+              >
+                <ShieldSequence />
+              </div>
 
-            <div ref={listWrapRef} className="info-section__list-wrap">
-              <ul className="info-section__list">
-                {organizations.map((organization) => {
-                  const name =
-                    typeof organization === "string"
-                      ? organization
-                      : organization.name;
-                  const href =
-                    typeof organization === "string"
-                      ? null
-                      : organization.href;
+              <div ref={listWrapRef} className="info-section__list-wrap">
+                <ul className="info-section__list">
+                  {organizations.map((organization) => {
+                    const name =
+                      typeof organization === "string"
+                        ? organization
+                        : organization.name;
+                    const href =
+                      typeof organization === "string"
+                        ? null
+                        : organization.href;
 
-                  return (
-                    <li key={name} className="info-section__list-item">
-                      {href ? (
-                        <a
-                          href={href}
-                          className="info-section__list-link"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {name}
-                        </a>
-                      ) : (
-                        name
-                      )}
-                    </li>
-                  );
-                })}
+                    return (
+                      <li key={name} className="info-section__list-item">
+                        {href ? (
+                          <a
+                            href={href}
+                            className="info-section__list-link"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {name}
+                          </a>
+                        ) : (
+                          name
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
 
-                {/* {showAboutBtn && copy.aboutBtn ? (
+                {showAboutBtn && copy.aboutBtn ? (
                   <Button
-                    href={aboutHref}
+                    href={localizePath(aboutHref)}
                     variant="default"
                     className="info-section__about-btn"
                   >
                     {copy.aboutBtn}
                   </Button>
-                ) : null} */}
-              </ul>
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
-
         ) : null}
 
         {showCta ? (
@@ -231,10 +232,14 @@ export const Info = ({
             <p className="info-section__cta-text">{ctaCopy.ctaText}</p>
 
             <div className="info-section__cta-actions">
-              {/* <Button href="mailto:official@ucdi.org.ua" variant="primary">
+              <Button variant="primary" onClick={openJoinQuiz}>
                 {ctaCopy.takeTest}
-              </Button> */}
-              <a href={formHref} className="info-section__cta-link" target="_blank">
+              </Button>
+              <a
+                href={formHref}
+                className="info-section__cta-link"
+                target="_blank"
+              >
                 {ctaCopy.applyDirectly}
                 <span aria-hidden="true">→</span>
               </a>

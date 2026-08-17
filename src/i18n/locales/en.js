@@ -1432,4 +1432,75 @@ export const en = {
       applyDirectly: "Write to us",
     },
   },
+  joinQuiz: {
+    close: "Close",
+    back: "Back",
+    restart: "Retake the test",
+    resultBadge: "Your best match",
+    submit: "Apply",
+    steps: {
+      profile: {
+        title: "Who are you?",
+        text: "Pick the profile that best describes you or your team. It defines which Council association fits you best.",
+        options: [
+          { id: "manufacturer", label: "Manufacturer" },
+          { id: "investor", label: "Investor / fund" },
+          { id: "uavSchool", label: "UAV school" },
+          { id: "partner", label: "Potential partner" },
+          { id: "association", label: "Another association looking to join" },
+          { id: "media", label: "Press / media" },
+        ],
+      },
+      stage: {
+        title: "What stage are you at?",
+        text: "This helps the Council team understand where to start the cooperation.",
+        options: [
+          { id: "startup", label: "Startup / early stage" },
+          { id: "operating", label: "Operating company" },
+          { id: "scaling", label: "Scaling production" },
+          {
+            id: "international",
+            label: "Looking for partnerships / entering international markets",
+          },
+        ],
+      },
+    },
+    results: {
+      manufacturers: {
+        title: "Council of Gunsmiths",
+        description:
+          "Industry associations of defence manufacturers within the Council ecosystem. Fill in the questionnaire for manufacturers and partners — the team will match you with the right association and get back to you on the next step.",
+      },
+      investorClub: {
+        title: "UCDI Investor Club",
+        description:
+          "A club of private investors and funds supporting the Ukrainian defence industry. Submit a short application and the Council team will contact you about the next step.",
+      },
+      uavSchools: {
+        title: "Independent Association of UAV Schools of Ukraine",
+        description:
+          "A community of training centres and unmanned systems schools within the Council ecosystem. Fill in the questionnaire and we will share the membership terms and current joint programmes.",
+      },
+      partnership: {
+        title: "Partner ecosystem",
+        description:
+          "The Council's partner programmes are built for companies, institutions and organisations aiming to become systemic partners of Ukraine's private defence industry.",
+      },
+      association: {
+        title: "Ukrainian Council of Defence Industry",
+        description:
+          "The Council brings industry associations into a single position before the government, the military and international partners. Fill in the questionnaire and we will discuss the terms for your association.",
+      },
+      internationalTrack: {
+        title: "International track",
+        description:
+          "The Council's track for those entering foreign markets: international partnerships, co-production and representation at industry events. Fill in the international partner questionnaire.",
+      },
+      media: {
+        title: "Council press office",
+        description:
+          "Requests for comments, interviews, industry data and event participation. Fill in the short form and the communications team will get back to you.",
+      },
+    },
+  },
 };

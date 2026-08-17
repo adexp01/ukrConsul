@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ButtonGradients } from "./components/UI/Button";
+import { JoinQuizProvider } from "./components/JoinQuiz/JoinQuizContext";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { LegacyRedirect } from "./i18n/LegacyRedirect";
@@ -20,25 +21,27 @@ function App() {
   return (
     <BrowserRouter>
       <LanguageProvider>
-        <ButtonGradients />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Navigate to="/en" replace />} />
-          <Route path="/:locale" element={<LocaleOutlet />}>
-            <Route index element={<HomePage />} />
-            <Route path="media" element={<MediaPage />} />
-            <Route path="article/:id" element={<ArticlePage />} />
-            <Route path="events" element={<EventsPage />} />
-            <Route path="events/details/:id" element={<EventDetailPage />} />
-            <Route path="track" element={<TrackPage />} />
-            <Route path="office" element={<OfficePage />} />
-            <Route path="about-us" element={<AboutUsPage />} />
-            <Route path="join" element={<JoinPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-          <Route path="*" element={<LegacyRedirect />} />
-        </Routes>
+        <JoinQuizProvider>
+          <ButtonGradients />
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Navigate to="/en" replace />} />
+            <Route path="/:locale" element={<LocaleOutlet />}>
+              <Route index element={<HomePage />} />
+              <Route path="media" element={<MediaPage />} />
+              <Route path="article/:id" element={<ArticlePage />} />
+              <Route path="events" element={<EventsPage />} />
+              <Route path="events/details/:id" element={<EventDetailPage />} />
+              <Route path="track" element={<TrackPage />} />
+              <Route path="office" element={<OfficePage />} />
+              <Route path="about-us" element={<AboutUsPage />} />
+              <Route path="join" element={<JoinPage />} />
+              <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+            <Route path="*" element={<LegacyRedirect />} />
+          </Routes>
+        </JoinQuizProvider>
       </LanguageProvider>
     </BrowserRouter>
   );

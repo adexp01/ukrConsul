@@ -1,5 +1,6 @@
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 const renderLineWithBreaks = (line) =>
@@ -13,6 +14,7 @@ const renderLineWithBreaks = (line) =>
 
 export const AboutUsBanner = () => {
   const { t, localizePath } = useLanguage();
+  const { openJoinQuiz } = useJoinQuiz();
   const copy = t("aboutUsPage.banner");
 
   return (
@@ -33,7 +35,7 @@ export const AboutUsBanner = () => {
 
         <div className="about-us-banner__actions">
           <Button
-            href={localizePath(copy.joinHref)}
+            onClick={openJoinQuiz}
             variant="primary"
             className="about-us-banner__cta"
           >
