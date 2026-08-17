@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
 import { Button, NavArrows } from "../UI/Button";
+import { useCarousel } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
@@ -11,22 +11,14 @@ export const JoinEcosystem = () => {
   const { t } = useLanguage();
   const copy = t("joinPage.ecosystem");
   const joinCopy = t("joinPage");
-  const cards = copy.items ?? [];
-  const maxStartIndex = Math.max(0, cards.length - VISIBLE_CARD_COUNT);
-  const [startIndex, setStartIndex] = useState(0);
-
-  const visibleCards = useMemo(
-    () => cards.slice(startIndex, startIndex + VISIBLE_CARD_COUNT),
-    [cards, startIndex],
-  );
-
-  const goPrev = () => {
-    setStartIndex((currentIndex) => Math.max(0, currentIndex - 1));
-  };
-
-  const goNext = () => {
-    setStartIndex((currentIndex) => Math.min(maxStartIndex, currentIndex + 1));
-  };
+  const {
+    items: cards,
+    visibleItems: visibleCards,
+    goPrev,
+    goNext,
+    isFirst,
+    isLast,
+  } = useCarousel(copy.items, VISIBLE_CARD_COUNT);
 
   if (cards.length === 0) return null;
 
@@ -83,8 +75,8 @@ export const JoinEcosystem = () => {
             onNext={goNext}
             prevLabel={copy.prevLabel}
             nextLabel={copy.nextLabel}
-            prevDisabled={startIndex === 0}
-            nextDisabled={startIndex === maxStartIndex}
+            prevDisabled={isFirst}
+            nextDisabled={isLast}
           />
         </div>
       </div>

@@ -4,43 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/fav.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#050813" />
-
+    <title>UCDI</title>
     <!--
-      Дефолтні мета-теги. Після `vite build` скрипт scripts/prerender-seo.mjs
-      замінює цей блок на теги конкретної сторінки й локалі — тут лишається
-      те, що бачить dev-сервер і будь-який маршрут без свого статичного HTML.
+      Шрифт — найперше. Без preload браузер дізнається про нього лише після
+      того, як розбере CSS, і встигає намалювати перший екран резервним
+      шрифтом: саме той стрибок тексту, який видно при заході на сторінку.
     -->
-    <title>Ukrainian Council of Defence Industry</title>
-    <meta
-      name="description"
-      content="UCDI unites Ukraine's private defence manufacturers and associations, representing the industry before the state, the military and international partners."
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/fixel-display/FixelDisplay-Regular.subset.woff2"
+      crossorigin
     />
-    <link rel="canonical" href="https://www.ucdi.org.ua/en" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Ukrainian Council of Defence Industry" />
-    <meta property="og:locale" content="en_GB" />
-    <meta property="og:title" content="Ukrainian Council of Defence Industry" />
-    <meta
-      property="og:description"
-      content="UCDI unites Ukraine's private defence manufacturers and associations, representing the industry before the state, the military and international partners."
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/fixel-display/FixelDisplay-Medium.subset.woff2"
+      crossorigin
     />
-    <meta property="og:url" content="https://www.ucdi.org.ua/en" />
-    <meta property="og:image" content="https://www.ucdi.org.ua/og/og-en.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content="Ukrainian Council of Defence Industry" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Ukrainian Council of Defence Industry" />
-    <meta
-      name="twitter:description"
-      content="UCDI unites Ukraine's private defence manufacturers and associations, representing the industry before the state, the military and international partners."
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/fixel-display/FixelDisplay-SemiBold.subset.woff2"
+      crossorigin
     />
-    <meta name="twitter:image" content="https://www.ucdi.org.ua/og/og-en.png" />
-    <link rel="alternate" hreflang="en" href="https://www.ucdi.org.ua/en" />
-    <link rel="alternate" hreflang="uk" href="https://www.ucdi.org.ua/ua" />
-    <link rel="alternate" hreflang="x-default" href="https://www.ucdi.org.ua/en" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/fixel-display/FixelDisplay-Bold.subset.woff2"
+      crossorigin
+    />
+
     <!--
       Перші кадри кільця на головному екрані. Без цього вони починають
       вантажитись аж після того, як виконається бандл, і екран стоїть порожній.

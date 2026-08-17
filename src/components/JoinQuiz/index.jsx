@@ -132,11 +132,6 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen, onClose]);
 
-  // Закрили — забуваємо відповіді, щоб наступного разу тест починався з нуля
-  useEffect(() => {
-    if (!isOpen) reset();
-  }, [isOpen, reset]);
-
   if (!isOpen) return null;
 
   /*

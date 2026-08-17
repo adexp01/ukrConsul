@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "../../animation/gsapSetup";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /*
  * Один рушій появи тексту на весь сайт.
@@ -209,10 +206,13 @@ export const TextRevealEngine = () => {
     }
 
     const triggers = [];
+    const animations = [];
     let cancelled = false;
 
+    /** Скільки вузлів узяв у роботу останній прохід — потрібно, щоб не смикати refresh даремно */
     const build = () => {
-      if (cancelled) return;
+      if (cancelled) return 0;
+      let registered = 0;
 
       // Групуємо по секціях: усередині секції заголовок веде, текст іде за ним
       const groups = new Map();
@@ -230,6 +230,7 @@ export const TextRevealEngine = () => {
 
         el.setAttribute(DONE_ATTR, "element");
         elements.push(el);
+        registered += 1;
       });
 
       const register = (el, kind) => {
@@ -241,6 +242,7 @@ export const TextRevealEngine = () => {
         const group = el.closest("section, article, footer, header") ?? el;
         if (!groups.has(group)) groups.set(group, { heads: [], texts: [] });
         groups.get(group)[kind === "head" ? "heads" : "texts"].push(el);
+        registered += 1;
       };
 
       document.querySelectorAll(HEADINGS).forEach((el) => register(el, "head"));
@@ -268,8 +270,8 @@ export const TextRevealEngine = () => {
           once: true,
           interval: 0.1,
           batchMax: 4,
-          onEnter: (batch) =>
-            gsap.to(batch, {
+          onEnter: (batch) => {
+            const tween = gsap.to(batch, {
               opacity: 1,
               y: 0,
               scale: 1,
@@ -279,7 +281,9 @@ export const TextRevealEngine = () => {
               overwrite: true,
               // Знімаємо все за собою, щоб не блокувати ховери й свої transform
               clearProps: "transform,opacity,willChange",
-            }),
+            });
+            animations.push(tween);
+          },
         }).forEach((trigger) => triggers.push(trigger));
       }
 
@@ -346,9 +350,17 @@ export const TextRevealEngine = () => {
         }
 
         if (timeline.scrollTrigger) triggers.push(timeline.scrollTrigger);
+        animations.push(timeline);
       });
 
-      ScrollTrigger.refresh();
+      /*
+       * Глобальний refresh переміряє всі піни на сторінці (циферблат, «Про нас»,
+       * «Як відбувається вступ») — це дорого й помітно ривком. Робимо його лише
+       * тоді, коли справді зʼявилось що анімувати.
+       */
+      if (registered > 0) ScrollTrigger.refresh();
+
+      return registered;
     };
 
     /*
@@ -359,6 +371,25 @@ export const TextRevealEngine = () => {
      */
     let observer = null;
     let rescan = 0;
+
+    /**
+     * Чи варто взагалі перебудовуватись через цю зміну DOM.
+     *
+     * Клік по стрілці каруселі, перемикання слайда галереї, відкриття поп-апа —
+     * усе це смикало спостерігач, а за ним повний прохід по документу з
+     * getComputedStyle на сотнях вузлів і глобальний ScrollTrigger.refresh().
+     * Тому спершу дивимось, чи серед доданого є хоч один необроблений вузол.
+     */
+    const hasFreshContent = (records) =>
+      records.some((record) =>
+        Array.from(record.addedNodes).some((node) => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return false;
+          if (node.classList?.contains(MASK_CLASS)) return false;
+          if (node.hasAttribute?.(DONE_ATTR)) return false;
+          if (isSkipped(node)) return false;
+          return true;
+        }),
+      );
 
     const runBuild = () => {
       observer?.disconnect();
@@ -380,7 +411,8 @@ export const TextRevealEngine = () => {
         frame = requestAnimationFrame(() => {
           if (cancelled) return;
 
-          observer = new MutationObserver(() => {
+          observer = new MutationObserver((records) => {
+            if (!hasFreshContent(records)) return;
             clearTimeout(rescan);
             rescan = window.setTimeout(runBuild, 220);
           });
@@ -402,6 +434,8 @@ export const TextRevealEngine = () => {
       clearTimeout(rescan);
       observer?.disconnect();
       triggers.forEach((trigger) => trigger.kill());
+      // Самі твіни теж: без цього вони добігали вже на новій сторінці
+      animations.forEach((animation) => animation.kill());
     };
   }, [pathname]);
 

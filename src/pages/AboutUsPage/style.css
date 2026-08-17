@@ -1,8 +1,32 @@
+/*
+ * Фон сторінки — один суцільний шар на всю висоту.
+ *
+ * bg3.svg дзеркальний: майже чорний на обох краях, синє світло посередині,
+ * тому його можна замостити по вертикалі — стик непомітний. Раніше стояло
+ * background-size: contain, і малюнок обривався на 1554px, а нижче йшла
+ * пласка чорнота з видимим швом.
+ *
+ * Другий шар — затемнення в самому низу, щоб сторінка сходила в чорний
+ * футер без межі.
+ */
 .about-us-page {
-  background-image: url("../../assets/bg3.svg");
-  background-size: contain;
-  background-position: top center;
-  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%),
+    linear-gradient(
+      180deg,
+      #060609 0%,
+      #00031c 29.34%,
+      #091127 50%,
+      #00031c 70.66%,
+      #060609 100%
+    );
+  background-size:
+    100% clamp(180px, 22vw, 300px),
+    100% 107.9vw;
+  background-position:
+    bottom center,
+    top center;
+  background-repeat: no-repeat, repeat-y;
   background-color: #000;
 }
 
@@ -10,4 +34,22 @@
   width: 100%;
   margin: 0 auto;
   padding: clamp(88px, 12vh, 120px) 0 ;
+}
+
+/*
+ * Блок спільнот тут не малює власну копію фону: у .info з index.css є
+ * непрозорий чорний із bg111.svg, натягнутим через background-size: cover.
+ * Масштаб не збігався з фоном сторінки, тому на обох межах блоку
+ * з'являлись чіткі горизонтальні шви.
+ */
+.about-us-page .info {
+  min-height: 0;
+  background-image: none;
+  background-color: transparent;
+}
+
+/* Там же знизу висіла чорна шторка на 160px — вона гасила фон у чорний
+   рівно перед секцією «Що ми робимо», через що на стику була межа */
+.about-us-page .info::after {
+  display: none;
 }

@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useSearchParams } from "react-router-dom";
+import { gsap, ScrollTrigger } from "../../animation/gsapSetup";
 import { Articles } from "../../components/Articles";
 import { Clock } from "../../components/Clock";
 import { ExportMap } from "../../components/ExportMap";
@@ -19,7 +18,6 @@ import { OfficeWhiteBook } from "../../components/OfficeWhiteBook";
 import { OfficeWorkFocus } from "../../components/OfficeWorkFocus";
 import { PageLayout } from "../../components/PageLayout";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { useSeo } from "../../seo/useSeo";
 import { TrackContent } from "../TrackPage";
 import "./style.css";
 import b11 from "../../assets/b11.png";
@@ -29,20 +27,52 @@ import b14 from "../../assets/b14.png";
 import b15 from "../../assets/b15.png";
 import b16 from "../../assets/b16.png";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const DEFAULT_TAB_ID = "export";
+const TAB_PARAM = "tab";
 
+/*
+ * Вкладка живе в адресі: `/ua/office?tab=gr`. Без цього на GR-адвокацію й
+ * міжнародну діяльність не було як послатися — ні з меню, ні зі сторонніх
+ * матеріалів, ні закладкою.
+ */
 export const OfficePage = () => {
-  useSeo("office", { path: "office" });
-
   const { t } = useLanguage();
   const heroCopy = t("office.hero");
   const tabs = heroCopy.tabs;
-  const [activeTabId, setActiveTabId] = useState("export");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const requestedTabId = searchParams.get(TAB_PARAM);
+  const initialTabId = tabs.some((tab) => tab.id === requestedTabId)
+    ? requestedTabId
+    : DEFAULT_TAB_ID;
+
+  const [activeTabId, setActiveTabId] = useState(initialTabId);
   // Підсвітка в смужці перемикається одразу, контент — після скролу
-  const [selectedTabId, setSelectedTabId] = useState("export");
+  const [selectedTabId, setSelectedTabId] = useState(initialTabId);
   const tabsRef = useRef(null);
   const scrollTweenRef = useRef(null);
   const needsFinalNudgeRef = useRef(false);
+
+  /*
+   * Зміну адреси відстежуємо й після монтування: у меню «Діяльність» пункти
+   * ведуть на цю саму сторінку з іншим `?tab=`, і без цього клік по них
+   * нічого б не змінив.
+   *
+   * Робимо це під час рендеру, а не ефектом: React радить саме так підганяти
+   * стан під зміну вхідних даних — тоді результат видно вже в цьому проході,
+   * без зайвого кадру зі старою вкладкою.
+   */
+  const [syncedTabId, setSyncedTabId] = useState(requestedTabId);
+
+  if (requestedTabId !== syncedTabId) {
+    setSyncedTabId(requestedTabId);
+
+    // Могли самі щойно записати цей же параметр — тоді міняти нічого
+    if (initialTabId !== activeTabId) {
+      setActiveTabId(initialTabId);
+      setSelectedTabId(initialTabId);
+    }
+  }
 
   /*
    * Ривок був не в анімації скролу, а в самій підміні контенту: секції
@@ -94,6 +124,21 @@ export const OfficePage = () => {
   };
 
   useEffect(() => () => scrollTweenRef.current?.kill(), []);
+
+  /*
+   * Адресу оновлюємо тоді, коли змінився саме контент, а не підсвітка: поки
+   * ми плавно їдемо до смужки табів, у полі зору ще стара вкладка.
+   * `replace` — щоб перемикання табів не засмічувало кнопку «назад».
+   */
+  useEffect(() => {
+    const current = searchParams.get(TAB_PARAM);
+    if (current === activeTabId) return;
+    if (!current && activeTabId === DEFAULT_TAB_ID) return;
+
+    const next = new URLSearchParams(searchParams);
+    next.set(TAB_PARAM, activeTabId);
+    setSearchParams(next, { replace: true });
+  }, [activeTabId, searchParams, setSearchParams]);
 
   /*
    * Вкладки підмінюють цілі секції, а разом з ними — висоту сторінки.
@@ -215,29 +260,45 @@ export const OfficePage = () => {
           </h1>
           <p className="office-hero__text">{heroCopy.description}</p>
 
-          <nav
+          {/*
+            aria-selected має сенс лише на елементі з role="tab" всередині
+            role="tablist" — раніше атрибут стояв на звичайній кнопці в <nav>,
+            тобто був невалідним і скринрідер його ігнорував.
+          */}
+          <div
             ref={tabsRef}
             className="office-hero__tabs"
+            role="tablist"
             aria-label={heroCopy.tabsLabel}
           >
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
+                role="tab"
+                id={`office-tab-${tab.id}`}
+                aria-controls="office-tab-panel"
+                aria-selected={selectedTabId === tab.id}
+                tabIndex={selectedTabId === tab.id ? 0 : -1}
                 className={`office-hero__tab${
                   selectedTabId === tab.id ? " is-active" : ""
                 }`}
-                aria-selected={selectedTabId === tab.id}
                 onClick={() => handleTabClick(tab.id)}
               >
                 {tab.label}
               </button>
             ))}
-          </nav>
+          </div>
         </section>
 
         {/* key на контейнері перезапускає плавну появу при зміні вкладки */}
-        <div className="office-page__panel" key={activeTabId}>
+        <div
+          className="office-page__panel"
+          key={activeTabId}
+          id="office-tab-panel"
+          role="tabpanel"
+          aria-labelledby={`office-tab-${activeTabId}`}
+        >
           {isGrTab ? (
             <>
               <OfficeWorkFocus />

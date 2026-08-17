@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoEn from "../../assets/logo.svg";
 import logoUk from "../../assets/logouk.svg";
 import { Button } from "../UI/Button";
@@ -42,13 +43,14 @@ export const Footer = () => {
   const { openJoinQuiz } = useJoinQuiz();
   const { t, localizePath, language } = useLanguage();
   const logo = language === "uk" ? logoUk : logoEn;
-  const companyLinks = t("footer.companyLinks");
 
   return (
     <footer className="footer">
       <div className="footer__inner">
-        <section className="footer__cta" aria-label="Call to action">
-          <h2 className="footer__cta-title">{t("footer.ctaTitle")}</h2>
+        <section className="footer__cta" aria-labelledby="footer-cta-title">
+          <h2 id="footer-cta-title" className="footer__cta-title">
+            {t("footer.ctaTitle")}
+          </h2>
           <Button
             onClick={openJoinQuiz}
             variant="primary"
@@ -60,9 +62,9 @@ export const Footer = () => {
 
         <div className="footer__main">
           <section className="footer__brand">
-            <a href={localizePath("/")} className="footer__logo">
+            <Link to={localizePath("/")} className="footer__logo">
               <img src={logo} alt={t("header.logoAlt")} />
-            </a>
+            </Link>
             <p className="footer__tagline">{t("footer.tagline")}</p>
             <div className="footer__socials">
               {SOCIALS.map((social) => (
@@ -71,6 +73,8 @@ export const Footer = () => {
                   href={social.href}
                   className="footer__social-link"
                   aria-label={social.label}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <img
                     src={social.icon}
@@ -83,16 +87,13 @@ export const Footer = () => {
             </div>
           </section>
 
-          <div className="footer__column">
-            {/* <h3 className="footer__column-title">{t("footer.ourCompany")}</h3>
-            <ul className="footer__list">
-              {companyLinks.map((item) => (
-                <li key={item}>
-                  <a href="#">{item}</a>
-                </li>
-              ))}
-            </ul> */}
-          </div>
+          {/*
+            Колонка «Наша компанія» поки порожня: тексти для неї є в локалях
+            (footer.ourCompany, footer.companyLinks), а сторінок під них ще
+            немає — усі посилання вели б у нікуди. Лишаємо саму колонку, щоб
+            сітка футера не поїхала.
+          */}
+          <div className="footer__column" />
 
           <div className="footer__column footer__column--contacts">
             <h3 className="footer__column-title">{t("footer.contacts")}</h3>
@@ -125,12 +126,16 @@ export const Footer = () => {
         <div className="footer__bottom">
           <p className="footer__copyright">{t("footer.copyright")}</p>
           <div className="footer__legal-links">
-            <a href={localizePath("/privacy-policy")} className="footer__legal">
+            {/*
+              «Умови користування» звідси прибрані: сторінки /terms не існує,
+              і посилання вело на 404. Повернути, коли зʼявиться текст.
+            */}
+            <Link
+              to={localizePath("/privacy-policy")}
+              className="footer__legal"
+            >
               {t("footer.privacy")}
-            </a>
-            <a href={localizePath("/terms")} className="footer__legal">
-              {t("footer.terms")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

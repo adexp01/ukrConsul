@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./style.css";
 
 const LABEL_CORNER_PATH =
@@ -62,8 +63,18 @@ const IconBlob = ({ path = ICON_BLOB_PATH }) => (
   </i>
 );
 
+/**
+ * Чи веде посилання за межі застосунку. Внутрішні шляхи ходять через <Link>,
+ * інакше кожна кнопка з href перезавантажувала б сторінку цілком.
+ */
+const isExternalHref = (href) =>
+  /^https?:\/\//i.test(href) ||
+  href.startsWith("mailto:") ||
+  href.startsWith("tel:") ||
+  href.startsWith("#");
+
 export const Button = ({
-  children = "Take the test",
+  children,
   href,
   variant = "primary",
   className = "",
@@ -96,15 +107,23 @@ export const Button = ({
     );
   }
 
+  if (isExternalHref(href)) {
+    return (
+      <a href={href} className={classNames} onClick={onClick} {...props}>
+        {content}
+      </a>
+    );
+  }
+
   return (
-    <a href={href} className={classNames} onClick={onClick} {...props}>
+    <Link to={href} className={classNames} onClick={onClick} {...props}>
       {content}
-    </a>
+    </Link>
   );
 };
 
 export const IconButton = ({
-  href = "#",
+  href,
   direction = "right",
   variant = "outline",
   className = "",
@@ -129,29 +148,33 @@ export const IconButton = ({
     </i>
   );
 
-  if (onClick) {
+  // Без href це кнопка-дія (стрілки каруселей), а не посилання
+  if (onClick || !href) {
     return (
-      <button
-        type={type}
-        className={classNames}
-        onClick={onClick}
-        {...props}
-      >
+      <button type={type} className={classNames} onClick={onClick} {...props}>
         {icon}
       </button>
     );
   }
 
+  if (isExternalHref(href)) {
+    return (
+      <a href={href} className={classNames} {...props}>
+        {icon}
+      </a>
+    );
+  }
+
   return (
-    <a href={href} className={classNames} {...props}>
+    <Link to={href} className={classNames} {...props}>
       {icon}
-    </a>
+    </Link>
   );
 };
 
 export const NavArrows = ({
-  prevHref = "#",
-  nextHref = "#",
+  prevHref,
+  nextHref,
   onPrev,
   onNext,
   prevLabel = "Previous",

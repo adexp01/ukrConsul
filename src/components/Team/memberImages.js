@@ -1,27 +1,23 @@
-import fedirko from "../../assets/f1.png";
-import popova from "../../assets/f2.png";
-import shamota from "../../assets/f3.png";
-import svynchuk from "../../assets/f4.png";
-import shvets from "../../assets/f5.png";
-import tabur from "../../assets/f6.png";
-import poladova from "../../assets/f7.png";
-import golumbiovska from "../../assets/mirror.png";
-import motrechko from "../../assets/pynkt.png";
-import vedrovska from "../../assets/zel.png";
-import k1 from "../../assets/k1.png";
-import k2 from "../../assets/k2.png";
-import k3 from "../../assets/k3.png";
-import k4 from "../../assets/k4.png";
-import k5 from "../../assets/k5.png";
-import m11 from "../../assets/m11.png";
-import m12 from "../../assets/m12.png";
-import n1 from "../../assets/n1.png";
-import n2 from "../../assets/n2.png";
-import v11 from "../../assets/v11.png";
-import v12 from "../../assets/v12.png";
-import v13 from "../../assets/v13.png";
-import r1 from "../../assets/r1.png";
-import r2 from "../../assets/r2.png";
+/*
+ * Фото команди. Файли лежать у WebP і завширшки 910 px — це подвійна ширина
+ * найбільшого слота (455 px на широкому екрані), тобто рівно стільки, скільки
+ * потрібно для Retina. До цього тут були PNG по 2–3 МБ кожен, і збірник клав
+ * усі 31 МБ у дист навіть тоді, коли блок «Команда» вимкнений прапорцем.
+ */
+import k1 from "../../assets/k1.webp";
+import k2 from "../../assets/k2.webp";
+import k3 from "../../assets/k3.webp";
+import k4 from "../../assets/k4.webp";
+import k5 from "../../assets/k5.webp";
+import m11 from "../../assets/m11.webp";
+import m12 from "../../assets/m12.webp";
+import n1 from "../../assets/n1.webp";
+import n2 from "../../assets/n2.webp";
+import v11 from "../../assets/v11.webp";
+import v12 from "../../assets/v12.webp";
+import v13 from "../../assets/v13.webp";
+import r1 from "../../assets/r1.webp";
+import r2 from "../../assets/r2.webp";
 
 export const TEAM_MEMBER_IMAGES = {
   fedirko: k1,

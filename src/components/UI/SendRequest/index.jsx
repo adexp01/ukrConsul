@@ -1,9 +1,11 @@
 import { Button } from "../Button";
+import { useJoinQuiz } from "../../JoinQuiz/JoinQuizContext";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import "./style.css";
 
 export const SendRequest = () => {
   const { t } = useLanguage();
+  const { openJoinQuiz } = useJoinQuiz();
   const titleLines = t("sendRequest.title");
 
   return (
@@ -23,7 +25,11 @@ export const SendRequest = () => {
 
             <p className="send-request__text">{t("sendRequest.description")}</p>
 
-            <Button href="#" variant="primary" className="send-request__cta">
+            <Button
+              onClick={openJoinQuiz}
+              variant="primary"
+              className="send-request__cta"
+            >
               {t("sendRequest.cta")}
             </Button>
           </div>

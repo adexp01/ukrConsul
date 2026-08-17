@@ -1,13 +1,22 @@
+import { lazy, Suspense } from "react";
 import { Header } from "../../components/Header";
 import { Bunner } from "../../components/Bunner";
 import { AboutUs } from "../../components/AboutUs";
 import { Info } from "../../components/Info";
 import { Gallery } from "../../components/Gallery";
-import { UpEvents } from "../../components/UpEvents";
 import { Articles } from "../../components/Articles";
 import { Anima } from "../../components/Anima";
 import { Footer } from "../../components/Footer";
 import { EVENTS_ENABLED } from "../../config/features";
+
+/*
+ * Блок подій вимкнений прапорцем. Підгрузка окремим чанком, а не звичайний
+ * імпорт: сам компонент збірник викидає, а `import "./style.css"` усередині
+ * нього — побічний ефект, який лишався б у загальному CSS.
+ */
+const UpEvents = lazy(() =>
+  import("../../components/UpEvents").then((m) => ({ default: m.UpEvents })),
+);
 
 export const HomePage = () => {
   return (
@@ -29,7 +38,9 @@ export const HomePage = () => {
       </div>
       {EVENTS_ENABLED ? (
         <div className="up-events-wrap">
-          <UpEvents />
+          <Suspense fallback={null}>
+            <UpEvents />
+          </Suspense>
         </div>
       ) : null}
       <div className="articles-wrap">

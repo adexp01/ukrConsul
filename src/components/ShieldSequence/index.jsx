@@ -80,8 +80,15 @@ export const ShieldSequence = ({
   const controlledRef = useRef(isControlled);
   const progressRef = useRef(isControlled ? progress : 0);
 
-  controlledRef.current = isControlled;
-  if (isControlled) progressRef.current = progress;
+  /*
+   * Режим і прогрес читає внутрішній цикл малювання, тому тримаємо їх у ref —
+   * але оновлюємо в ефекті, а не в тілі рендеру: мутація ref під час рендеру
+   * ламає повторні проходи React і не гарантує, що цикл побачить нове значення.
+   */
+  useEffect(() => {
+    controlledRef.current = isControlled;
+    if (isControlled) progressRef.current = progress;
+  }, [isControlled, progress]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -1,12 +1,9 @@
 import { useRef, useState } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
 import { ShieldSequence } from "../ShieldSequence";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const JoinProcess = () => {
   const { t } = useLanguage();
@@ -17,6 +14,13 @@ export const JoinProcess = () => {
   const scrollTriggerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  /*
+   * Пінований таймлайн існує тільки на широких екранах і без
+   * prefers-reduced-motion. Поки його немає, прогрес зовні задавати нічим —
+   * і щит, якому його передавали завжди, назавжди застигав на першому кадрі.
+   * Тоді краще не передавати нічого: секвенція сама рахує поворот по скролу.
+   */
+  const [isScrubbed, setIsScrubbed] = useState(false);
 
   useGSAP(
     () => {
@@ -60,9 +64,11 @@ export const JoinProcess = () => {
           });
 
           scrollTriggerRef.current = tween.scrollTrigger;
+          setIsScrubbed(true);
 
           return () => {
             scrollTriggerRef.current = null;
+            setIsScrubbed(false);
             tween.scrollTrigger?.kill();
             tween.kill();
           };
@@ -135,7 +141,7 @@ export const JoinProcess = () => {
             <div className="join-process__glow" />
             <ShieldSequence
               className="join-process__shield"
-              progress={scrollProgress}
+              {...(isScrubbed ? { progress: scrollProgress } : {})}
             />
           </div>
         </div>

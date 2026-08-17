@@ -1,13 +1,11 @@
-import { useMemo, useRef, useState } from "react";
-import gsap from "gsap";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
+import { useCarousel } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
 import g11 from "../../assets/g11.png";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const VISIBLE_CARDS = 3;
 
@@ -26,22 +24,10 @@ export const OfficeDecisions = ({ copyKey = "office.decisions" }) => {
   const { t } = useLanguage();
   const copy = t(copyKey);
   const sectionRef = useRef(null);
-  const items = Array.isArray(copy.items) ? copy.items : [];
-  const maxStartIndex = Math.max(0, items.length - VISIBLE_CARDS);
-  const [startIndex, setStartIndex] = useState(0);
-
-  const visibleItems = useMemo(
-    () => items.slice(startIndex, startIndex + VISIBLE_CARDS),
-    [items, startIndex],
+  const { items, visibleItems, goPrev, goNext, isFirst, isLast } = useCarousel(
+    copy.items,
+    VISIBLE_CARDS,
   );
-
-  const goPrev = () => {
-    setStartIndex((currentIndex) => Math.max(0, currentIndex - 1));
-  };
-
-  const goNext = () => {
-    setStartIndex((currentIndex) => Math.min(maxStartIndex, currentIndex + 1));
-  };
 
   useGSAP(
     () => {
@@ -122,7 +108,8 @@ export const OfficeDecisions = ({ copyKey = "office.decisions" }) => {
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [visibleItems] },
+    // Довжина списку, а не вікно: інакше поява прогрувалась заново на кожен клік
+    { scope: sectionRef, dependencies: [items.length] },
   );
 
   if (items.length === 0) return null;
@@ -160,8 +147,8 @@ export const OfficeDecisions = ({ copyKey = "office.decisions" }) => {
           variant="outline"
           prevLabel={copy.prevLabel}
           nextLabel={copy.nextLabel}
-          prevDisabled={startIndex === 0}
-          nextDisabled={startIndex >= maxStartIndex}
+          prevDisabled={isFirst}
+          nextDisabled={isLast}
           onPrev={goPrev}
           onNext={goNext}
         />

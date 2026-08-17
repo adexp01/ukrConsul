@@ -1,20 +1,17 @@
 import { useRef } from "react";
-import gsap from "gsap";
+import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
 import { ShieldSequence } from "../ShieldSequence";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
 export const Info = ({
   contentKey = "info",
   ctaContentKey,
   aboutHref = "/about-us",
-  testHref = "#",
   applyHref,
   showCta = true,
   showOrgs = true,
@@ -40,6 +37,11 @@ export const Info = ({
     ? ctaCopy.ctaTitleMobile
     : ctaTitleLines;
   const formHref = applyHref ?? copy.applyHref;
+  const isExternalHref =
+    typeof formHref === "string" &&
+    (/^https?:\/\//i.test(formHref) ||
+      formHref.startsWith("mailto:") ||
+      formHref.startsWith("tel:"));
 
   const sectionClassName = [
     "info-section",
@@ -235,14 +237,31 @@ export const Info = ({
               <Button variant="primary" onClick={openJoinQuiz}>
                 {ctaCopy.takeTest}
               </Button>
-              <a
-                href={formHref}
-                className="info-section__cta-link"
-                target="_blank"
-              >
-                {ctaCopy.applyDirectly}
-                <span aria-hidden="true">→</span>
-              </a>
+              {/*
+                Це посилання буває і зовнішнім (анкета MS Forms, mailto), і
+                внутрішнім (/join). Раніше воно завжди відкривалось у новій
+                вкладці й без мовного префікса, тому внутрішній варіант
+                виносив людину на головну.
+              */}
+              {isExternalHref ? (
+                <a
+                  href={formHref}
+                  className="info-section__cta-link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {ctaCopy.applyDirectly}
+                  <span aria-hidden="true">→</span>
+                </a>
+              ) : (
+                <Link
+                  to={localizePath(formHref)}
+                  className="info-section__cta-link"
+                >
+                  {ctaCopy.applyDirectly}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </div>
           </article>
         ) : null}

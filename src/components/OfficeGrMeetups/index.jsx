@@ -1,12 +1,10 @@
 import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { hasDestination } from "../../utils/links";
 import eventImage from "../../assets/g15.png";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
@@ -119,28 +117,33 @@ export const OfficeGrMeetups = ({ copyKey = "office.grMeetups" }) => {
                     {event.title}
                   </h3>
                   <p className="office-gr-meetups__event-text">{event.text}</p>
-                  <a
-                    className="office-gr-meetups__event-link"
-                    href={event.href}
-                  >
-                    {copy.joinLabel}
-                    <span aria-hidden="true">→</span>
-                  </a>
+                  {hasDestination(event.href) ? (
+                    <a
+                      className="office-gr-meetups__event-link"
+                      href={event.href}
+                    >
+                      {copy.joinLabel}
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  ) : null}
                 </article>
               ))}
 
-              <div className="office-gr-meetups__actions">
-                <a className="office-gr-meetups__button" href={copy.allHref}>
-                  {copy.allLabel}
-                </a>
-                <a
-                  className="office-gr-meetups__icon-button"
-                  href={copy.allHref}
-                  aria-label={copy.allLabel}
-                >
-                  <ArrowIcon />
-                </a>
-              </div>
+              {/* Сторінки з усіма подіями поки немає */}
+              {hasDestination(copy.allHref) ? (
+                <div className="office-gr-meetups__actions">
+                  <a className="office-gr-meetups__button" href={copy.allHref}>
+                    {copy.allLabel}
+                  </a>
+                  <a
+                    className="office-gr-meetups__icon-button"
+                    href={copy.allHref}
+                    aria-label={copy.allLabel}
+                  >
+                    <ArrowIcon />
+                  </a>
+                </div>
+              ) : null}
             </div>
           </div>
 

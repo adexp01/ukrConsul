@@ -9,8 +9,25 @@ const byNewestFirst = (a, b) =>
 
 const isPublished = (item) => item.published !== false;
 
+/**
+ * Скільки чекаємо на CRM, перш ніж показати те, що є.
+ *
+ * Без обмеження запит на повільній мережі висить нескінченно, а сторінка весь
+ * цей час тримає стан «завантаження» — і людина дивиться на порожній блок
+ * новин замість тих статей, які лежать у коді й доступні одразу.
+ */
+const NEWS_TIMEOUT_MS = 8000;
+
 const fetchCrmNews = async () => {
-  const response = await fetch(getNewsApiUrl());
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), NEWS_TIMEOUT_MS);
+
+  let response;
+  try {
+    response = await fetch(getNewsApiUrl(), { signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     throw new Error(`News request failed: ${response.status}`);

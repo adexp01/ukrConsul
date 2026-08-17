@@ -1,7 +1,7 @@
-import { useMemo, useRef, useState } from "react";
-import gsap from "gsap";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
+import { useCarousel } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
@@ -10,8 +10,6 @@ import m112 from "../../assets/m112.png";
 import m113 from "../../assets/m113.png";
 import m114 from "../../assets/m114.png";
 import m115 from "../../assets/m115.png";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const iconMap = {
   diamond: m111,
@@ -27,24 +25,10 @@ export const AnimationCards = () => {
   const { t } = useLanguage();
   const sectionRef = useRef(null);
   const titleLines = t("track.cards.title");
-  const items = Array.isArray(t("track.cards.items"))
-    ? t("track.cards.items")
-    : [];
-  const maxStartIndex = Math.max(0, items.length - VISIBLE_CARDS);
-  const [startIndex, setStartIndex] = useState(0);
-
-  const visibleItems = useMemo(
-    () => items.slice(startIndex, startIndex + VISIBLE_CARDS),
-    [items, startIndex],
+  const { items, visibleItems, goPrev, goNext, isFirst, isLast } = useCarousel(
+    t("track.cards.items"),
+    VISIBLE_CARDS,
   );
-
-  const goPrev = () => {
-    setStartIndex((currentIndex) => Math.max(0, currentIndex - 1));
-  };
-
-  const goNext = () => {
-    setStartIndex((currentIndex) => Math.min(maxStartIndex, currentIndex + 1));
-  };
 
   useGSAP(
     () => {
@@ -95,7 +79,12 @@ export const AnimationCards = () => {
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [visibleItems] },
+    /*
+     * Залежність від довжини списку, а не від видимого вікна: раніше тут стояв
+     * visibleItems — новий масив на кожен клік по стрілці, тому useGSAP щоразу
+     * реверти́в анімацію й програвав появу заново, і картки блимали.
+     */
+    { scope: sectionRef, dependencies: [items.length] },
   );
 
   if (items.length === 0) return null;
@@ -138,8 +127,8 @@ export const AnimationCards = () => {
           onNext={goNext}
           prevLabel={t("gallery.prevSlide")}
           nextLabel={t("gallery.nextSlide")}
-          prevDisabled={startIndex === 0}
-          nextDisabled={startIndex === maxStartIndex}
+          prevDisabled={isFirst}
+          nextDisabled={isLast}
         />
       </div>
     </section>

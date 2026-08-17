@@ -11,11 +11,12 @@ export const TrackIntro = () => {
       <div className="track-intro__glow" aria-hidden="true" />
 
       <div className="track-intro__inner">
-        <h2 id="track-intro-title" className="track-intro__title">
+        {/* Головний заголовок сторінки треку */}
+        <h1 id="track-intro-title" className="track-intro__title">
           {titleLines.map((line) => (
             <span key={line}>{line}</span>
           ))}
-        </h2>
+        </h1>
 
         <div className="track-intro__columns">
           {columns.map((text) => (

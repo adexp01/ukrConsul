@@ -1,19 +1,21 @@
+import { lazy, Suspense } from "react";
 import { PageLayout } from "../../components/PageLayout";
 import { MediaBunner } from "../../components/MediaBunner";
 import { MediaNews } from "../../components/MediaNews";
-// Тимчасово приховані секції /media — розкоментувати, коли будуть готові матеріали
-// import { MainMedia } from "../../components/MainMedia";
-// import { MediaInfo } from "../../components/MediaInfo";
-// import { MediaItems } from "../../components/MediaItems";
-// import { DownloadMedia } from "../../components/DownloadMedia";
-// import { SendRequest } from "../../components/UI/SendRequest";
-// import { ForJournalist } from "../../components/ForJournalist";
+import { MEDIA_SECTIONS_ENABLED } from "../../config/features";
 import "./style.css";
-import { useSeo } from "../../seo/useSeo";
+
+/*
+ * Додаткові секції чекають на матеріали. Прапорець замість закоментованої
+ * розмітки, а підгрузка окремим чанком — щоб їхні стилі не лежали в
+ * загальному CSS: сам компонент збірник викидає, а `import "./style.css"`
+ * усередині нього — ні.
+ */
+const MediaExtraSections = lazy(
+  () => import("../../components/MediaExtraSections"),
+);
 
 export const MediaPage = () => {
-  useSeo("media", { path: "media" });
-
   return (
     <PageLayout>
       <div className="media-page">
@@ -25,12 +27,11 @@ export const MediaPage = () => {
           <MediaNews />
         </div>
 
-        {/* <MediaInfo /> */}
-        {/* <MediaItems /> */}
-        {/* <MainMedia /> */}
-        {/* <ForJournalist /> */}
-        {/* <DownloadMedia /> */}
-        {/* <SendRequest /> */}
+        {MEDIA_SECTIONS_ENABLED ? (
+          <Suspense fallback={null}>
+            <MediaExtraSections />
+          </Suspense>
+        ) : null}
       </div>
     </PageLayout>
   );

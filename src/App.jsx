@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ButtonGradients } from "./components/UI/Button";
 import { JoinQuizProvider } from "./components/JoinQuiz/JoinQuizContext";
@@ -5,19 +6,29 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { TextRevealEngine } from "./components/TextReveal";
 import { EVENTS_ENABLED } from "./config/features";
 import { LanguageProvider } from "./i18n/LanguageContext";
-import { LegacyRedirect } from "./i18n/LegacyRedirect";
 import { LocaleOutlet } from "./i18n/LocaleOutlet";
 import { HomePage } from "./pages/HomePage";
 import { MediaPage } from "./pages/MediaPage";
 import { ArticlePage } from "./pages/ArticlePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
-import { EventsPage } from "./pages/EventsPage";
-import { EventDetailPage } from "./pages/EventDetailPage";
 import { TrackPage } from "./pages/TrackPage";
 import { OfficePage } from "./pages/Office";
 import { AboutUsPage } from "./pages/AboutUsPage";
 import { JoinPage } from "./pages/JoinPage";
+
+/*
+ * Сторінки заходів вимкнені прапорцем: маршрути під них не реєструються.
+ * Через `lazy` — щоб їхні стилі й розмітка не лежали в загальному бандлі.
+ */
+const EventsPage = lazy(() =>
+  import("./pages/EventsPage").then((m) => ({ default: m.EventsPage })),
+);
+const EventDetailPage = lazy(() =>
+  import("./pages/EventDetailPage").then((m) => ({
+    default: m.EventDetailPage,
+  })),
+);
 
 function App() {
   return (
@@ -34,12 +45,23 @@ function App() {
               <Route path="media" element={<MediaPage />} />
               <Route path="article/:id" element={<ArticlePage />} />
               {EVENTS_ENABLED ? (
-                <Route path="events" element={<EventsPage />} />
+                <Route
+                  path="events"
+                  element={
+                    <Suspense fallback={null}>
+                      <EventsPage />
+                    </Suspense>
+                  }
+                />
               ) : null}
               {EVENTS_ENABLED ? (
                 <Route
                   path="events/details/:id"
-                  element={<EventDetailPage />}
+                  element={
+                    <Suspense fallback={null}>
+                      <EventDetailPage />
+                    </Suspense>
+                  }
                 />
               ) : null}
               <Route path="track" element={<TrackPage />} />
@@ -49,7 +71,11 @@ function App() {
               <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
-            <Route path="*" element={<LegacyRedirect />} />
+            {/*
+              Окремий маршрут для шляхів без мовного префікса тут не потрібен:
+              будь-який шлях з одним і більше сегментів першим матчить
+              `/:locale`, і LocaleOutlet сам дописує `/en`, зберігаючи решту.
+            */}
           </Routes>
         </JoinQuizProvider>
       </LanguageProvider>

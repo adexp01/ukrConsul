@@ -11,7 +11,7 @@ import "./style.css";
 const NAV_ITEMS = [
   { key: "aboutUs", href: "/about-us" },
   { key: "getInvolved", href: "/join" },
-  { key: "activities", href: "/office" },
+  { key: "activities", href: "/office", hasDropdown: true },
   { key: "media", href: "/media" },
   ...(EVENTS_ENABLED ? [{ key: "events", href: "/events" }] : []),
 ];
@@ -53,13 +53,9 @@ export const Header = () => {
   return (
     <header className={`header${isScrolled ? " header--scrolled" : ""}`}>
       <div className="header__left">
-        <a
-          href={localizePath("/")}
-          className="header__logo"
-          onClick={closeMenu}
-        >
+        <Link to={localizePath("/")} className="header__logo" onClick={closeMenu}>
           <img src={logo} alt={t("header.logoAlt")} />
-        </a>
+        </Link>
 
         <div
           className="header__lang"
@@ -111,7 +107,7 @@ export const Header = () => {
       <nav
         id="header-mobile-nav"
         className={`header__nav${isMenuOpen ? " header__nav--open" : ""}`}
-        aria-label="Main navigation"
+        aria-label={t("header.navLabel")}
       >
         <ul className="header__nav-list">
           {NAV_ITEMS.map((item) => {
@@ -125,12 +121,13 @@ export const Header = () => {
                   onMouseEnter={() => setIsActivitiesOpen(true)}
                   onMouseLeave={() => setIsActivitiesOpen(false)}
                 >
-                  <a
-                    href={localizePath(item.href)}
+                  <Link
+                    to={localizePath(item.href)}
                     className="header__nav-link header__nav-link--trigger"
                     aria-expanded={isActivitiesOpen}
                     aria-haspopup="true"
                     onClick={(event) => {
+                      // На вузьких екранах немає ховера — тап розкриває список
                       if (window.matchMedia("(max-width: 1024px)").matches) {
                         event.preventDefault();
                         setIsActivitiesOpen((open) => !open);
@@ -140,19 +137,19 @@ export const Header = () => {
                     }}
                   >
                     {t(`header.nav.${item.key}`)}
-                  </a>
+                  </Link>
 
                   <div className="header__dropdown">
                     <ul className="header__dropdown-list">
                       {activitiesMenu.map((menuItem) => (
                         <li key={menuItem.id}>
-                          <a
-                            href={localizePath(menuItem.href)}
+                          <Link
+                            to={localizePath(menuItem.href)}
                             className="header__dropdown-link"
                             onClick={closeMenu}
                           >
                             {menuItem.label}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>

@@ -82,6 +82,37 @@ const loadAndProcessFrame = async (sourceIndex, processScale) => {
   return stripSolidBackground(img, processScale);
 };
 
+/*
+ * Кеш оброблених кадрів на весь застосунок.
+ *
+ * Секвенція живе у двох місцях одночасно — кільце на першому екрані й та сама
+ * анімація в блоці табів унизу сторінки. Без кешу кожен інстанс качав свої 90
+ * кадрів і сам проганяв кожен через getImageData з піксельним циклом: подвійний
+ * трафік, подвійна робота головного потоку і подвійна пам'ять під полотна.
+ *
+ * Кешуємо саму обіцянку, а не результат, — тоді два інстанси, що просять один
+ * кадр одночасно, чекають на одне завантаження. Помилку з кешу прибираємо,
+ * щоб наступна спроба не впиралась у неї назавжди.
+ */
+const frameCache = new Map();
+
+const getProcessedFrame = (slotIndex, processScale) => {
+  const key = `${processScale}:${slotIndex}`;
+  const cached = frameCache.get(key);
+  if (cached) return cached;
+
+  const pending = loadAndProcessFrame(
+    PLAYBACK_INDICES[slotIndex],
+    processScale,
+  ).catch((error) => {
+    frameCache.delete(key);
+    throw error;
+  });
+
+  frameCache.set(key, pending);
+  return pending;
+};
+
 const mapPool = async (items, concurrency, mapper) => {
   const results = new Array(items.length);
   let nextIndex = 0;
@@ -116,7 +147,10 @@ export const SpriteCanvas = ({
   const runtimeRef = useRef(null);
   const isMobile = useIsMobile(1025);
 
-  playRef.current = play;
+  // Свіже значення play читає drawLoop; мутувати ref під час рендеру не можна
+  useEffect(() => {
+    playRef.current = play;
+  }, [play]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -140,6 +174,7 @@ export const SpriteCanvas = ({
     // після збирання — виглядало так, ніби вони метушливо блимають.
     let holdUntil = 0;
     let hasCompletedOnce = false;
+    let hasStartedLoading = false;
 
     const frames = new Array(PLAYBACK_FRAME_COUNT).fill(null);
     const fps = getPlaybackFps(playbackDurationMs);
@@ -205,17 +240,26 @@ export const SpriteCanvas = ({
       }
     };
 
+    /*
+     * Завантаження стартує з першою появою полотна в кадрі, а не з монтування.
+     * Той самий блок стоїть унизу кожної сторінки, і без цієї умови сайт тягнув
+     * 90 кадрів та обробляв кожен ще до того, як людина доскролила туди —
+     * рівно тоді, коли головний потік потрібен першому екрану.
+     */
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
+        if (isVisible && !hasStartedLoading) {
+          hasStartedLoading = true;
+          void init();
+        }
       },
-      { threshold: 0.08 },
+      // Трохи наперед, щоб перші кадри були готові до моменту появи
+      { threshold: 0.01, rootMargin: "200px 0px" },
     );
-    observer.observe(canvas);
 
     const loadSlot = async (slotIndex) => {
-      const sourceIndex = PLAYBACK_INDICES[slotIndex];
-      const frame = await loadAndProcessFrame(sourceIndex, processScale);
+      const frame = await getProcessedFrame(slotIndex, processScale);
 
       if (isCancelled) return null;
 
@@ -270,7 +314,9 @@ export const SpriteCanvas = ({
     };
 
     const loadRemainingFrames = async (fromSlot) => {
-      const slots = PLAYBACK_INDICES.map((_, slotIndex) => slotIndex).slice(fromSlot);
+      const slots = PLAYBACK_INDICES.map((_, slotIndex) => slotIndex).slice(
+        fromSlot,
+      );
 
       await mapPool(slots, LOAD_CONCURRENCY, async (slotIndex) => {
         if (frames[slotIndex]) return;
@@ -317,7 +363,19 @@ export const SpriteCanvas = ({
       }
     };
 
-    void init();
+    observer.observe(canvas);
+
+    /*
+     * Кільце на першому екрані видно вже на момент монтування, і чекати навіть
+     * один кадр до першого спрацювання спостерігача тут не варто — це та сама
+     * затримка першого екрана, яку ми прибирали. Тому одразу міряємо рамку
+     * синхронно й, якщо полотно в кадрі, стартуємо не чекаючи.
+     */
+    const rect = canvas.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      hasStartedLoading = true;
+      void init();
+    }
 
     return () => {
       isCancelled = true;
@@ -339,11 +397,5 @@ export const SpriteCanvas = ({
     }
   }, [play]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className={className}
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 };

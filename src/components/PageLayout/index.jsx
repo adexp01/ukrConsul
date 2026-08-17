@@ -3,12 +3,28 @@ import { Footer } from "../Footer";
 import "./style.css";
 import { Anima } from "../Anima";
 import { useLocation } from "react-router-dom";
+import { stripLocalePrefix } from "../../i18n/localeRoutes";
+
+/*
+ * Сторінки, де блок з кільцем і табами внизу не потрібен — у них свій фінальний
+ * блок. Шлях порівнюємо повністю, а не через includes: у статті зі слагом на
+ * «join-…» чи «media-…» адреса /en/article/join-… містила ці підрядки, і блок
+ * зникав там, де мусив бути.
+ */
+const PAGES_WITHOUT_ANIMA = [
+  "/events",
+  "/about-us",
+  "/join",
+  "/media",
+  "/office",
+];
 
 export const PageLayout = ({ children, variant }) => {
   const { pathname } = useLocation();
 
-  const shouldHideAnima =
-    pathname.includes("/events") || pathname.includes("/about-us") || pathname.includes("/join") || pathname.includes("/media") || pathname.includes("/office");
+  const shouldHideAnima = PAGES_WITHOUT_ANIMA.includes(
+    stripLocalePrefix(pathname),
+  );
 
   const shellClass = variant
     ? `page-shell page-shell--${variant}`

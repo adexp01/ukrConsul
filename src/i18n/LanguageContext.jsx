@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { en } from "./locales/en";
@@ -32,19 +33,37 @@ export const LanguageProvider = ({ children }) => {
     ? getLanguageFromLocale(urlLocale)
     : DEFAULT_LANGUAGE;
 
+  /*
+   * Поточну адресу тримаємо в ref, а не в залежностях setLanguage.
+   *
+   * Було так: setLanguage залежав від pathname/search/hash, тому на кожному
+   * переході створювався новий обʼєкт контексту — а з ним і нова функція t().
+   * Це знецінювало всі useMemo, побудовані на t, у десятку компонентів
+   * (новини, галерея, таби, статті) і змушувало їх пересчитуватись даремно.
+   *
+   * Перемикач мови від цього не страждає: він викликається з обробника кліку,
+   * тобто вже після того, як ефект записав у ref свіжу адресу.
+   */
+  const locationRef = useRef(location);
+
+  useEffect(() => {
+    locationRef.current = location;
+  }, [location]);
+
   const setLanguage = useCallback(
     (lang) => {
       if (lang !== "en" && lang !== "uk") return;
 
       localStorage.setItem(STORAGE_KEY, lang);
-      const nextPath = switchLanguagePath(location.pathname, lang);
-      const nextUrl = `${nextPath}${location.search}${location.hash}`;
 
-      if (nextUrl !== `${location.pathname}${location.search}${location.hash}`) {
+      const { pathname, search, hash } = locationRef.current;
+      const nextUrl = `${switchLanguagePath(pathname, lang)}${search}${hash}`;
+
+      if (nextUrl !== `${pathname}${search}${hash}`) {
         navigate(nextUrl);
       }
     },
-    [location.hash, location.pathname, location.search, navigate],
+    [navigate],
   );
 
   const localizePath = useCallback(
@@ -52,11 +71,16 @@ export const LanguageProvider = ({ children }) => {
     [language],
   );
 
-  // `document.title` і решту мета-тегів ставить SEO-шар (`useSeo` на кожній
-  // сторінці) — тут лишається тільки атрибут мови на <html>.
+  /*
+   * Поки що це єдине місце, де взагалі ставиться заголовок сторінки, тому він
+   * тут і лишається. Якщо зʼявиться посторінковий SEO зі своїм title на кожен
+   * маршрут — цей рядок треба буде забрати: ефект провайдера спрацьовує після
+   * дитячих і перетер би щойно виставлений заголовок цією заглушкою.
+   */
   useEffect(() => {
     document.documentElement.lang = language === "uk" ? "uk" : "en";
     document.documentElement.dataset.language = language;
+    document.title = language === "uk" ? "Рада зброярів" : "UCDI";
   }, [language]);
 
   const value = useMemo(() => {
@@ -75,10 +99,8 @@ export const LanguageProvider = ({ children }) => {
       t,
       dict,
     };
-    // setLanguage обовʼязково в залежностях: усередині він замикається на
-    // поточному pathname. Без нього перехід у межах однієї мови
-    // (/en → /en/media) лишає в контексті стару функцію, і перемикач
-    // мови веде на головну замість поточної сторінки.
+    // setLanguage тепер стабільний (адресу читає з ref), тому обʼєкт контексту
+    // перестворюється лише при справжній зміні мови.
   }, [language, localizePath, setLanguage, urlLocale]);
 
   return (
@@ -86,6 +108,13 @@ export const LanguageProvider = ({ children }) => {
   );
 };
 
+/*
+ * Хук лежить поряд із провайдером: контекст, провайдер і доступ до нього —
+ * одне ціле, і розносити їх лише щоб вдовольнити правило про Fast Refresh,
+ * сенсу мало. Наслідок — при правці саме цього файла в dev-режимі скидається
+ * стан; у продакшн-збірці правило нічого не означає.
+ */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const ctx = useContext(LanguageContext);
   if (!ctx) {

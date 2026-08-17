@@ -53,12 +53,23 @@ export const EcoSystem = () => {
             const focusText = member.focusDescription ?? member.role;
 
             return (
+              /*
+                Картка перевертається по кліку, тобто це кнопка за поведінкою.
+                Раніше вона стояла в tab-порядку (tabIndex={0}), але з
+                клавіатури не активувалась — фокус приходив у пастку.
+              */
               <article
                 key={cardId}
                 role="listitem"
                 className={`eco-system__member eco-system__member--focus-card${isFlipped ? " is-flipped" : ""}`}
                 tabIndex={0}
+                aria-expanded={isFlipped}
                 onClick={() => hideFocus(cardId)}
+                onKeyDown={(event) => {
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  event.preventDefault();
+                  hideFocus(cardId);
+                }}
               >
                 <div className="eco-system__flip-inner">
                   <div className="eco-system__flip-face eco-system__flip-face--front">

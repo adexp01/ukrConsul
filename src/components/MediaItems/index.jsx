@@ -41,7 +41,7 @@ const MediaItemCard = ({ item, imagePlaceholder }) => {
 };
 
 export const MediaItems = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const { featured, items } = useMemo(() => {
     const featuredData = t("media.items.featured");
@@ -60,7 +60,7 @@ export const MediaItems = () => {
         { id: "digest", layout: "card", ...digest, href: "#" },
       ],
     };
-  }, [t, language]);
+  }, [t]);
 
   const imagePlaceholder = t("media.items.imagePlaceholder");
 

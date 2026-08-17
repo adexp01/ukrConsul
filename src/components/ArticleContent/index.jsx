@@ -1,5 +1,5 @@
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import instagram from "../../assets/ins.svg";
 import facebook from "../../assets/faceb.svg";
 import linkedin from "../../assets/linked.svg";
 import telegram from "../../assets/tg.svg";
@@ -13,12 +13,39 @@ import { renderRichText } from "../RichText";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
 
-const SOCIALS = [
-  { id: "instagram", label: "Instagram", href: "#", icon: instagram },
-  { id: "facebook", label: "Facebook", href: "#", icon: facebook },
-  { id: "linkedin", label: "LinkedIn", href: "#", icon: linkedin },
-  { id: "telegram", label: "Telegram", href: "#", icon: telegram },
-  { id: "x", label: "X", href: "#", icon: xIcon },
+/*
+ * Поділитися статтею. Кожна кнопка веде у справжнє вікно шеринга відповідної
+ * мережі — раніше тут у всіх п'ятьох стояло href="#", тобто блок нічого не
+ * робив. Instagram сюда не входить: він не має способу поділитися посиланням
+ * ззовні застосунку, тому замість нього — копіювання адреси.
+ */
+const SHARE_TARGETS = [
+  {
+    id: "facebook",
+    label: "Facebook",
+    icon: facebook,
+    build: (url) => `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+  },
+  {
+    id: "x",
+    label: "X",
+    icon: xIcon,
+    build: (url, title) =>
+      `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    icon: linkedin,
+    build: (url) =>
+      `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+  },
+  {
+    id: "telegram",
+    label: "Telegram",
+    icon: telegram,
+    build: (url, title) => `https://t.me/share/url?url=${url}&text=${title}`,
+  },
 ];
 
 const renderBlock = (block) => {
@@ -83,6 +110,27 @@ const renderBlock = (block) => {
 
 export const ArticleContent = ({ article, loading = false }) => {
   const { t, language, localizePath } = useLanguage();
+  const [isCopied, setIsCopied] = useState(false);
+
+  const pageUrl = typeof window === "undefined" ? "" : window.location.href;
+  const shareUrl = encodeURIComponent(pageUrl);
+  const shareTitle = encodeURIComponent(article?.title ?? "");
+
+  const copyLink = useCallback(() => {
+    if (!pageUrl || !navigator.clipboard) return;
+    navigator.clipboard
+      .writeText(pageUrl)
+      .then(() => setIsCopied(true))
+      // Не вийшло — краще лишити кнопку в спокої, ніж збрехати «скопійовано»
+      .catch(() => {});
+  }, [pageUrl]);
+
+  // Підпис «скопійовано» сам повертається до звичайного
+  useEffect(() => {
+    if (!isCopied) return undefined;
+    const timer = window.setTimeout(() => setIsCopied(false), 2000);
+    return () => window.clearTimeout(timer);
+  }, [isCopied]);
 
   if (loading) {
     return (
@@ -111,7 +159,10 @@ export const ArticleContent = ({ article, loading = false }) => {
 
   return (
     <div className="article-page__shell">
-      <nav className="article-page__breadcrumbs" aria-label="Breadcrumb">
+      <nav
+        className="article-page__breadcrumbs"
+        aria-label={t("articleContent.breadcrumbLabel")}
+      >
         <Link to={localizePath("/media")} className="article-page__breadcrumb-link">
           {t("articleContent.breadcrumbMedia")}
         </Link>
@@ -169,21 +220,31 @@ export const ArticleContent = ({ article, loading = false }) => {
             </span>
 
             <div className="article-page__socials">
-              {SOCIALS.map((social) => (
+              {SHARE_TARGETS.map((target) => (
                 <a
-                  key={social.id}
-                  href={social.href}
+                  key={target.id}
+                  href={target.build(shareUrl, shareTitle)}
                   className="article-page__social-link"
-                  aria-label={social.label}
+                  aria-label={`${t("articleContent.shareVia")} ${target.label}`}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <img
-                    src={social.icon}
+                    src={target.icon}
                     alt=""
                     className="article-page__social-icon"
                     aria-hidden="true"
                   />
                 </a>
               ))}
+
+              <button
+                type="button"
+                className="article-page__social-link article-page__social-link--copy"
+                onClick={copyLink}
+              >
+                {isCopied ? t("articleContent.copied") : t("articleContent.copyLink")}
+              </button>
             </div>
           </footer>
         </div>

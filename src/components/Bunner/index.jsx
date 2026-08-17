@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
 import { CenterFrame } from "./CenterFrame";
 import { SpriteCanvas } from "./SpriteCanvas";
@@ -10,8 +9,6 @@ import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import { useBannerTabs } from "../../i18n/useBannerTabs";
 import "./centerFrame.css";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Bunner = () => {
   const { t, language } = useLanguage();
@@ -101,9 +98,14 @@ export const Bunner = () => {
           );
       });
 
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      // Скасовуємо разом з ефектом: інакше після анмаунту прилітає зайвий
+      // глобальний refresh, який переміряє всі піни на новій сторінці
+      const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
 
-      return () => mm.revert();
+      return () => {
+        cancelAnimationFrame(refreshFrame);
+        mm.revert();
+      };
     },
     { scope: textRevealRef, dependencies: [canAnimateText] },
   );
@@ -111,7 +113,7 @@ export const Bunner = () => {
   const titleLines = t("banner.title");
 
   return (
-    <section className={`banner banner--${language}`} aria-label="Hero banner">
+    <section className={`banner banner--${language}`} aria-labelledby="banner-title">
       <div className="banner__inner">
         <div className="banner__top">
           <CenterFrame className="banner__mobile-only" />
@@ -171,11 +173,15 @@ export const Bunner = () => {
         </div>
 
         <div className="banner__hero">
-          <h2 className="banner__title">
+          {/*
+            Це головний заголовок головної сторінки, тому h1: раніше на «/» і
+            «/track» не було жодного h1, і структура сторінки починалась з h2.
+          */}
+          <h1 id="banner-title" className="banner__title">
             {titleLines.map((line) => (
               <span key={line}>{line}</span>
             ))}
-          </h2>
+          </h1>
 
           <Button onClick={openJoinQuiz} className="banner__cta">
             {t("banner.sendRequest")}

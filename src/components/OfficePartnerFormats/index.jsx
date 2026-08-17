@@ -64,6 +64,12 @@ export const OfficePartnerFormats = ({ copy }) => {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
+                      /*
+                        Позаекранна картка має aria-hidden, тому для скринрідера
+                        її немає — але Tab на її посиланні все одно зупинявся,
+                        і фокус ішов у нікуди. Прибираємо з tab-порядку.
+                      */
+                      tabIndex={isVisible ? undefined : -1}
                     >
                       {item.linkLabel}
                       <span aria-hidden="true">↗</span>

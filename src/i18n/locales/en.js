@@ -3,6 +3,7 @@ export const en = {
     menu: "Menu",
     closeMenu: "Close menu",
     langLabel: "Language",
+    navLabel: "Main navigation",
     logoAlt: "Ukrainian Council of Defence Industry",
     nav: {
       aboutUs: "About Us",
@@ -13,11 +14,24 @@ export const en = {
       contact: "Contact",
     },
     activitiesMenu: [
-      { id: "gr", label: "GR / Advocacy", href: "#" },
-      { id: "international", label: "International activities", href: "#" },
-      { id: "regional", label: "Regional track", href: "/track" },
-      { id: "youth", label: "Youth track", href: "/track" },
+      { id: "gr", label: "GR / Advocacy", href: "/office?tab=gr" },
+      {
+        id: "international",
+        label: "International activities",
+        href: "/office?tab=international",
+      },
+      {
+        id: "exhibition",
+        label: "Exhibition activities",
+        href: "/office?tab=exhibition",
+      },
+      {
+        id: "partnership",
+        label: "Partner ecosystem",
+        href: "/office?tab=partnership",
+      },
       { id: "export", label: "Export Support Office", href: "/office" },
+      { id: "regional", label: "Regional track", href: "/track" },
     ],
   },
   footer: {
@@ -370,6 +384,9 @@ export const en = {
   gallery: {
     heading: ["Our projects and", "products in the ", "DEFENCE", "industry"],
     discover: "Learn more about the project",
+    sectionLabel: "Projects gallery",
+    slidesLabel: "Gallery slides",
+    slideLabel: "Slide",
     prevProject: "Previous project",
     prevSlide: "Previous slide",
     nextSlide: "Next slide",
@@ -754,6 +771,10 @@ export const en = {
   articleContent: {
     breadcrumbMedia: "Media",
     share: "Share",
+    shareVia: "Share on",
+    copyLink: "Copy link",
+    copied: "Copied",
+    breadcrumbLabel: "Breadcrumb",
     imagePlaceholder: "Image",
     loading: "Loading article…",
     notFound: "Article not found.",
@@ -795,6 +816,16 @@ export const en = {
     },
   },
   track: {
+    bunner: {
+      sectionLabel: "Gallery of international events",
+      slides: {
+        "zel-left": "International defence exhibition — event participants",
+        "zbroya-center": "ZBROYA — Ukraine's international defence exhibition",
+        "pynkt-left": "International defence industry forum",
+        "zel-right": "Delegation meeting at an international defence event",
+        "zbroya-right": "ZBROYA — Ukraine's international defence exhibition",
+      },
+    },
     intro: {
       title: ["International", "track"],
       columns: [
@@ -810,7 +841,6 @@ export const en = {
         "The model is focused on long-term integration of Ukrainian solutions into allied supply chains.",
       ],
       cta: "Learn more",
-      ctaHref: "#",
     },
     cards: {
       title: [
@@ -948,6 +978,7 @@ export const en = {
       ctaTitle: ["WANT TO JOIN", "THE UKRAINIAN", "EXPOSITION?"],
       ctaText:
         "Join the consolidated ZBROYA stands at leading international defence exhibitions and present your technologies to international partners, customers and the professional community.",
+      takeTest: "Take the test",
       applyDirectly: "Submit an application",
       applyHref: "/join",
     },
@@ -1057,11 +1088,11 @@ export const en = {
         },
       },
       tabs: [
-        { id: "gr", label: "GR / Advocacy", href: "#" },
-        { id: "international", label: "International activities", href: "#" },
-        { id: "exhibition", label: "Exhibition activities", href: "#" },
-        { id: "partnership", label: "Partner ecosystem", href: "#" },
-        { id: "export", label: "Export Support Office", href: "/office" },
+        { id: "gr", label: "GR / Advocacy" },
+        { id: "international", label: "International activities" },
+        { id: "exhibition", label: "Exhibition activities" },
+        { id: "partnership", label: "Partner ecosystem" },
+        { id: "export", label: "Export Support Office" },
       ],
       emptyTab: "This tab is empty for now:",
     },
@@ -1090,7 +1121,6 @@ export const en = {
       cardRight:
         "The Export Support Office is a practical Council product that helps manufacturers understand export routes, compliance requirements and formats for international cooperation.",
       cta: "Export Map",
-      ctaHref: "#",
     },
     workFocus: {
       title: "What we work on",
@@ -1534,5 +1564,113 @@ export const en = {
           "Requests for comments, interviews, industry data and event participation — via the Council's media team.",
       },
     },
+  },
+  privacyPolicy: {
+    title: "Privacy Policy",
+    sections: [
+      {
+        id: "general",
+        title: "",
+        paragraphs: [
+          "Welcome to the ucdi.org.ua privacy policy. This policy will help you understand what data we collect, why we collect it, and what rights you have in relation to it.",
+          "Last updated: 14 July 2025",
+        ],
+      },
+      {
+        id: "visits",
+        title:
+          "1. Information on the collection of personal data and the controller's contact details",
+        paragraphs: [
+          "We are glad that you have visited our website and thank you for your interest. On the following pages we provide information about the processing of your personal data when you use our website. Personal data is any data by which you can be personally identified.",
+          "Contact email address of the owner: webmaster@lightweight.info",
+        ],
+      },
+      {
+        id: "base",
+        title: "2. Data collection when visiting our website",
+        paragraphs: [
+          "When you use our website for information purposes only — that is, if you do not register or otherwise provide us with information — we collect only the data that your browser transmits to our server (so-called “server logs”). When you visit our website, we collect the following data, which is technically necessary in order to display the site to you:",
+        ],
+        list: [
+          "The page of our website you visited;",
+          "Date and time of access;",
+          "Volume of data transferred, in bytes;",
+          "The source or referrer from which you arrived at the page;",
+          "The browser used;",
+          "The operating system used;",
+          "The IP address used (where required: in anonymised form).",
+        ],
+        paragraphsAfter: [
+          "Data is processed in accordance with Art. 6 (1) (f) GDPR on the basis of our legitimate interest in improving the stability and functionality of our website. This data is not passed on to third parties and is not used in any other way. We do, however, reserve the right to review the server logs if there are specific indications of unlawful use.",
+          "For security reasons, and in order to protect the transmission of personal data and other confidential content (for example orders or enquiries addressed to the controller), this website uses SSL or TLS encryption. You can recognise an encrypted connection by the https:// prefix and the padlock icon in your browser's address bar.",
+        ],
+      },
+      {
+        id: "cookies",
+        title: "3. Cookies",
+        paragraphs: [
+          "In order to make visiting our website more attractive and to enable the use of certain functions, we use cookies — small text files that are stored on your device. In some cases these cookies are automatically deleted once you close your browser (so-called “session cookies”); in other cases they remain on your device for longer and allow page settings to be saved (so-called “persistent cookies”). In the latter case, you can find the storage period in the cookie settings of your web browser.",
+        ],
+      },
+      {
+        id: "legal-basis",
+        title: "Legal basis for processing",
+        paragraphs: [
+          "The owner may process personal data relating to users if one of the following applies:",
+        ],
+        list: [
+          "Provision of the data is necessary for the performance of an agreement with the user and/or for any pre-contractual obligations under it;",
+          "Processing is necessary for compliance with a legal obligation to which the owner is subject;",
+          "Processing relates to a task carried out in the public interest or in the exercise of official authority vested in the owner;",
+          "Processing is necessary for the purposes of the legitimate interests pursued by the owner or by a third party.",
+        ],
+        paragraphsAfter: [
+          "In any case, the owner will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of personal data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.",
+        ],
+      },
+      {
+        id: "storage",
+        title: "Further information on retention periods",
+        paragraphs: [
+          "Unless stated otherwise in this document, personal data will be processed and stored for as long as the purpose for which it was collected requires, and may be retained for longer because of an applicable legal obligation or with the consent of users.",
+          "Accordingly:",
+        ],
+        list: [
+          "Personal data collected for purposes related to the performance of a contract between the owner and the user is retained until that contract has been fully performed.",
+          "Personal data collected for the purposes of the owner's legitimate interests is retained for as long as is necessary to fulfil those purposes. Users can find specific information about the owner's legitimate interests in the relevant sections of this document or by contacting the owner.",
+        ],
+        paragraphsAfter: [
+          "The owner may be permitted to retain personal data for a longer period whenever the user has given consent to such processing, for as long as that consent is not withdrawn. In addition, the owner may be obliged to retain personal data for a longer period whenever this is required in order to comply with a legal obligation or by order of an authority.",
+          "Once the retention period expires, personal data will be deleted. Consequently, the right of access, the right to erasure, the right to rectification and the right to data portability cannot be exercised after the retention period has expired.",
+        ],
+      },
+      {
+        id: "contact",
+        title: "4. Contacting us",
+        paragraphs: [
+          "When you contact us (for example via a contact form or by email), personal data is collected. Which data is collected in the case of a contact form can be seen from the form itself. This data is stored and used exclusively in order to respond to your enquiry, or to establish contact and for the related technical administration.",
+          "The legal basis for processing this data is our legitimate interest in responding to your enquiry pursuant to Art. 6 (1) (f) GDPR. If your enquiry is aimed at concluding a contract, the additional legal basis for processing is Art. 6 (1) (b) GDPR. Your data will be deleted once your enquiry has been conclusively dealt with; this is the case when it can be inferred from the circumstances that the matter has been finally resolved, provided that there are no statutory retention obligations.",
+        ],
+      },
+      {
+        id: "tools",
+        title: "5. Tools and miscellaneous",
+        paragraphs: [
+          "This website uses a so-called “cookie consent tool” in order to obtain effective user consent for cookies and for cookie-based applications that require consent. The cookie consent tool is shown to users as an interactive interface when they open the page, and it allows consent to be given for specific cookies and/or cookie-based applications by ticking the corresponding box. Using this tool, all cookies and services that require consent are loaded only after the user concerned has given consent by ticking the box. This ensures that such cookies are only set on the user's device once consent has been given.",
+          "The tool sets technically necessary cookies in order to store your cookie preferences. Personal user data is generally not processed.",
+          "If personal data (for example an IP address) is processed in individual cases for the purpose of storing, assigning or recording cookie settings, this is done in accordance with Art. 6 (1) (f) GDPR on the basis of our legitimate interest in legally compliant, individual and user-friendly management of cookie consent, and therefore in the legally compliant design of our website.",
+          "The additional legal basis for processing is Art. 6 (1) (c) GDPR. As the responsible party, we are obliged to make the use of technically unnecessary cookies dependent on the consent of the user concerned.",
+        ],
+      },
+      {
+        id: "retention",
+        title: "6. Retention period for personal data",
+        paragraphs: [
+          "The retention period for personal data is determined by the applicable legal basis, the purpose of processing and — where relevant — the applicable statutory retention period (for example retention periods under commercial and tax law).",
+          "Where personal data is processed on the basis of explicit consent pursuant to Art. 6 (1) (a) GDPR, that data is retained until the data subject withdraws their consent.",
+          "Where statutory retention periods exist for data processed in the context of legal or comparable obligations on the basis of Art. 6 (1) (b) GDPR, such data will be routinely deleted after the retention periods expire, provided it is no longer necessary for the performance or initiation of a contract and/or we no longer have a legitimate interest in continuing to store it.",
+        ],
+      },
+    ],
   },
 };

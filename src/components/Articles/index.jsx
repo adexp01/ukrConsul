@@ -36,6 +36,12 @@ export const Articles = ({ titleKey = "articles.title" }) => {
               <Article
                 key={article.id}
                 id={article.id}
+                /*
+                 * href обовʼязково: без нього картка будувала адресу з UUID, і
+                 * сторінка статті одразу редиректила на людський слаг — зайвий
+                 * стрибок в історії й негарне посилання, якщо його скопіювати.
+                 */
+                href={article.href}
                 variant={(index % 3) + 1}
                 tag={article.tag}
                 dateLabel={article.dateLabel}

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useLanguage } from "./LanguageContext";
 
 export const useBannerTabs = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   return useMemo(
     () => ({
@@ -16,6 +16,7 @@ export const useBannerTabs = () => {
         { id: "partners", label: t("banner.tabs.partners"), active: false },
       ],
     }),
-    [t, language],
+    // language зайвий: t змінюється разом із мовою
+    [t],
   );
 };

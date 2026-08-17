@@ -1,30 +1,12 @@
 import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "../../animation/gsapSetup";
 import { SpriteCanvas } from "../Bunner/SpriteCanvas";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { useBannerTabs } from "../../i18n/useBannerTabs";
 import "../Bunner/style.css";
+import { CenterFrame } from "../Bunner/CenterFrame";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const CENTER_FRAME_PATH =
-  "M0.5 4.2C0.5 3.1 4 2.5 8 2.5H1364.5C1368.5 2.5 1372 3.1 1372 4.2";
-
-const CenterFrame = () => (
-  <div className="anima__center-frame" aria-hidden="true">
-    <svg
-      className="anima__center-frame-svg"
-      width="344"
-      viewBox="0 0 1373 22"
-      preserveAspectRatio="none"
-    >
-      <path d={CENTER_FRAME_PATH} fill="none" />
-    </svg>
-  </div>
-);
 
 export const Anima = () => {
   const { t } = useLanguage();
@@ -69,9 +51,14 @@ export const Anima = () => {
           );
       });
 
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      // Скасовуємо разом з ефектом: інакше після анмаунту прилітає зайвий
+      // глобальний refresh, який переміряє всі піни на новій сторінці
+      const refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
 
-      return () => mm.revert();
+      return () => {
+        cancelAnimationFrame(refreshFrame);
+        mm.revert();
+      };
     },
     { scope: textRevealRef },
   );

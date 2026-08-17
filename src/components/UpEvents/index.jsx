@@ -1,8 +1,5 @@
 import { useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { stripLocalePrefix } from "../../i18n/localeRoutes";
 import "./style.css";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
@@ -24,18 +21,17 @@ const getMonthGrid = (year, month) => {
 };
 
 export const UpEvents = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [viewDate, setViewDate] = useState(() => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), 1);
   });
   const [selectedDay, setSelectedDay] = useState(() => new Date().getDate());
-  const { pathname } = useLocation();
 
   const events = useMemo(() => {
     const translated = t("upEvents.events");
     return translated && typeof translated === "object" ? translated : {};
-  }, [t, language]);
+  }, [t]);
 
   const monthNames = t("upEvents.months");
 
@@ -52,8 +48,6 @@ export const UpEvents = () => {
     setViewDate(new Date(year, month + delta, 1));
     setSelectedDay(1);
   };
-
-  const isEventsPage = stripLocalePrefix(pathname) === "/events";
 
   return (
     <section className="up-events" aria-labelledby="up-events-title">
@@ -172,18 +166,12 @@ export const UpEvents = () => {
               <p className="up-events__empty">{t("upEvents.noEvents")}</p>
             )}
 
-            {/* <a href="#" className="up-events__link">
-              {t("upEvents.discover")}
-              <span aria-hidden="true">→</span>
-            </a> */}
-
-            {/* {isEventsPage ? (
-              <></>
-            ) : (
-              <Button href="#" variant="default" className="up-events__all-btn">
-                {t("upEvents.allEvents")}
-              </Button>
-            )} */}
+            {/*
+              Тут були посилання «Дізнатися більше» і «Всі події» — обидва на
+              href="#", бо сторінки подій ще немає (див. EVENTS_ENABLED у
+              src/config/features.js). Тексти лишились у локалях:
+              upEvents.discover і upEvents.allEvents.
+            */}
           </article>
         </div>
 

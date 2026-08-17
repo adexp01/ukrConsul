@@ -1,12 +1,10 @@
 import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { hasDestination } from "../../utils/links";
 import bookImage from "../../assets/g12.png";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const DownloadIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
@@ -124,18 +122,24 @@ export const OfficeWhiteBook = ({ copyKey = "office.whiteBook" }) => {
               ))}
             </ul>
 
-            <div className="office-white-book__actions">
-              <a className="office-white-book__button" href={copy.downloadHref}>
-                {copy.downloadLabel}
-              </a>
-              <a
-                className="office-white-book__icon-button"
-                href={copy.downloadHref}
-                aria-label={copy.downloadLabel}
-              >
-                <DownloadIcon />
-              </a>
-            </div>
+            {/* Поки самого файлу білої книги немає — кнопок не показуємо */}
+            {hasDestination(copy.downloadHref) ? (
+              <div className="office-white-book__actions">
+                <a
+                  className="office-white-book__button"
+                  href={copy.downloadHref}
+                >
+                  {copy.downloadLabel}
+                </a>
+                <a
+                  className="office-white-book__icon-button"
+                  href={copy.downloadHref}
+                  aria-label={copy.downloadLabel}
+                >
+                  <DownloadIcon />
+                </a>
+              </div>
+            ) : null}
           </div>
 
           <img

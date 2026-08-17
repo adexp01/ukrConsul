@@ -1,4 +1,3 @@
-import photo01 from "../../assets/zel.png";
 import photo02 from "../../assets/f1.png";
 import photo03 from "../../assets/f2.png";
 import photo04 from "../../assets/f3.png";

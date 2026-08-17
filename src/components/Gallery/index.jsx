@@ -80,7 +80,7 @@ const SLIDE_MEDIA = [
 ];
 
 export const Gallery = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const [leavingIndex, setLeavingIndex] = useState(null);
 
@@ -101,7 +101,8 @@ export const Gallery = () => {
           : null,
       };
     });
-  }, [t, language]);
+  // language не потрібен: t уже інший обʼєкт після зміни мови
+  }, [t]);
 
   const slide = slides[activeIndex];
   const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
@@ -127,7 +128,7 @@ export const Gallery = () => {
   const isPhotoTransitioning = leavingIndex !== null;
 
   return (
-    <section className="gallery-section" aria-label="Projects gallery">
+    <section className="gallery-section" aria-label={t("gallery.sectionLabel")}>
       <div className="gallery-section__inner">
         <h2 className="gallery-section__heading">
           {headingLines.map((line) => (
@@ -215,7 +216,7 @@ export const Gallery = () => {
           <div
             className="gallery-section__pagination"
             role="tablist"
-            aria-label="Gallery slides"
+            aria-label={t("gallery.slidesLabel")}
           >
             {slides.map((item, index) => (
               <button
@@ -223,7 +224,7 @@ export const Gallery = () => {
                 type="button"
                 role="tab"
                 aria-selected={index === activeIndex}
-                aria-label={`Slide ${item.id}`}
+                aria-label={`${t("gallery.slideLabel")} ${item.id}`}
                 className={`gallery-section__pagination-item${
                   index === activeIndex
                     ? " gallery-section__pagination-item--active"

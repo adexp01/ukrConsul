@@ -1,54 +1,12 @@
 import { useRef, useState, useLayoutEffect, useCallback } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
+import { buildRoundedPath } from "../../utils/roundedPath";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import { useLanguage } from "../../i18n/LanguageContext";
 import bgOffice from "../../assets/bgOffice.png";
 import "./style.css";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const buildRoundedPath = (points, radius = 12) => {
-  if (points.length < 2) return "";
-
-  if (points.length === 2) {
-    return `M ${points[0].x} ${points[0].y} L ${points[1].x} ${points[1].y}`;
-  }
-
-  let path = `M ${points[0].x} ${points[0].y}`;
-
-  for (let i = 1; i < points.length - 1; i += 1) {
-    const prev = points[i - 1];
-    const curr = points[i];
-    const next = points[i + 1];
-
-    const v1x = curr.x - prev.x;
-    const v1y = curr.y - prev.y;
-    const v2x = next.x - curr.x;
-    const v2y = next.y - curr.y;
-
-    const len1 = Math.hypot(v1x, v1y) || 1;
-    const len2 = Math.hypot(v2x, v2y) || 1;
-    const cornerRadius = Math.min(radius, len1 / 2, len2 / 2);
-
-    const start = {
-      x: curr.x - (v1x / len1) * cornerRadius,
-      y: curr.y - (v1y / len1) * cornerRadius,
-    };
-    const end = {
-      x: curr.x + (v2x / len2) * cornerRadius,
-      y: curr.y + (v2y / len2) * cornerRadius,
-    };
-
-    path += ` L ${start.x} ${start.y} Q ${curr.x} ${curr.y} ${end.x} ${end.y}`;
-  }
-
-  const last = points[points.length - 1];
-  path += ` L ${last.x} ${last.y}`;
-
-  return path;
-};
 
 const prepareStrokePath = (pathEl) => {
   if (!pathEl) return 0;
@@ -137,6 +95,7 @@ const buildConnectorGeometry = (inner, xAnchor, upperCard, lowerCard, cta) => {
 export const ExportMap = () => {
   const { t } = useLanguage();
   const copy = t("office.exportMap");
+  const { openJoinQuiz } = useJoinQuiz();
   const sectionRef = useRef(null);
   const innerRef = useRef(null);
   const xAnchorRef = useRef(null);
@@ -148,6 +107,22 @@ export const ExportMap = () => {
   const pathTertiaryRef = useRef(null);
   const dashRef = useRef(null);
   const [connector, setConnector] = useState(null);
+  const connectorKeyRef = useRef(null);
+
+  /*
+   * Нову геометрію віддаємо в стан тільки тоді, коли вона справді інша.
+   *
+   * Було так: ResizeObserver і resize смикали setConnector на кожен піксель
+   * ширини, а від connector залежить useGSAP — тобто вся анімація ліній і
+   * карток розбиралась і програвалась заново під час перетягування вікна.
+   */
+  const applyConnector = useCallback((next) => {
+    const nextKey = next ? JSON.stringify(next) : null;
+    if (nextKey === connectorKeyRef.current) return;
+
+    connectorKeyRef.current = nextKey;
+    setConnector(next);
+  }, []);
 
   const updateConnector = useCallback(() => {
     const inner = innerRef.current;
@@ -157,39 +132,47 @@ export const ExportMap = () => {
     const cta = ctaRef.current;
 
     if (!inner || !xAnchor || !upperCard || !lowerCard || !cta) {
-      setConnector(null);
+      applyConnector(null);
       return;
     }
 
     if (window.matchMedia("(max-width: 1024px)").matches) {
-      setConnector(null);
+      applyConnector(null);
       return;
     }
 
-    setConnector(
+    applyConnector(
       buildConnectorGeometry(inner, xAnchor, upperCard, lowerCard, cta),
     );
-  }, []);
+  }, [applyConnector]);
 
   useLayoutEffect(() => {
+    // Перший замір синхронний: інакше перший кадр малюється без ліній
     updateConnector();
 
     const inner = innerRef.current;
     if (!inner) return undefined;
 
-    const observer = new ResizeObserver(updateConnector);
+    let cancelled = false;
+    const refresh = () => {
+      if (!cancelled) updateConnector();
+    };
+
+    const observer = new ResizeObserver(refresh);
     observer.observe(inner);
     if (xAnchorRef.current) observer.observe(xAnchorRef.current);
     if (upperCardRef.current) observer.observe(upperCardRef.current);
     if (lowerCardRef.current) observer.observe(lowerCardRef.current);
     if (ctaRef.current) observer.observe(ctaRef.current);
 
-    window.addEventListener("resize", updateConnector);
-    document.fonts?.ready.then(updateConnector).catch(() => {});
+    window.addEventListener("resize", refresh);
+    // Шрифт міняє ширину карток, а з нею й геометрію ліній
+    document.fonts?.ready.then(refresh).catch(() => {});
 
     return () => {
+      cancelled = true;
       observer.disconnect();
-      window.removeEventListener("resize", updateConnector);
+      window.removeEventListener("resize", refresh);
     };
   }, [updateConnector, copy.cardLeft, copy.cardRight]);
 
@@ -209,7 +192,10 @@ export const ExportMap = () => {
       const lowerCard = lowerCardRef.current;
       const cta = ctaRef.current;
 
-      if (!section || !upperCard || !lowerCard || !cta) return undefined;
+      if (!section || !upperCard || !lowerCard) return undefined;
+
+      // Кнопки може не бути: коли в локалі немає адреси, ми її не рендеримо
+      const fadeTargets = [upperCard, lowerCard, cta].filter(Boolean);
 
       const mm = gsap.matchMedia();
 
@@ -226,7 +212,7 @@ export const ExportMap = () => {
           const lenTertiary = prepareStrokePath(pathTertiary);
 
           gsap.set([upperCard, lowerCard], { autoAlpha: 0.14 });
-          gsap.set(cta, { autoAlpha: 0, y: 14 });
+          if (cta) gsap.set(cta, { autoAlpha: 0, y: 14 });
           if (dash) gsap.set(dash, { autoAlpha: 0 });
 
           const tl = gsap.timeline({
@@ -277,11 +263,13 @@ export const ExportMap = () => {
             });
           }
 
-          tl.to(
-            cta,
-            { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
-            "-=0.12",
-          );
+          if (cta) {
+            tl.to(
+              cta,
+              { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
+              "-=0.12",
+            );
+          }
 
           return () => {
             tl.scrollTrigger?.kill();
@@ -293,7 +281,7 @@ export const ExportMap = () => {
       mm.add(
         "(max-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
-          gsap.set([upperCard, lowerCard, cta], { autoAlpha: 0, y: 18 });
+          gsap.set(fadeTargets, { autoAlpha: 0, y: 18 });
 
           const tl = gsap.timeline({
             scrollTrigger: {
@@ -313,12 +301,15 @@ export const ExportMap = () => {
               lowerCard,
               { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
               "-=0.28",
-            )
-            .to(
+            );
+
+          if (cta) {
+            tl.to(
               cta,
               { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" },
               "-=0.22",
             );
+          }
 
           return () => {
             tl.scrollTrigger?.kill();
@@ -328,7 +319,7 @@ export const ExportMap = () => {
       );
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([upperCard, lowerCard, cta], { autoAlpha: 1, y: 0 });
+        gsap.set(fadeTargets, { autoAlpha: 1, y: 0 });
 
         [pathPrimaryRef, pathSecondaryRef, pathTertiaryRef].forEach((ref) => {
           if (ref.current) {
@@ -424,8 +415,18 @@ export const ExportMap = () => {
           </article>
         </div>
 
+        {/*
+          Раніше тут стояло href="#": клік нічого не робив, тільно кидав
+          сторінку вгору. Окремої сторінки мапи експорту немає, тому кнопка
+          веде туди ж, куди й решта заявок на сайті — у тест «Долучитися»,
+          який виводить на потрібну асоціацію.
+        */}
         <div ref={ctaRef} className="export-map__cta-wrap">
-          <Button href={copy.ctaHref} variant="primary" className="export-map__cta">
+          <Button
+            onClick={openJoinQuiz}
+            variant="primary"
+            className="export-map__cta"
+          >
             {copy.cta}
           </Button>
         </div>

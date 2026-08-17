@@ -38,7 +38,7 @@ export const MediaNews = () => {
   const filters = useMemo(() => {
     const labels = t("mediaNews.filters");
     return FILTER_IDS.map((id) => ({ id, label: labels[id] }));
-  }, [t, language]);
+  }, [t]);
 
   const filteredNews = useMemo(() => {
     if (activeFilter === "all") return cards;

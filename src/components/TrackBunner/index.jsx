@@ -1,47 +1,45 @@
 import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "../../animation/gsapSetup";
+import { useLanguage } from "../../i18n/LanguageContext";
 import zel from "../../assets/zel.png";
 import pynkt from "../../assets/pynkt.png";
 import zbroya from "../../assets/zbroya.png";
 import "./style.css";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
+/*
+ * Підписи до слайдів беруться з локалі (track.bunner.slides) за id: раніше
+ * і alt, і aria-label секції були зашиті українською, тому в англійській
+ * версії скринрідер читав український текст.
+ */
 const SLIDES = [
   {
     id: "zel-left",
     src: zel,
-    alt: "Міжнародна оборонна виставка — учасники заходу",
     size: "sm",
     side: "left",
   },
   {
     id: "zbroya-center",
     src: zbroya,
-    alt: "ZBROYA — міжнародна оборонна виставка України",
     size: "md",
     side: "left",
   },
   {
     id: "pynkt-left",
     src: pynkt,
-    alt: "Міжнародний форум оборонної промисловості",
     size: "lg",
     side: "center",
   },
   {
     id: "zel-right",
     src: zel,
-    alt: "Зустріч делегації на міжнародному оборонному заході",
     size: "md",
     side: "right",
   },
   {
     id: "zbroya-right",
     src: zbroya,
-    alt: "ZBROYA — міжнародна оборонна виставка України",
     size: "sm",
     side: "right",
   },
@@ -59,6 +57,8 @@ const getSlideOffset = (slide) => {
 };
 
 export const TrackBunner = () => {
+  const { t } = useLanguage();
+  const slideAlt = t("track.bunner.slides");
   const sectionRef = useRef(null);
 
   useGSAP(
@@ -157,7 +157,7 @@ export const TrackBunner = () => {
     <section
       ref={sectionRef}
       className="track-bunner"
-      aria-label="Галерея міжнародних подій"
+      aria-label={t("track.bunner.sectionLabel")}
     >
       <div className="track-bunner__inner">
         <div className="track-bunner__rail" aria-hidden="true" />
@@ -171,7 +171,11 @@ export const TrackBunner = () => {
               className={`track-bunner__slide track-bunner__slide--${slide.size}`}
             >
               <div className="track-bunner__frame">
-                <img src={slide.src} alt={slide.alt} loading="lazy" />
+                <img
+                  src={slide.src}
+                  alt={slideAlt[slide.id] ?? ""}
+                  loading="lazy"
+                />
               </div>
             </li>
           ))}
