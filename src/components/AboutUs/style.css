@@ -477,6 +477,25 @@ section.about-us {
   color: #000000;
 }
 
+/*
+ * Поява супутників із розмиття: у макеті на середніх кадрах вони саме нечіткі
+ * й доводяться до різкості разом із рухом.
+ */
+/*
+ * Обов'язково `section.about-us`, а не просто `.about-us`: на головній секцію
+ * обгортає <div class="about-us">, і той div ніколи не отримує --expanded.
+ * Без уточнення тегу селектор :not() завжди спрацьовував на обгортці, і
+ * розмиття не знімалось ніколи.
+ */
+section.about-us:not(.about-us--expanded) .about-us__card--satellite {
+  filter: blur(7px);
+}
+
+.about-us--expanded .about-us__card--satellite {
+  filter: blur(0px);
+  transition: filter 0.6s ease;
+}
+
 .about-us__card--top-left {
   top: -55%;
   left: 5%;
@@ -513,11 +532,17 @@ section.about-us {
   transform: none;
 }
 
+/*
+ * Тут була помилка: `top: 20%` одразу перебивався другим `top: auto`, а `bottom`
+ * не задавався взагалі. Через це права картка не мала вертикальної прив'язки й
+ * ставала туди, куди випадала в потоці, — вище за головну, хоча в макеті вона
+ * збоку й трохи нижче.
+ */
 .about-us__card--bottom-right {
-  top: 20%;
+  top: auto;
+  bottom: 12%;
   right: 0;
   width: 285px;
-  top: auto;
   background: rgba(90, 90, 90, 0.14);
 }
 
