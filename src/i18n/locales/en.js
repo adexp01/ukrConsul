@@ -158,13 +158,8 @@ export const en = {
   },
   joinPage: {
     eyebrow: "Get involved",
-    title: [
-      "JOIN THE LARGEST",
-      "COMMUNITY OF UKRAINE'S",
-      "DEFENCE INDUSTRY",
-    ],
-    text:
-      "The Ukrainian Council of Defence Industry unites associations, manufacturers, investors, educational initiatives and partners working on the development of Ukraine's defence industry.",
+    title: ["JOIN THE LARGEST", "COMMUNITY OF UKRAINE'S", "DEFENCE INDUSTRY"],
+    text: "The Ukrainian Council of Defence Industry unites associations, manufacturers, investors, educational initiatives and partners working on the development of Ukraine's defence industry.",
     primaryCta: "Submit an application",
     secondaryCta: "Contact the team",
     email: "official@ucdi.org.ua",
@@ -221,13 +216,11 @@ export const en = {
         "strengthening",
         "Ukraine's defence industry",
       ],
-      text:
-        "If your organisation works in defence manufacturing, technology, investment, training, exports or sector support, submit an application. We will help define the participation format that best matches your profile.",
+      text: "If your organisation works in defence manufacturing, technology, investment, training, exports or sector support, submit an application. We will help define the participation format that best matches your profile.",
     },
     format: {
       title: "Define your format of participation",
-      text:
-        "If you are a manufacturer, technology team, UAV school, investor or service company, you can join the Council through one of the associations or structures that are already part of it. The Council team will help determine which participation format best matches your profile and area of work.",
+      text: "If you are a manufacturer, technology team, UAV school, investor or service company, you can join the Council through one of the associations or structures that are already part of it. The Council team will help determine which participation format best matches your profile and area of work.",
     },
     participationFormats: {
       ariaLabel: "Participation formats in the Council",
@@ -238,8 +231,7 @@ export const en = {
         {
           title: "I represent a defence manufacturer",
           form: "manufacturers",
-          text:
-            "You can join through one of the specialised associations that are part of the Council of Defence Industry, or contact the Council team to determine the right participation track.",
+          text: "You can join through one of the specialised associations that are part of the Council of Defence Industry, or contact the Council team to determine the right participation track.",
           benefits: [
             "access to a professional community of manufacturers;",
             "participation in joint advocacy for defence industry decisions;",
@@ -250,8 +242,7 @@ export const en = {
         {
           title: "I represent an industry association",
           form: "manufacturers",
-          text:
-            "Associations can join the Council's shared work, represent the position of their members and strengthen coordination across the defence industry.",
+          text: "Associations can join the Council's shared work, represent the position of their members and strengthen coordination across the defence industry.",
           benefits: [
             "joint representation of association members' interests;",
             "coordination with adjacent defence industry areas;",
@@ -262,8 +253,7 @@ export const en = {
         {
           title: "I represent an investor or fund",
           form: "investor",
-          text:
-            "Investors and funds can work with the Council to find relevant teams, understand industry needs and develop partnerships with Ukraine's defence industry.",
+          text: "Investors and funds can work with the Council to find relevant teams, understand industry needs and develop partnerships with Ukraine's defence industry.",
           benefits: [
             "introductions to verified teams and manufacturers;",
             "understanding of current needs and sector development areas;",
@@ -274,8 +264,7 @@ export const en = {
         {
           title: "I represent a UAV school or educational initiative",
           form: "manufacturers",
-          text:
-            "Educational teams can join the Council ecosystem to strengthen training for specialists, operators and technical teams working with defence technologies.",
+          text: "Educational teams can join the Council ecosystem to strengthen training for specialists, operators and technical teams working with defence technologies.",
           benefits: [
             "cooperation with manufacturers and technology communities;",
             "participation in specialised educational and practical initiatives;",
@@ -286,8 +275,7 @@ export const en = {
         {
           title: "I represent a partner",
           form: "international",
-          text:
-            "Service companies, international organisations and expert teams can propose partnerships that support Ukrainian manufacturers and develop the defence ecosystem.",
+          text: "Service companies, international organisations and expert teams can propose partnerships that support Ukrainian manufacturers and develop the defence ecosystem.",
           benefits: [
             "opportunities to offer useful services to Council members;",
             "participation in joint events, programmes and communications formats;",
@@ -304,32 +292,27 @@ export const en = {
         {
           shortTitle: "You submit an application",
           title: "You submit an application",
-          text:
-            "Fill out the website form and briefly describe your organisation, area of work and expected participation format.",
+          text: "Fill out the website form and briefly describe your organisation, area of work and expected participation format.",
         },
         {
           shortTitle: "The Council team reviews the request",
           title: "The Council team reviews the request",
-          text:
-            "We review the information, identify the relevant direction and, if needed, clarify the details of your request.",
+          text: "We review the information, identify the relevant direction and, if needed, clarify the details of your request.",
         },
         {
           shortTitle: "We define the participation format",
           title: "We define the participation format",
-          text:
-            "Together we choose which association, community or partnership format is the best fit for joining the Council ecosystem.",
+          text: "Together we choose which association, community or partnership format is the best fit for joining the Council ecosystem.",
         },
         {
           shortTitle: "We align next steps",
           title: "We align next steps",
-          text:
-            "After the format is agreed, the Council team shares the next actions, contacts and practical materials to start cooperation.",
+          text: "After the format is agreed, the Council team shares the next actions, contacts and practical materials to start cooperation.",
         },
         {
           shortTitle: "You join the community",
           title: ["YOU JOIN", "THE COMMUNITY'S", "WORK"],
-          text:
-            "After completing the formal steps and paying the membership fee, the organisation joins the relevant Council ecosystem direction and gains access to the internal app, events, working groups, consultation formats and community projects.",
+          text: "After completing the formal steps and paying the membership fee, the organisation joins the relevant Council ecosystem direction and gains access to the internal app, events, working groups, consultation formats and community projects.",
         },
       ],
     },
@@ -344,38 +327,32 @@ export const en = {
       items: [
         {
           title: "Defence Alliance of Ukraine",
-          text:
-            "A community working to develop a competitive Ukrainian defence industry for the Defence Forces of Ukraine. The Alliance unites industry and state efforts, supports long-term sector development, innovation, public-private partnership and international capital engagement.",
+          text: "A community working to develop a competitive Ukrainian defence industry for the Defence Forces of Ukraine. The Alliance unites industry and state efforts, supports long-term sector development, innovation, public-private partnership and international capital engagement.",
           href: "https://defencealliance.org.ua/",
         },
         {
           title: "League of Defence Companies of Ukraine",
-          text:
-            "An association of Ukrainian private manufacturers of weapons and military equipment. The League represents domestic producers, supports the development of the defence-industrial complex and helps improve conditions for the industry.",
+          text: "An association of Ukrainian private manufacturers of weapons and military equipment. The League represents domestic producers, supports the development of the defence-industrial complex and helps improve conditions for the industry.",
           href: "https://www.ldc.org.ua/",
         },
         {
           title: "Radioelectronic Alliance of Ukraine",
-          text:
-            "An association of EW and electronic intelligence manufacturers created to develop Ukraine's radioelectronic sector. The community represents manufacturers, strengthens coordination and works on solutions critical for modern warfare.",
+          text: "An association of EW and electronic intelligence manufacturers created to develop Ukraine's radioelectronic sector. The community represents manufacturers, strengthens coordination and works on solutions critical for modern warfare.",
           href: "https://www.facebook.com/Rad.Alliance.Ukraine/",
         },
         {
           title: "Ukrainian Robotic Forces",
-          text:
-            "A community of teams and manufacturers developing robotic defence solutions, supporting cooperation between developers and helping scale practical technologies for the frontline.",
+          text: "A community of teams and manufacturers developing robotic defence solutions, supporting cooperation between developers and helping scale practical technologies for the frontline.",
           href: "https://www.facebook.com/ukrainianroboticsforces/?locale=uk_UA",
         },
         {
           title: "Techosystem Defense",
-          text:
-            "An association of defence technology companies working on innovation, government engagement and conditions for scaling Ukrainian defence tech solutions.",
+          text: "An association of defence technology companies working on innovation, government engagement and conditions for scaling Ukrainian defence tech solutions.",
           href: "https://techosystem.org/",
         },
         {
           title: 'Association of Unmanned Systems Manufacturers "Armada"',
-          text:
-            "A professional association of unmanned systems manufacturers representing the industry, supporting producer coordination and developing Ukrainian unmanned solutions.",
+          text: "A professional association of unmanned systems manufacturers representing the industry, supporting producer coordination and developing Ukrainian unmanned solutions.",
           href: "https://www.armada.net.ua/",
         },
       ],
@@ -383,7 +360,7 @@ export const en = {
   },
   gallery: {
     heading: ["Our projects and", "products in the ", "DEFENCE", "industry"],
-    discover: "Learn more about the project",
+    discover: "More about the project",
     sectionLabel: "Projects gallery",
     slidesLabel: "Gallery slides",
     slideLabel: "Slide",
@@ -393,96 +370,46 @@ export const en = {
     slides: [
       {
         title: "ZBROYA EXPO",
+        href: "",
         description:
           "We ensure a systematic presence of Ukrainian defence manufacturers at key international exhibitions under the ZBROYA brand. We coordinate company participation, organize booths, and support exhibitions at all stages. ",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
       {
         title: "EXPORT MAP",
+        href: "/article/ukrainian-council-of-defence-industry-unveils-the-first-export-map",
         description:
           "A practical roadmap for Ukrainian defence manufacturers, explaining how to enter foreign markets. The outlined routes break down the process into clear steps: where to start, what documents to prepare, how to navigate licensing procedures, and more.",
-        descriptionLines: [
-          "A practical roadmap for Ukrainian",
-          "arms manufacturers explaining how to",
-          "enter foreign markets.",
-          "The outlined routes break the process",
-          "into clear steps: where to start,",
-          "which documents to prepare, and more.",
-          "More details – https://export.ucdi.org.ua/",
-        ],
       },
       {
         title: "AMONG ARMORERS",
+        href: "",
         description:
           "A series of closed professional meetings to establish cooperation between arms manufacturers, government bodies, and financial institutions.",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
       {
         title: "BUILD WITH UKRAINE",
+        href: "/article/three-different-models-of-cooperation-with-ukraines-defence-industry",
         description:
           "We support manufacturers in entering international markets through a joint venture model with partners abroad. We help launch cooperation, integrate Ukrainian technologies into global supply chains, and scale production while maintaining key competencies within Ukraine.",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
       {
         title: "DEALBOOK",
+        href: "/article/a565336f-5e51-4c26-92ed-ce172dc880df",
         description:
           "The first analytical product of the UCDI Investor Club, which systematizes public and verified market data on deals, investors, verticals, and funding stages for 2023–2025.",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
       {
         title: "WHITE PAPER OF CHANGES IN THE DEFENCE INDUSTRY ",
+        href: "",
         titleLines: ["WHITE PAPER OF CHANGE", "IN DI"],
         description:
           "An analytical document that systematizes key decisions of 2025, current priorities for early 2026, and systemic barriers affecting the operations of Ukrainian defence industry manufacturers.",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
       {
         title: "DRONE AND CYBER COMPETITIONS ",
+        href: "",
         description:
           "Together with our partners, the Ukrainian Technological Sports Federation, we are forming a national team and organizing regional and national tournaments. We are introducing a new, officially recognized sport at the intersection of technology, education, and innovation.",
-        descriptionLines: [
-          "We ensure the systematic presence",
-          "of Ukrainian defence manufacturers at key",
-          "international exhibitions under the ZBROYA brand.",
-          "We coordinate company participation,",
-          "organize stands, and support",
-          "expositions at every stage.",
-        ],
       },
     ],
   },
@@ -1026,8 +953,16 @@ export const en = {
               },
             ],
           },
-          { id: "future", title: "The future of the industry", description: [] },
-          { id: "resilience", title: "Security and resilience", description: [] },
+          {
+            id: "future",
+            title: "The future of the industry",
+            description: [],
+          },
+          {
+            id: "resilience",
+            title: "Security and resilience",
+            description: [],
+          },
         ],
       },
       formats: {
@@ -1329,91 +1264,91 @@ export const en = {
       title: "TEAM",
       imagePlaceholder: "image",
       rows: [
-      {
-        id: "management",
-        members: [
-          {
-            id: "fedirko",
-            name: "IHOR FEDIRKO",
-            role: "Executive Director",
-          },
-          {
-            id: "popova",
-            name: "MARIIA POPOVA",
-            role: "Chief Operating Officer",
-          },
-          {
-            id: "shamota",
-            name: "MARIIA SHAMOTA",
-            role: "Deputy for industry engagement",
-          },
-          {
-            id: "svynchuk",
-            name: "ROKSOLANA SVYNCHUK",
-            role: "Deputy for international affairs",
-          },
-          {
-            id: "shvets",
-            name: "OLENA SHVETS",
-            role: "Head of partnerships",
-          },
-          {
-            id: "tabur",
-            name: "ANTON TABUR",
-            role: "Head of international partnerships",
-          },
-        ],
-      },
-      {
-        id: "communications",
-        members: [
-          {
-            id: "poladova",
-            name: "DIANA POLADOVA",
-            role: "PR manager",
-          },
-          {
-            id: "golumbiovska",
-            name: "ANASTASIIA HOLUMBIOVSKA",
-            role: "Head of communications",
-          },
-          {
-            id: "motrechko",
-            name: "BOHDANA MOTRECHKO",
-            role: "Head of national events",
-          },
-        ],
-      },
-      {
-        id: "industry",
-        members: [
-          {
-            id: "vedrovska",
-            name: "VALENTYNA VEDROVSKA",
-            role: "Head of government relations",
-          },
-          {
-            id: "borovyk",
-            name: "DARIA BOROVYK",
-            role: "Industry engagement coordinator",
-          },
-          {
-            id: "demchuk",
-            name: "DMYTRO DEMCHUK",
-            role: "Head of military engagement",
-          },
-          {
-            id: "yaremenko",
-            name: "ANDRII YAREMENKO",
-            role: "Development programme manager",
-          },
-          {
-            id: "milyutin",
-            name: "VITALII MILYUTIN",
-            role: "Advisor for manufacturer engagement",
-          },
-        ],
-      },
+        {
+          id: "management",
+          members: [
+            {
+              id: "fedirko",
+              name: "IHOR FEDIRKO",
+              role: "Executive Director",
+            },
+            {
+              id: "popova",
+              name: "MARIIA POPOVA",
+              role: "Chief Operating Officer",
+            },
+            {
+              id: "shamota",
+              name: "MARIIA SHAMOTA",
+              role: "Deputy for industry engagement",
+            },
+            {
+              id: "svynchuk",
+              name: "ROKSOLANA SVYNCHUK",
+              role: "Deputy for international affairs",
+            },
+            {
+              id: "shvets",
+              name: "OLENA SHVETS",
+              role: "Head of partnerships",
+            },
+            {
+              id: "tabur",
+              name: "ANTON TABUR",
+              role: "Head of international partnerships",
+            },
+          ],
+        },
+        {
+          id: "communications",
+          members: [
+            {
+              id: "poladova",
+              name: "DIANA POLADOVA",
+              role: "PR manager",
+            },
+            {
+              id: "golumbiovska",
+              name: "ANASTASIIA HOLUMBIOVSKA",
+              role: "Head of communications",
+            },
+            {
+              id: "motrechko",
+              name: "BOHDANA MOTRECHKO",
+              role: "Head of national events",
+            },
+          ],
+        },
+        {
+          id: "industry",
+          members: [
+            {
+              id: "vedrovska",
+              name: "VALENTYNA VEDROVSKA",
+              role: "Head of government relations",
+            },
+            {
+              id: "borovyk",
+              name: "DARIA BOROVYK",
+              role: "Industry engagement coordinator",
+            },
+            {
+              id: "demchuk",
+              name: "DMYTRO DEMCHUK",
+              role: "Head of military engagement",
+            },
+            {
+              id: "yaremenko",
+              name: "ANDRII YAREMENKO",
+              role: "Development programme manager",
+            },
+            {
+              id: "milyutin",
+              name: "VITALII MILYUTIN",
+              role: "Advisor for manufacturer engagement",
+            },
+          ],
+        },
       ],
     },
     communities: {
