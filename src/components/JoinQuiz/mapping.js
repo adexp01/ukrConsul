@@ -113,3 +113,13 @@ export const resolveFormHref = (resultId, language) => {
 
 export const resolveEmail = (resultId) =>
   (RESULT_TARGETS[resultId] ?? RESULT_TARGETS[FALLBACK_RESULT]).email;
+
+/**
+ * Пряме посилання на форму за її ключем — для блоків, де тест не потрібен
+ * і людина вже сама сказала, хто вона (наприклад «Формати участі»).
+ */
+export const resolveFormByKey = (formKey, language) => {
+  const form = FORMS[formKey] ?? FORMS.manufacturers;
+  if (typeof form === "string") return form;
+  return form[language] ?? form.uk;
+};

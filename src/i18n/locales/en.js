@@ -219,10 +219,11 @@ export const en = {
       ariaLabel: "Participation formats in the Council",
       benefitsTitle: "What participation provides:",
       partnerCta: "Propose a partnership",
-      partnerHref: "mailto:official@ucdi.org.ua",
+      partnerForm: "international",
       items: [
         {
           title: "I represent a defence manufacturer",
+          form: "manufacturers",
           text:
             "You can join through one of the specialised associations that are part of the Council of Defence Industry, or contact the Council team to determine the right participation track.",
           benefits: [
@@ -234,6 +235,7 @@ export const en = {
         },
         {
           title: "I represent an industry association",
+          form: "manufacturers",
           text:
             "Associations can join the Council's shared work, represent the position of their members and strengthen coordination across the defence industry.",
           benefits: [
@@ -245,6 +247,7 @@ export const en = {
         },
         {
           title: "I represent an investor or fund",
+          form: "investor",
           text:
             "Investors and funds can work with the Council to find relevant teams, understand industry needs and develop partnerships with Ukraine's defence industry.",
           benefits: [
@@ -256,6 +259,7 @@ export const en = {
         },
         {
           title: "I represent a UAV school or educational initiative",
+          form: "manufacturers",
           text:
             "Educational teams can join the Council ecosystem to strengthen training for specialists, operators and technical teams working with defence technologies.",
           benefits: [
@@ -267,6 +271,7 @@ export const en = {
         },
         {
           title: "I represent a partner",
+          form: "international",
           text:
             "Service companies, international organisations and expert teams can propose partnerships that support Ukrainian manufacturers and develop the defence ecosystem.",
           benefits: [
@@ -1195,8 +1200,8 @@ export const en = {
       intro:
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
-      focusLabel: "Focus",
-      focusCta: "About focus",
+      focusLabel: "Association",
+      focusCta: "About the association",
       focusMember: {
         id: "kamyshin",
         name: "Oleksandr Kamyshin",

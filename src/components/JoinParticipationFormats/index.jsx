@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
+import { resolveFormByKey } from "../JoinQuiz/mapping";
 import "./style.css";
 
 export const JoinParticipationFormats = () => {
-  const { openJoinQuiz } = useJoinQuiz();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const joinCopy = t("joinPage");
   const copy = t("joinPage.participationFormats");
   const items = copy.items ?? [];
@@ -70,7 +69,9 @@ export const JoinParticipationFormats = () => {
                     </ul>
 
                     <Button
-                      onClick={openJoinQuiz}
+                      href={resolveFormByKey(item.form, language)}
+                      target="_blank"
+                      rel="noreferrer"
                       className="join-participation-card__cta"
                     >
                       {joinCopy.primaryCta}
@@ -83,7 +84,12 @@ export const JoinParticipationFormats = () => {
         </div>
 
         <div className="join-participation__footer">
-          <Button onClick={openJoinQuiz} variant="dark">
+          <Button
+            href={resolveFormByKey(copy.partnerForm, language)}
+            target="_blank"
+            rel="noreferrer"
+            variant="dark"
+          >
             {copy.partnerCta}
           </Button>
         </div>
