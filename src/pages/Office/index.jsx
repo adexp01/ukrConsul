@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Articles } from "../../components/Articles";
 import { Clock } from "../../components/Clock";
 import { ExportMap } from "../../components/ExportMap";
@@ -26,38 +28,113 @@ import b14 from "../../assets/b14.png";
 import b15 from "../../assets/b15.png";
 import b16 from "../../assets/b16.png";
 
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 export const OfficePage = () => {
   const { t } = useLanguage();
   const heroCopy = t("office.hero");
   const tabs = heroCopy.tabs;
   const [activeTabId, setActiveTabId] = useState("export");
+  // Підсвітка в смужці перемикається одразу, контент — після скролу
+  const [selectedTabId, setSelectedTabId] = useState("export");
   const tabsRef = useRef(null);
-  const isFirstRender = useRef(true);
+  const scrollTweenRef = useRef(null);
+  const needsFinalNudgeRef = useRef(false);
+
+  /*
+   * Ривок був не в анімації скролу, а в самій підміні контенту: секції
+   * попередньої вкладки мають пін (циферблат) і власну висоту, і коли вони
+   * зникають, ScrollTrigger сам переставляє позицію скролу на еквівалентну
+   * в новій розкладці — миттєво, і жодна наша анімація цього не переб'є.
+   *
+   * Тому порядок зворотний: спершу плавно піднімаємось до смужки табів, і
+   * тільки після цього міняємо контент. Якщо смужку вже видно — міняємо
+   * одразу, нічого не рухаючи.
+   */
+  const handleTabClick = (id) => {
+    if (id === selectedTabId) return;
+
+    setSelectedTabId(id);
+
+    const strip = tabsRef.current;
+    const rect = strip?.getBoundingClientRect();
+    const isStripVisible =
+      rect && rect.top >= 0 && rect.bottom <= window.innerHeight;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!rect || isStripVisible) {
+      setActiveTabId(id);
+      return;
+    }
+
+    const target = Math.max(0, rect.top + window.scrollY - 24);
+
+    if (prefersReducedMotion) {
+      window.scrollTo(0, target);
+      setActiveTabId(id);
+      return;
+    }
+
+    scrollTweenRef.current?.kill();
+    scrollTweenRef.current = gsap.to(window, {
+      scrollTo: { y: target, autoKill: false },
+      duration: 0.6,
+      ease: "power2.inOut",
+      overwrite: true,
+      onComplete: () => {
+        needsFinalNudgeRef.current = true;
+        setActiveTabId(id);
+      },
+    });
+  };
+
+  useEffect(() => () => scrollTweenRef.current?.kill(), []);
 
   /*
    * Вкладки підмінюють цілі секції, а разом з ними — висоту сторінки.
    * ScrollTrigger рахує свої позиції один раз при монтуванні, тож без
    * перерахунку анімації нижніх блоків (циферблат, фокус роботи) лишались
    * у стартовому стані: заголовки з autoAlpha 0 так і не проявлялись.
+   *
+   * Тут же добираємо залишок скролу: поки ми їхали вгору, пін циферблата
+   * відпустився й розкладка трохи змістилась, тож смужка табів може стати
+   * на кілька сотень пікселів вище, ніж була на початку руху.
    */
   useLayoutEffect(() => {
-    const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
-    return () => cancelAnimationFrame(frame);
-  }, [activeTabId]);
+    let nudge = 0;
 
-  // Перемкнули вкладку — повертаємось до її початку, а не лишаємось
-  // на висоті скролу попередньої
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    const frame = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
 
-    const tabs = tabsRef.current;
-    if (!tabs) return;
+      if (!needsFinalNudgeRef.current) return;
+      needsFinalNudgeRef.current = false;
 
-    const top = tabs.getBoundingClientRect().top + window.scrollY - 24;
-    window.scrollTo({ top, behavior: "instant" });
+      nudge = requestAnimationFrame(() => {
+        const strip = tabsRef.current;
+        if (!strip) return;
+
+        const rect = strip.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) return;
+
+        scrollTweenRef.current?.kill();
+        scrollTweenRef.current = gsap.to(window, {
+          scrollTo: {
+            y: Math.max(0, rect.top + window.scrollY - 24),
+            autoKill: false,
+          },
+          duration: 0.3,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      if (nudge) cancelAnimationFrame(nudge);
+    };
   }, [activeTabId]);
 
   // Картинки вантажаться після монтування й зсувають усе нижче за собою
@@ -145,10 +222,10 @@ export const OfficePage = () => {
                 key={tab.id}
                 type="button"
                 className={`office-hero__tab${
-                  activeTabId === tab.id ? " is-active" : ""
+                  selectedTabId === tab.id ? " is-active" : ""
                 }`}
-                aria-selected={activeTabId === tab.id}
-                onClick={() => setActiveTabId(tab.id)}
+                aria-selected={selectedTabId === tab.id}
+                onClick={() => handleTabClick(tab.id)}
               >
                 {tab.label}
               </button>
@@ -156,83 +233,91 @@ export const OfficePage = () => {
           </nav>
         </section>
 
-        {isGrTab ? (
-          <>
-            <OfficeWorkFocus />
-            <OfficeDecisions />
-            <OfficeWhiteBook />
-            <OfficeGrMeetups />
-            <Articles />
-          </>
-        ) : isExportTab ? (
-          <>
-            {exportIntro ? (
-              <section
-                className="office-tab-intro"
-                aria-labelledby="office-export-intro-title"
-              >
-                <h2 id="office-export-intro-title" className="office-tab-intro__title">
-                  {exportIntro.title.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </h2>
-                <p className="office-tab-intro__text">{exportIntro.description}</p>
-              </section>
-            ) : null}
-            <ExportMap />
-            <OfficeServices />
-            <Clock />
-            <Articles />
-          </>
-        ) : isInternationalTab ? (
-          <TrackContent />
-        ) : isExhibitionTab ? (
-          <>
-            <OfficeIntro
-              titleId="office-exhibition-title"
-              title={exhibition.title}
-              accentText={exhibition.accentText}
-              cardTitle={exhibition.cardTitle}
-              cardText={exhibition.cardText}
-            />
-            <OfficeStatement
-              titleId="office-exhibition-statement"
-              lines={exhibition.statement}
-              columns={exhibition.statementColumns}
-            />
-            <OfficeExpositions copy={exhibition.expositions} />
-            <Info
-              contentKey="office.exhibition"
-              showOrgs={false}
-              ctaTitleId="office-exhibition-cta"
-              applyHref={exhibition.applyHref}
-            />
-          </>
-        ) : isPartnershipTab ? (
-          <>
-            <OfficeIntro
-              titleId="office-partnership-title"
-              title={partnership.title}
-              accentText={partnership.accentText}
-              cardText={partnership.cardText}
-              ctaLabel={partnership.cta}
-              ctaHref={partnership.ctaHref}
-            />
-            <OfficePartnerPrograms copy={partnership.programs} />
-            <OfficePartnerFormats copy={partnership.formats} />
-            <Parnters
-              titleKey="office.partnership.partners.title"
-              description={partnership.partners.description}
-            />
-            <Articles />
-          </>
-        ) : (
-          <section className="office-empty-tab" aria-live="polite">
-            <p>
-              {t("office.hero.emptyTab")} {activeTab?.label}
-            </p>
-          </section>
-        )}
+        {/* key на контейнері перезапускає плавну появу при зміні вкладки */}
+        <div className="office-page__panel" key={activeTabId}>
+          {isGrTab ? (
+            <>
+              <OfficeWorkFocus />
+              <OfficeDecisions />
+              <OfficeWhiteBook />
+              <OfficeGrMeetups />
+              <Articles />
+            </>
+          ) : isExportTab ? (
+            <>
+              {exportIntro ? (
+                <section
+                  className="office-tab-intro"
+                  aria-labelledby="office-export-intro-title"
+                >
+                  <h2
+                    id="office-export-intro-title"
+                    className="office-tab-intro__title"
+                  >
+                    {exportIntro.title.map((line) => (
+                      <span key={line}>{line}</span>
+                    ))}
+                  </h2>
+                  <p className="office-tab-intro__text">
+                    {exportIntro.description}
+                  </p>
+                </section>
+              ) : null}
+              <ExportMap />
+              <OfficeServices />
+              <Clock />
+              <Articles />
+            </>
+          ) : isInternationalTab ? (
+            <TrackContent />
+          ) : isExhibitionTab ? (
+            <>
+              <OfficeIntro
+                titleId="office-exhibition-title"
+                title={exhibition.title}
+                accentText={exhibition.accentText}
+                cardTitle={exhibition.cardTitle}
+                cardText={exhibition.cardText}
+              />
+              <OfficeStatement
+                titleId="office-exhibition-statement"
+                lines={exhibition.statement}
+                columns={exhibition.statementColumns}
+              />
+              <OfficeExpositions copy={exhibition.expositions} />
+              <Info
+                contentKey="office.exhibition"
+                showOrgs={false}
+                ctaTitleId="office-exhibition-cta"
+                applyHref={exhibition.applyHref}
+              />
+            </>
+          ) : isPartnershipTab ? (
+            <>
+              <OfficeIntro
+                titleId="office-partnership-title"
+                title={partnership.title}
+                accentText={partnership.accentText}
+                cardText={partnership.cardText}
+                ctaLabel={partnership.cta}
+                ctaHref={partnership.ctaHref}
+              />
+              <OfficePartnerPrograms copy={partnership.programs} />
+              <OfficePartnerFormats copy={partnership.formats} />
+              <Parnters
+                titleKey="office.partnership.partners.title"
+                description={partnership.partners.description}
+              />
+              <Articles />
+            </>
+          ) : (
+            <section className="office-empty-tab" aria-live="polite">
+              <p>
+                {t("office.hero.emptyTab")} {activeTab?.label}
+              </p>
+            </section>
+          )}
+        </div>
       </div>
     </PageLayout>
   );

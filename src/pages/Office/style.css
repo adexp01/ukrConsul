@@ -42,6 +42,26 @@
   background-color: #000;
 }
 
+/* Плавна поява контенту вкладки замість миттєвої підміни */
+.office-page__panel {
+  animation: office-panel-in 0.42s ease-out both;
+}
+
+@keyframes office-panel-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .office-page__panel {
+    animation: none;
+  }
+}
+
 .office-hero {
   position: relative;
   z-index: 1;
