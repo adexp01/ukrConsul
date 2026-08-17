@@ -27,44 +27,47 @@ export const JoinProcess = () => {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 761px) and (prefers-reduced-motion: no-preference)", () => {
-        const getTravelDistance = () =>
-          Math.max(0, track.scrollWidth - window.innerWidth + 160);
+      mm.add(
+        "(min-width: 761px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const getTravelDistance = () =>
+            Math.max(0, track.scrollWidth - window.innerWidth + 160);
 
-        gsap.set(track, { x: 0 });
+          gsap.set(track, { x: 0 });
 
-        const tween = gsap.to(track, {
-          x: () => -getTravelDistance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: () => `+=${window.innerHeight * (steps.length - 1)}`,
-            scrub: 0.45,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const nextProgress = self.progress;
-              const nextIndex = Math.min(
-                steps.length - 1,
-                Math.round(nextProgress * (steps.length - 1)),
-              );
+          const tween = gsap.to(track, {
+            x: () => -getTravelDistance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: () => `+=${window.innerHeight * (steps.length - 1)}`,
+              scrub: 0.45,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                const nextProgress = self.progress;
+                const nextIndex = Math.min(
+                  steps.length - 1,
+                  Math.round(nextProgress * (steps.length - 1)),
+                );
 
-              setScrollProgress(nextProgress);
-              setActiveIndex(nextIndex);
+                setScrollProgress(nextProgress);
+                setActiveIndex(nextIndex);
+              },
             },
-          },
-        });
+          });
 
-        scrollTriggerRef.current = tween.scrollTrigger;
+          scrollTriggerRef.current = tween.scrollTrigger;
 
-        return () => {
-          scrollTriggerRef.current = null;
-          tween.scrollTrigger?.kill();
-          tween.kill();
-        };
-      });
+          return () => {
+            scrollTriggerRef.current = null;
+            tween.scrollTrigger?.kill();
+            tween.kill();
+          };
+        },
+      );
 
       return () => mm.revert();
     },
@@ -130,11 +133,17 @@ export const JoinProcess = () => {
 
           <div className="join-process__media" aria-hidden="true">
             <div className="join-process__glow" />
-            <ShieldSequence className="join-process__shield" />
+            <ShieldSequence
+              className="join-process__shield"
+              progress={scrollProgress}
+            />
           </div>
         </div>
 
-        <div className="join-process__controls" aria-label={copy.navigationLabel}>
+        <div
+          className="join-process__controls"
+          aria-label={copy.navigationLabel}
+        >
           <div className="join-process__tabs">
             {steps.map((step, index) => (
               <button

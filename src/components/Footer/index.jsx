@@ -7,6 +7,7 @@ import linkedin from "../../assets/linked.svg";
 import telegram from "../../assets/tg.svg";
 import xIcon from "../../assets/x.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
 const SOCIALS = [
@@ -38,6 +39,7 @@ const SOCIALS = [
 ];
 
 export const Footer = () => {
+  const { openJoinQuiz } = useJoinQuiz();
   const { t, localizePath, language } = useLanguage();
   const logo = language === "uk" ? logoUk : logoEn;
   const companyLinks = t("footer.companyLinks");
@@ -48,7 +50,7 @@ export const Footer = () => {
         <section className="footer__cta" aria-label="Call to action">
           <h2 className="footer__cta-title">{t("footer.ctaTitle")}</h2>
           <Button
-            href="mailto:official@ucdi.org.ua"
+            onClick={openJoinQuiz}
             variant="primary"
             className="footer__cta-button"
           >

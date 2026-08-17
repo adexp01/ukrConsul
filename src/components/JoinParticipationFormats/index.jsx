@@ -83,7 +83,7 @@ export const JoinParticipationFormats = () => {
         </div>
 
         <div className="join-participation__footer">
-          <Button href={copy.partnerHref} variant="dark">
+          <Button onClick={openJoinQuiz} variant="dark">
             {copy.partnerCta}
           </Button>
         </div>

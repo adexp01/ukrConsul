@@ -6,6 +6,7 @@ import { Button } from "../UI/Button";
 import { CenterFrame } from "./CenterFrame";
 import { SpriteCanvas } from "./SpriteCanvas";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import { useBannerTabs } from "../../i18n/useBannerTabs";
 import "./centerFrame.css";
 import "./style.css";
@@ -14,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Bunner = () => {
   const { t, language } = useLanguage();
+  const { openJoinQuiz } = useJoinQuiz();
   const { tabs, mobileTabs } = useBannerTabs();
   const textRevealRef = useRef(null);
   const TEXT_ANIMATION_DELAY_MS = 150;
@@ -175,7 +177,7 @@ export const Bunner = () => {
             ))}
           </h2>
 
-          <Button href="mailto:official@ucdi.org.ua" className="banner__cta">
+          <Button onClick={openJoinQuiz} className="banner__cta">
             {t("banner.sendRequest")}
           </Button>
         </div>

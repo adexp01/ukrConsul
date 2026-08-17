@@ -62,10 +62,26 @@ const loadPool = async (indices, frames, onFirstReady, onFrame) => {
  * Між сусідніми кадрами домальовуємо наступний з прозорістю, щоб поворот
  * не «клацав» — кадрів у дузі мало, а рух має лишитись плавним.
  */
-export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
+export const ShieldSequence = ({
+  className = "",
+  ariaHidden = true,
+  /*
+   * Якщо блок закріплений (pin) — як «Як відбувається вступ» — його рамка не
+   * рухається у вікні, тому позицію самому не порахувати. Тоді батько передає
+   * готовий прогрес 0…1 зі свого ScrollTrigger.
+   */
+  progress,
+}) => {
+  const isControlled = typeof progress === "number";
   const canvasRef = useRef(null);
   const framesRef = useRef(new Array(FRAME_COUNT).fill(null));
   const currentRef = useRef(-1);
+  const applyRef = useRef(null);
+  const controlledRef = useRef(isControlled);
+  const progressRef = useRef(isControlled ? progress : 0);
+
+  controlledRef.current = isControlled;
+  if (isControlled) progressRef.current = progress;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -76,7 +92,7 @@ export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
     let rafId = 0;
     let started = false;
     let disposed = false;
-    let progress = 0;
+    let currentProgress = controlledRef.current ? progressRef.current : 0;
 
     /** Найближчий завантажений кадр — щоб не блимати порожнечею */
     const nearestLoaded = (target) => {
@@ -90,7 +106,7 @@ export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
     };
 
     const render = () => {
-      const exact = progress * (FRAME_COUNT - 1);
+      const exact = currentProgress * (FRAME_COUNT - 1);
       if (Math.abs(currentRef.current - exact) < 0.01) return;
       currentRef.current = exact;
 
@@ -116,9 +132,17 @@ export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
       const viewport = window.innerHeight || 1;
       const raw = (viewport - rect.top) / (viewport + rect.height || 1);
 
-      progress = Math.min(1, Math.max(0, raw));
+      currentProgress = Math.min(1, Math.max(0, raw));
       render();
     };
+
+    // Керований режим: прогрес приходить іззовні
+    const applyProgress = (value) => {
+      currentProgress = Math.min(1, Math.max(0, value));
+      render();
+    };
+
+    applyRef.current = applyProgress;
 
     const onScroll = () => {
       if (rafId) return;
@@ -135,6 +159,12 @@ export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
         frames,
         () => {
           if (disposed) return;
+
+          if (controlledRef.current) {
+            applyProgress(progressRef.current);
+            return;
+          }
+
           update();
           window.addEventListener("scroll", onScroll, { passive: true });
           window.addEventListener("resize", onScroll);
@@ -162,12 +192,19 @@ export const ShieldSequence = ({ className = "", ariaHidden = true }) => {
 
     return () => {
       disposed = true;
+      applyRef.current = null;
       observer.disconnect();
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
   }, []);
+
+  // Прогрес іззовні змінився — перемальовуємо
+  useEffect(() => {
+    if (!isControlled) return;
+    applyRef.current?.(progress);
+  }, [isControlled, progress]);
 
   return (
     <canvas

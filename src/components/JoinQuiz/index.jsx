@@ -48,9 +48,17 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
     if (!isOpen) return undefined;
 
     restoreFocusRef.current = document.activeElement;
-    const { overflow, paddingRight } = document.body.style;
-    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
 
+    /*
+     * Замок ставимо і на <html>, і на <body>: у різних браузерах скрол живе на
+     * різних елементах, і одного body мало — сторінка під поп-апом їхала далі.
+     */
+    const root = document.documentElement;
+    const { overflow: bodyOverflow, paddingRight } = document.body.style;
+    const rootOverflow = root.style.overflow;
+    const scrollbar = window.innerWidth - root.clientWidth;
+
+    root.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
 
@@ -61,7 +69,8 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
 
     return () => {
       cancelAnimationFrame(frame);
-      document.body.style.overflow = overflow;
+      root.style.overflow = rootOverflow;
+      document.body.style.overflow = bodyOverflow;
       document.body.style.paddingRight = paddingRight;
       restoreFocusRef.current?.focus?.();
     };
