@@ -4,6 +4,7 @@ import logoEn from "../../assets/logo.svg";
 import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { EVENTS_ENABLED } from "../../config/features";
+import { useIsMobile } from "../../hooks/IsMobile";
 import "./style.css";
 
 // Порядок і склад — як у дизайні шапки.
@@ -18,6 +19,8 @@ const NAV_ITEMS = [
 
 export const Header = () => {
   const { language, setLanguage, localizePath, t } = useLanguage();
+  // Та сама межа, що й у CSS: до 1024 px меню вертикальне, з акордеоном
+  const isNarrow = useIsMobile(1025);
   const logo = language === "uk" ? logoUk : logoEn;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActivitiesOpen, setIsActivitiesOpen] = useState(false);
@@ -113,13 +116,23 @@ export const Header = () => {
           {NAV_ITEMS.map((item) => {
             if (item.hasDropdown) {
               return (
+                /*
+                 * Ховер вішаємо тільки в широкій розкладці. Інакше на вузькому
+                 * екрані з мишею (маленьке вікно на ноутбуці) виходило так:
+                 * mouseenter відкривав панель, а клік одразу її закривав — і
+                 * розкрити список у меню було неможливо.
+                 */
                 <li
                   key={item.key}
                   className={`header__nav-item header__nav-item--dropdown${
                     isActivitiesOpen ? " header__nav-item--open" : ""
                   }`}
-                  onMouseEnter={() => setIsActivitiesOpen(true)}
-                  onMouseLeave={() => setIsActivitiesOpen(false)}
+                  {...(isNarrow
+                    ? {}
+                    : {
+                        onMouseEnter: () => setIsActivitiesOpen(true),
+                        onMouseLeave: () => setIsActivitiesOpen(false),
+                      })}
                 >
                   <Link
                     to={localizePath(item.href)}
@@ -127,13 +140,14 @@ export const Header = () => {
                     aria-expanded={isActivitiesOpen}
                     aria-haspopup="true"
                     onClick={(event) => {
-                      // На вузьких екранах немає ховера — тап розкриває список
-                      if (window.matchMedia("(max-width: 1024px)").matches) {
+                      // У вузькій розкладці пункт працює як розкривач списку
+                      if (isNarrow) {
                         event.preventDefault();
                         setIsActivitiesOpen((open) => !open);
-                      } else {
-                        closeMenu();
+                        return;
                       }
+
+                      closeMenu();
                     }}
                   >
                     {t(`header.nav.${item.key}`)}
