@@ -17,18 +17,6 @@
     linear-gradient(180deg, rgba(29, 36, 66, 0.76) 0%, rgba(16, 22, 49, 0.82) 100%);
 }
 
-.join-final-cta__bg {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 1;
-  width: min(1400px, 132vw);
-  max-width: none;
-  height: auto;
-  opacity: 0.95;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
 .join-final-cta__content {
   position: relative;
   z-index: 2;

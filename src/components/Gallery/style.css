@@ -67,6 +67,7 @@
 }
 
 .gallery-photo {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -89,6 +90,16 @@
 
 .gallery-section__thumb:hover {
   opacity: 0.85;
+}
+
+/*
+ * Поки клон їде у мініатюру, сама мініатюра порожня: вона вже показує саме те
+ * фото, яке зараз летить (prevIndex після перемикання — це і є той слайд, з
+ * якого ми пішли). Без цього видно дві однакові картинки, і переїзд читається
+ * як дублювання, а не як передача місця.
+ */
+.gallery-section__thumb--waiting img {
+  opacity: 0;
 }
 
 .gallery-section__thumb img {
@@ -119,47 +130,57 @@
   will-change: transform, opacity;
 }
 
-.gallery-section__main-img--leave {
-  z-index: 1;
-  animation: gallery-photo-leave 0.56s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/*
+ * Фото, яке залишає велике вікно, не зникає на місці — воно зменшується рівно
+ * до рамки мініатюри (у макеті: «попереднє стає все меншим»). Розміри обох
+ * слотів залежать від ширини екрана, тому геометрію рахує компонент, а тут
+ * лишається тільки сам елемент.
+ *
+ * `object-fit: cover` тут працює на користь: поки клон стискається з 4:3 у
+ * майже квадрат, кадр підрізається на льоту, і це виглядає як зменшення
+ * фотографії, а не як її сплющування.
+ */
+.gallery-photo__travel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: block;
+  width: 0;
+  height: 0;
+  object-fit: cover;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
+/* «Наступне проявляється все більше»: не поява цілим кадром, а розкриття */
 .gallery-section__main-img--enter {
   z-index: 2;
-  animation: gallery-photo-enter 0.56s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes gallery-photo-leave {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(0.82);
-  }
+  animation: gallery-photo-enter 0.66s cubic-bezier(0.22, 0.61, 0.36, 1)
+    forwards;
 }
 
 @keyframes gallery-photo-enter {
   from {
-    opacity: 0;
-    transform: scale(0.88);
+    opacity: 0.15;
+    transform: scale(1.05);
+    clip-path: inset(14% 14% 14% 14% round 20px);
   }
 
   to {
     opacity: 1;
     transform: scale(1);
+    clip-path: inset(0% 0% 0% 0% round 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gallery-section__main-img--leave,
   .gallery-section__main-img--enter {
     animation: none;
   }
 
-  .gallery-section__main-img--leave {
+  .gallery-photo__travel {
     display: none;
   }
 }
@@ -223,10 +244,6 @@
 .gallery-section__desc-link:hover {
   color: #f5924f;
   opacity: 0.9;
-}
-
-.gallery-section__desc--mobile {
-  display: none;
 }
 
 .gallery-section__title--mobile {
@@ -434,34 +451,15 @@
     white-space: normal;
   }
 
-  .gallery-section__desc--desktop {
-    display: none;
-  }
-
-  .gallery-section__desc--mobile {
-    display: flex;
+  .gallery-section__desc {
     grid-column: 2;
     grid-row: 2;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
     width: 100%;
     margin: 0;
     padding: 0;
-    color: rgba(255, 255, 255, 0.65);
     font-size: 14px;
-    font-weight: 400;
     line-height: 1.65;
-  }
-
-  .gallery-section__desc--mobile > span {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
     text-align: left;
-    white-space: normal;
   }
 
   .gallery-section__link {

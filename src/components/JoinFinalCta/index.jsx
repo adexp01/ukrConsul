@@ -1,5 +1,4 @@
-import { CtaBlackHole } from "./CtaBlackHole";
-import { CtaArcs } from "./CtaArcs";
+import { CtaBackdrop } from "../CtaBackdrop";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { Button } from "../UI/Button";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
@@ -14,9 +13,7 @@ export const JoinFinalCta = () => {
   return (
     <section className="join-final-cta" aria-labelledby="join-final-cta-title">
       <div className="join-final-cta__card">
-        <CtaBlackHole />
-
-        <CtaArcs className="join-final-cta__bg" />
+        <CtaBackdrop />
 
         <div className="join-final-cta__content">
           <h2 id="join-final-cta-title" className="join-final-cta__title">

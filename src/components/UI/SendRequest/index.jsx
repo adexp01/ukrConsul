@@ -1,4 +1,5 @@
 import { Button } from "../Button";
+import { CtaBackdrop } from "../../CtaBackdrop";
 import { useJoinQuiz } from "../../JoinQuiz/JoinQuizContext";
 import { useLanguage } from "../../../i18n/LanguageContext";
 import "./style.css";
@@ -14,7 +15,7 @@ export const SendRequest = () => {
 
       <div className="send-request__inner">
         <article className="send-request__card">
-          <div className="send-request__glow" aria-hidden="true" />
+          <CtaBackdrop />
 
           <div className="send-request__content">
             <h2 id="send-request-title" className="send-request__title">

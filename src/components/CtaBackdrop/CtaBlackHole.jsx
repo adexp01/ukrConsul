@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from "react";
-import "./CtaBlackHole.css";
 
 /*
  * Анімований фон CTA — «чорна діра»: акреційне кільце з доменним ворпом
@@ -9,6 +8,10 @@ import "./CtaBlackHole.css";
  * Чому свій WebGL, а не бібліотека: reactbits/molten-metal тягне `ogl`
  * (+~45 КБ). Тут потрібен один фулскрін-трикутник і один фрагментний
  * шейдер — це 60 рядків без залежностей.
+ *
+ * `scale` тримає кільце меншим за висоту картки: радіус у частках висоти
+ * це `ring / scale`, тобто 0.29 — при 0.365 (як було) кільце впритул
+ * підходило до верхнього й нижнього краю і виглядало обрізаним.
  *
  * Гейти на малювання ті самі, що в ShieldSequence:
  *   IntersectionObserver — не крутимо кадри, поки секції не видно;
@@ -102,7 +105,7 @@ export const CtaBlackHole = ({
   speed = 0.22,
   swirl = 1.1,
   warp = 0.18,
-  scale = 1.15,
+  scale = 1.45,
   ring = 0.42,
   width = 0.055,
   glow = 0.8,
@@ -110,7 +113,7 @@ export const CtaBlackHole = ({
   exposure = 0.4,
   angle = 205,
   vignette = 0.85,
-  feather = 0.16,
+  feather = 0.2,
   grain = 0.03,
   opacity = 0.95,
   mouseStrength = 0.25,
