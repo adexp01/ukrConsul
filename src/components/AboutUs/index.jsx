@@ -483,6 +483,16 @@ export const AboutUs = () => {
               ref={mainCardRef}
               className="about-us__card about-us__card--main"
             >
+              {/*
+                Кільце, яке світиться і рухається. Окремий елемент, а не
+                псевдоелемент, саме щоб рух можна було зробити через
+                transform: тоді браузер зсуває готовий шар, а не перемальовує
+                градієнт на кожен кадр. Деталі — у style.css.
+              */}
+              <span className="about-us__card-flow" aria-hidden="true">
+                <span className="about-us__card-flow-layer" />
+              </span>
+
               <p className="about-us__card-label about-us__mobile-only">
                 {t("aboutUs.main.mobileLabel")}
               </p>
