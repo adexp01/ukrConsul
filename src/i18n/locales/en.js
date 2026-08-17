@@ -519,7 +519,7 @@ export const en = {
     },
   },
   articles: {
-    title: "LATEST ARTICLES",
+    title: "Latest news",
     allMedia: "All media",
     readArticle: "Read article",
     emptyTitle: "No articles yet",
@@ -1038,7 +1038,6 @@ export const en = {
         description:
           "The Ukrainian Council of Defence Industry develops partnerships with Ukrainian and international organisations, businesses, investors, media, industry associations and expert communities to strengthen Ukraine's private defence industry",
       },
-      newsTitle: "Build with Ukraine news",
     },
     hero: {
       title: ["Activities"],

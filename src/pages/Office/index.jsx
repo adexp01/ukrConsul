@@ -224,7 +224,7 @@ export const OfficePage = () => {
               titleKey="office.partnership.partners.title"
               description={partnership.partners.description}
             />
-            <Articles titleKey="office.partnership.newsTitle" />
+            <Articles />
           </>
         ) : (
           <section className="office-empty-tab" aria-live="polite">
