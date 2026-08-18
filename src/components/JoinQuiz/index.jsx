@@ -4,7 +4,7 @@ import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
 import {
   PROFILES_WITH_PRODUCT,
-  PROFILES_WITHOUT_STAGE,
+  PROFILES_WITH_STAGE,
   resolveEmail,
   resolveFormHref,
   resolveResultId,
@@ -18,8 +18,9 @@ const FOCUSABLE =
  * Поп-ап «Долучитися».
  *
  * Кроків стільки, скільки потрібно саме цій людині: виробника питаємо ще й про
- * напрям продукції, редакції не питаємо про етап компанії. Тому лічильник і
- * смужка прогресу рахуються від фактичного набору кроків, а не від сталої.
+ * напрям продукції, а про етап — лише тих, хто щось виробляє або надає послуги
+ * (`PROFILES_WITH_STAGE`). Тому лічильник і смужка прогресу рахуються від
+ * фактичного набору кроків, а не від сталої.
  */
 export const JoinQuizModal = ({ isOpen, onClose }) => {
   const { t, language } = useLanguage();
@@ -36,8 +37,7 @@ export const JoinQuizModal = ({ isOpen, onClose }) => {
     const list = ["profile"];
     if (profile && PROFILES_WITH_PRODUCT.includes(profile))
       list.push("product");
-    if (profile && !PROFILES_WITHOUT_STAGE.includes(profile))
-      list.push("stage");
+    if (profile && PROFILES_WITH_STAGE.includes(profile)) list.push("stage");
     return list;
   }, [profile]);
 

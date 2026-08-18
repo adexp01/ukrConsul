@@ -9,6 +9,7 @@ import { Anima } from "../../components/Anima";
 import { Footer } from "../../components/Footer";
 import { PageGradients } from "../../components/PageGradients";
 import { EVENTS_ENABLED } from "../../config/features";
+import { useSeo } from "../../seo/useSeo";
 
 /*
  * Блок подій вимкнений прапорцем. Підгрузка окремим чанком, а не звичайний
@@ -20,6 +21,8 @@ const UpEvents = lazy(() =>
 );
 
 export const HomePage = () => {
+  useSeo("home");
+
   return (
     <div className="page-shell">
       {/*

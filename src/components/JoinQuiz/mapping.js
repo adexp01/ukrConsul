@@ -52,8 +52,14 @@ export const STAGE_IDS = ["startup", "operating", "scaling", "international"];
 /** Кому показуємо крок про напрям продукції */
 export const PROFILES_WITH_PRODUCT = ["manufacturer"];
 
-/** Кому питання про етап не пасує */
-export const PROFILES_WITHOUT_STAGE = ["media"];
+/**
+ * Кому показуємо крок «На якому ви етапі?».
+ *
+ * Питання про стадію зростання має сенс лише для тих, хто щось виробляє або
+ * надає послуги. Інвестору, школі БпЛА, асоціації та медіа воно нічого не
+ * дає — вони бачать результат одразу після свого останнього кроку.
+ */
+export const PROFILES_WITH_STAGE = ["manufacturer", "techTeam"];
 
 /*
  * Асоціація за відповідями. Ключ для виробників — `manufacturer:<напрям>`,

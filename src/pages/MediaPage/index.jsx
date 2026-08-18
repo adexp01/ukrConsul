@@ -7,6 +7,7 @@ import {
   MEDIA_SECTIONS_ENABLED,
 } from "../../config/features";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 /*
  * Додаткові секції чекають на матеріали. Прапорець замість закоментованої
@@ -26,6 +27,8 @@ const ForJournalist = lazy(() =>
 );
 
 export const MediaPage = () => {
+  useSeo("media", { path: "media" });
+
   return (
     <PageLayout>
       <div className="media-page">

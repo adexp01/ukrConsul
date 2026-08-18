@@ -26,6 +26,7 @@ import b13 from "../../assets/b13.png";
 import b14 from "../../assets/b14.png";
 import b15 from "../../assets/b15.png";
 import b16 from "../../assets/b16.png";
+import { useSeo } from "../../seo/useSeo";
 
 const DEFAULT_TAB_ID = "export";
 const TAB_PARAM = "tab";
@@ -36,6 +37,8 @@ const TAB_PARAM = "tab";
  * матеріалів, ні закладкою.
  */
 export const OfficePage = () => {
+  useSeo("office", { path: "office" });
+
   const { t } = useLanguage();
   const heroCopy = t("office.hero");
   const tabs = heroCopy.tabs;

@@ -1,6 +1,7 @@
 import { PageLayout } from "../../components/PageLayout";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 /*
  * Текст політики лежить у локалях (`privacyPolicy`), а не в цьому файлі.
@@ -12,6 +13,8 @@ import "./style.css";
 const isNumberedSectionTitle = (title) => /^\d+\.\s/.test(title);
 
 export const PrivacyPolicyPage = () => {
+  useSeo("privacyPolicy", { path: "privacy-policy" });
+
   const { t } = useLanguage();
   const copy = t("privacyPolicy");
   const sections = Array.isArray(copy.sections) ? copy.sections : [];

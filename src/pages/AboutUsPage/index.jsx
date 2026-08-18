@@ -7,6 +7,7 @@ import { TEAM_ENABLED } from "../../config/features";
 import { Info } from "../../components/Info";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
+import { useSeo } from "../../seo/useSeo";
 
 // Блок вимкнений прапорцем — окремий чанк, щоб його стилі не лежали в загальному CSS
 const Team = lazy(() =>
@@ -14,6 +15,8 @@ const Team = lazy(() =>
 );
 
 export const AboutUsPage = () => {
+  useSeo("aboutUs", { path: "about-us" });
+
   const { t } = useLanguage();
 
   return (
