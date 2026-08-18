@@ -1,4 +1,40 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+/**
+ * Скільки карток видно за раз на поточній ширині.
+ *
+ * Потрібно саме як число в JS, а не лише в CSS: від нього залежить, до якого
+ * індексу можна крутити. Якщо CSS показує одну картку, а JS думає, що три —
+ * останні дві стають недосяжними, бо межа порахована по три.
+ *
+ * `steps` — від вужчого до ширшого: [{ upTo: 640, count: 1 }, { count: 3 }].
+ * Значення читається синхронно, як у useIsMobile: інакше перший рендер завжди
+ * «десктопний», і вікно каруселі встигає перерахуватись двічі.
+ */
+export const usePerView = (steps) => {
+  const list = useMemo(() => steps, [steps]);
+
+  const resolve = useCallback(() => {
+    if (typeof window === "undefined") return list[list.length - 1].count;
+
+    const hit = list.find(
+      (step) =>
+        step.upTo && window.matchMedia(`(max-width: ${step.upTo}px)`).matches,
+    );
+
+    return hit ? hit.count : list[list.length - 1].count;
+  }, [list]);
+
+  const [perView, setPerView] = useState(resolve);
+
+  useEffect(() => {
+    const update = () => setPerView(resolve());
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [resolve]);
+
+  return perView;
+};
 
 /**
  * Проста карусель «вікно з N карток і дві стрілки».

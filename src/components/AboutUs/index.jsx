@@ -42,11 +42,21 @@ export const AboutUs = () => {
   const stageRef = useRef(null);
   const mainCardRef = useRef(null);
   const satelliteRefs = useRef({});
+  /* Остання відома позиція курсора — щоб на прокрутку знати, над чим він */
+  const pointerRef = useRef({ x: 0, y: 0, known: false });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isInteractive, setIsInteractive] = useState(false);
-  const [activeId, setActiveId] = useState(null);
-  const [line, setLine] = useState(null);
+  const [hoveredId, setActiveId] = useState(null);
+  const [hoveredLine, setLine] = useState(null);
   const connectorPathRef = useRef(null);
+
+  /*
+   * Поки секція не інтерактивна, підсвітки не існує — і це виводиться під час
+   * рендеру, а не ефектом. Ефект тут дав би зайвий кадр із застряглою лінією:
+   * спершу намалювалось би старе, і лише потім зникло.
+   */
+  const activeId = isInteractive ? hoveredId : null;
+  const line = isInteractive ? hoveredLine : null;
 
   const setSatelliteRef = (id) => (node) => {
     if (node) satelliteRefs.current[id] = node;
@@ -145,10 +155,17 @@ export const AboutUs = () => {
     [buildConnectorPath],
   );
 
-  const handleSatelliteEnter = (id) => {
+  const handleSatelliteEnter = (id, event) => {
     if (!isInteractive) return;
+    if (event) {
+      pointerRef.current = { x: event.clientX, y: event.clientY, known: true };
+    }
     setActiveId(id);
     updateConnector(id);
+  };
+
+  const handleSatelliteMove = (event) => {
+    pointerRef.current = { x: event.clientX, y: event.clientY, known: true };
   };
 
   const handleSatelliteLeave = () => {
@@ -162,6 +179,44 @@ export const AboutUs = () => {
     const handleResize = () => updateConnector(activeId);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, [activeId, updateConnector]);
+
+  /*
+   * Знімаємо підсвітку, коли картка виїхала з-під курсора.
+   *
+   * Це не перестраховка, а закриття дірки, яка спрацьовує щоразу при
+   * прокрутці колесом. Браузер надсилає mouseleave тільки коли рухається
+   * мишка — а не коли елемент їде з-під нерухомого курсора. Тут блок саме
+   * такий: наводимо на картку, крутимо колесо не рухаючи мишею, картки
+   * розлітаються за таймлайном — і mouseleave не приходить ніколи. Картка
+   * лишається білою, лінія намальованою, і зняти це нічим: повторний
+   * mouseenter теж не спрацює, бо курсор формально нікуди не заходив.
+   *
+   * Тому на кожну прокрутку перевіряємо, що під курсором справді ще та сама
+   * картка. Якщо так — переміряємо лінію (картка могла зсунутись). Якщо ні —
+   * знімаємо стан, як зробив би mouseleave.
+   */
+  useEffect(() => {
+    if (!activeId) return undefined;
+
+    const check = () => {
+      const pointer = pointerRef.current;
+      const card = satelliteRefs.current[activeId];
+      if (!pointer.known || !card) return;
+
+      const under = document.elementFromPoint(pointer.x, pointer.y);
+
+      if (under && card.contains(under)) {
+        updateConnector(activeId);
+        return;
+      }
+
+      setActiveId(null);
+      setLine(null);
+    };
+
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
   }, [activeId, updateConnector]);
 
   /*
@@ -551,7 +606,8 @@ export const AboutUs = () => {
                 key={stat.id}
                 ref={setSatelliteRef(stat.id)}
                 className={`about-us__card about-us__card--satellite about-us__card--${stat.position}${activeId === stat.id ? " about-us__card--active" : ""}`}
-                onMouseEnter={() => handleSatelliteEnter(stat.id)}
+                onMouseEnter={(event) => handleSatelliteEnter(stat.id, event)}
+                onMouseMove={handleSatelliteMove}
                 onMouseLeave={handleSatelliteLeave}
                 onFocus={() => handleSatelliteEnter(stat.id)}
                 onBlur={handleSatelliteLeave}

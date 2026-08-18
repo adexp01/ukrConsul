@@ -1,24 +1,33 @@
 import { Button, NavArrows } from "../UI/Button";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarousel, usePerView } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
 
-const VISIBLE_CARD_COUNT = 3;
+/*
+ * Скільки карток у вікні. Ці межі мають збігатися з --card-w у style.css:
+ * ширину картки рахує CSS, а до якого індексу можна крутити — JS.
+ */
+const PER_VIEW = [
+  { upTo: 640, count: 1 },
+  { upTo: 1024, count: 2 },
+  { count: 3 },
+];
 
 export const JoinEcosystem = () => {
   const { openJoinQuiz } = useJoinQuiz();
   const { t } = useLanguage();
   const copy = t("joinPage.ecosystem");
   const joinCopy = t("joinPage");
+  const perView = usePerView(PER_VIEW);
   const {
     items: cards,
-    visibleItems: visibleCards,
+    startIndex,
     goPrev,
     goNext,
     isFirst,
     isLast,
-  } = useCarousel(copy.items, VISIBLE_CARD_COUNT);
+  } = useCarousel(copy.items, perView);
 
   if (cards.length === 0) return null;
 
@@ -31,25 +40,52 @@ export const JoinEcosystem = () => {
           ))}
         </h2>
 
-        <div className="join-ecosystem__cards">
-          {visibleCards.map((item) => (
-            <article key={item.title} className="join-ecosystem-card">
-              <h3 className="join-ecosystem-card__title">{item.title}</h3>
-              <p className="join-ecosystem-card__text">{item.text}</p>
+        {/*
+          У DOM усі картки, а не лише видимі три — тільки так перемикання може
+          бути плавним. Раніше компонент рендерив зріз списку, тобто на клік
+          старі картки зникали, а нові з'являлися на їхньому місці: рухатись
+          було нічому. Тепер стрічка просто зсувається на одну картку через
+          transform, а вікно її обрізає.
+        */}
+        <div className="join-ecosystem__viewport">
+          <div
+            className="join-ecosystem__track"
+            style={{ "--shift": startIndex }}
+          >
+            {cards.map((item, index) => {
+              const inWindow =
+                index >= startIndex && index < startIndex + perView;
 
-              {item.href ? (
-                <a
-                  href={item.href}
-                  className="join-ecosystem-card__link"
-                  target="_blank"
-                  rel="noreferrer"
+              return (
+                <article
+                  key={item.title}
+                  className="join-ecosystem-card"
+                  /*
+                   * Картки за межами вікна не мають ловити фокус: інакше Tab
+                   * заводить на невидиме посилання, і браузер підкручує вікно
+                   * убік, ламаючи розкладку стрічки.
+                   */
+                  aria-hidden={inWindow ? undefined : "true"}
                 >
-                  {copy.cardCta}
-                  <span aria-hidden="true">↗</span>
-                </a>
-              ) : null}
-            </article>
-          ))}
+                  <h3 className="join-ecosystem-card__title">{item.title}</h3>
+                  <p className="join-ecosystem-card__text">{item.text}</p>
+
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="join-ecosystem-card__link"
+                      target="_blank"
+                      rel="noreferrer"
+                      tabIndex={inWindow ? undefined : -1}
+                    >
+                      {copy.cardCta}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
         </div>
 
         <div className="join-ecosystem__footer">

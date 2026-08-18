@@ -37,13 +37,43 @@
   display: block;
 }
 
-.join-ecosystem__cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+/*
+ * Вікно каруселі. Стрічка всередині ширша за нього й зсувається на одну
+ * картку — обрізає її саме цей overflow.
+ */
+.join-ecosystem__viewport {
+  overflow: hidden;
+}
+
+.join-ecosystem__track {
+  --gap: 16px;
+  /*
+   * Ширина картки живе тут, а не в кожній картці, бо на неї спирається і крок
+   * зсуву. Дільники навмисно числами, а не змінною: ділення на custom property
+   * у calc підтримується не всюди, а тут це рахується на кожен кадр анімації.
+   */
+  --card-w: calc((100% - 2 * var(--gap)) / 3);
+  display: flex;
+  gap: var(--gap);
+  width: 100%;
+  /* Крок = картка + проміжок. --shift ставить компонент, це індекс першої видимої */
+  transform: translate3d(
+    calc(var(--shift) * -1 * (var(--card-w) + var(--gap))),
+    0,
+    0
+  );
+  transition: transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .join-ecosystem__track {
+    transition: none;
+  }
 }
 
 .join-ecosystem-card {
+  flex: 0 0 var(--card-w);
   display: flex;
   min-height: 300px;
   flex-direction: column;
@@ -148,8 +178,8 @@
     line-height: 1;
   }
 
-  .join-ecosystem__cards {
-    grid-template-columns: 1fr;
+  .join-ecosystem__track {
+    --card-w: calc((100% - var(--gap)) / 2);
   }
 
   .join-ecosystem-card {
@@ -187,5 +217,11 @@
   .join-ecosystem__actions {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .join-ecosystem__track {
+    --card-w: 100%;
   }
 }
