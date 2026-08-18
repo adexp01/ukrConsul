@@ -3,8 +3,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: clamp(560px, calc(100svh - 88px), 900px);
-  padding: clamp(36px, 6vh, 88px) 0 clamp(18px, 2.5vh, 32px);
+  /*
+   * Шапка `position: fixed`, і зазор під неї дає верхній падинг обгортки
+   * сторінки (`.about-us-page__inner`, clamp(88px, 12vh, 120px)). Тому свого
+   * верхнього падингу тут немає, а висоту рахуємо як «решта першого екрана»:
+   * обгортка + цей блок = рівно 100svh, і смужка цифр стоїть на межі вікна,
+   * а не за нею.
+   */
+  min-height: clamp(520px, calc(100svh - clamp(88px, 12vh, 120px)), 900px);
+  padding: 0 0 clamp(18px, 2.5vh, 32px);
   overflow: hidden;
   isolation: isolate;
 }
@@ -18,9 +25,13 @@
   justify-content: space-between;
   gap: clamp(36px, 5.5vh, 88px);
   width: 100%;
-  max-width: 1560px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px);
+  /*
+   * Та сама сітка, що в `EcoSystem` нижче (`0 clamp(20px, 3.9vw, 48px)`,
+   * без обмеження по ширині): інакше на широкому екрані заголовок першого
+   * екрана стоїть вужче за наступну секцію, і ліві краї не збігаються.
+   */
+  padding: 0 clamp(20px, 3.9vw, 48px);
 }
 
 /*
@@ -215,7 +226,8 @@
 
   .about-us-banner__inner {
     gap: 30px;
-    padding: 0 24px;
+    /* 20px — стільки ж, скільки в `EcoSystem` на мобільному */
+    padding: 0 20px;
   }
 
   .about-us-banner__title {
