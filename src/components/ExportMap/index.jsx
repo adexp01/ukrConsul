@@ -8,15 +8,28 @@ import { useLanguage } from "../../i18n/LanguageContext";
 import bgOffice from "../../assets/bgOffice.png";
 import "./style.css";
 
-const prepareStrokePath = (pathEl) => {
-  if (!pathEl) return 0;
+/*
+ * Ховаємо лінію перед промальовуванням.
+ *
+ * Довжину тут не міряємо, хоча раніше міряли через getTotalLength(). У <path>
+ * стоїть pathLength="1", тобто для браузера весь шлях — це рівно одна умовна
+ * одиниця, скільки б пікселів він не мав. Причина принципова: геометрія цих
+ * ліній перераховується на кожну зміну ширини вікна, а пунктир, порахований
+ * під попередні розміри, після цього вже не відповідає шляху — і лінія
+ * малюється лише частково.
+ */
+const hideStroke = (pathEl) => {
+  if (!pathEl) return;
+  gsap.set(pathEl, { strokeDasharray: 1, strokeDashoffset: 1 });
+};
 
-  const length = pathEl.getTotalLength();
-  gsap.set(pathEl, {
-    strokeDasharray: length,
-    strokeDashoffset: length,
-  });
-  return length;
+/*
+ * Кінцевий стан: суцільна лінія, пунктиру немає взагалі. Так стан спокою не
+ * залежить від жодних обчислень — обірватись такій лінії нема на чому.
+ */
+const showStroke = (pathEl) => {
+  if (!pathEl) return;
+  gsap.set(pathEl, { strokeDashoffset: 0, strokeDasharray: "none" });
 };
 
 const buildConnectorGeometry = (inner, xAnchor, upperCard, lowerCard, cta) => {
@@ -176,14 +189,48 @@ export const ExportMap = () => {
     };
   }, [updateConnector, copy.cardLeft, copy.cardRight]);
 
+  /*
+   * Найголовніше в цьому блоці.
+   *
+   * Геометрія ліній перераховується на кожну зміну ширини вікна — і раніше це
+   * означало, що всі лінії знову ховались, а картки знову ставали
+   * напівпрозорими. Показ при цьому був `once: true`, тобто повторно він або не
+   * запускався взагалі (і лінії лишались схованими), або програвався з початку
+   * всі три з половиною секунди — а картки в цей час стоять із opacity 0.14,
+   * тобто з нечитабельним темним текстом.
+   *
+   * Тому одне просте правило: показ буває один раз. Далі будь-який перерахунок
+   * геометрії лише виставляє кінцевий стан.
+   */
+  const revealedRef = useRef(false);
+
+  const strokePaths = useCallback(
+    () => [
+      pathPrimaryRef.current,
+      pathSecondaryRef.current,
+      pathTertiaryRef.current,
+    ],
+    [],
+  );
+
+  const showEverything = useCallback(() => {
+    strokePaths().forEach(showStroke);
+    if (dashRef.current) gsap.set(dashRef.current, { autoAlpha: 1 });
+    const cards = [upperCardRef.current, lowerCardRef.current, ctaRef.current];
+    gsap.set(cards.filter(Boolean), { autoAlpha: 1, y: 0 });
+  }, [strokePaths]);
+
   useLayoutEffect(() => {
     if (!connector) return;
 
-    prepareStrokePath(pathPrimaryRef.current);
-    prepareStrokePath(pathSecondaryRef.current);
-    prepareStrokePath(pathTertiaryRef.current);
+    if (revealedRef.current) {
+      showEverything();
+      return;
+    }
+
+    strokePaths().forEach(hideStroke);
     if (dashRef.current) gsap.set(dashRef.current, { autoAlpha: 0 });
-  }, [connector]);
+  }, [connector, showEverything, strokePaths]);
 
   useGSAP(
     () => {
@@ -207,26 +254,45 @@ export const ExportMap = () => {
           const pathTertiary = pathTertiaryRef.current;
           const dash = dashRef.current;
 
-          const lenPrimary = prepareStrokePath(pathPrimary);
-          const lenSecondary = prepareStrokePath(pathSecondary);
-          const lenTertiary = prepareStrokePath(pathTertiary);
+          // Уже показували — просто ставимо кінцевий стан і нічого не граємо
+          if (revealedRef.current) {
+            showEverything();
+            return undefined;
+          }
 
-          gsap.set([upperCard, lowerCard], { autoAlpha: 0.14 });
+          [pathPrimary, pathSecondary, pathTertiary].forEach(hideStroke);
+
+          /*
+           * 0.22, а не 0.14: у цьому стані картка вже містить читабельний текст,
+           * і поки вона світлішає, він не мусить виглядати як зламаний рендер.
+           */
+          gsap.set([upperCard, lowerCard], { autoAlpha: 0.22 });
           if (cta) gsap.set(cta, { autoAlpha: 0, y: 14 });
           if (dash) gsap.set(dash, { autoAlpha: 0 });
 
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
-              start: "top 78%",
+              start: "top 82%",
               once: true,
+            },
+            onComplete: () => {
+              revealedRef.current = true;
+              // Пунктир більше не потрібен — далі лінія просто суцільна
+              [pathPrimary, pathSecondary, pathTertiary].forEach(showStroke);
             },
           });
 
-          if (pathPrimary && lenPrimary) {
+          /*
+           * Тривалості стиснуті майже вдвічі: було 3.4 с на всю послідовність,
+           * стало близько 1.6 с. Три з половиною секунди — це довше, ніж людина
+           * дивиться на блок, прокручуючи сторінку: вона встигала побачити лише
+           * напівпрозорі картки й поїхати далі.
+           */
+          if (pathPrimary) {
             tl.to(pathPrimary, {
               strokeDashoffset: 0,
-              duration: 0.9,
+              duration: 0.5,
               ease: "power2.inOut",
             });
           }
@@ -234,31 +300,35 @@ export const ExportMap = () => {
           if (dash) {
             tl.to(
               dash,
-              { autoAlpha: 1, duration: 0.28, ease: "power2.out" },
-              "-=0.42",
+              { autoAlpha: 1, duration: 0.2, ease: "power2.out" },
+              "-=0.26",
             );
           }
 
           tl.to(
             upperCard,
-            { autoAlpha: 1, duration: 0.55, ease: "power2.out" },
-            "-=0.08",
+            { autoAlpha: 1, duration: 0.34, ease: "power2.out" },
+            "-=0.12",
           );
 
-          if (pathSecondary && lenSecondary) {
+          if (pathSecondary) {
             tl.to(pathSecondary, {
               strokeDashoffset: 0,
-              duration: 0.8,
+              duration: 0.42,
               ease: "power2.inOut",
             });
           }
 
-          tl.to(lowerCard, { autoAlpha: 1, duration: 0.55, ease: "power2.out" });
+          tl.to(
+            lowerCard,
+            { autoAlpha: 1, duration: 0.34, ease: "power2.out" },
+            "-=0.16",
+          );
 
-          if (pathTertiary && lenTertiary) {
+          if (pathTertiary) {
             tl.to(pathTertiary, {
               strokeDashoffset: 0,
-              duration: 0.75,
+              duration: 0.38,
               ease: "power2.inOut",
             });
           }
@@ -266,8 +336,8 @@ export const ExportMap = () => {
           if (cta) {
             tl.to(
               cta,
-              { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
-              "-=0.12",
+              { autoAlpha: 1, y: 0, duration: 0.32, ease: "power2.out" },
+              "-=0.18",
             );
           }
 
@@ -281,6 +351,11 @@ export const ExportMap = () => {
       mm.add(
         "(max-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
+          if (revealedRef.current) {
+            showEverything();
+            return undefined;
+          }
+
           gsap.set(fadeTargets, { autoAlpha: 0, y: 18 });
 
           const tl = gsap.timeline({
@@ -289,6 +364,9 @@ export const ExportMap = () => {
               start: "top 82%",
               once: true,
             },
+            onComplete: () => {
+              revealedRef.current = true;
+            },
           });
 
           tl.to(upperCard, {
@@ -296,12 +374,11 @@ export const ExportMap = () => {
             y: 0,
             duration: 0.5,
             ease: "power2.out",
-          })
-            .to(
-              lowerCard,
-              { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
-              "-=0.28",
-            );
+          }).to(
+            lowerCard,
+            { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
+            "-=0.28",
+          );
 
           if (cta) {
             tl.to(
@@ -319,20 +396,16 @@ export const ExportMap = () => {
       );
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(fadeTargets, { autoAlpha: 1, y: 0 });
-
-        [pathPrimaryRef, pathSecondaryRef, pathTertiaryRef].forEach((ref) => {
-          if (ref.current) {
-            gsap.set(ref.current, { strokeDashoffset: 0, clearProps: "strokeDasharray" });
-          }
-        });
-
-        if (dashRef.current) gsap.set(dashRef.current, { autoAlpha: 1 });
+        revealedRef.current = true;
+        showEverything();
       });
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [connector, copy.cardLeft, copy.cardRight] },
+    {
+      scope: sectionRef,
+      dependencies: [connector, copy.cardLeft, copy.cardRight, showEverything],
+    },
   );
 
   return (
@@ -363,18 +436,21 @@ export const ExportMap = () => {
           >
             <path
               ref={pathPrimaryRef}
+              pathLength="1"
               className="export-map__connector-path export-map__connector-path--primary"
               d={connector.path}
               fill="none"
             />
             <path
               ref={pathSecondaryRef}
+              pathLength="1"
               className="export-map__connector-path export-map__connector-path--secondary"
               d={connector.pathSecondary}
               fill="none"
             />
             <path
               ref={pathTertiaryRef}
+              pathLength="1"
               className="export-map__connector-path export-map__connector-path--tertiary"
               d={connector.pathTertiary}
               fill="none"
@@ -392,7 +468,8 @@ export const ExportMap = () => {
 
         <header className="export-map__head">
           <h2 id="export-map-title" className="export-map__title">
-            E<span ref={xAnchorRef} className="export-map__title-anchor">
+            E
+            <span ref={xAnchorRef} className="export-map__title-anchor">
               X
             </span>
             PORT MAP
