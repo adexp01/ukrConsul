@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/legacy/(.*)",
+      "destination": "/legacy/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

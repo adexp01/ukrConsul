@@ -30,6 +30,19 @@ const EventDetailPage = lazy(() =>
   })),
 );
 
+/*
+ * Службове порівняння «до / після» на /internal/compare: два кадри з одного
+ * домену — знімок старої збірки з /legacy/ і поточний сайт.
+ *
+ * Через `lazy` — щоб сторінка і її стилі не потрапляли в бандл публічного
+ * сайту: код їде окремим файлом і лише коли адресу відкрили вручну.
+ * Статичний сегмент `internal` React Router ранжує вище за динамічний
+ * `/:locale`, тож мовний маршрут його не перехопить.
+ */
+const ComparePage = lazy(() =>
+  import("./pages/ComparePage").then((m) => ({ default: m.ComparePage })),
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -40,6 +53,14 @@ function App() {
           <TextRevealEngine />
           <Routes>
             <Route path="/" element={<Navigate to="/en" replace />} />
+            <Route
+              path="/internal/compare"
+              element={
+                <Suspense fallback={null}>
+                  <ComparePage />
+                </Suspense>
+              }
+            />
             <Route path="/:locale" element={<LocaleOutlet />}>
               <Route index element={<HomePage />} />
               <Route path="media" element={<MediaPage />} />

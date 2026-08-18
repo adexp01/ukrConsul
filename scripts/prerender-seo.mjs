@@ -167,8 +167,15 @@ ${urls}
 `;
 };
 
+/*
+ * `/internal/` — службові сторінки (порівняння «до / після»),
+ * `/legacy/` — знімок старої збірки, який там живе в iframe.
+ * Обидва не є частиною сайту й не мають потрапляти в пошук.
+ */
 const ROBOTS = `User-agent: *
 Allow: /
+Disallow: /internal/
+Disallow: /legacy/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `;
