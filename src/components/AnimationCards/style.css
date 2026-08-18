@@ -110,19 +110,17 @@
   margin-left: clamp(42px, 8vw, 112px);
 }
 
-.animation-cards__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
-
 .animation-cards__card {
   min-height: 317px;
   padding: 28px 24px 26px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(12, 17, 45, 0.82) 0%, rgba(7, 12, 35, 0.88) 100%),
+    linear-gradient(
+      180deg,
+      rgba(12, 17, 45, 0.82) 0%,
+      rgba(7, 12, 35, 0.88) 100%
+    ),
     rgba(255, 255, 255, 0.03);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
@@ -210,16 +208,63 @@
     height: clamp(100px, 24vw, 160px);
   }
 
-  .animation-cards__grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
   .animation-cards__card {
     min-height: auto;
   }
 
   .animation-cards__icon {
     margin-bottom: 28px;
+  }
+}
+
+/*
+ * Вікно каруселі й стрічка всередині.
+ *
+ * Раніше компонент рендерив зріз списку — на клік старі картки просто
+ * зникали, а нові з'являлися на їхньому місці, тобто анімувати було нічого.
+ * Тепер у DOM усі, а рухається стрічка через transform (це браузер
+ * композитить). Ширина картки живе в одній змінній, бо на неї спирається і
+ * крок зсуву; дільники — числами, бо ділення на custom property у calc
+ * підтримується не всюди.
+ */
+.animation-cards__viewport {
+  overflow: hidden;
+}
+
+.animation-cards__track {
+  --gap: 24px;
+  --card-w: calc((100% - 2 * var(--gap)) / 3);
+  display: flex;
+  gap: var(--gap);
+  width: 100%;
+  transform: translate3d(
+    calc(var(--shift) * -1 * (var(--card-w) + var(--gap))),
+    0,
+    0
+  );
+  transition: transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.animation-cards__card {
+  flex: 0 0 var(--card-w);
+}
+
+/* Межі мусять збігатися з PER_VIEW у index.jsx */
+@media (max-width: 1024px) {
+  .animation-cards__track {
+    --card-w: calc((100% - var(--gap)) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .animation-cards__track {
+    --card-w: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-cards__track {
+    transition: none;
   }
 }

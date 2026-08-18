@@ -1,10 +1,17 @@
 import { Button } from "../UI/Button";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { hasDestination } from "../../utils/links";
 import "./style.css";
 
 export const ForJournalist = () => {
   const { t } = useLanguage();
   const topics = t("media.forJournalist.topics");
+  /*
+   * Адреса живе в локалі, а не тут: так її можна змінити без правок у коді, і
+   * так само працює правило «немає цілі — немає кнопки». Раніше стояло
+   * href="#", тобто кнопка нічого не робила, зате кидала сторінку вгору.
+   */
+  const ctaHref = t("media.forJournalist.ctaHref");
 
   return (
     <section className="for-journalist" aria-labelledby="for-journalist-title">
@@ -13,7 +20,9 @@ export const ForJournalist = () => {
           <h2 id="for-journalist-title" className="for-journalist__title">
             {t("media.forJournalist.title")}
           </h2>
-          <p className="for-journalist__intro">{t("media.forJournalist.intro")}</p>
+          <p className="for-journalist__intro">
+            {t("media.forJournalist.intro")}
+          </p>
         </header>
 
         <div className="for-journalist__panel">
@@ -27,9 +36,15 @@ export const ForJournalist = () => {
             ))}
           </ul>
 
-          <Button href="#" variant="default" className="for-journalist__cta">
-            {t("media.forJournalist.cta")}
-          </Button>
+          {hasDestination(ctaHref) ? (
+            <Button
+              href={ctaHref}
+              variant="default"
+              className="for-journalist__cta"
+            >
+              {t("media.forJournalist.cta")}
+            </Button>
+          ) : null}
         </div>
       </div>
     </section>

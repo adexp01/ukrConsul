@@ -126,13 +126,12 @@
   aspect-ratio: 328 / 379;
   border-radius: 12px;
   overflow: hidden;
-  background:
-    radial-gradient(
-      ellipse at 50% 18%,
-      rgba(184, 120, 62, 0.22) 0%,
-      rgba(20, 18, 18, 0.72) 58%,
-      rgba(4, 5, 10, 0.94) 100%
-    );
+  background: radial-gradient(
+    ellipse at 50% 18%,
+    rgba(184, 120, 62, 0.22) 0%,
+    rgba(20, 18, 18, 0.72) 58%,
+    rgba(4, 5, 10, 0.94) 100%
+  );
 }
 
 .team__photo img {
@@ -216,6 +215,8 @@
     padding-inline: clamp(24px, 15vw, 124px);
     overflow-x: auto;
     overflow-y: hidden;
+    /* Вертикальний жест — сторінці, не смузі */
+    touch-action: pan-x;
     scroll-snap-type: x mandatory;
     scroll-padding-left: clamp(24px, 15vw, 124px);
     scrollbar-width: none;

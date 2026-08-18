@@ -84,7 +84,8 @@
 
 @media (max-width: 640px) {
   .articles {
-    padding: 64px 24px 80px;
+    /* 20px — спільний горизонтальний ритм телефона по всьому сайту */
+    padding: 64px 20px 80px;
   }
 
   .articles__inner {

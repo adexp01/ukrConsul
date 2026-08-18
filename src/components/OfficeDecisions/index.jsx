@@ -1,13 +1,18 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animation/gsapSetup";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarousel, usePerView } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
 import g11 from "../../assets/g11.png";
 
-const VISIBLE_CARDS = 3;
+/* Межі мусять збігатися з --card-w у style.css, див. коментар там */
+const PER_VIEW = [
+  { upTo: 640, count: 1 },
+  { upTo: 1024, count: 2 },
+  { count: 3 },
+];
 
 const CheckIcon = () => (
   <img
@@ -24,9 +29,10 @@ export const OfficeDecisions = ({ copyKey = "office.decisions" }) => {
   const { t } = useLanguage();
   const copy = t(copyKey);
   const sectionRef = useRef(null);
-  const { items, visibleItems, goPrev, goNext, isFirst, isLast } = useCarousel(
+  const perView = usePerView(PER_VIEW);
+  const { items, startIndex, goPrev, goNext, isFirst, isLast } = useCarousel(
     copy.items,
-    VISIBLE_CARDS,
+    perView,
   );
 
   useGSAP(
@@ -133,25 +139,42 @@ export const OfficeDecisions = ({ copyKey = "office.decisions" }) => {
           {copy.label}
         </p>
 
-        <div className="office-decisions__grid">
-          {visibleItems.map((item) => (
-            <article key={item.id} className="office-decisions__card">
-              <CheckIcon />
-              <p>{item.text}</p>
-            </article>
-          ))}
+        {/* Усі картки в DOM — щоб стрічку можна було зсувати, а не підміняти */}
+        <div className="office-decisions__viewport">
+          <div
+            className="office-decisions__track"
+            style={{ "--shift": startIndex }}
+          >
+            {items.map((item, index) => (
+              <article
+                key={item.id}
+                className="office-decisions__card"
+                aria-hidden={
+                  index >= startIndex && index < startIndex + perView
+                    ? undefined
+                    : "true"
+                }
+              >
+                <CheckIcon />
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <NavArrows
-          className="office-decisions__nav"
-          variant="outline"
-          prevLabel={copy.prevLabel}
-          nextLabel={copy.nextLabel}
-          prevDisabled={isFirst}
-          nextDisabled={isLast}
-          onPrev={goPrev}
-          onNext={goNext}
-        />
+        {/* Крутити нікуди — стрілок немає */}
+        {items.length > perView ? (
+          <NavArrows
+            className="office-decisions__nav"
+            variant="outline"
+            prevLabel={copy.prevLabel}
+            nextLabel={copy.nextLabel}
+            prevDisabled={isFirst}
+            nextDisabled={isLast}
+            onPrev={goPrev}
+            onNext={goNext}
+          />
+        ) : null}
       </div>
     </section>
   );

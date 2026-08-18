@@ -165,3 +165,57 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/*
+ * Плавне розкриття акордеона.
+ *
+ * Тіло картки тепер завжди в DOM — інакше анімувати нічого: вузол з'являвся
+ * уже розгорнутим, і жоден перехід до нього не застосовувався. Висоту веде
+ * `grid-template-rows: 0fr → 1fr`: це єдиний спосіб дати браузеру
+ * проанімувати «до розміру вмісту», не міряючи ту висоту в JS і не вигадуючи
+ * max-height навмання.
+ *
+ * `visibility` перемикається з затримкою на час переходу — щоб закритий вміст
+ * не ловив Tab, але при відкриванні з'являвся одразу, а не після анімації.
+ */
+.partner-programs__wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 0.42s;
+}
+
+.partner-programs__item.is-open .partner-programs__wrap {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s;
+}
+
+/* Без цього вміст не дає рядку стиснутись до нуля */
+.partner-programs__wrap > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-programs__wrap {
+    transition: none;
+  }
+}
+
+/*
+ * Закрита картка не має вертикальних відступів усередині.
+ *
+ * `grid-template-rows: 0fr` стискає рядок до нуля, але padding самого тіла в
+ * цей нуль не входить — він завжди додається поверх. Заміряно: закрита картка
+ * лишалася на 24px вищою, ніж треба, тобто під заголовком висіла порожня
+ * смуга. Селектор із двох класів навмисно: він мусить перекривати й мобільні
+ * правила, де відступи інші.
+ */
+.partner-programs__item:not(.is-open) .partner-programs__panel {
+  padding-block: 0;
+}

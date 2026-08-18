@@ -34,7 +34,8 @@
  */
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Regular.subset.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Regular.subset.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -42,7 +43,8 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Medium.subset.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Medium.subset.woff2")
+    format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -50,7 +52,8 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-SemiBold.subset.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-SemiBold.subset.woff2")
+    format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -58,7 +61,8 @@
 
 @font-face {
   font-family: "Fixel Display";
-  src: url("/fonts/fixel-display/FixelDisplay-Bold.subset.woff2") format("woff2");
+  src: url("/fonts/fixel-display/FixelDisplay-Bold.subset.woff2")
+    format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -189,7 +193,19 @@ h2 {
     background-color: #0b1a33;
   }
 
-  .home-page {
+  /*
+   * Шапка лежить у `position: fixed`, тобто не займає місця в потоці. На
+   * десктопі це задумано — вона прозора й лежить поверх першого екрана. На
+   * мобільному вона вже з непрозорим фоном, тому контент під неї заїжджати не
+   * має, і відступ треба компенсувати.
+   *
+   * Раніше це робилось поштучно: `.home-page` і `.media-page` мали свої
+   * `padding-top: 72px`, а Join, Track, Office, About, стаття й політика — ні.
+   * Заміряно: на /join заголовок починався на 48-й точці, на /track — на 8-й,
+   * тобто шапка накривала його. Тепер відступ один на всі сторінки, бо
+   * `.page-shell` — спільна обгортка кожної з них.
+   */
+  .page-shell {
     padding-top: 72px;
   }
 

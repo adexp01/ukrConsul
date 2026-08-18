@@ -59,7 +59,11 @@ export const OfficePartnerPrograms = ({ copy }) => {
                   </button>
                 </h3>
 
-                {isOpen ? (
+                {/* Тіло завжди в DOM — щоб розкриття було анімованим, див. style.css */}
+                <div
+                  className="partner-programs__wrap"
+                  aria-hidden={isOpen ? undefined : "true"}
+                >
                   <div id={panelId} className="partner-programs__panel">
                     {(item.description ?? []).map((text) => (
                       <p key={text} className="partner-programs__text">
@@ -104,7 +108,7 @@ export const OfficePartnerPrograms = ({ copy }) => {
                       </div>
                     ) : null}
                   </div>
-                ) : null}
+                </div>
               </article>
             );
           })}

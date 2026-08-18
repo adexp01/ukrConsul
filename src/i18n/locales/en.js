@@ -660,17 +660,19 @@ export const en = {
       title: "For journalists",
       intro:
         "Our media team helps journalists find experts, receive comments, and work safely with topics related to the Ukrainian defence industry.",
-      pill: "You can contact us regarding:",
+      pill: "You can reach out to us about:",
       topics: [
-        "Comments on the state and development of the Ukrainian defence industry",
-        "Explanation of legislative and regulatory changes for the defence industry",
-        "International cooperation of Ukrainian manufacturers",
-        "Participation of Ukrainian companies in exhibitions, forums, and B2B formats",
-        "Analytics, data, and public materials of the Council",
-        "Requests for interviews with manufacturers",
-        "Participation in media projects of the Council",
+        "Comments on the state and development of Ukraine's defence industry;",
+        "Explanations of legislative and regulatory changes for the defence industry;",
+        "International cooperation of Ukrainian manufacturers;",
+        "Participation of Ukrainian companies in exhibitions, forums and B2B formats;",
+        "Analytics, data and public materials of the Council;",
+        "Interview requests with manufacturers;",
+        "Participation in the Council's media projects.",
       ],
       cta: "Write to us",
+      /* Порожньо або "#" — і кнопки просто не буде */
+      ctaHref: "mailto:official@ucdi.org.ua?subject=Media%20enquiry",
     },
     download: {
       title: "Media materials",

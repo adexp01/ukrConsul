@@ -16,6 +16,9 @@ const FRAME_SIZE = 720;
 const INITIAL_BATCH = 4;
 const LOAD_CONCURRENCY = 6;
 
+/** Скільки секунд на повний оберт у режимі самообертання */
+const SPIN_SECONDS = 7;
+
 const frameSrc = (index) => {
   const frame = FRAME_FIRST + index * FRAME_STEP;
   return `/animation/shield360/shield-${String(frame).padStart(3, "0")}.webp`;
@@ -71,6 +74,15 @@ export const ShieldSequence = ({
    * готовий прогрес 0…1 зі свого ScrollTrigger.
    */
   progress,
+  /*
+   * Сам обертається, не чекаючи прокрутки.
+   *
+   * Потрібно на мобільному: там висота блока така, що дуга проходить майже
+   * повністю за один рух пальця, і поворот або не видно, або він смикається
+   * разом зі скролом. З `autoplay` кадр веде власний годинник, а прокрутка на
+   * нього не впливає.
+   */
+  autoplay = false,
 }) => {
   const isControlled = typeof progress === "number";
   const canvasRef = useRef(null);
@@ -79,6 +91,7 @@ export const ShieldSequence = ({
   const applyRef = useRef(null);
   const controlledRef = useRef(isControlled);
   const progressRef = useRef(isControlled ? progress : 0);
+  const autoplayRef = useRef(autoplay);
 
   /*
    * Режим і прогрес читає внутрішній цикл малювання, тому тримаємо їх у ref —
@@ -87,8 +100,9 @@ export const ShieldSequence = ({
    */
   useEffect(() => {
     controlledRef.current = isControlled;
+    autoplayRef.current = autoplay;
     if (isControlled) progressRef.current = progress;
-  }, [isControlled, progress]);
+  }, [isControlled, progress, autoplay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -156,6 +170,41 @@ export const ShieldSequence = ({
       rafId = window.requestAnimationFrame(update);
     };
 
+    /*
+     * Самообертання. Крутимо тільки поки полотно на екрані — інакше цикл
+     * малював би кадри в порожнечу до кінця життя сторінки.
+     */
+    let spinId = 0;
+    let lastTime = 0;
+    let onScreen = false;
+
+    const spin = (time) => {
+      spinId = 0;
+      if (disposed) return;
+
+      if (lastTime) {
+        const delta = (time - lastTime) / 1000;
+        currentProgress = (currentProgress + delta / SPIN_SECONDS) % 1;
+        render();
+      }
+      lastTime = time;
+
+      if (onScreen) spinId = window.requestAnimationFrame(spin);
+    };
+
+    const visibility = new IntersectionObserver((entries) => {
+      onScreen = entries.some((entry) => entry.isIntersecting);
+      if (!onScreen) {
+        if (spinId) cancelAnimationFrame(spinId);
+        spinId = 0;
+        lastTime = 0;
+        return;
+      }
+      if (autoplayRef.current && !controlledRef.current && !spinId) {
+        spinId = window.requestAnimationFrame(spin);
+      }
+    });
+
     const start = () => {
       if (started || disposed) return;
       started = true;
@@ -169,6 +218,11 @@ export const ShieldSequence = ({
 
           if (controlledRef.current) {
             applyProgress(progressRef.current);
+            return;
+          }
+
+          if (autoplayRef.current) {
+            visibility.observe(canvas);
             return;
           }
 
@@ -201,6 +255,8 @@ export const ShieldSequence = ({
       disposed = true;
       applyRef.current = null;
       observer.disconnect();
+      visibility.disconnect();
+      if (spinId) cancelAnimationFrame(spinId);
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);

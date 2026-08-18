@@ -21,8 +21,7 @@ const FILTER_IDS = [
 const INITIAL_VISIBLE = 6;
 const LOAD_STEP = 3;
 
-// Таби категорій приховані, поки статей мало. Поставити true — і вони повернуться.
-const SHOW_FILTERS = false;
+const SHOW_FILTERS = true;
 
 export const MediaNews = () => {
   const { t, language } = useLanguage();
@@ -35,16 +34,30 @@ export const MediaNews = () => {
     [news, t, language],
   );
 
+  /*
+   * Показуємо тільки ті категорії, у яких справді є статті.
+   *
+   * Інакше половина табів веде в «у цій категорії ще немає статей» — а
+   * порожній таб виглядає як несправний, і людина не розуміє, чи це вона щось
+   * зробила не так. Щойно в CRM з'явиться перша стаття категорії, таб
+   * повернеться сам, без правок тут.
+   */
   const filters = useMemo(() => {
     const labels = t("mediaNews.filters");
-    return FILTER_IDS.map((id) => ({ id, label: labels[id] }));
-  }, [t]);
+    const present = new Set(cards.map((item) => item.category));
+
+    return FILTER_IDS.filter((id) => id === "all" || present.has(id)).map(
+      (id) => ({ id, label: labels[id] }),
+    );
+  }, [t, cards]);
 
   const filteredNews = useMemo(() => {
     if (activeFilter === "all") return cards;
     return cards.filter((item) => item.category === activeFilter);
   }, [activeFilter, cards]);
 
+  // Одна категорія на всі статті — таби нічого не дають, лишаємо просто список
+  const showFilters = SHOW_FILTERS && filters.length > 2;
   const visibleNews = filteredNews.slice(0, visibleCount);
   const canLoadMore = visibleCount < filteredNews.length;
 
@@ -58,7 +71,7 @@ export const MediaNews = () => {
 
   return (
     <section
-      className={`media-news${SHOW_FILTERS ? "" : " media-news--no-filters"}`}
+      className={`media-news${showFilters ? "" : " media-news--no-filters"}`}
       aria-labelledby="media-news-title"
     >
       <div className="media-news__glow" aria-hidden="true" />
@@ -70,7 +83,7 @@ export const MediaNews = () => {
           </h2>
         </header>
 
-        {SHOW_FILTERS ? (
+        {showFilters ? (
           <div
             className="media-news__filters"
             role="tablist"

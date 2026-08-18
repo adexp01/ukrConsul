@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
-import { CtaBackdrop } from "../CtaBackdrop";
 import { ShieldSequence } from "../ShieldSequence";
+import { useIsMobile } from "../../hooks/IsMobile";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import "./style.css";
@@ -23,6 +23,8 @@ export const Info = ({
 }) => {
   const { t, localizePath } = useLanguage();
   const { openJoinQuiz } = useJoinQuiz();
+  /* На вузьких екранах щит крутиться сам, а не від прокрутки */
+  const isMobile = useIsMobile(1025);
   const copy = t(contentKey);
   const ctaCopy = t(ctaContentKey ?? contentKey);
   const sectionRef = useRef(null);
@@ -167,7 +169,7 @@ export const Info = ({
                 className="info-section__shield"
                 aria-hidden="true"
               >
-                <ShieldSequence />
+                <ShieldSequence autoplay={isMobile} />
               </div>
 
               <div ref={listWrapRef} className="info-section__list-wrap">
@@ -217,7 +219,7 @@ export const Info = ({
 
         {showCta ? (
           <article className="info-section__cta">
-            <CtaBackdrop />
+            <div className="info-section__cta-glow" aria-hidden="true" />
 
             <h2 id={ctaTitleId} className="info-section__cta-title">
               <span className="info-section__cta-title-lines info-section__cta-title-lines--desktop">

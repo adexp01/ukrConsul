@@ -92,19 +92,17 @@
   box-shadow: 0 0 12px rgba(241, 120, 34, 0.5);
 }
 
-.office-decisions__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
-
 .office-decisions__card {
   min-height: 237px;
   padding: 30px 28px 28px;
   border: 1px solid rgba(255, 255, 255, 0.055);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(12, 15, 43, 0.92) 0%, rgba(8, 11, 34, 0.96) 100%),
+    linear-gradient(
+      180deg,
+      rgba(12, 15, 43, 0.92) 0%,
+      rgba(8, 11, 34, 0.96) 100%
+    ),
     rgba(255, 255, 255, 0.025);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
@@ -158,11 +156,6 @@
     line-height: 24px;
   }
 
-  .office-decisions__grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
   .office-decisions__card {
     min-height: auto;
   }
@@ -189,5 +182,57 @@
 
   .office-decisions__card {
     padding: 26px 22px 24px;
+  }
+}
+
+/*
+ * Вікно каруселі й стрічка всередині.
+ *
+ * Раніше компонент рендерив зріз списку — на клік старі картки просто
+ * зникали, а нові з'являлися на їхньому місці, тобто анімувати було нічого.
+ * Тепер у DOM усі, а рухається стрічка через transform (це браузер
+ * композитить). Ширина картки живе в одній змінній, бо на неї спирається і
+ * крок зсуву; дільники — числами, бо ділення на custom property у calc
+ * підтримується не всюди.
+ */
+.office-decisions__viewport {
+  overflow: hidden;
+}
+
+.office-decisions__track {
+  --gap: 24px;
+  --card-w: calc((100% - 2 * var(--gap)) / 3);
+  display: flex;
+  gap: var(--gap);
+  width: 100%;
+  transform: translate3d(
+    calc(var(--shift) * -1 * (var(--card-w) + var(--gap))),
+    0,
+    0
+  );
+  transition: transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.office-decisions__card {
+  flex: 0 0 var(--card-w);
+}
+
+/* Межі мусять збігатися з PER_VIEW у index.jsx */
+@media (max-width: 1024px) {
+  .office-decisions__track {
+    --card-w: calc((100% - var(--gap)) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .office-decisions__track {
+    --card-w: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .office-decisions__track {
+    transition: none;
   }
 }

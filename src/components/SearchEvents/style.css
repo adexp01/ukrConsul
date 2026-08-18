@@ -13,7 +13,7 @@
   line-height: 44px;
   letter-spacing: -4%;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .search-events__layout {
@@ -366,6 +366,10 @@
     padding: 0 20px 20px;
     border-bottom: none;
     overflow-x: auto;
+    /* Тільки горизонтально: чому саме так — пояснення в pages/Office/style.css */
+    overflow-y: hidden;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;

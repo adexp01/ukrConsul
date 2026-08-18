@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animation/gsapSetup";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarousel, usePerView } from "../../hooks/useCarousel";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
@@ -19,15 +19,25 @@ const iconMap = {
   cross: m115,
 };
 
-const VISIBLE_CARDS = 3;
+/*
+ * Скільки карток у вікні. Ці межі мусять збігатися з --card-w у style.css:
+ * ширину рахує CSS, а до якого індексу можна крутити — JS. Розійдуться —
+ * останні картки стануть недосяжними.
+ */
+const PER_VIEW = [
+  { upTo: 640, count: 1 },
+  { upTo: 1024, count: 2 },
+  { count: 3 },
+];
 
 export const AnimationCards = () => {
   const { t } = useLanguage();
   const sectionRef = useRef(null);
   const titleLines = t("track.cards.title");
-  const { items, visibleItems, goPrev, goNext, isFirst, isLast } = useCarousel(
+  const perView = usePerView(PER_VIEW);
+  const { items, startIndex, goPrev, goNext, isFirst, isLast } = useCarousel(
     t("track.cards.items"),
-    VISIBLE_CARDS,
+    perView,
   );
 
   useGSAP(
@@ -104,32 +114,53 @@ export const AnimationCards = () => {
           ))}
         </h2>
 
-        <div className="animation-cards__grid">
-          {visibleItems.map((item) => (
-            <article key={item.id} className="animation-cards__card">
-              <img
-                src={iconMap[item.icon]}
-                alt=""
-                className="animation-cards__icon"
-                loading="lazy"
-                decoding="async"
-              />
-              <h3 className="animation-cards__card-title">{item.title}</h3>
-              <p className="animation-cards__card-text">{item.text}</p>
-            </article>
-          ))}
+        {/*
+          У DOM усі картки, а не зріз списку: інакше на клік старі зникають, а
+          нові з'являються на їхньому місці — рухатись нічому. Тепер стрічка
+          зсувається на одну картку через transform, а вікно її обрізає.
+        */}
+        <div className="animation-cards__viewport">
+          <div
+            className="animation-cards__track"
+            style={{ "--shift": startIndex }}
+          >
+            {items.map((item, index) => (
+              <article
+                key={item.id}
+                className="animation-cards__card"
+                aria-hidden={
+                  index >= startIndex && index < startIndex + perView
+                    ? undefined
+                    : "true"
+                }
+              >
+                <img
+                  src={iconMap[item.icon]}
+                  alt=""
+                  className="animation-cards__icon"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <h3 className="animation-cards__card-title">{item.title}</h3>
+                <p className="animation-cards__card-text">{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <NavArrows
-          className="animation-cards__nav"
-          variant="outline"
-          onPrev={goPrev}
-          onNext={goNext}
-          prevLabel={t("gallery.prevSlide")}
-          nextLabel={t("gallery.nextSlide")}
-          prevDisabled={isFirst}
-          nextDisabled={isLast}
-        />
+        {/* Крутити нікуди — стрілок немає, а не дві мертві кнопки */}
+        {items.length > perView ? (
+          <NavArrows
+            className="animation-cards__nav"
+            variant="outline"
+            onPrev={goPrev}
+            onNext={goNext}
+            prevLabel={t("gallery.prevSlide")}
+            nextLabel={t("gallery.nextSlide")}
+            prevDisabled={isFirst}
+            nextDisabled={isLast}
+          />
+        ) : null}
       </div>
     </section>
   );

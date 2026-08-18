@@ -141,6 +141,11 @@ export const JoinProcess = () => {
             <div className="join-process__glow" />
             <ShieldSequence
               className="join-process__shield"
+              /*
+               * Пінований таймлайн існує лише на широких екранах. Там щит веде
+               * прокрутка, а на мобільному — крутиться сам.
+               */
+              autoplay={!isScrubbed}
               {...(isScrubbed ? { progress: scrollProgress } : {})}
             />
           </div>

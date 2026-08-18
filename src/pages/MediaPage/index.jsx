@@ -2,7 +2,10 @@ import { lazy, Suspense } from "react";
 import { PageLayout } from "../../components/PageLayout";
 import { MediaBunner } from "../../components/MediaBunner";
 import { MediaNews } from "../../components/MediaNews";
-import { MEDIA_SECTIONS_ENABLED } from "../../config/features";
+import {
+  MEDIA_JOURNALIST_ENABLED,
+  MEDIA_SECTIONS_ENABLED,
+} from "../../config/features";
 import "./style.css";
 
 /*
@@ -13,6 +16,13 @@ import "./style.css";
  */
 const MediaExtraSections = lazy(
   () => import("../../components/MediaExtraSections"),
+);
+
+/* Так само окремим чанком: поки прапорець false, цей CSS ніхто не запитує */
+const ForJournalist = lazy(() =>
+  import("../../components/ForJournalist").then((m) => ({
+    default: m.ForJournalist,
+  })),
 );
 
 export const MediaPage = () => {
@@ -26,6 +36,12 @@ export const MediaPage = () => {
         <div className="media-news-wrap">
           <MediaNews />
         </div>
+
+        {MEDIA_JOURNALIST_ENABLED ? (
+          <Suspense fallback={null}>
+            <ForJournalist />
+          </Suspense>
+        ) : null}
 
         {MEDIA_SECTIONS_ENABLED ? (
           <Suspense fallback={null}>

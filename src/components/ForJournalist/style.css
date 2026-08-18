@@ -43,8 +43,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 28px;
-  padding: clamp(28px, 4vw, 40px) clamp(28px, 4vw, 44px)
-    clamp(32px, 4vw, 44px);
+  padding: clamp(28px, 4vw, 40px) clamp(28px, 4vw, 44px) clamp(32px, 4vw, 44px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.03);
@@ -145,5 +144,20 @@
   .for-journalist__cta {
     width: 100%;
     max-width: 280px;
+  }
+}
+
+/*
+ * На телефоні ширину визначає падінг, а не відсоток.
+ *
+ * `max-width: 95%` дає на 390px екрані 10px з кожного боку, і ці 10px
+ * складаються з падінгом, який стоїть далі. Через це однакові за задумом
+ * блоки виходили різної ширини: заміряно, картки новин на /media були
+ * 331px, а такі самі на головній — 350px. На широких екранах 95% лишається
+ * як було.
+ */
+@media (max-width: 640px) {
+  .for-journalist__inner {
+    max-width: 100%;
   }
 }

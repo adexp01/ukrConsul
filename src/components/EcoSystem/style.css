@@ -261,6 +261,8 @@
     width: 100vw;
     overflow-x: auto;
     overflow-y: hidden;
+    /* Вертикальний жест — сторінці, не смузі */
+    touch-action: pan-x;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }

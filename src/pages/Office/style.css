@@ -390,7 +390,20 @@
     margin-top: 84px;
     margin-inline: -20px;
     padding-inline: 20px;
+    /*
+     * Смуга гортається лише по горизонталі.
+     *
+     * `overflow-x: auto` сам по собі цього не дає: за специфікацією, якщо одна з
+     * осей не `visible`, друга обчислюється в `auto`. Тобто смуга ловила ще й
+     * вертикальний рух — пальцем її можна було тягати вгору-вниз, і саме це
+     * виглядає як «таби плавають». `touch-action: pan-x` додатково віддає
+     * вертикальний жест сторінці, а `overscroll-behavior-x` гасить жест
+     * «назад» на краю.
+     */
     overflow-x: auto;
+    overflow-y: hidden;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
   }
 

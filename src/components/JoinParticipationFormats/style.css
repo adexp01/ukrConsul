@@ -18,7 +18,11 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(17, 26, 52, 0.68) 0%, rgba(9, 14, 36, 0.86) 100%),
+    linear-gradient(
+      180deg,
+      rgba(17, 26, 52, 0.68) 0%,
+      rgba(9, 14, 36, 0.86) 100%
+    ),
     rgba(255, 255, 255, 0.035);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
@@ -28,7 +32,11 @@
 .join-participation-card.is-open {
   background:
     radial-gradient(circle at 38% 0%, rgba(255, 122, 43, 0.1), transparent 34%),
-    linear-gradient(180deg, rgba(12, 14, 29, 0.94) 0%, rgba(8, 13, 39, 0.94) 100%);
+    linear-gradient(
+      180deg,
+      rgba(12, 14, 29, 0.94) 0%,
+      rgba(8, 13, 39, 0.94) 100%
+    );
 }
 
 .join-participation-card__header {
@@ -171,7 +179,8 @@
 
 @media (max-width: 480px) {
   .join-participation {
-    padding-inline: 16px;
+    /* було 16px — єдина сторінка, що вибивалась із спільних 20px */
+    padding-inline: 20px;
   }
 
   .join-participation-card__header {
@@ -201,4 +210,58 @@
     font-size: 15px;
     line-height: 20px;
   }
+}
+
+/*
+ * Плавне розкриття акордеона.
+ *
+ * Тіло картки тепер завжди в DOM — інакше анімувати нічого: вузол з'являвся
+ * уже розгорнутим, і жоден перехід до нього не застосовувався. Висоту веде
+ * `grid-template-rows: 0fr → 1fr`: це єдиний спосіб дати браузеру
+ * проанімувати «до розміру вмісту», не міряючи ту висоту в JS і не вигадуючи
+ * max-height навмання.
+ *
+ * `visibility` перемикається з затримкою на час переходу — щоб закритий вміст
+ * не ловив Tab, але при відкриванні з'являвся одразу, а не після анімації.
+ */
+.join-participation-card__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 0.42s;
+}
+
+.join-participation-card.is-open .join-participation-card__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s;
+}
+
+/* Без цього вміст не дає рядку стиснутись до нуля */
+.join-participation-card__panel > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .join-participation-card__panel {
+    transition: none;
+  }
+}
+
+/*
+ * Закрита картка не має вертикальних відступів усередині.
+ *
+ * `grid-template-rows: 0fr` стискає рядок до нуля, але padding самого тіла в
+ * цей нуль не входить — він завжди додається поверх. Заміряно: закрита картка
+ * лишалася на 24px вищою, ніж треба, тобто під заголовком висіла порожня
+ * смуга. Селектор із двох класів навмисно: він мусить перекривати й мобільні
+ * правила, де відступи інші.
+ */
+.join-participation-card:not(.is-open) .join-participation-card__body {
+  padding-block: 0;
 }

@@ -49,7 +49,16 @@ export const JoinParticipationFormats = () => {
                   </span>
                 </button>
 
-                {isOpen ? (
+                {/*
+                  Тіло рендериться завжди, а не лише коли відкрито.
+                  Інакше анімувати нічого: вузол з'являється в DOM уже
+                  розгорнутим, і жоден перехід до нього не застосується.
+                  Висоту веде CSS через grid-template-rows, деталі — у style.css.
+                */}
+                <div
+                  className="join-participation-card__panel"
+                  aria-hidden={isOpen ? undefined : "true"}
+                >
                   <div
                     id={panelId}
                     className="join-participation-card__body"
@@ -77,7 +86,7 @@ export const JoinParticipationFormats = () => {
                       {joinCopy.primaryCta}
                     </Button>
                   </div>
-                ) : null}
+                </div>
               </article>
             );
           })}

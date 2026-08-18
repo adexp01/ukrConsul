@@ -71,9 +71,16 @@
     background-color: #1b0f03;
   }
 
+  /*
+   * Горизонтальний відступ тут нульовий навмисно: його вже дає
+   * `.media-news__inner`. Раніше падінг стояв в обох місцях і складався —
+   * заміряно, картки новин виходили 293px завширшки, тоді як ті самі картки на
+   * головній, «Діяльності» й «Треку» — 342px. Саме це видно як «на медіа
+   * карточки менші, ніж будь-де».
+   */
   .media-page .media-news {
     position: relative;
-    padding: 28px 20px 64px;
+    padding: 28px 0 64px;
     background-color: #1b0f03;
     background-image: linear-gradient(
       180deg,
@@ -96,7 +103,11 @@
 
   .media-page .media-info::after {
     height: 56px;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
   }
 
   .media-page .media-info__glow {
@@ -121,7 +132,11 @@
 
   .media-page .media-items::after {
     height: 56px;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
   }
 
   .media-page .main-media {
@@ -161,7 +176,11 @@
 
   .media-page .send-request__backdrop::after {
     height: 56px;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
   }
 
   .media-page .send-request__glow {

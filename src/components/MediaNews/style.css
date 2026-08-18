@@ -159,7 +159,13 @@
     padding: 28px 0 64px;
   }
 
+  /*
+   * `width: 95%` із базового правила тут скидається: на 390px це 10px з кожного
+   * боку, які складались із падінгом. Через це картки новин виходили 331px, а
+   * такі самі на головній — 350px.
+   */
   .media-news__inner {
+    width: 100%;
     padding: 0 20px;
   }
 
@@ -170,6 +176,10 @@
     margin-inline: -20px;
     padding-inline: 20px;
     overflow-x: auto;
+    /* Тільки горизонтально: чому саме так — пояснення в pages/Office/style.css */
+    overflow-y: hidden;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
