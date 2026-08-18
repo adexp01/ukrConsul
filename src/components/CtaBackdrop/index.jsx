@@ -10,6 +10,9 @@ import "./style.css";
  * Вимога до батька: `position: relative` і `overflow: hidden` — фон
  * розтягується по всьому боксу через `inset: 0`.
  *
+ * `arcs={false}` лишає лише кільце: на першому екрані «Про нас» лінії
+ * перетинали заголовок і сперечалися з ним за увагу.
+ *
  * Дуги свідомо йдуть з `preserveAspectRatio="none"`: інакше SVG
  * зберігає пропорцію 1303×656, і на широкій картці лінії або
  * закінчувались посеред неї, або (якщо тягнути по ширині) виїжджали
@@ -17,9 +20,9 @@ import "./style.css";
  * масштаб на око не читається, а фон більше не обрізається.
  */
 
-export const CtaBackdrop = ({ className = "", ...ringProps }) => (
+export const CtaBackdrop = ({ className = "", arcs = true, ...ringProps }) => (
   <div className={`cta-backdrop ${className}`.trim()} aria-hidden="true">
     <CtaBlackHole {...ringProps} />
-    <CtaArcs />
+    {arcs ? <CtaArcs /> : null}
   </div>
 );

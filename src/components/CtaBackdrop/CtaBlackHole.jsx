@@ -29,6 +29,7 @@ uniform vec2  uRes;
 uniform vec2  uMouse;
 uniform float uTime, uSpeed, uSwirl, uWarp, uScale, uRing, uWidth, uGlow, uCore;
 uniform float uExposure, uAngle, uVig, uFeather, uGrain, uOpacity, uMouseStrength;
+uniform vec2  uCenter;
 uniform vec3  uC1, uC2, uC3, uC0;
 out vec4 frag;
 
@@ -47,7 +48,7 @@ float fbm(vec2 p){
 void main(){
   vec2 fc = gl_FragCoord.xy;
   vec2 rect = fc / uRes;                     /* 0..1 у межах картки */
-  vec2 uv = (fc - 0.5 * uRes) / uRes.y;      /* центр, з пропорціями */
+  vec2 uv = (fc - uCenter * uRes) / uRes.y;  /* центр кільця, з пропорціями */
   uv += (uMouse - 0.5) * uMouseStrength * 0.18;
 
   float t = uTime * uSpeed;
@@ -117,6 +118,8 @@ export const CtaBlackHole = ({
   grain = 0.03,
   opacity = 0.95,
   mouseStrength = 0.25,
+  centerX = 0.5,
+  centerY = 0.5,
   color1 = "#ff6a00",
   color2 = "#3038c8",
   color3 = "#ffd7a8",
@@ -129,11 +132,11 @@ export const CtaBlackHole = ({
   const cfg = useMemo(
     () => ({
       speed, swirl, warp, scale, ring, width, glow, core, exposure, angle,
-      vignette, feather, grain, opacity, mouseStrength,
+      vignette, feather, grain, opacity, mouseStrength, centerX, centerY,
       color1, color2, color3, colorBase,
     }),
     [speed, swirl, warp, scale, ring, width, glow, core, exposure, angle,
-      vignette, feather, grain, opacity, mouseStrength,
+      vignette, feather, grain, opacity, mouseStrength, centerX, centerY,
       color1, color2, color3, colorBase],
   );
   const cfgRef = useRef(cfg);
@@ -179,7 +182,7 @@ export const CtaBlackHole = ({
       ring: U("uRing"), width: U("uWidth"), glow: U("uGlow"), core: U("uCore"),
       exposure: U("uExposure"), angle: U("uAngle"), vig: U("uVig"),
       feather: U("uFeather"), grain: U("uGrain"), opacity: U("uOpacity"),
-      mouseStrength: U("uMouseStrength"),
+      mouseStrength: U("uMouseStrength"), center: U("uCenter"),
       c1: U("uC1"), c2: U("uC2"), c3: U("uC3"), c0: U("uC0"),
     };
 
@@ -195,17 +198,22 @@ export const CtaBlackHole = ({
     ro.observe(host);
     resize();
 
+    /*
+     * Слухаємо вікно, а не батьківський вузол: на `.cta-backdrop` стоїть
+     * `pointer-events: none`, тому обробник, повішений на нього, не
+     * спрацьовував би ніколи. Курсор за межами боксу повертає кільце в центр.
+     */
     const target = [0.5, 0.5];
     const current = [0.5, 0.5];
-    const parent = host.parentElement || host;
     const onMove = (e) => {
       const rect = host.getBoundingClientRect();
-      target[0] = (e.clientX - rect.left) / rect.width;
-      target[1] = 1 - (e.clientY - rect.top) / rect.height;
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const inside = x >= 0 && x <= 1 && y >= 0 && y <= 1;
+      target[0] = inside ? x : 0.5;
+      target[1] = inside ? 1 - y : 0.5;
     };
-    const onLeave = () => { target[0] = 0.5; target[1] = 0.5; };
-    parent.addEventListener("mousemove", onMove);
-    parent.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", onMove, { passive: true });
 
     let raf = 0;
     let seen = false;
@@ -230,6 +238,7 @@ export const CtaBlackHole = ({
       gl.uniform1f(u.grain, c.grain);
       gl.uniform1f(u.opacity, c.opacity);
       gl.uniform1f(u.mouseStrength, c.mouseStrength);
+      gl.uniform2f(u.center, c.centerX, c.centerY);
       gl.uniform3fv(u.c1, hexToRgb(c.color1));
       gl.uniform3fv(u.c2, hexToRgb(c.color2));
       gl.uniform3fv(u.c3, hexToRgb(c.color3));
@@ -263,8 +272,7 @@ export const CtaBlackHole = ({
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      parent.removeEventListener("mousemove", onMove);
-      parent.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", onMove);
       canvas.remove();
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };

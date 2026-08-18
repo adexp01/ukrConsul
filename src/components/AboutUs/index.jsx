@@ -4,18 +4,8 @@ import { gsap, ScrollTrigger } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
 import { buildRoundedPath } from "../../utils/roundedPath";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { MAIN_STAT, SATELLITE_STATS } from "../../data/councilStats";
 import "./style.css";
-
-const MAIN_STAT = {
-  id: "companies",
-  value: "400+",
-};
-
-const SATELLITE_STATS = [
-  { id: "manufacturers", value: "360+", position: "top-left" },
-  { id: "schools", value: "28", position: "bottom-left" },
-  { id: "funds", value: "20", position: "bottom-right" },
-];
 
 const PIN_SCROLL_VH = 2.6;
 const PIN_SCRUB = 1.15;
@@ -42,21 +32,11 @@ export const AboutUs = () => {
   const stageRef = useRef(null);
   const mainCardRef = useRef(null);
   const satelliteRefs = useRef({});
-  /* Остання відома позиція курсора — щоб на прокрутку знати, над чим він */
-  const pointerRef = useRef({ x: 0, y: 0, known: false });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isInteractive, setIsInteractive] = useState(false);
-  const [hoveredId, setActiveId] = useState(null);
-  const [hoveredLine, setLine] = useState(null);
+  const [activeId, setActiveId] = useState(null);
+  const [line, setLine] = useState(null);
   const connectorPathRef = useRef(null);
-
-  /*
-   * Поки секція не інтерактивна, підсвітки не існує — і це виводиться під час
-   * рендеру, а не ефектом. Ефект тут дав би зайвий кадр із застряглою лінією:
-   * спершу намалювалось би старе, і лише потім зникло.
-   */
-  const activeId = isInteractive ? hoveredId : null;
-  const line = isInteractive ? hoveredLine : null;
 
   const setSatelliteRef = (id) => (node) => {
     if (node) satelliteRefs.current[id] = node;
@@ -155,17 +135,10 @@ export const AboutUs = () => {
     [buildConnectorPath],
   );
 
-  const handleSatelliteEnter = (id, event) => {
+  const handleSatelliteEnter = (id) => {
     if (!isInteractive) return;
-    if (event) {
-      pointerRef.current = { x: event.clientX, y: event.clientY, known: true };
-    }
     setActiveId(id);
     updateConnector(id);
-  };
-
-  const handleSatelliteMove = (event) => {
-    pointerRef.current = { x: event.clientX, y: event.clientY, known: true };
   };
 
   const handleSatelliteLeave = () => {
@@ -181,77 +154,21 @@ export const AboutUs = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [activeId, updateConnector]);
 
-  /*
-   * Знімаємо підсвітку, коли картка виїхала з-під курсора.
-   *
-   * Це не перестраховка, а закриття дірки, яка спрацьовує щоразу при
-   * прокрутці колесом. Браузер надсилає mouseleave тільки коли рухається
-   * мишка — а не коли елемент їде з-під нерухомого курсора. Тут блок саме
-   * такий: наводимо на картку, крутимо колесо не рухаючи мишею, картки
-   * розлітаються за таймлайном — і mouseleave не приходить ніколи. Картка
-   * лишається білою, лінія намальованою, і зняти це нічим: повторний
-   * mouseenter теж не спрацює, бо курсор формально нікуди не заходив.
-   *
-   * Тому на кожну прокрутку перевіряємо, що під курсором справді ще та сама
-   * картка. Якщо так — переміряємо лінію (картка могла зсунутись). Якщо ні —
-   * знімаємо стан, як зробив би mouseleave.
-   */
-  useEffect(() => {
-    if (!activeId) return undefined;
-
-    const check = () => {
-      const pointer = pointerRef.current;
-      const card = satelliteRefs.current[activeId];
-      if (!pointer.known || !card) return;
-
-      const under = document.elementFromPoint(pointer.x, pointer.y);
-
-      if (under && card.contains(under)) {
-        updateConnector(activeId);
-        return;
-      }
-
-      setActiveId(null);
-      setLine(null);
-    };
-
-    window.addEventListener("scroll", check, { passive: true });
-    return () => window.removeEventListener("scroll", check);
-  }, [activeId, updateConnector]);
-
-  /*
-   * Промальовування лінії.
-   *
-   * Тут навмисно немає `getTotalLength()`, хоча це стандартний спосіб.
-   * Проблема з ним у тому, що довжина міряється один раз, у момент запуску, і
-   * все подальше залежить від того, чи справді ця цифра збіглася з тим, що
-   * зараз у DOM. Варто їй виявитись меншою за реальну — і пунктир починає
-   * повторюватись: перша частина лінії суцільна, далі прогалина. Ззовні це
-   * виглядає рівно як «лінія не домальовується до кінця».
-   *
-   * Натомість у самого <path> стоїть pathLength="1": браузер сам приводить
-   * довжину до одиниці, тому «весь шлях» — це завжди рівно 1, скільки б
-   * пікселів він не мав насправді й коли б його не переміряли.
-   *
-   * І ще одне: щойно анімація добігла, пунктир вимикається зовсім. Стан
-   * спокою в такий спосіб не залежить від жодних обчислень — це просто
-   * суцільна лінія, і обірватись їй нема на чому.
-   */
   useEffect(() => {
     const path = connectorPathRef.current;
     if (!path || !line) return undefined;
 
+    const length = path.getTotalLength();
     gsap.killTweensOf(path);
     gsap.set(path, {
-      strokeDasharray: 1,
-      strokeDashoffset: 1,
+      strokeDasharray: length,
+      strokeDashoffset: length,
       opacity: 1,
     });
     gsap.to(path, {
       strokeDashoffset: 0,
       duration: 0.5,
       ease: "power2.out",
-      onComplete: () => gsap.set(path, { strokeDasharray: "none" }),
     });
 
     return () => gsap.killTweensOf(path);
@@ -570,8 +487,6 @@ export const AboutUs = () => {
                 <path
                   ref={connectorPathRef}
                   d={line}
-                  /* Уся довжина шляху = 1, див. пояснення біля анімації */
-                  pathLength="1"
                   className="about-us__connector-line"
                   fill="none"
                 />
@@ -606,8 +521,7 @@ export const AboutUs = () => {
                 key={stat.id}
                 ref={setSatelliteRef(stat.id)}
                 className={`about-us__card about-us__card--satellite about-us__card--${stat.position}${activeId === stat.id ? " about-us__card--active" : ""}`}
-                onMouseEnter={(event) => handleSatelliteEnter(stat.id, event)}
-                onMouseMove={handleSatelliteMove}
+                onMouseEnter={() => handleSatelliteEnter(stat.id)}
                 onMouseLeave={handleSatelliteLeave}
                 onFocus={() => handleSatelliteEnter(stat.id)}
                 onBlur={handleSatelliteLeave}
