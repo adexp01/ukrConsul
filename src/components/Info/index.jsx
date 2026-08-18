@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animation/gsapSetup";
 import { Button } from "../UI/Button";
+import { CtaBackdrop } from "../CtaBackdrop";
 import { ShieldSequence } from "../ShieldSequence";
 import { useIsMobile } from "../../hooks/IsMobile";
 import { useLanguage } from "../../i18n/LanguageContext";
@@ -219,7 +220,7 @@ export const Info = ({
 
         {showCta ? (
           <article className="info-section__cta">
-            <div className="info-section__cta-glow" aria-hidden="true" />
+            <CtaBackdrop />
 
             <h2 id={ctaTitleId} className="info-section__cta-title">
               <span className="info-section__cta-title-lines info-section__cta-title-lines--desktop">
