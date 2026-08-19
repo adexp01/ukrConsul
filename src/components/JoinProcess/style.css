@@ -1,11 +1,15 @@
+/*
+ * Своїх градієнтів у секції немає — вона лежить на фоні сторінки, як у макеті
+ * (нода 1366:8561: усередині кадру жодного фонового прямокутника, лише
+ * заголовок, щит, кроки й таби). Раніше тут були власний радіальний і
+ * лінійний градієнти, і вони давали видиму навісну смугу зі стиком там, де
+ * секція починалась і закінчувалась.
+ */
 .join-process {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
   padding: 86px 0 64px;
-  background:
-    radial-gradient(circle at 50% 45%, rgba(16, 29, 68, 0.46), transparent 46%),
-    linear-gradient(180deg, rgba(4, 6, 24, 0.95) 0%, #020410 100%);
 }
 
 .join-process__inner {
@@ -110,28 +114,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 220px;
-  min-height: 220px;
+  width: 340px;
+  min-height: 340px;
   transform: translateX(50%);
   pointer-events: none;
 }
 
+/*
+ * Сяйва за щитом у макеті також немає. Лишаємо вузол у розмітці, але без
+ * фону: він тримає позицію й не заважає, а якщо колись знадобиться підсвітка,
+ * її буде куди повернути.
+ */
 .join-process__glow {
   position: absolute;
   inset: -36%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(214, 166, 92, 0.2) 0%,
-    rgba(65, 103, 176, 0.14) 42%,
-    transparent 72%
-  );
   pointer-events: none;
 }
 
+/*
+ * 300px замість 160px. У макеті щит займає 222×315 при ширині кадру 1406 —
+ * тобто приблизно чверть висоти блока. Полотно тут квадратне (кадри 720×720,
+ * щит займає не всю площу), тому щоб дати ту саму видиму висоту, сторона
+ * полотна має бути помітно більшою за 222.
+ */
 .join-process__shield {
   position: relative;
   z-index: 1;
-  width: 160px;
+  width: 300px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.58));

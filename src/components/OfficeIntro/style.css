@@ -1,12 +1,44 @@
 .office-intro {
   position: relative;
   width: 100%;
-  padding-block: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 56px);
+  padding-block: clamp(40px, 4.4vw, 64px) clamp(28px, 3vw, 44px);
 }
 
 .office-intro__inner {
+  position: relative;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 48px);
+}
+
+/*
+ * Лінії лежать під контентом і не займають місця: з'єднувач тягнеться на всю
+ * площу inner і масштабується разом із ним (viewBox + preserveAspectRatio:
+ * none), тому геометрію достатньо порахувати раз для поточної розкладки.
+ */
+.office-intro__connector {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.office-intro__connector-path {
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.office-intro__title,
+.office-intro__stage,
+.office-intro__cta {
+  position: relative;
+  z-index: 1;
 }
 
 .office-intro__title {
@@ -28,7 +60,12 @@
 .office-intro__stage {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 40px) clamp(24px, 4vw, 72px);
+  /*
+   * Вертикальний зазор між репліками більший за горизонтальний навмисно: у
+   * ньому проходить лінія з акцентної картки у світлу, і при малому зазорі
+   * вона виглядала б як злам, а не як перехід.
+   */
+  gap: clamp(28px, 3.4vw, 52px) clamp(24px, 4vw, 72px);
   align-items: start;
 }
 
@@ -95,5 +132,15 @@
 
   .office-intro__card {
     border-radius: 14px;
+  }
+}
+
+/*
+ * На вузьких екранах картки стають одна під одною, і схема втрачає сенс —
+ * лінії там лише додавали б шуму. Той самий підхід, що в EXPORT MAP.
+ */
+@media (max-width: 900px) {
+  .office-intro__connector {
+    display: none;
   }
 }
