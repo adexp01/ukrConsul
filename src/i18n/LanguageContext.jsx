@@ -18,12 +18,24 @@ import {
   localizePath as buildLocalizedPath,
   switchLanguagePath,
 } from "./localeRoutes";
+import { resolveArticleSlugForLanguage } from "../data/articleMeta";
 
 const STORAGE_KEY = "ucdi-lang";
 
 const TRANSLATIONS = { en, uk };
 
 const LanguageContext = createContext(null);
+
+/** `/ua/article/<слаг>` → той самий реліз у потрібній мові */
+const withArticleSlug = (pathname, language) => {
+  const match = pathname.match(/^(\/[^/]+\/article\/)([^/?#]+)(.*)$/);
+  if (!match) return pathname;
+
+  const [, prefix, slug, rest] = match;
+  const paired = resolveArticleSlugForLanguage(slug, language);
+
+  return paired ? `${prefix}${paired}${rest}` : pathname;
+};
 
 export const LanguageProvider = ({ children }) => {
   const location = useLocation();
@@ -57,7 +69,20 @@ export const LanguageProvider = ({ children }) => {
       localStorage.setItem(STORAGE_KEY, lang);
 
       const { pathname, search, hash } = locationRef.current;
-      const nextUrl = `${switchLanguagePath(pathname, lang)}${search}${hash}`;
+      /*
+       * На статті міняється не лише префікс мови, а й сам слаг.
+       *
+       * Українська й англійська версії релізу — це два окремі записи CRM із
+       * різними адресами. Раніше перемикач лишав слаг незмінним, тому з
+       * `/en/article/three-different-models…` людина потрапляла на
+       * `/ua/article/three-different-models…` — той самий англійський текст
+       * під українським префіксом. Саме на це скаржився клієнт: «реліз
+       * українською не підтягується».
+       *
+       * Пари слагів лежать у data/articleMeta.js. Пари немає — адреса
+       * лишається як була, тобто поведінка не гіршає.
+       */
+      const nextUrl = `${withArticleSlug(switchLanguagePath(pathname, lang), lang)}${search}${hash}`;
 
       if (nextUrl !== `${pathname}${search}${hash}`) {
         navigate(nextUrl);
@@ -102,7 +127,9 @@ export const LanguageProvider = ({ children }) => {
   }, [language, localizePath, setLanguage, urlLocale]);
 
   return (
-    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
   );
 };
 

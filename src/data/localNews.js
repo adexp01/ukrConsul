@@ -265,6 +265,12 @@ export const LOCAL_NEWS = [
     id: "korporatyvna-bezpeka-2026",
     slug: "korporatyvna-bezpeka-2026",
     category: "events",
+    /*
+     * Тільки українською: англійського перекладу немає, а без `lang` запис
+     * показувався б і на /en — з українським текстом. `useNews` фільтрує
+     * стрічку саме за цим полем.
+     */
+    lang: "uk",
     published: true,
     createdAt: "2026-08-10T09:00:00.000Z",
     title:

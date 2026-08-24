@@ -522,6 +522,7 @@ export const en = {
       investments: "Investments",
       analytics: "Analytics",
       events: "Events",
+      ecosystem: "Ecosystem",
     },
     items: [
       {
@@ -565,6 +566,7 @@ export const en = {
       investments: "Investments",
       analytics: "Analytics",
       events: "Events",
+      ecosystem: "Ecosystem",
     },
     items: [
       {
@@ -1460,6 +1462,11 @@ export const en = {
       },
     },
     results: {
+      council: {
+        title: "Ukrainian Council of Defence Industry",
+        description:
+          "The Council is an umbrella of industry associations. If your organisation is an association itself, you join the Council directly: you become part of it alongside the other industry bodies and gain access to joint advocacy, working groups and the international track.",
+      },
       defenceAlliance: {
         title: "Defence Alliance of Ukraine",
         description:

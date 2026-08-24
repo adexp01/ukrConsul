@@ -1,8 +1,13 @@
 /*
  * Маршрутизація тесту «Долучитися».
  *
- * Ідея тесту — розвести людей по асоціаціях, тому на саму Раду не веде жоден
- * результат: якщо профіль неочевидний, це «Оборонний альянс України».
+ * Ідея тесту — розвести людей по асоціаціях, тому якщо профіль неочевидний,
+ * це «Оборонний альянс України».
+ *
+ * Виняток один: асоціація, яка хоче долучитися, приходить до самої Ради — Рада
+ * і є об'єднанням асоціацій, тому відправляти її в іншу асоціацію було
+ * неправильно. Раніше тут стояв `association: "defenceAlliance"`, і тест
+ * видавав такій організації картку Оборонного альянсу.
  *
  * Крок «на якому ви етапі» на маршрут не впливає — він потрібен команді для
  * розуміння контексту. Асоціацію визначають профіль і, для виробників,
@@ -82,12 +87,13 @@ export const RESULT_BY_ANSWER = {
   investor: "investorClub",
   uavSchool: "uavSchools",
   techTeam: "defenceAlliance",
-  association: "defenceAlliance",
+  association: "council",
   media: "media",
 };
 
 /** Форма й адреса для кожної асоціації */
 export const RESULT_TARGETS = {
+  council: { form: "manufacturers", email: CONTACT_EMAIL },
   defenceAlliance: { form: "manufacturers", email: CONTACT_EMAIL },
   navalDrones: { form: "manufacturers", email: CONTACT_EMAIL },
   roboticForces: { form: "manufacturers", email: CONTACT_EMAIL },

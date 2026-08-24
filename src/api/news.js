@@ -1,6 +1,7 @@
 import { getNewsApiUrl, resolveAssetUrl } from "./config";
 import { LOCAL_NEWS } from "../data/localNews";
 import { assignUniqueSlugs } from "./slug";
+import { resolveArticleTags } from "../data/articleMeta";
 
 export const resolveNewsAssetUrl = resolveAssetUrl;
 
@@ -49,7 +50,10 @@ export const fetchNews = async () => {
   try {
     remote = (await fetchCrmNews()).filter(isPublished);
   } catch (error) {
-    console.error("[news] CRM недоступна, показуємо лише локальні статті", error);
+    console.error(
+      "[news] CRM недоступна, показуємо лише локальні статті",
+      error,
+    );
   }
 
   const localIds = new Set(local.map((item) => String(item.id)));
@@ -122,13 +126,20 @@ export const mapNewsToCard = (item, { t, language }) => {
   const filters = t("ourNews.filters");
 
   const slug = item.slug ?? item.id;
+  /*
+   * Тегів може бути кілька: клієнт розставляє по два-три на реліз, а в CRM
+   * поле одне. На картці показуємо перший — місця там на один, — але фільтр
+   * стрічки перебирає весь масив.
+   */
+  const tags = resolveArticleTags({ ...item, slug });
 
   return {
     id: item.id,
     slug,
     href: `/article/${slug}`,
     category: item.category,
-    tag: getCategoryLabel(item.category, filters),
+    tags,
+    tag: getCategoryLabel(tags[0], filters),
     isoDate: item.createdAt?.slice(0, 10) ?? "",
     dateLabel: formatNewsDate(item.createdAt, language),
     title: item.title,

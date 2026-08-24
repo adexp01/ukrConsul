@@ -6,16 +6,18 @@ import { Button } from "../UI/Button";
 import { mapNewsToCard } from "../../api/news";
 import { useNews } from "../../hooks/useNews";
 
+/* Порядок такий самий, як у переліку тегів від клієнта */
 const FILTER_IDS = [
   "all",
   "gr",
   "export",
   "international",
-  "buildwithukraine",
-  "zbroyaexpo",
   "investments",
-  "analytics",
   "events",
+  "ecosystem",
+  "zbroyaexpo",
+  "buildwithukraine",
+  "analytics",
 ];
 
 const INITIAL_VISIBLE = 6;
@@ -44,7 +46,8 @@ export const MediaNews = () => {
    */
   const filters = useMemo(() => {
     const labels = t("mediaNews.filters");
-    const present = new Set(cards.map((item) => item.category));
+    // Стаття може мати кілька тегів, тому збираємо всі, а не по одному
+    const present = new Set(cards.flatMap((item) => item.tags ?? []));
 
     return FILTER_IDS.filter((id) => id === "all" || present.has(id)).map(
       (id) => ({ id, label: labels[id] }),
@@ -53,7 +56,8 @@ export const MediaNews = () => {
 
   const filteredNews = useMemo(() => {
     if (activeFilter === "all") return cards;
-    return cards.filter((item) => item.category === activeFilter);
+    // Досить одного збігу: реліз із тегами #GR #Ecosystem видно в обох табах
+    return cards.filter((item) => (item.tags ?? []).includes(activeFilter));
   }, [activeFilter, cards]);
 
   // Одна категорія на всі статті — таби нічого не дають, лишаємо просто список
