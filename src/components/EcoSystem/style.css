@@ -99,7 +99,13 @@
 
 .eco-system__member--focus-card {
   min-height: 232px;
-  height: 100%;
+  /*
+   * align-self, а не height: 100%. У горизонтальній смузі на мобільному
+   * height: 100% від контейнера невизначеної висоти дає auto — і картка з
+   * довшою назвою асоціації стає на 19px вища за сусідні. stretch тягне всі
+   * до найвищої.
+   */
+  align-self: stretch;
   padding: 0;
   border: 0;
   background: transparent;
@@ -107,9 +113,19 @@
 }
 
 .eco-system__flip-inner {
+  /*
+   * Обидві сторони лежать в одній клітинці ґріда, а не абсолютно. Різниця
+   * важлива: абсолютні сторони не давали картці висоти, тому висота була
+   * рівно min-height, довший текст у неї не влізав — і флекс стискав єдине,
+   * що вміло стискатись, тобто фото (заміряно на 1280px: 81×50 замість
+   * 81×81). У ґріді висота рядка = найвища зі сторін, стискати нічого не
+   * треба.
+   */
+  display: grid;
   position: relative;
+  /* Тягнеться на всю висоту картки, щоб у рядку всі картки були однакові */
+  flex: 1 1 auto;
   width: 100%;
-  height: 100%;
   min-height: inherit;
   transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
@@ -127,14 +143,12 @@
 }
 
 .eco-system__flip-face {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  height: 100%;
   min-height: inherit;
   padding: 26px 24px 28px;
   border: 1px solid rgba(142, 164, 205, 0.58);
@@ -179,17 +193,24 @@
   background: #7183ca;
 }
 
+/*
+ * Назва асоціації на оборотці — головний текст цієї сторони картки, тому
+ * більший за підпис на лицьовій. 16px клієнт читав як дрібний шрифт.
+ */
 .eco-system__focus-text {
   margin: 0;
-  color: rgba(17, 23, 35, 0.58);
-  font-size: 16px;
+  color: rgba(17, 23, 35, 0.66);
+  font-size: 22px;
   font-weight: 400;
-  line-height: 1.28;
+  line-height: 1.26;
+  letter-spacing: -0.02em;
 }
 
 .eco-system__member-thumb {
+  /* flex: none — фото не бере участі в стисканні колонки, коло лишається колом */
+  flex: none;
   width: 84px;
-  aspect-ratio: 1;
+  height: 84px;
   margin-bottom: 28px;
   border-radius: 50%;
   overflow: hidden;
@@ -326,6 +347,7 @@
 
   .eco-system__member-thumb {
     width: 72px;
+    height: 72px;
     margin-bottom: 20px;
   }
 
@@ -335,9 +357,9 @@
   }
 
   .eco-system__focus-text {
-    max-width: 220px;
-    font-size: 16px;
-    line-height: 22px;
+    max-width: none;
+    font-size: 22px;
+    line-height: 28px;
   }
 }
 

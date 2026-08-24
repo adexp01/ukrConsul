@@ -1251,16 +1251,23 @@ export const en = {
         {
           id: "export",
           icon: "chart",
-          title: "EXPORT & MARKET ACCESS",
+          title: "Export & Market Access",
           description:
             "We help companies navigate export opportunities, prepare analytics and support initiatives of the Export Support Office.",
         },
         {
-          id: "media",
+          id: "reputation",
           icon: "megaphone",
-          title: "MEDIA & PUBLIC ENGAGEMENT",
+          title: "Reputation & Advocacy",
           description:
-            "We develop media projects and communications that explain the role of the defence industry to society, partners and international audiences.",
+            "We build trust in Ukraine's private defence industry, explain the role of manufacturers in strengthening the country's defence capabilities and represent the sector in the public space.",
+        },
+        {
+          id: "combat",
+          icon: "shield",
+          title: "Combat Feedback",
+          description:
+            "We help establish a systematic link between manufacturers and military units so that technologies are refined faster, in line with the real needs of their use in the field.",
         },
       ],
     },
