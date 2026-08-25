@@ -5,6 +5,7 @@ import { Button } from "../UI/Button";
 import { buildRoundedPath } from "../../utils/roundedPath";
 import { useJoinQuiz } from "../JoinQuiz/JoinQuizContext";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { hasDestination } from "../../utils/links";
 import bgOffice from "../../assets/bgOffice.png";
 import "./style.css";
 
@@ -493,14 +494,15 @@ export const ExportMap = () => {
         </div>
 
         {/*
-          Раніше тут стояло href="#": клік нічого не робив, тільно кидав
-          сторінку вгору. Окремої сторінки мапи експорту немає, тому кнопка
-          веде туди ж, куди й решта заявок на сайті — у тест «Долучитися»,
-          який виводить на потрібну асоціацію.
+          Кнопка веде на лендінг Export map (окремий домен). Поки адреси не
+          було, вона відкривала тест «Долучитися» — цей варіант лишається
+          запасним, якщо в локалі не задано ctaHref.
         */}
         <div ref={ctaRef} className="export-map__cta-wrap">
           <Button
-            onClick={openJoinQuiz}
+            {...(hasDestination(copy.ctaHref)
+              ? { href: copy.ctaHref, target: "_blank", rel: "noreferrer" }
+              : { onClick: openJoinQuiz })}
             variant="primary"
             className="export-map__cta"
           >

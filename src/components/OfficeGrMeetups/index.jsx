@@ -1,7 +1,11 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../animation/gsapSetup";
 import { useLanguage } from "../../i18n/LanguageContext";
+import { useNews } from "../../hooks/useNews";
+import { formatNewsDate, getNewsExcerpt } from "../../api/news";
+import { resolveArticleSlugForLanguage } from "../../data/articleMeta";
 import { hasDestination } from "../../utils/links";
 import eventImage from "../../assets/g15.png";
 import "./style.css";
@@ -18,10 +22,48 @@ const ArrowIcon = () => (
   </svg>
 );
 
+/*
+ * Раніше в цих віконцях був календар анонсів. Клієнт попросив прибрати
+ * анонси й показувати замість них прев'ю до пресрелізів про заходи «Поміж
+ * зброярів GR» — ось ці три.
+ *
+ * Слаги, а не скопійовані заголовки: дата, назва й перший абзац приходять
+ * із CRM, тому блок не розходиться зі статтею після її редагування.
+ */
+const RELEASE_SLUGS = [
+  "defence-city-launched",
+  "ukrainska-rada-zbroiariv-stala-efekt",
+  "codified-but-not-procured",
+];
+
+const EXCERPT_LENGTH = 150;
+
 export const OfficeGrMeetups = ({ copyKey = "office.grMeetups" }) => {
-  const { t } = useLanguage();
+  const { t, language, localizePath } = useLanguage();
   const copy = t(copyKey);
+  const { news } = useNews();
   const sectionRef = useRef(null);
+
+  /*
+   * Беремо стрічку поточної мови. Якщо релізу цією мовою немає — картки
+   * просто не буде, а коли немає жодної, лишається сам опис формату. Це і є
+   * запасний варіант, про який просив клієнт.
+   */
+  const releases = useMemo(() => {
+    return RELEASE_SLUGS.map((slug) => {
+      const localized = resolveArticleSlugForLanguage(slug, language) ?? slug;
+      const article = news.find((item) => item.slug === localized);
+      if (!article) return null;
+
+      return {
+        id: article.id,
+        slug: article.slug,
+        meta: formatNewsDate(article.createdAt, language),
+        title: article.title,
+        text: getNewsExcerpt(article, EXCERPT_LENGTH),
+      };
+    }).filter(Boolean);
+  }, [news, language]);
 
   useGSAP(
     () => {
@@ -90,7 +132,7 @@ export const OfficeGrMeetups = ({ copyKey = "office.grMeetups" }) => {
 
       return () => mm.revert();
     },
-    { scope: sectionRef, dependencies: [copyKey] },
+    { scope: sectionRef, dependencies: [copyKey, releases.length] },
   );
 
   return (
@@ -107,54 +149,62 @@ export const OfficeGrMeetups = ({ copyKey = "office.grMeetups" }) => {
           <p className="office-gr-meetups__description">{copy.description}</p>
         </header>
 
-        <div className="office-gr-meetups__layout">
-          <div className="office-gr-meetups__panel">
-            <div className="office-gr-meetups__events">
-              {copy.events.map((event) => (
-                <article key={event.id} className="office-gr-meetups__event">
-                  <p className="office-gr-meetups__meta">{event.meta}</p>
-                  <h3 className="office-gr-meetups__event-title">
-                    {event.title}
-                  </h3>
-                  <p className="office-gr-meetups__event-text">{event.text}</p>
-                  {hasDestination(event.href) ? (
-                    <a
-                      className="office-gr-meetups__event-link"
-                      href={event.href}
-                    >
-                      {copy.joinLabel}
-                      <span aria-hidden="true">→</span>
-                    </a>
-                  ) : null}
-                </article>
-              ))}
-
-              {/* Сторінки з усіма подіями поки немає */}
-              {hasDestination(copy.allHref) ? (
-                <div className="office-gr-meetups__actions">
-                  <a className="office-gr-meetups__button" href={copy.allHref}>
-                    {copy.allLabel}
-                  </a>
-                  <a
-                    className="office-gr-meetups__icon-button"
-                    href={copy.allHref}
-                    aria-label={copy.allLabel}
+        {releases.length > 0 ? (
+          <div className="office-gr-meetups__layout">
+            <div className="office-gr-meetups__panel">
+              <div className="office-gr-meetups__events">
+                {releases.map((release) => (
+                  <article
+                    key={release.id}
+                    className="office-gr-meetups__event"
                   >
-                    <ArrowIcon />
-                  </a>
-                </div>
-              ) : null}
-            </div>
-          </div>
+                    <p className="office-gr-meetups__meta">{release.meta}</p>
+                    <h3 className="office-gr-meetups__event-title">
+                      {release.title}
+                    </h3>
+                    <p className="office-gr-meetups__event-text">
+                      {release.text}
+                    </p>
+                    <Link
+                      className="office-gr-meetups__event-link"
+                      to={localizePath(`/article/${release.slug}`)}
+                    >
+                      {copy.readLabel}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </article>
+                ))}
 
-          <img
-            className="office-gr-meetups__image"
-            src={eventImage}
-            alt=""
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+                {/* Сторінки з усіма подіями поки немає */}
+                {hasDestination(copy.allHref) ? (
+                  <div className="office-gr-meetups__actions">
+                    <a
+                      className="office-gr-meetups__button"
+                      href={copy.allHref}
+                    >
+                      {copy.allLabel}
+                    </a>
+                    <a
+                      className="office-gr-meetups__icon-button"
+                      href={copy.allHref}
+                      aria-label={copy.allLabel}
+                    >
+                      <ArrowIcon />
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
+            <img
+              className="office-gr-meetups__image"
+              src={eventImage}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   );

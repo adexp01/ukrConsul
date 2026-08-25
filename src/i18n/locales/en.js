@@ -887,7 +887,8 @@ export const en = {
       statement: [
         "ZBROYA is the shared",
         "international identity",
-        "of Ukraine's defence industry.",
+        "of Ukraine's defence",
+        "industry",
       ],
       statementColumns: [
         "Under this brand Ukraine presents its entire defence ecosystem to the world: state and private manufacturers, research teams, engineers, scientists, volunteers, state institutions and international partners.",
@@ -979,6 +980,8 @@ export const en = {
             title: "Community resident",
             description:
               "A participation format for companies and organisations that want to be part of the Council's professional community, join open industry events, professional dialogue and the exchange of expertise.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "project",
@@ -993,18 +996,24 @@ export const en = {
             title: "Development partner",
             description:
               "A partnership format for companies and organisations that want to contribute to the development of Ukraine's private defence industrial sector, combining expertise, resources and effort in joint industry projects and initiatives.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "technology",
             title: "Technology partner",
             description:
               "A partnership programme for companies that want to contribute to the development of Ukraine's private defence industrial sector by offering technologies, solutions and expertise useful to Ukrainian manufacturers.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "media",
             title: "Media partnership",
             description:
               "A partnership programme for media and communication platforms to cover Ukraine's private defence industrial sector, run joint information projects and promote Ukrainian defence technologies.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
         ],
       },
@@ -1060,6 +1069,8 @@ export const en = {
       cardRight:
         "The Export Support Office is a practical Council product that helps manufacturers understand export routes, compliance requirements and formats for international cooperation.",
       cta: "Export Map",
+      // Лендінг мапи експорту живе на окремому домені
+      ctaHref: "https://export.ucdi.org.ua/",
     },
     workFocus: {
       title: "What we work on",
@@ -1113,25 +1124,9 @@ export const en = {
       title: "Among defence manufacturers GR",
       description:
         '"Among defence manufacturers GR" is a closed meeting format for defence manufacturers focused on legislative, regulatory and procedural changes in the sector.',
-      joinLabel: "Join consultations",
+      readLabel: "Read the release",
       allLabel: "View all events",
       allHref: "#",
-      events: [
-        {
-          id: "asd-connect-1",
-          meta: "April 10  /  09:00-12:00",
-          title: "ASD-CONNECT platform presentation",
-          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
-          href: "#",
-        },
-        {
-          id: "asd-connect-2",
-          meta: "April 10  /  09:00-12:00",
-          title: "ASD-CONNECT platform presentation",
-          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
-          href: "#",
-        },
-      ],
     },
     services: {
       title: "Our services",
@@ -1170,13 +1165,11 @@ export const en = {
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Association",
-      focusCta: "About",
+      focusCta: "About the association",
       focusMember: {
         id: "kamyshin",
         name: "Oleksandr Kamyshin",
         role: "Chairman of the Board",
-        // Голова правління — не асоціація, тому плашки на оборотці немає
-        focusLabel: "",
       },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
@@ -1200,8 +1193,6 @@ export const en = {
           id: "buchatskyi",
           name: "Evelin Buchatskyi",
           role: "UCDI Investor Club",
-          // Інвестклуб — не асоціація, плашку прибрано
-          focusLabel: "",
         },
         {
           id: "honcharuk",
@@ -1264,14 +1255,14 @@ export const en = {
           icon: "megaphone",
           title: "Reputation & Advocacy",
           description:
-            "Fostering trust in Ukraine’s private defence industry, highlighting the role of manufacturers in strengthening national defence capabilities, and representing the sector in the public sphere.",
+            "We build trust in Ukraine's private defence industry, explain the role of manufacturers in strengthening the country's defence capabilities and represent the sector in the public space.",
         },
         {
           id: "combat",
           icon: "shield",
           title: "Combat Feedback",
           description:
-            "Facilitating systemic connections between manufacturers and military units to ensure technologies are rapidly refined in line with real-world operational needs.",
+            "We help establish a systematic link between manufacturers and military units so that technologies are refined faster, in line with the real needs of their use in the field.",
         },
       ],
     },

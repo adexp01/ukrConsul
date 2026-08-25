@@ -19,7 +19,20 @@ export const OfficeStatement = ({ lines = [], columns = [], titleId }) => {
         {columns.length > 0 ? (
           <div className="office-statement__columns">
             {columns.map((text) => (
-              <p key={text} className="office-statement__text">
+              /*
+               * Ширина колонки пропорційна довжині її тексту.
+               *
+               * Колонки були однакові по ширині, а тексти — ні: у блоці ZBROYA
+               * ліва колонка займала чотири рядки, права дві, і пара виглядала
+               * недоробленою. Кількість рядків ≈ довжина / ширина, тож коли
+               * ширина пропорційна довжині, рядків у колонках виходить порівну
+               * — і це працює само для будь-якої мови, без підбору чисел.
+               */
+              <p
+                key={text}
+                className="office-statement__text"
+                style={{ "--weight": text.length }}
+              >
                 {text}
               </p>
             ))}

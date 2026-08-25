@@ -358,6 +358,8 @@ export const OfficePage = () => {
                 ctaTitleId="office-exhibition-cta"
                 applyHref={exhibition.applyHref}
               />
+              {/* Останні новини є на всіх інших вкладках — тут блок просто забули */}
+              <Articles />
             </>
           ) : isPartnershipTab ? (
             <>
