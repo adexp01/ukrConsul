@@ -9,6 +9,7 @@ import {
   getCategoryLabel,
   resolveNewsAssetUrl,
 } from "../../api/news";
+import { resolveArticleTags } from "../../data/articleMeta";
 import { renderRichText } from "../RichText";
 import { useLanguage } from "../../i18n/LanguageContext";
 import "./style.css";
@@ -152,7 +153,13 @@ export const ArticleContent = ({ article, loading = false }) => {
   }
 
   const filters = t("ourNews.filters");
-  const tag = getCategoryLabel(article.category, filters);
+  /*
+   * Тег беремо з тієї самої таблиці, що й картки стрічки, а не з поля
+   * `category` у CRM: у базі лишились старі одиничні категорії, тому стаття
+   * з тегами «#Міжнародка #Події» у стрічці була «Міжнародка», а на власній
+   * сторінці — «GR». Показуємо перший тег: місця тут теж рівно на один.
+   */
+  const tag = getCategoryLabel(resolveArticleTags(article)[0], filters);
   const isoDate = article.createdAt?.slice(0, 10) ?? "";
   const dateLabel = formatNewsDate(article.createdAt, language);
   const blocks = article.blocks ?? [];

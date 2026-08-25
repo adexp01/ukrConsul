@@ -71,6 +71,12 @@
 .eco-system__members {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  /*
+   * 1fr, а не auto: рядки вирівнюються між собою, а не кожен по своєму
+   * найдовшому тексту. Інакше на 1280 і 900px сусідні рядки різнились
+   * на 20-24px — сітка виглядала рваною.
+   */
+  grid-auto-rows: 1fr;
   gap: 18px;
 }
 

@@ -1,7 +1,7 @@
 import { getNewsApiUrl, resolveAssetUrl } from "./config";
 import { LOCAL_NEWS } from "../data/localNews";
 import { assignUniqueSlugs } from "./slug";
-import { resolveArticleTags } from "../data/articleMeta";
+import { resolveArticleTags, resolveArticleTitle } from "../data/articleMeta";
 
 export const resolveNewsAssetUrl = resolveAssetUrl;
 
@@ -72,12 +72,19 @@ export const fetchNews = async () => {
  * Базові поля (title / blocks / mainImage) — українською, як їх віддає CRM.
  * Якщо в записі є `i18n[language]`, його поля перекривають базові.
  * Немає перекладу для мови — повертається оригінал.
+ *
+ * Тут же підміняється заголовок для тих релізів, у яких у CRM лишилась стара
+ * назва (див. TITLE_OVERRIDES у articleMeta). Місце вибрано одне на всіх:
+ * через цю функцію проходять і картки стрічки, і сама стаття, і мета-теги.
  */
 export const localizeNewsItem = (item, language) => {
   const translation = item?.i18n?.[language];
-  if (!translation) return item;
+  const localized = translation ? { ...item, ...translation } : item;
 
-  return { ...item, ...translation };
+  const title = resolveArticleTitle(localized);
+  if (title === localized?.title) return localized;
+
+  return { ...localized, title };
 };
 
 export const formatNewsDate = (isoDate, language) => {

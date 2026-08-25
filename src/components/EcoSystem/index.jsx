@@ -51,6 +51,13 @@ export const EcoSystem = () => {
             const thumbSrc = getEcoSystemMemberImage(member);
             const isFlipped = flippedCardId === cardId;
             const focusText = member.focusDescription ?? member.role;
+            /*
+              Плашка на оборотці підписує саме асоціацію. У голови правління
+              та інвестклубу асоціації немає, тому локаль ставить їм
+              focusLabel: "" — і плашка не рендериться взагалі (порожню
+              лишати не можна: залишився б висіти самотній квадратик іконки).
+            */
+            const focusLabel = member.focusLabel ?? copy.focusLabel;
 
             return (
               /*
@@ -87,11 +94,17 @@ export const EcoSystem = () => {
                     </div>
                     <h3 className="eco-system__member-name">{member.name}</h3>
                     <p className="eco-system__member-role">{member.role}</p>
+                    {/*
+                      Видимий підпис кнопки короткий («Детальніше» / «About»),
+                      тому для читалок додаємо ім'я в aria-label — інакше на
+                      сторінці дев'ять однакових кнопок без контексту.
+                    */}
                     <button
                       className="eco-system__focus-cta"
                       type="button"
                       onClick={(event) => showFocus(event, cardId)}
                       aria-pressed={isFlipped}
+                      aria-label={`${copy.focusCta} — ${member.name}`}
                     >
                       <span>{copy.focusCta}</span>
                       <span aria-hidden="true">→</span>
@@ -99,10 +112,15 @@ export const EcoSystem = () => {
                   </div>
 
                   <div className="eco-system__flip-face eco-system__flip-face--back">
-                    <span className="eco-system__focus">
-                      <span className="eco-system__focus-icon" aria-hidden="true" />
-                      {copy.focusLabel}
-                    </span>
+                    {focusLabel ? (
+                      <span className="eco-system__focus">
+                        <span
+                          className="eco-system__focus-icon"
+                          aria-hidden="true"
+                        />
+                        {focusLabel}
+                      </span>
+                    ) : null}
                     <p className="eco-system__focus-text">{focusText}</p>
                   </div>
                 </div>

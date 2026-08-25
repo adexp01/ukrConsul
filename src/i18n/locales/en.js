@@ -1170,11 +1170,13 @@ export const en = {
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Association",
-      focusCta: "About the association",
+      focusCta: "About",
       focusMember: {
         id: "kamyshin",
         name: "Oleksandr Kamyshin",
         role: "Chairman of the Board",
+        // Голова правління — не асоціація, тому плашки на оборотці немає
+        focusLabel: "",
       },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
@@ -1198,6 +1200,8 @@ export const en = {
           id: "buchatskyi",
           name: "Evelin Buchatskyi",
           role: "UCDI Investor Club",
+          // Інвестклуб — не асоціація, плашку прибрано
+          focusLabel: "",
         },
         {
           id: "honcharuk",
@@ -1260,14 +1264,14 @@ export const en = {
           icon: "megaphone",
           title: "Reputation & Advocacy",
           description:
-            "We build trust in Ukraine's private defence industry, explain the role of manufacturers in strengthening the country's defence capabilities and represent the sector in the public space.",
+            "Fostering trust in Ukraine’s private defence industry, highlighting the role of manufacturers in strengthening national defence capabilities, and representing the sector in the public sphere.",
         },
         {
           id: "combat",
           icon: "shield",
           title: "Combat Feedback",
           description:
-            "We help establish a systematic link between manufacturers and military units so that technologies are refined faster, in line with the real needs of their use in the field.",
+            "Facilitating systemic connections between manufacturers and military units to ensure technologies are rapidly refined in line with real-world operational needs.",
         },
       ],
     },

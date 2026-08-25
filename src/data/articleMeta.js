@@ -24,6 +24,10 @@
  * Один рядок — один реліз, обидві його мовні версії.
  *
  * `uk` / `en` — слаги; якщо якоїсь версії ще немає, поле просто відсутнє.
+ *
+ * Порядок рядків — як у переліку клієнта («Коментарі до сайту Медіа»), тобто
+ * від найновішого релізу до найстарішого. Англійські слаги проставлені там,
+ * де пару вже знайдено; решта чекає на англомовний перелік.
  */
 const RELEASES = [
   {
@@ -33,15 +37,43 @@ const RELEASES = [
     tags: ["gr", "ecosystem"],
   },
   {
-    // Англійської версії не буде: реліф прибрано з англомовного сайту
+    // Англійської версії не буде: реліз прибрано з англомовного сайту
     // (див. `lang: "uk"` у localNews.js)
     uk: "korporatyvna-bezpeka-2026",
     tags: ["events"],
   },
   {
+    uk: "rada-zbroiariv-zapuskaie-viiskovyi-tr",
+    tags: ["ecosystem"],
+  },
+  {
+    uk: "2-associations-joined-ucdi",
+    tags: ["ecosystem"],
+  },
+  {
+    uk: "white-paper-gr-ukr",
+    tags: ["gr", "analytics"],
+  },
+  {
+    uk: "1-year-results-ukr",
+    tags: ["gr", "analytics", "export", "ecosystem", "events"],
+  },
+  {
+    uk: "bwu-24-2-2026",
+    tags: ["international"],
+  },
+  {
+    uk: "three-bwu-signings-ukr",
+    tags: ["international"],
+  },
+  {
     uk: "export-difference",
     en: "three-different-models-of-cooperation-with-ukraines-defence-industry",
     tags: ["international", "buildwithukraine"],
+  },
+  {
+    uk: "defence-city-launched",
+    tags: ["gr", "export"],
   },
   {
     uk: "ucdi-investor-club-ukr",
@@ -54,19 +86,97 @@ const RELEASES = [
     tags: ["gr", "export", "buildwithukraine"],
   },
   {
+    uk: "pomizh-zbroiariv-suchasni-vyklyky-dlia-ob",
+    tags: ["gr"],
+  },
+  {
+    uk: "practica",
+    tags: ["international", "buildwithukraine"],
+  },
+  {
+    uk: "dfnc-investor-day-poshuk-shliakhiv-masshtabuvannia-ukra",
+    tags: ["international", "events"],
+  },
+  {
+    uk: "u-mezhakh-tretoho-mizhnarodnoho-forumu",
+    tags: ["international", "events"],
+  },
+  {
+    uk: "94-ukrainskykh-vyrobnykiv-hotovi-do-eks",
+    tags: ["export", "events"],
+  },
+  {
+    uk: "ucdi-at-mspo-2025",
+    tags: ["zbroyaexpo", "events", "international"],
+  },
+  {
+    uk: "zbroya-na-dalo-industry-days-daniia-pohlybliuie-oboronne-part",
+    tags: ["zbroyaexpo", "events", "international"],
+  },
+  {
+    uk: "ukrainska-rada-zbroiariv-razom-z-ukra",
+    tags: ["analytics"],
+  },
+  {
+    uk: "defence-city-explainer",
+    tags: ["gr"],
+  },
+  {
+    uk: "armada-ukr",
+    tags: ["ecosystem"],
+  },
+  {
     uk: "providna-amerykanska-tekhnolohichna",
     en: "axon-the-leading-u-s-based-technology-company-met-with-ukrainian-innovators-and",
     tags: ["international"],
   },
   {
-    // Української версії на сайті немає — клієнт перевіряє, чи вона загубилась
-    en: "ucdi-launches-a-series-of-working-meetings-between-defense-industry-producers",
-    tags: ["gr", "ecosystem"],
+    uk: "frantsuzka-oboronna-promyslovist-p",
+    tags: ["international", "ecosystem"],
   },
   {
-    uk: "ukrainski-banky-prezentuvaly-pilhovi-umovy-kredytuvannia-dlia-vyrobnykiv",
-    en: "ukrainian-banks-presented-preferential-lending-terms-for-arms-manufacturers",
-    tags: ["investments"],
+    uk: "regions-lviv",
+    tags: ["gr", "events"],
+  },
+  {
+    uk: "ukrainska-rada-oboronnoi-promyslov",
+    tags: ["international", "events", "zbroyaexpo", "ecosystem"],
+  },
+  {
+    uk: "nimechchyna-stratehichnyi-partner-ukr",
+    tags: ["international", "ecosystem"],
+  },
+  {
+    uk: "rada-zbroiariv-na-kiel-munition-clearance-week-2025",
+    tags: ["international", "events"],
+  },
+  {
+    uk: "biznes-shkola-mim-ta-ukrainska-rada-zb",
+    tags: ["ecosystem"],
+  },
+  {
+    uk: "v-ukraini-vidkryto-ukrainian-training-and-testing-complex-uttc",
+    tags: ["events"],
+  },
+  {
+    uk: "brytanska-oboronna-promyslovist-p",
+    tags: ["events", "ecosystem"],
+  },
+  {
+    uk: "rehiony-oborony-rada-zbroiariv-zustri",
+    tags: ["events", "ecosystem"],
+  },
+  {
+    uk: "ukrainska-rada-zbroiariv-stala-efekt",
+    tags: ["gr"],
+  },
+  {
+    uk: "why-relocate",
+    tags: ["international"],
+  },
+  {
+    uk: "codified-but-not-procured",
+    tags: ["gr"],
   },
   {
     uk: "ukrainska-rada-zbroiariv-oholosyla-rozminuvannia-odnym-iz-priorytetnykh",
@@ -84,16 +194,45 @@ const RELEASES = [
     tags: ["ecosystem"],
   },
   {
-    // Української версії на сайті немає — клієнт перевіряє, чи вона загубилась
-    en: "report-on-the-results-of-the-defence-industry-in-2024",
-    tags: ["analytics"],
-  },
-  {
     uk: "v-ukraini-zapustyly-radu-zbroiariv",
     en: "ukrainian-defence-manufacturers-council-launched-in-ukraine",
     tags: ["ecosystem"],
   },
+
+  /*
+   * Нижче — те, чого в переліку клієнта немає: тег лишається той, що вже був.
+   */
+  {
+    uk: "ukrainski-banky-prezentuvaly-pilhovi-umovy-kredytuvannia-dlia-vyrobnykiv",
+    en: "ukrainian-banks-presented-preferential-lending-terms-for-arms-manufacturers",
+    tags: ["investments"],
+  },
+  {
+    // Української версії на сайті немає — клієнт перевіряє, чи вона загубилась
+    en: "ucdi-launches-a-series-of-working-meetings-between-defense-industry-producers",
+    tags: ["gr", "ecosystem"],
+  },
+  {
+    // Української версії на сайті немає — клієнт перевіряє, чи вона загубилась
+    en: "report-on-the-results-of-the-defence-industry-in-2024",
+    tags: ["analytics"],
+  },
 ];
+
+/**
+ * Заголовки, які в CRM лишились старими.
+ *
+ * Клієнт просив замінити назву на сайті, а не чекати правки в базі. Ключ —
+ * слаг статті, тому підміна діє лише на тій мовній версії, у якої цей слаг.
+ * Коли заголовок виправлять у CRM, рядок звідси можна прибрати — сайт знову
+ * показуватиме те, що віддає база.
+ */
+const TITLE_OVERRIDES = new Map([
+  [
+    "ukrainska-rada-oboronnoi-promyslov",
+    "Українська рада зброярів на URC 2025: основні результати та подальші кроки",
+  ],
+]);
 
 const buildTagIndex = () => {
   const index = new Map();
@@ -149,3 +288,10 @@ export const resolveArticleSlugForLanguage = (slug, language) => {
   const target = release[language];
   return target && target !== slug ? target : null;
 };
+
+/**
+ * Заголовок статті з урахуванням підміни. Немає підміни — той, що прийшов
+ * із CRM.
+ */
+export const resolveArticleTitle = (item) =>
+  (item?.slug ? TITLE_OVERRIDES.get(item.slug) : null) ?? item?.title;
