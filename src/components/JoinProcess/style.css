@@ -5,11 +5,31 @@
  * лінійний градієнти, і вони давали видиму навісну смугу зі стиком там, де
  * секція починалась і закінчувалась.
  */
+/*
+ * Уся вертикальна ритміка секції залежить від висоти вікна, і це не смак, а
+ * умова роботи блока: секція пінується, тобто на час проїзду вона стоїть на
+ * місці й показує рівно те, що влазить у вікно. Поки відступи були
+ * фіксованими, вміст важив ~880px і на лептопі (вікно 620–790px) нижні рядки
+ * кроку та смужку табів просто зрізало — саме це й було видно в Chrome і Edge,
+ * причому останній крок «лікувався» сам, бо на ньому пін уже відпускав
+ * сторінку і низ виїзджав у вікно.
+ *
+ * Тепер кожен вертикальний розмір — clamp з vh-серединою, тому вміст
+ * вкладається у вікно від ~570px і вище, а на великих екранах виглядає як
+ * раніше.
+ */
 .join-process {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  padding: 86px 0 64px;
+  /* svh — щоб на мобільних панель браузера не додавала зайвої висоти */
+  min-height: 100svh;
+  /*
+   * Верхній відступ не менший за висоту шапки (88px): секція пінується
+   * верхнім краєм до верху вікна, а шапка лежить фіксовано над нею, тому
+   * будь-що менше — і перший рядок заголовка ховається під шапкою.
+   */
+  padding: clamp(100px, 10vh, 120px) 0 clamp(24px, 4.5vh, 64px);
 }
 
 .join-process__inner {
@@ -20,12 +40,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto 86px;
+  margin: 0 auto clamp(20px, 5.5vh, 86px);
   color: #ffffff;
   font-family: "Fixel Display", sans-serif;
-  font-size: 52px;
+  font-size: clamp(30px, 4.2vh, 52px);
   font-weight: 600;
-  line-height: 58px;
+  line-height: 1.12;
   letter-spacing: -0.04em;
   text-align: center;
   text-transform: uppercase;
@@ -35,9 +55,15 @@
   display: block;
 }
 
+/*
+ * Стрічка кроків лежить у стейджі абсолютно, тому висоту стейджа вміст не
+ * розсуває — її треба задати. Мінімум 296px тримає найвищий крок (номер +
+ * трирядковий заголовок + сім рядків тексту), 40vh дає ту саму пропорцію на
+ * великих екранах.
+ */
 .join-process__stage {
   position: relative;
-  min-height: 326px;
+  min-height: clamp(296px, 40vh, 326px);
   padding: 0;
 }
 
@@ -71,7 +97,7 @@
 
 .join-process__number {
   display: block;
-  margin-bottom: 84px;
+  margin-bottom: clamp(18px, 6vh, 84px);
   color: rgba(255, 255, 255, 0.86);
   font-family: "Fixel Display", sans-serif;
   font-size: 16px;
@@ -85,9 +111,9 @@
   margin: 0;
   color: #ffffff;
   font-family: "Fixel Display", sans-serif;
-  font-size: 32px;
+  font-size: clamp(24px, 3.4vh, 32px);
   font-weight: 600;
-  line-height: 36px;
+  line-height: 1.13;
   letter-spacing: -0.04em;
   text-transform: uppercase;
 }
@@ -101,9 +127,9 @@
   margin: 12px 0 0;
   color: rgba(255, 255, 255, 0.62);
   font-family: "Fixel Display", sans-serif;
-  font-size: 16px;
+  font-size: clamp(14px, 2.2vh, 16px);
   font-weight: 400;
-  line-height: 21px;
+  line-height: 1.33;
   letter-spacing: -0.02em;
 }
 
@@ -114,8 +140,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 340px;
-  min-height: 340px;
+  width: clamp(220px, 34vh, 340px);
+  min-height: clamp(220px, 34vh, 340px);
   transform: translateX(50%);
   pointer-events: none;
 }
@@ -140,14 +166,14 @@
 .join-process__shield {
   position: relative;
   z-index: 1;
-  width: 300px;
+  width: clamp(190px, 30vh, 300px);
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.58));
 }
 
 .join-process__controls {
-  margin-top: 74px;
+  margin-top: clamp(20px, 4.5vh, 74px);
   padding: 0 64px;
 }
 
@@ -191,7 +217,7 @@
   position: relative;
   overflow: hidden;
   height: 1px;
-  margin-top: 20px;
+  margin-top: clamp(12px, 2vh, 20px);
   background: rgba(255, 255, 255, 0.22);
 }
 

@@ -141,29 +141,6 @@
   gap: 24px 34px;
 }
 
-/* Тепер це <button>, а не <a> — скидаємо стандартні стилі кнопки */
-.join-ecosystem__format-link {
-  padding: 0;
-  border: 0;
-  background: none;
-  font-family: inherit;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.join-ecosystem__format-link:hover {
-  opacity: 0.78;
-}
-
 .join-ecosystem__nav {
   flex-shrink: 0;
 }
@@ -207,16 +184,18 @@
   }
 
   .join-ecosystem-card__text,
-  .join-ecosystem-card__link,
-  .join-ecosystem__format-link {
+  .join-ecosystem-card__link {
     font-size: 15px;
     line-height: 20px;
   }
 
-  .join-ecosystem__footer,
-  .join-ecosystem__actions {
-    align-items: flex-start;
-    flex-direction: column;
+  /*
+   * У футері лишилась одна кнопка, тому на телефоні він теж рядок: кнопка
+   * ліворуч, стрілки праворуч. Колонка була потрібна, поки поруч стояло
+   * довге посилання про формати участі.
+   */
+  .join-ecosystem__footer {
+    gap: 16px;
   }
 }
 

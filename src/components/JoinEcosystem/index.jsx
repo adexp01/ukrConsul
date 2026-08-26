@@ -89,19 +89,17 @@ export const JoinEcosystem = () => {
         </div>
 
         <div className="join-ecosystem__footer">
+          {/*
+            Тут лише одна кнопка. Раніше поруч стояло посилання «Дізнатися,
+            який формат участі вам підходить» — воно відкривало той самий тест,
+            що й «Подати заявку», тобто дві кнопки вели в одне місце. Плюс про
+            формати участі йдеться в наступній секції, тому в блоці «хто вже
+            входить до екосистеми» такий заклик не на місці.
+          */}
           <div className="join-ecosystem__actions">
             <Button onClick={openJoinQuiz} variant="primary">
               {joinCopy.primaryCta}
             </Button>
-
-            <button
-              type="button"
-              onClick={openJoinQuiz}
-              className="join-ecosystem__format-link"
-            >
-              {copy.formatCta}
-              <span aria-hidden="true">→</span>
-            </button>
           </div>
 
           <NavArrows
