@@ -101,11 +101,11 @@ export const en = {
     organizations: [
       {
         name: "DEFENCE ALLIANCE OF UKRAINE",
-        href: "https://defencealliance.org.ua/en",
+        href: "https://defencealliance.org.ua/",
       },
       {
         name: "League of Defence Companies of Ukraine",
-        href: "https://www.ldc.org.ua/en/",
+        href: "https://www.ldc.org.ua/",
       },
       {
         name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
@@ -117,7 +117,7 @@ export const en = {
       },
       {
         name: "TECHOSYSTEM DEFENSE",
-        href: "https://techosystem.org/en",
+        href: "https://techosystem.org/",
       },
       {
         name: 'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
@@ -319,6 +319,8 @@ export const en = {
     ecosystem: {
       title: ["WHO IS ALREADY", "PART OF THE", "COUNCIL ECOSYSTEM"],
       cardCta: "Visit",
+      formatCta: "Find out which participation format suits you",
+      formatHref: "mailto:official@ucdi.org.ua",
       navigationLabel: "Community navigation",
       prevLabel: "Previous communities",
       nextLabel: "Next communities",
@@ -326,12 +328,12 @@ export const en = {
         {
           title: "Defence Alliance of Ukraine",
           text: "A community working to develop a competitive Ukrainian defence industry for the Defence Forces of Ukraine. The Alliance unites industry and state efforts, supports long-term sector development, innovation, public-private partnership and international capital engagement.",
-          href: "https://defencealliance.org.ua/en",
+          href: "https://defencealliance.org.ua/",
         },
         {
           title: "League of Defence Companies of Ukraine",
           text: "An association of Ukrainian private manufacturers of weapons and military equipment. The League represents domestic producers, supports the development of the defence-industrial complex and helps improve conditions for the industry.",
-          href: "https://www.ldc.org.ua/en/",
+          href: "https://www.ldc.org.ua/",
         },
         {
           title: "Radioelectronic Alliance of Ukraine",
@@ -346,22 +348,12 @@ export const en = {
         {
           title: "Techosystem Defense",
           text: "An association of defence technology companies working on innovation, government engagement and conditions for scaling Ukrainian defence tech solutions.",
-          href: "https://techosystem.org/en",
+          href: "https://techosystem.org/",
         },
         {
           title: 'Association of Unmanned Systems Manufacturers "Armada"',
           text: "A professional association of unmanned systems manufacturers representing the industry, supporting producer coordination and developing Ukrainian unmanned solutions.",
           href: "https://www.armada.net.ua/",
-        },
-        {
-          title: "Independent Association of UAV Schools of Ukraine",
-          text: "A community of training centres and unmanned systems schools: shared operator training standards, exchange of methodologies and work with the military on practical training programmes.",
-          href: "https://uavs.in.ua/",
-        },
-        {
-          title: "Unmanned Naval Association",
-          text: "A community of developers and manufacturers of unmanned surface and underwater systems and maritime security solutions, bringing together producers, the military, researchers and international partners.",
-          href: "https://www.unmanned-naval.org/",
         },
       ],
     },
@@ -1178,11 +1170,13 @@ export const en = {
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
       focusLabel: "Association",
-      focusCta: "About the association",
+      focusCta: "About",
       focusMember: {
         id: "kamyshin",
         name: "Oleksandr Kamyshin",
         role: "Chairman of the Board",
+        // Голова правління — не асоціація, тому плашки на оборотці немає
+        focusLabel: "",
       },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
@@ -1206,6 +1200,8 @@ export const en = {
           id: "buchatskyi",
           name: "Evelin Buchatskyi",
           role: "UCDI Investor Club",
+          // Інвестклуб — не асоціація, плашку прибрано
+          focusLabel: "",
         },
         {
           id: "honcharuk",
@@ -1268,14 +1264,14 @@ export const en = {
           icon: "megaphone",
           title: "Reputation & Advocacy",
           description:
-            "We build trust in Ukraine's private defence industry, explain the role of manufacturers in strengthening the country's defence capabilities and represent the sector in the public space.",
+            "Fostering trust in Ukraine’s private defence industry, highlighting the role of manufacturers in strengthening national defence capabilities, and representing the sector in the public sphere.",
         },
         {
           id: "combat",
           icon: "shield",
           title: "Combat Feedback",
           description:
-            "We help establish a systematic link between manufacturers and military units so that technologies are refined faster, in line with the real needs of their use in the field.",
+            "Facilitating systemic connections between manufacturers and military units to ensure technologies are rapidly refined in line with real-world operational needs.",
         },
       ],
     },
@@ -1375,11 +1371,11 @@ export const en = {
       organizations: [
         {
           name: "DEFENCE ALLIANCE OF UKRAINE",
-          href: "https://defencealliance.org.ua/en",
+          href: "https://defencealliance.org.ua/",
         },
         {
           name: "LEAGUE OF DEFENCE ENTERPRISES OF UKRAINE",
-          href: "https://www.ldc.org.ua/en/",
+          href: "https://www.ldc.org.ua/",
         },
         {
           name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
@@ -1391,7 +1387,7 @@ export const en = {
         },
         {
           name: "TECHOSYSTEM DEFENSE",
-          href: "https://techosystem.org/en",
+          href: "https://techosystem.org/",
         },
         {
           name: 'ASSOCIATION OF BPS MANUFACTURERS "ARMADA"',
