@@ -167,10 +167,14 @@
   background: #d7e3f6;
 }
 
+/*
+ * Вміст оборотки — по центру. Раніше він притискався догори (flex-start +
+ * padding-top: 46px), і на картці голови правління, де текст короткий, під
+ * ним лишалась половина картки порожньою.
+ */
 .eco-system__flip-face--back {
   gap: 18px;
-  justify-content: flex-start;
-  padding-top: 46px;
+  justify-content: center;
   background: #8e9ddd;
   transform: rotateY(180deg);
 }
@@ -200,15 +204,17 @@
 }
 
 /*
- * Назва асоціації на оборотці — головний текст цієї сторони картки, тому
- * більший за підпис на лицьовій. 16px клієнт читав як дрібний шрифт.
+ * Текст на оборотці — головний вміст цієї сторони, тому більший за підпис на
+ * лицьовій. 18px, а не 22: клієнт замінив коротку назву асоціації на опис
+ * фокусу в 130-180 символів, і на 22px найдовші з них розганяли картку до
+ * 380px висоти — рядок сітки тягнувся за найвищою карткою.
  */
 .eco-system__focus-text {
   margin: 0;
-  color: rgba(17, 23, 35, 0.66);
-  font-size: 22px;
+  color: rgba(17, 23, 35, 0.72);
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.26;
+  line-height: 1.28;
   letter-spacing: -0.02em;
 }
 
@@ -327,10 +333,6 @@
     padding: 28px 24px;
   }
 
-  .eco-system__member--focus-card .eco-system__flip-face--back {
-    padding-top: 48px;
-  }
-
   .eco-system__focus-cta {
     display: inline-flex;
     align-items: center;
@@ -364,8 +366,8 @@
 
   .eco-system__focus-text {
     max-width: none;
-    font-size: 22px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 24px;
   }
 }
 

@@ -101,11 +101,11 @@ export const en = {
     organizations: [
       {
         name: "DEFENCE ALLIANCE OF UKRAINE",
-        href: "https://defencealliance.org.ua/",
+        href: "https://defencealliance.org.ua/en",
       },
       {
         name: "League of Defence Companies of Ukraine",
-        href: "https://www.ldc.org.ua/",
+        href: "https://www.ldc.org.ua/en/",
       },
       {
         name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
@@ -117,7 +117,7 @@ export const en = {
       },
       {
         name: "TECHOSYSTEM DEFENSE",
-        href: "https://techosystem.org/",
+        href: "https://techosystem.org/en",
       },
       {
         name: 'Association of Manufacturers of Unmanned Systems and Associated Technologies "Armada"',
@@ -319,8 +319,6 @@ export const en = {
     ecosystem: {
       title: ["WHO IS ALREADY", "PART OF THE", "COUNCIL ECOSYSTEM"],
       cardCta: "Visit",
-      formatCta: "Find out which participation format suits you",
-      formatHref: "mailto:official@ucdi.org.ua",
       navigationLabel: "Community navigation",
       prevLabel: "Previous communities",
       nextLabel: "Next communities",
@@ -328,12 +326,12 @@ export const en = {
         {
           title: "Defence Alliance of Ukraine",
           text: "A community working to develop a competitive Ukrainian defence industry for the Defence Forces of Ukraine. The Alliance unites industry and state efforts, supports long-term sector development, innovation, public-private partnership and international capital engagement.",
-          href: "https://defencealliance.org.ua/",
+          href: "https://defencealliance.org.ua/en",
         },
         {
           title: "League of Defence Companies of Ukraine",
           text: "An association of Ukrainian private manufacturers of weapons and military equipment. The League represents domestic producers, supports the development of the defence-industrial complex and helps improve conditions for the industry.",
-          href: "https://www.ldc.org.ua/",
+          href: "https://www.ldc.org.ua/en/",
         },
         {
           title: "Radioelectronic Alliance of Ukraine",
@@ -348,12 +346,22 @@ export const en = {
         {
           title: "Techosystem Defense",
           text: "An association of defence technology companies working on innovation, government engagement and conditions for scaling Ukrainian defence tech solutions.",
-          href: "https://techosystem.org/",
+          href: "https://techosystem.org/en",
         },
         {
           title: 'Association of Unmanned Systems Manufacturers "Armada"',
           text: "A professional association of unmanned systems manufacturers representing the industry, supporting producer coordination and developing Ukrainian unmanned solutions.",
           href: "https://www.armada.net.ua/",
+        },
+        {
+          title: "Independent Association of UAV Schools of Ukraine",
+          text: "A community of training centres and unmanned systems schools: shared operator training standards, exchange of methodologies and work with the military on practical training programmes.",
+          href: "https://uavs.in.ua/",
+        },
+        {
+          title: "Unmanned Naval Association",
+          text: "A community of developers and manufacturers of unmanned surface and underwater systems and maritime security solutions, bringing together producers, the military, researchers and international partners.",
+          href: "https://www.unmanned-naval.org/",
         },
       ],
     },
@@ -887,7 +895,8 @@ export const en = {
       statement: [
         "ZBROYA is the shared",
         "international identity",
-        "of Ukraine's defence industry.",
+        "of Ukraine's defence",
+        "industry",
       ],
       statementColumns: [
         "Under this brand Ukraine presents its entire defence ecosystem to the world: state and private manufacturers, research teams, engineers, scientists, volunteers, state institutions and international partners.",
@@ -979,6 +988,8 @@ export const en = {
             title: "Community resident",
             description:
               "A participation format for companies and organisations that want to be part of the Council's professional community, join open industry events, professional dialogue and the exchange of expertise.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "project",
@@ -993,18 +1004,24 @@ export const en = {
             title: "Development partner",
             description:
               "A partnership format for companies and organisations that want to contribute to the development of Ukraine's private defence industrial sector, combining expertise, resources and effort in joint industry projects and initiatives.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "technology",
             title: "Technology partner",
             description:
               "A partnership programme for companies that want to contribute to the development of Ukraine's private defence industrial sector by offering technologies, solutions and expertise useful to Ukrainian manufacturers.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
           {
             id: "media",
             title: "Media partnership",
             description:
               "A partnership programme for media and communication platforms to cover Ukraine's private defence industrial sector, run joint information projects and promote Ukrainian defence technologies.",
+            linkLabel: "Discuss cooperation",
+            href: "mailto:official@ucdi.org.ua",
           },
         ],
       },
@@ -1060,6 +1077,8 @@ export const en = {
       cardRight:
         "The Export Support Office is a practical Council product that helps manufacturers understand export routes, compliance requirements and formats for international cooperation.",
       cta: "Export Map",
+      // Лендінг мапи експорту живе на окремому домені
+      ctaHref: "https://export.ucdi.org.ua/",
     },
     workFocus: {
       title: "What we work on",
@@ -1113,25 +1132,9 @@ export const en = {
       title: "Among defence manufacturers GR",
       description:
         '"Among defence manufacturers GR" is a closed meeting format for defence manufacturers focused on legislative, regulatory and procedural changes in the sector.',
-      joinLabel: "Join consultations",
+      readLabel: "Read the release",
       allLabel: "View all events",
       allHref: "#",
-      events: [
-        {
-          id: "asd-connect-1",
-          meta: "April 10  /  09:00-12:00",
-          title: "ASD-CONNECT platform presentation",
-          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
-          href: "#",
-        },
-        {
-          id: "asd-connect-2",
-          meta: "April 10  /  09:00-12:00",
-          title: "ASD-CONNECT platform presentation",
-          text: "The event will bring together defence product manufacturers, banking institutions and the Ministry for Strategic Industries to discuss the 5% lending programme launched in 2024.",
-          href: "#",
-        },
-      ],
     },
     services: {
       title: "Our services",
@@ -1169,14 +1172,12 @@ export const en = {
       intro:
         "The Council's Board represents key parts of the private defence industry: manufacturers, technology communities, investors, robotic solutions, unmanned systems and professional associations.",
       imagePlaceholder: "image",
-      focusLabel: "Association",
+      focusLabel: "Focus",
       focusCta: "About",
       focusMember: {
         id: "kamyshin",
         name: "Oleksandr Kamyshin",
         role: "Chairman of the Board",
-        // Голова правління — не асоціація, тому плашки на оборотці немає
-        focusLabel: "",
       },
       focusDescription:
         "Strategic representation of the Council and engagement with international partners.",
@@ -1185,43 +1186,57 @@ export const en = {
           id: "filimonov",
           name: "Yaroslav Filimonov",
           role: "Radioelectronic Alliance of Ukraine",
+          focusDescription:
+            "Representing the community of radio-electronic solutions manufacturers and enhancing their interaction with the state and the market.",
         },
         {
           id: "rudominskyi",
           name: "Mykhailo Rudominskyi",
           role: "Techosystem Defense",
+          focusDescription:
+            "Developing the defence segment of the Ukrainian tech ecosystem and fostering collaboration between tech companies, manufacturers, investors and the state.",
         },
         {
           id: "vysotska",
           name: "Yuliia Vysotska",
           role: "League of Defence Companies of Ukraine",
+          focusDescription:
+            "Representing the interests of defence enterprises, promoting cooperation among manufacturers and enhancing the institutional capacity of the industry.",
         },
         {
           id: "buchatskyi",
           name: "Evelin Buchatskyi",
           role: "UCDI Investor Club",
-          // Інвестклуб — не асоціація, плашку прибрано
-          focusLabel: "",
+          focusDescription:
+            "Developing the investment ecosystem of Ukrainian defence tech, facilitating access to capital, expertise and international investors for enterprises.",
         },
         {
           id: "honcharuk",
           name: "Vasyl Honcharuk",
           role: 'Association of Manufacturers of Unmanned Systems "Armada"',
+          focusDescription:
+            "Representing manufacturers of unmanned systems, advocating for sector interests.",
         },
         {
           id: "vasylchenko",
           name: "Maksym Vasylchenko",
           role: "Ukrainian Robotic Forces",
+          focusDescription:
+            "Developing the robotic systems sector, coordinating manufacturers, collaborating with the state and deploying advanced solutions for the needs of the Defence Forces.",
         },
         {
           id: "kanin",
           name: "Denys Kanin",
           role: "Unmanned Naval Association",
+          focusDescription:
+            "Developing the unmanned maritime systems sector, coordinating manufacturers, the military and partners, scaling production and enhancing Ukraine's maritime defence capabilities.",
         },
         {
           id: "platonenko",
           name: "Artem Platonenko",
           role: "Independent Association of UAV Schools of Ukraine",
+          focusDescription:
+            "Developing the UAV operator training system, standardising training programmes, certifying instructors and coordinating schools, manufacturers and the state.",
         },
       ],
     },
@@ -1371,11 +1386,11 @@ export const en = {
       organizations: [
         {
           name: "DEFENCE ALLIANCE OF UKRAINE",
-          href: "https://defencealliance.org.ua/",
+          href: "https://defencealliance.org.ua/en",
         },
         {
           name: "LEAGUE OF DEFENCE ENTERPRISES OF UKRAINE",
-          href: "https://www.ldc.org.ua/",
+          href: "https://www.ldc.org.ua/en/",
         },
         {
           name: "RADIOELECTRONIC ALLIANCE OF UKRAINE",
@@ -1387,7 +1402,7 @@ export const en = {
         },
         {
           name: "TECHOSYSTEM DEFENSE",
-          href: "https://techosystem.org/",
+          href: "https://techosystem.org/en",
         },
         {
           name: 'ASSOCIATION OF BPS MANUFACTURERS "ARMADA"',
