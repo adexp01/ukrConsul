@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { gsap } from "../../animation/gsapSetup";
 import { useLanguage } from "../../i18n/LanguageContext";
 import { hasDestination, isExternalUrl } from "../../utils/links";
+import { ACTIVITIES_ENABLED } from "../../config/features";
 import { NavArrows } from "../UI/Button";
 import "./style.css";
 
@@ -217,7 +218,15 @@ export const Gallery = () => {
 
   const linkLabel = t("gallery.discover");
   const linkHref = slide.href;
-  const showLink = hasDestination(linkHref);
+  /*
+   * Поки розділ «Діяльність» приховано (ACTIVITIES_ENABLED), кнопки, які
+   * ведуть на /office, теж не показуємо: інакше з головної була б помітна
+   * дорога в розділ, який навмисно прибрали з меню. Прапорець один на обидва
+   * входи, тому вони повертаються разом.
+   */
+  const leadsToHiddenActivities =
+    !ACTIVITIES_ENABLED && String(linkHref).startsWith("/office");
+  const showLink = hasDestination(linkHref) && !leadsToHiddenActivities;
   const linkIsExternal = showLink && isExternalUrl(linkHref);
 
   return (

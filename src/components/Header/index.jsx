@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logoEn from "../../assets/logo.svg";
 import logoUk from "../../assets/logouk.svg";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { EVENTS_ENABLED } from "../../config/features";
+import { ACTIVITIES_ENABLED, EVENTS_ENABLED } from "../../config/features";
 import { useIsMobile } from "../../hooks/IsMobile";
 import "./style.css";
 
@@ -12,7 +12,9 @@ import "./style.css";
 const NAV_ITEMS = [
   { key: "aboutUs", href: "/about-us" },
   { key: "getInvolved", href: "/join" },
-  { key: "activities", href: "/office", hasDropdown: true },
+  ...(ACTIVITIES_ENABLED
+    ? [{ key: "activities", href: "/office", hasDropdown: true }]
+    : []),
   { key: "media", href: "/media" },
   ...(EVENTS_ENABLED ? [{ key: "events", href: "/events" }] : []),
 ];
