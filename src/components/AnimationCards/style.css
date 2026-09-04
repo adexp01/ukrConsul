@@ -79,10 +79,16 @@
   margin: 0 auto clamp(56px, 7vw, 72px);
   color: #ffffff;
   font-family: "Fixel Display", sans-serif;
-  font-size: 68px;
+  /*
+   * Розмір плинний, а не жорсткі 68px: із фіксованим кеглем довгий рядок
+   * англійської локалі виходив за правий край вікна на ноутбучних ширинах і
+   * обрізався. Тепер на вузьких екранах заголовок сам меншає, і жодна мова
+   * не може вилізти за контейнер.
+   */
+  font-size: clamp(38px, 4.7vw, 68px);
   font-weight: 600;
   font-style: normal;
-  line-height: 68px;
+  line-height: 1;
   letter-spacing: -0.04em;
   text-align: left;
   text-transform: uppercase;

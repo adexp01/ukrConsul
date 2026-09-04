@@ -785,9 +785,16 @@ export const en = {
       cta: "Learn more",
     },
     cards: {
+      /*
+       * Чотири короткі рядки, а не два довгі: рядок «We offer various formats
+       * of joint projects» на 68px виходив за правий край вікна на ноутбучних
+       * ширинах (заміряно на 1440: правий край рядка 1466 при вікні 1440).
+       */
       title: [
-        "We offer various formats of joint projects",
-        "with partner associations, including:",
+        "We offer various",
+        "formats of joint projects",
+        "with partner",
+        "associations, including:",
       ],
       items: [
         {
@@ -809,7 +816,7 @@ export const en = {
           side: "left",
           icon: "links",
           title: "Online/offline information sessions:",
-          text: "on Build with Ukraine and familiarisation with the market and the structure of the Gunsmiths' Council",
+          text: "on Build with Ukraine, familiarisation with the market, and the structure of the Council",
         },
         {
           id: "exhibitions",
@@ -971,13 +978,53 @@ export const en = {
           },
           {
             id: "future",
-            title: "The future of the industry",
-            description: [],
+            title: "The Future of the Industry",
+            description: [
+              "Engaging youth, universities and student communities in the Ukrainian defence sector. The programme helps future engineers better understand career opportunities in the defence industry, whilst helping manufacturers find students, young specialists and teams for specific requests.",
+            ],
+            stagesTitle: "What We Do:",
+            points: [
+              "Bringing youth and universities together with private defence manufacturers.",
+              "Explaining what roles exist in the defence sector and what skills are required.",
+              "Organising company meetings and defence career events.",
+              "Helping manufacturers find students, young engineers and teams for specific requests.",
+            ],
           },
           {
             id: "resilience",
-            title: "Security and resilience",
-            description: [],
+            title: "Security and Resilience",
+            description: [
+              "Supporting private defence sector enterprises in matters of physical, information, reputational and cybersecurity. This area is aimed at strengthening the resilience of manufacturers, protecting technologies, managing risks and ensuring the readiness of companies for crisis situations in conditions of war and international cooperation.",
+            ],
+            stagesTitle: "Key Areas:",
+            stages: [
+              {
+                title: "Manufacturing and Facility Security",
+                description:
+                  "Supporting manufacturers in protecting production sites, facilities and critical corporate infrastructure.",
+              },
+              {
+                title:
+                  "Technology Protection, Counter-intelligence and Insider Risks",
+                description:
+                  "Assisting companies in developing approaches to protect sensitive information, technologies and internal processes.",
+              },
+              {
+                title: "Cybersecurity and Information Protection",
+                description:
+                  "Managing risks associated with digital systems, data, communications and information security.",
+              },
+              {
+                title: "Enterprise Resilience",
+                description:
+                  "Supply, redundancy, crisis management and the readiness of companies to operate in high-risk environments.",
+              },
+              {
+                title: "Export Control, Compliance and Partner Vetting",
+                description:
+                  "Support in matters of integrity, counterparty vetting and compliance with the requirements of international cooperation.",
+              },
+            ],
           },
         ],
       },

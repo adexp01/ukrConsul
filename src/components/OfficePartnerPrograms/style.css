@@ -112,6 +112,23 @@
   letter-spacing: -0.03em;
 }
 
+/* Перелік дій без заголовків — для програм, описаних просто списком */
+.partner-programs__points {
+  margin: 0 0 clamp(20px, 2.4vw, 28px);
+  padding-left: 22px;
+  list-style: disc;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Fixel Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+.partner-programs__points li + li {
+  margin-top: 10px;
+}
+
 .partner-programs__stages {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

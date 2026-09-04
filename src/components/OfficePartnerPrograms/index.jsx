@@ -77,6 +77,19 @@ export const OfficePartnerPrograms = ({ copy }) => {
                       </h4>
                     ) : null}
 
+                    {/*
+                      Частина програм описана переліком дій без заголовків
+                      («Що ми робимо»), частина — картками напрямів із
+                      заголовком. Тому дві форми: points і stages.
+                    */}
+                    {item.points?.length ? (
+                      <ul className="partner-programs__points">
+                        {item.points.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+
                     {item.stages?.length ? (
                       <div className="partner-programs__stages">
                         {item.stages.map((stage) => (
