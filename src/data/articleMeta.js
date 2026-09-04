@@ -73,6 +73,7 @@ const RELEASES = [
   },
   {
     uk: "defence-city-launched",
+    en: "defence-city-officially-launched",
     tags: ["gr", "export"],
   },
   {
@@ -168,6 +169,7 @@ const RELEASES = [
   },
   {
     uk: "ukrainska-rada-zbroiariv-stala-efekt",
+    en: "ucdi-effective-platform-for-direct-dialogue",
     tags: ["gr"],
   },
   {
@@ -176,6 +178,7 @@ const RELEASES = [
   },
   {
     uk: "codified-but-not-procured",
+    en: "codified-but-not-procured-ugv",
     tags: ["gr"],
   },
   {

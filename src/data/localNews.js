@@ -409,4 +409,348 @@ export const LOCAL_NEWS = [
       },
     ],
   },
+  {
+    /*
+     * Англійська версія релізу (переклад від клієнта). Українська лишається
+     * в CRM: /article/defence-city-launched — пара слагів у articleMeta.js, тому
+     * перемикач мови ходить між двома версіями, а не лишає ту саму адресу.
+     */
+    id: "defence-city-officially-launched",
+    slug: "defence-city-officially-launched",
+    category: "gr",
+    // Тільки англійською: українська версія приходить із CRM
+    lang: "en",
+    published: true,
+    createdAt: "2026-01-21T09:00:00.000Z",
+    title:
+      "Defence City Officially Launched: What Changes for the Defence Market",
+    mainImage: "",
+    blocks: [
+      {
+        id: "b1",
+        type: "text",
+        content:
+          'On 15 January, the Ukrainian Council of Defence Industry (UCDI) hosted a closed offline meeting "Among Defence Manufacturers: Defence City is Operational, How to Become a Resident?", dedicated to the launch of the special legal regime "Defence City" and its practical application for Ukrainian defence companies.',
+      },
+      {
+        id: "b2",
+        type: "text",
+        content:
+          "One of the key features of the Defence City regime is the ability to export without obtaining special authority from the Cabinet of Ministers (which typically takes 6–12 months). The relevant procedure is set out in a separate regulation approved by the Government at the beginning of the year.",
+      },
+      {
+        id: "b3",
+        type: "text",
+        content:
+          "The Head of the State Service of Export Control of Ukraine, Oleh Tsilvik, emphasised that Defence City residency does not mean the abolition or simplification of export control procedures. Registration with the State Service of Export Control of Ukraine and obtaining a permit remain mandatory.",
+      },
+      {
+        id: "b4",
+        type: "text",
+        content:
+          "It is crucial for companies to prepare for the export track now. To date, about 30%* of the surveyed weapon-producing companies have registered with the State Service of Export Control of Ukraine, which is the first step toward entering the international market. These are the findings of an express survey conducted by the Ukrainian Council of Defence Industry among its members.",
+      },
+      {
+        id: "b5",
+        type: "text",
+        content:
+          "To help manufacturers navigate export procedures, the Ukrainian Council of Defence Industry has established the Export Support Office. During its first month of operation, the Office provided over 20 individual consultations for companies in the defence-industrial complex on entering international markets. Consultations can be requested via the Export Map page.",
+      },
+      {
+        id: "b6",
+        type: "text",
+        content:
+          "The Director of the Department for the Defence-Industrial Complex, Military-Technical Cooperation, and Export Control of the NSDC Staff, Andrii Tyvonchuk, outlined the role and functions of the Interagency Commission on Military-Technical Cooperation and Export Control. He announced that the commission's meeting will be held immediately after its updated composition is finalised.",
+      },
+      {
+        id: "b7",
+        type: "subheading",
+        content: "Residency, Registers, and Legal Nuances of Defence City",
+      },
+      {
+        id: "b8",
+        type: "text",
+        content:
+          "The Deputy Director of the Department of Strategic Development of the Defence-Industrial Complex of the Ministry of Defence, Viktoriia Komisarenko, provided detailed clarifications on acquiring Defence City residency:",
+      },
+      {
+        id: "b9",
+        type: "text",
+        content:
+          "— Residency provides companies with significant tax incentives (exemption from corporate income tax upon reinvestment), simplified customs and currency procedures, and support for relocation to safer areas of Ukraine;",
+      },
+      {
+        id: "b10",
+        type: "text",
+        content:
+          "— To start, enterprises must conduct an internal audit for compliance with residency requirements;",
+      },
+      {
+        id: "b11",
+        type: "text",
+        content:
+          "— At the next stage, the company submits an application to the Ministry of Defence for residency status. The key document is the Compliance Report, which includes annual financial statements. At least 75% of qualified income (50% for aviation construction) must derive from defence activities.",
+      },
+      {
+        id: "b12",
+        type: "text",
+        content:
+          "Legal partners from Juscutum—Dmytro Paliushchenko, Head of Business Support Practice, and Petro Bilyk, Partner of Technology and Investment Practice—emphasised the critical role of well-drafted defence contracts. They stressed the importance of proper intellectual property protection, clearly defined delivery terms, and correct arbitration clauses. They specifically drew attention to clear mechanisms for working with export-import licences and the vetting of counterparties and end-users.",
+      },
+      {
+        id: "b13",
+        type: "subheading",
+        content:
+          "Register of Defence Manufacturers and the Defence City Register",
+      },
+      {
+        id: "b14",
+        type: "text",
+        content:
+          "The Director of the Directorate for Digital Transformation in Defence of the Ministry of Defence of Ukraine, Artem Romaniukov, presented the vision for the Register of Defence Manufacturers, which the Ministry of Defence plans to launch in February-March. The Register is designed to be a secure electronic platform for interaction between manufacturers and state buyers, simplifying some bureaucratic procedures. Currently, it is not synchronised with the Defence City register; however, such integration is considered a logical next step and will require changes to the regulatory framework.",
+      },
+      {
+        id: "b15",
+        type: "text",
+        content:
+          "The speakers of the event emphasised that Defence City is a new tool that has just begun operating, meaning that questions and challenges will inevitably arise during implementation. The Ukrainian Council of Defence Industry systematically collects inquiries from manufacturers, records problematic issues, and works in cooperation with government bodies to develop regulatory improvements.",
+      },
+      {
+        id: "b16",
+        type: "text",
+        content:
+          "* Methodology: the express survey was conducted in real-time in two waves during two profile events (Defence City / export). In total, more than 100 company representatives voted.",
+      },
+      {
+        id: "b17",
+        type: "subheading",
+        content: "For Reference",
+      },
+      {
+        id: "b18",
+        type: "text",
+        content:
+          "The Ukrainian Council of Defence Industry (UCDI) is an independent association of private manufacturers of weapons and military equipment, which consolidates the industry, strengthens interaction with the state and international partners, and shapes Ukraine's modern security architecture. The UCDI helps manufacturers in the defence-industrial complex find partners, scale production, and secure access to financing and technology, thereby strengthening the country's defence capability.",
+      },
+      {
+        id: "b19",
+        type: "text",
+        content:
+          "Amongst Defence Manufacturers is a series of closed professional meetings organised by the Ukrainian Council of Defence Industry to establish cooperation between weapon manufacturers, government structures, and financial institutions. The goal is to create an effective platform for interaction among manufacturers, GR specialists, lawyers, and experts in order to drive systemic changes and increase the transparency, efficiency, and competitiveness of Ukraine's defence industry.",
+      },
+    ],
+  },
+  {
+    /*
+     * Англійська версія релізу (переклад від клієнта). Українська лишається
+     * в CRM: /article/ukrainska-rada-zbroiariv-stala-efekt — пара слагів у articleMeta.js, тому
+     * перемикач мови ходить між двома версіями, а не лишає ту саму адресу.
+     */
+    id: "ucdi-effective-platform-for-direct-dialogue",
+    slug: "ucdi-effective-platform-for-direct-dialogue",
+    category: "gr",
+    // Тільки англійською: українська версія приходить із CRM
+    lang: "en",
+    published: true,
+    createdAt: "2025-05-08T09:00:00.000Z",
+    title:
+      "Ukrainian Council of Defence Industry Becomes an Effective Platform for Direct Dialogue Between Manufacturers and the State",
+    mainImage: "",
+    blocks: [
+      {
+        id: "b1",
+        type: "text",
+        content:
+          "The Ukrainian Council of Defence Industry has become an effective platform for direct dialogue between manufacturers and the state. No protocols or unnecessary pathos—just real impact on decisions.",
+      },
+      {
+        id: "b2",
+        type: "text",
+        content: "**Here is how it works:**",
+      },
+      {
+        id: "b3",
+        type: "text",
+        content:
+          "During the latest 'Among defence manufacturers' meeting, participants discussed an experimental programme of the Main Directorate of Defence Innovations of the Ministry of Defence of Ukraine—focusing on forward contracts and financing innovations. For the first time, the developers of the programme did not arrive with a finished document, but rather to listen to the manufacturers.",
+      },
+      {
+        id: "b4",
+        type: "text",
+        content:
+          "**The result is concrete proposals from market participants:**",
+      },
+      {
+        id: "b5",
+        type: "text",
+        content:
+          "— formulating orders through a description of the problem that needs to be solved rather than through tactical and technical requirements (TTR);",
+      },
+      {
+        id: "b6",
+        type: "text",
+        content:
+          "— providing critical status for enterprises that secure contracts;",
+      },
+      {
+        id: "b7",
+        type: "text",
+        content:
+          "— allowing flexible financing models: from full state funding to co-financing or self-funded execution;",
+      },
+      {
+        id: "b8",
+        type: "text",
+        content:
+          "— ensuring the possibility of flexible contract amendments during the development process.",
+      },
+      {
+        id: "b9",
+        type: "text",
+        content:
+          "Currently, the Ministry of Defence and the UCDI are already working together on implementing these proposals. This is a win-win:",
+      },
+      {
+        id: "b10",
+        type: "text",
+        content:
+          "— The state creates an effective mechanism that is not detached from reality.",
+      },
+      {
+        id: "b11",
+        type: "text",
+        content:
+          "— Manufacturers understand the logic of the programme even before its launch and will be able to enter contracts quickly.",
+      },
+      {
+        id: "b12",
+        type: "text",
+        content:
+          "We expect the first forward contracts to appear by the end of 2025.",
+      },
+      {
+        id: "b13",
+        type: "text",
+        content:
+          "This is another significant shift: from defence bureaucracy to real cooperation with manufacturers. When innovations are not blocked by the system, but supported. When programmes are designed not in offices, but together with those who create weapons for the front line every day.",
+      },
+      {
+        id: "b14",
+        type: "text",
+        content: "Join the meetings via the link.",
+      },
+    ],
+  },
+  {
+    /*
+     * Англійська версія релізу (переклад від клієнта). Українська лишається
+     * в CRM: /article/codified-but-not-procured — пара слагів у articleMeta.js, тому
+     * перемикач мови ходить між двома версіями, а не лишає ту саму адресу.
+     */
+    id: "codified-but-not-procured-ugv",
+    slug: "codified-but-not-procured-ugv",
+    category: "gr",
+    // Тільки англійською: українська версія приходить із CRM
+    lang: "en",
+    published: true,
+    createdAt: "2025-04-29T09:00:00.000Z",
+    title:
+      "Codified but Not Procured: Council of Defence Industry Initiates Dialogue on UGV Procurement Issues",
+    mainImage: "",
+    blocks: [
+      {
+        id: "b1",
+        type: "text",
+        content:
+          "The Ukrainian Council of Defence Industry (UCDI) hosted a strategic meeting dedicated to one of the most pressing issues in the defence industry: the situation where unmanned ground vehicles (UGVs) have already been codified but have yet to be delivered to the troops.",
+      },
+      {
+        id: "b2",
+        type: "text",
+        content:
+          "The meeting was attended by representatives of UGV manufacturers, state buyers, the command of the Armed Forces of Ukraine, relevant structures of the Ministry of Defence and the General Staff, as well as specific combat units. This diverse range of participants made it possible, for the first time, to address most of the core issues—from the lack of direct budget instruments for UGV procurement to unregulated technical standards and the need for unification.",
+      },
+      {
+        id: "b3",
+        type: "text",
+        content: "**The participants raised and discussed issues regarding:**",
+      },
+      {
+        id: "b4",
+        type: "text",
+        content:
+          "— the need to simplify requirements for Technical Specifications (TS) under martial law;",
+      },
+      {
+        id: "b5",
+        type: "text",
+        content: "— the creation of experience-sharing centres between units;",
+      },
+      {
+        id: "b6",
+        type: "text",
+        content: "— mechanisms for equipment repair and modernisation;",
+      },
+      {
+        id: "b7",
+        type: "text",
+        content:
+          "— the involvement of combat brigades in codification and performance evaluation processes;",
+      },
+      {
+        id: "b8",
+        type: "text",
+        content:
+          "— the possibility of creating working groups in key areas—from standards to repair and modernisation.",
+      },
+      {
+        id: "b9",
+        type: "text",
+        content:
+          "The participants agreed on the main point: robots are already changing logistics, fire support, and tactical decisions on the battlefield. However, without the simplification of procedures, budget planning, and institutionalised cooperation, their potential will remain unrealised.",
+      },
+      {
+        id: "b10",
+        type: "text",
+        content:
+          "**Ihor Fedirko, CEO of the Ukrainian Council of Defence Industry:**",
+      },
+      {
+        id: "b11",
+        type: "text",
+        content:
+          '"We see that the market is ready. The military is interested. The technologies are proven. What is blocking progress are systemic gaps. This meeting is the first step toward a joint roadmap of solutions that will allow UGVs to become a norm in combat units, rather than an exception."',
+      },
+      {
+        id: "b12",
+        type: "text",
+        content:
+          "**Maksym Vasylchenko, representative of the Ukrainian Robotic Forces:**",
+      },
+      {
+        id: "b13",
+        type: "text",
+        content:
+          '"UGVs on the front line are no longer a concept, but a fully functional tool. However, we face a situation where the state formally recognises the capability of a development but does not create mechanisms for its systemic deployment. It is critically important for us to see and understand the procedure step by step. And even more important is to receive real feedback."',
+      },
+      {
+        id: "b14",
+        type: "text",
+        content:
+          "The representative of the Ukrainian Robotic Forces added that, according to their data alone, at least 8 manufacturers of unmanned ground vehicles already have codified products but still do not have a single contract.",
+      },
+      {
+        id: "b15",
+        type: "text",
+        content:
+          "One of the key arguments of the discussion: there is already a combat battalion that has completely replaced its logistics with UGVs—and this is real proof of how modern warfare is changing. However, scaling such solutions is only possible under effective regulation.",
+      },
+      {
+        id: "b16",
+        type: "text",
+        content:
+          "Based on the results of the meeting, the Ukrainian Council of Defence Industry, together with the Ukrainian Robotic Forces, is taking charge of coordinating further actions—from consolidating technical proposals to establishing communication with relevant structures. The next step is to ensure that promising developments reach the front line as quickly as possible.",
+      },
+    ],
+  },
 ];
