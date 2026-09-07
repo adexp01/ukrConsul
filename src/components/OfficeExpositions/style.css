@@ -38,15 +38,24 @@
   left: 0;
   width: 133px;
   height: 157px;
+  overflow: hidden;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
+}
+
+.office-expositions__media-corner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .office-expositions__media-frame {
   aspect-ratio: 527 / 617;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.72);
+  /* Світла підкладка лишається тільки поки знімок вантажиться */
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .office-expositions__media-frame img {

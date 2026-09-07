@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IconButton } from "../UI/Button";
+import { getExpositionImages } from "./images";
 import "./style.css";
 
 /**
@@ -13,6 +14,7 @@ export const OfficeExpositions = ({ copy }) => {
   if (items.length === 0) return null;
 
   const item = items[Math.min(index, items.length - 1)];
+  const photos = getExpositionImages(item);
   const goPrev = () => setIndex((i) => Math.max(0, i - 1));
   const goNext = () => setIndex((i) => Math.min(items.length - 1, i + 1));
 
@@ -31,10 +33,15 @@ export const OfficeExpositions = ({ copy }) => {
 
         <div className="office-expositions__stage">
           <div className="office-expositions__media">
-            <span className="office-expositions__media-corner" aria-hidden="true" />
+            {/* «Вушко» ліворуч угорі: другий знімок, якщо він є */}
+            <span className="office-expositions__media-corner" aria-hidden="true">
+              {photos.thumb ? (
+                <img src={photos.thumb} alt="" loading="lazy" decoding="async" />
+              ) : null}
+            </span>
             <div className="office-expositions__media-frame">
-              {item.image ? (
-                <img src={item.image} alt="" loading="lazy" decoding="async" />
+              {photos.main ? (
+                <img src={photos.main} alt="" loading="lazy" decoding="async" />
               ) : null}
             </div>
           </div>
