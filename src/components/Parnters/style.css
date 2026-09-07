@@ -2,6 +2,9 @@
   /* Ширина, на якій крайні картки розчиняються (ціла картка + запас) */
   --partners-fade: clamp(72px, 11vw, 180px);
   --marquee-shift: 800px;
+  /* Висота картки й проміжок між ними — у тій же пропорції, що в макеті (324×280, зазор 20) */
+  --partners-card-h: clamp(96px, 11vw, 120px);
+  --partners-gap: calc(var(--partners-card-h) * 0.071);
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -58,9 +61,17 @@
 
 .partners__track {
   display: flex;
+  gap: var(--partners-gap);
   width: max-content;
   line-height: 0;
   will-change: transform;
+}
+
+/* Одна копія ряду. Проміжок такий самий, як між копіями, — стик непомітний */
+.partners__strip {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--partners-gap);
 }
 
 .partners__track--left {
@@ -71,20 +82,18 @@
   animation: partners-scroll-right 60s linear infinite;
 }
 
-.partners__strip {
+/*
+ * Картка партнера. Висота фіксована, ширина — з пропорцій файлу: усі картки
+ * зведені до 324×280, тому ряд виходить рівний без жодних aspect-ratio в CSS.
+ */
+.partners__logo {
   display: block;
   flex: 0 0 auto;
-  height: clamp(96px, 11vw, 120px);
+  height: var(--partners-card-h);
   width: auto;
   user-select: none;
   pointer-events: none;
 }
-
-/*
- * Тут стояли жорсткі aspect-ratio 1322/191 і 1440/191 — вони не збігалися з
- * реальними пропорціями стрічок, і логотипи розтягувало по горизонталі.
- * Тепер ширину визначає сама картинка (width: auto при фіксованій висоті).
- */
 
 .partners__track:hover {
   animation-play-state: paused;
@@ -148,8 +157,8 @@
     margin-inline: 20px;
   }
 
-  .partners__strip {
-    height: 88px;
+  .partners {
+    --partners-card-h: 88px;
   }
 
   .partners__track--left {
