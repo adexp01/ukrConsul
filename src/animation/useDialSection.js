@@ -61,7 +61,20 @@ export const useDialSection = ({
       const itemSelector = `.${prefix}__item`;
       const mm = gsap.matchMedia();
 
-      /** Поява заголовка й тексту під ним — однакова на всіх ширинах */
+      /**
+       * Поява заголовка, тексту під ним і самого циферблата.
+       *
+       * Циферблат тут не випадково. Раніше він і його підпис лежали з
+       * `autoAlpha: 0` і проявлялись лише в `onEnter` піна — тобто рівно один
+       * раз, і тільки якщо людина перетнула початок піна скролом уперед. Варто
+       * було потрапити в середину секції інакше — перезавантажити прокручену
+       * сторінку, перемкнути вкладку, доїхати після перерахунку позицій — і
+       * циферблат лишався невидимим назавжди: на екрані чорнота, у якій світиться
+       * один рядок списку.
+       *
+       * `once: true` на початку секції такої дірки не має: цей тригер зривається
+       * і на перерахунку позицій, а не лише на перетині.
+       */
       const revealIntro = () => {
         gsap.set(title, { autoAlpha: 0, y: 28 });
         gsap.set(texts, { autoAlpha: 0, y: 22 });
@@ -125,7 +138,6 @@ export const useDialSection = ({
 
           if (itemCount < 2) return undefined;
 
-          gsap.set([dial, dialLabel], { autoAlpha: 0 });
           itemEls.forEach((item, index) => {
             gsap.set(item, { color: index === 0 ? ITEM_ACTIVE : itemDim });
           });
@@ -134,7 +146,14 @@ export const useDialSection = ({
             transformOrigin: MARKER_ORIGIN,
           });
 
+          gsap.set([dial, dialLabel], { autoAlpha: 0, y: 18 });
+
           const introTl = revealIntro();
+          introTl.to(
+            [dial, dialLabel].filter(Boolean),
+            { autoAlpha: 1, y: 0, duration: 0.65, ease: SMOOTH_EASE },
+            "-=0.3",
+          );
 
           /*
            * Зсув треку рахуємо так, щоб центр потрібного пункту став у центр
@@ -148,9 +167,17 @@ export const useDialSection = ({
               return viewportHeight / 2 - itemCenter;
             });
 
+          /*
+           * Кінцеві зсуви — функціями, а не числами.
+           *
+           * Числа міряються один раз, при побудові. Але висота пунктів
+           * залежить від шрифту: поки веб-шрифт не приїхав, рядки нижчі, і
+           * заміряні зсуви лишаються від чужої розкладки. Разом із
+           * `invalidateOnRefresh` функція перемірює зсуви на кожному
+           * перерахунку — і список стоїть по центру вікна, а не поруч із ним.
+           */
           const buildScrollTimeline = () => {
-            const offsets = measureOffsets();
-            gsap.set(track, { y: offsets[0] });
+            gsap.set(track, { y: measureOffsets()[0] });
 
             const scrollTl = gsap.timeline({
               defaults: { ease: SMOOTH_EASE },
@@ -163,12 +190,13 @@ export const useDialSection = ({
                 scrub: SCRUB_SMOOTHING,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
-                onEnter: () => {
-                  gsap.to([dial, dialLabel], {
-                    autoAlpha: 1,
-                    duration: 0.65,
-                    ease: SMOOTH_EASE,
-                  });
+                /*
+                 * Перед кожним перерахунком повертаємо трек на позицію першого
+                 * пункту, щоб `invalidateOnRefresh` перезаписав початкові
+                 * значення з актуальної розкладки, а не зі старої.
+                 */
+                onRefreshInit: () => {
+                  gsap.set(track, { y: measureOffsets()[0] });
                 },
               },
             });
@@ -178,7 +206,7 @@ export const useDialSection = ({
               const overlap = "<0.08";
 
               scrollTl.to(track, {
-                y: offsets[index],
+                y: () => measureOffsets()[index],
                 duration: STEP_MOVE,
                 ease: SMOOTH_EASE,
               });

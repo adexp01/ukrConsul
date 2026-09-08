@@ -32,6 +32,9 @@ import { useSeo } from "../../seo/useSeo";
 const DEFAULT_TAB_ID = "export";
 const TAB_PARAM = "tab";
 
+/** Скільки чекати на наступну картинку, перш ніж перераховувати позиції */
+const REFRESH_DEBOUNCE_MS = 260;
+
 /*
  * Вкладка живе в адресі: `/ua/office?tab=gr`. Без цього на GR-адвокацію й
  * міжнародну діяльність не було як послатися — ні з меню, ні зі сторонніх
@@ -189,19 +192,41 @@ export const OfficePage = () => {
     };
   }, [activeTabId]);
 
-  // Картинки вантажаться після монтування й зсувають усе нижче за собою
+  /*
+   * Картинки вантажаться після монтування й зсувають усе нижче за собою, тож
+   * позиції тригерів треба перерахувати. Але не на кожен файл окремо.
+   *
+   * Раніше `ScrollTrigger.refresh()` висів на `load` кожного зображення. На
+   * швидкій мережі це непомітно, а на реальній — заміряно вісім перерахунків
+   * за один прохід сторінки, і кожен переміряє піни. Якщо котрийсь припадає на
+   * мить, коли людина саме всередині пінованого циферблата, розкладка під нею
+   * смикається. Саме на це схожа скарга «час від часу по скролу ламаються
+   * анімації».
+   *
+   * Тому чекаємо, поки картинки перестануть приходити, і перерахунок робимо
+   * один — після останньої.
+   */
   useEffect(() => {
     const images = Array.from(document.querySelectorAll(".office-page img"));
     const pending = images.filter((image) => !image.complete);
     if (pending.length === 0) return undefined;
 
-    const refresh = () => ScrollTrigger.refresh();
+    let timer = 0;
+    const refresh = () => {
+      clearTimeout(timer);
+      timer = window.setTimeout(
+        () => ScrollTrigger.refresh(),
+        REFRESH_DEBOUNCE_MS,
+      );
+    };
+
     pending.forEach((image) => {
       image.addEventListener("load", refresh);
       image.addEventListener("error", refresh);
     });
 
     return () => {
+      clearTimeout(timer);
       pending.forEach((image) => {
         image.removeEventListener("load", refresh);
         image.removeEventListener("error", refresh);
