@@ -12,6 +12,7 @@ import { OfficePartnerFormats } from "../../components/OfficePartnerFormats";
 import { OfficePartnerPrograms } from "../../components/OfficePartnerPrograms";
 import { OfficeStatement } from "../../components/OfficeStatement";
 import { Parnters } from "../../components/Parnters";
+import { PARTNERS } from "../../components/Parnters/logos";
 import { Info } from "../../components/Info";
 import { OfficeServices } from "../../components/OfficeServices";
 import { OfficeWhiteBook } from "../../components/OfficeWhiteBook";
@@ -373,9 +374,16 @@ export const OfficePage = () => {
               />
               <OfficePartnerPrograms copy={partnership.programs} />
               <OfficePartnerFormats copy={partnership.formats} />
+              {/*
+                Тут — партнери з розвитку й резиденти спільноти. Міжнародні
+                асоціації живуть у своїй стрічці на вкладці «Міжнародна
+                діяльність» (див. TrackContent): це два різні розділи, і
+                клієнт просив їх не змішувати.
+              */}
               <Parnters
                 titleKey="office.partnership.partners.title"
                 description={partnership.partners.description}
+                logos={PARTNERS}
               />
               <Articles />
             </>

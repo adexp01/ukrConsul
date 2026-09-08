@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
-import { PARTNERS } from "./logos";
+import { INTERNATIONAL_ASSOCIATIONS } from "./logos";
 import "./style.css";
 
 /*
@@ -26,23 +26,42 @@ const setMarqueeShift = (track) => {
   if (shift > 0) track.style.setProperty("--marquee-shift", `${shift}px`);
 };
 
+/*
+ * Як розкладаємо набір по двох рядках.
+ *
+ * Довгий набір ділимо навпіл через парні/непарні позиції — так однотипні
+ * знаки не збиваються в один кут стрічки.
+ *
+ * Короткий (міжнародні асоціації — їх одинадцять) ділити не можна: пʼять
+ * карток — це смуга завширшки 735 px, тобто вужча за екран, і в стрічці
+ * зʼявилася б порожнеча. Тому обидва рядки беруть увесь набір, а другий
+ * зсунутий на половину — щоб рядки не читались як дзеркало.
+ */
+const SPLIT_FROM = 24;
+
+const buildRows = (items) => {
+  if (items.length >= SPLIT_FROM) {
+    return [
+      items.filter((_, index) => index % 2 === 0),
+      items.filter((_, index) => index % 2 === 1),
+    ];
+  }
+
+  const half = Math.ceil(items.length / 2);
+  return [items, [...items.slice(half), ...items.slice(0, half)]];
+};
+
 export const Parnters = ({
   titleKey = "track.partners.title",
   description,
+  logos = INTERNATIONAL_ASSOCIATIONS,
 }) => {
   const { t } = useLanguage();
   const title = t(titleKey);
   const topTrackRef = useRef(null);
   const bottomTrackRef = useRef(null);
 
-  // Парні позиції — у верхній ряд, непарні — у нижній: групи не збиваються докупи
-  const rows = useMemo(
-    () => [
-      PARTNERS.filter((_, index) => index % 2 === 0),
-      PARTNERS.filter((_, index) => index % 2 === 1),
-    ],
-    [],
-  );
+  const rows = useMemo(() => buildRows(logos), [logos]);
 
   // Перерахунок кроку доступний і ззовні ефекту — по ньому б'ють onLoad картинок
   const updateShift = useCallback(() => {

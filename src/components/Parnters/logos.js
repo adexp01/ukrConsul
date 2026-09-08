@@ -57,58 +57,70 @@ import ydtc from "../../assets/partners/partner-ydtc.webp";
 import youControl from "../../assets/partners/partner-youcontrol.webp";
 
 /*
- * Порядок списку — це порядок у стрічці: перший рядок бере парні позиції,
- * другий — непарні (див. index.jsx). Тому сусіди по списку розходяться по
- * різних рядках, і жодна група — міжнародні асоціації, консультанти, банки —
- * не збивається в один кут стрічки.
+ * Два різні набори — бо на сайті дві різні стрічки партнерів.
+ *
+ * Клієнт про це сказав окремо: «є 2 розділи з лого партнерів — на скріні
+ * міжнародні партнери-асоціації з іншого розділу, а там мають бути інші, з
+ * відповідної папки». Тому змішувати їх в один список не можна.
+ *
+ * Порядок усередині набору — це порядок у стрічці: перший рядок бере парні
+ * позиції, другий — непарні (див. index.jsx). Тому сусіди по списку
+ * розходяться по різних рядках, і однотипні знаки — банки, консультанти,
+ * медіа — не збиваються в один кут.
  */
-export const PARTNERS = [
-  { src: bdi, name: "BDI" },
-  { src: deloitte, name: "Deloitte" },
+
+/** «Міжнародна діяльність»: галузеві асоціації країн-партнерів */
+export const INTERNATIONAL_ASSOCIATIONS = [
+  { src: diDenmark, name: "Dansk Industri" },
   { src: aiad, name: "AIAD" },
-  { src: pwc, name: "PwC" },
   { src: gicat, name: "GICAT" },
-  { src: kse, name: "Kyiv School of Economics" },
   { src: soff, name: "SOFF" },
-  { src: sayenkoKharenko, name: "Sayenko Kharenko" },
   { src: iddPortugal, name: "idD Portugal Defence" },
-  { src: eda, name: "European Defence Association" },
   {
     src: ladif,
     name: "Latvijas Drošības un aizsardzības industriju federācija",
   },
-  { src: juscutum, name: "Juscutum" },
   { src: nidv, name: "NIDV" },
-  { src: molfar, name: "Molfar" },
   {
     src: edaiaEstonia,
     name: "Estonian Defence and Aerospace Industry Association",
   },
-  { src: youControl, name: "YouControl" },
   { src: fsiNorway, name: "FSi" },
-  { src: snakeIsland, name: "Snake Island Institute" },
   { src: sahaIstanbul, name: "SAHA Istanbul" },
-  { src: moris, name: "Moris" },
-  { src: diDenmark, name: "Dansk Industri" },
-  { src: starkDefence, name: "Stark Defence" },
-  { src: citibank, name: "Citibank" },
+  { src: bdi, name: "BDI" },
+];
+
+/** «Партнерська екосистема»: партнери з розвитку й резиденти спільноти */
+export const PARTNERS = [
+  { src: deloitte, name: "Deloitte" },
+  { src: kse, name: "Kyiv School of Economics" },
+  { src: pwc, name: "PwC" },
+  { src: eda, name: "European Defence Association" },
+  { src: sayenkoKharenko, name: "Sayenko Kharenko" },
+  { src: molfar, name: "Molfar" },
+  { src: juscutum, name: "Juscutum" },
+  { src: youControl, name: "YouControl" },
   { src: coreTeam, name: "Core Team" },
+  { src: snakeIsland, name: "Snake Island Institute" },
   { src: amrop, name: "Amrop" },
   { src: calibrated, name: "Calibrated" },
-  { src: bankCreditDnipro, name: "Банк Кредит Дніпро" },
-  { src: artellence, name: "Artellence" },
-  { src: oschadbank, name: "Ощадбанк" },
+  { src: citibank, name: "Citibank" },
   { src: msa, name: "Могилянська стратегічна агенція" },
-  { src: ukreximbank, name: "Укрексімбанк" },
+  { src: moris, name: "Moris" },
   { src: uavs, name: "Незалежна асоціація шкіл БПЛА України" },
-  { src: pumb, name: "ПУМБ" },
+  { src: starkDefence, name: "Stark Defence" },
   { src: ydtc, name: "YDTC" },
-  { src: mtbBank, name: "MTB Bank" },
-  { src: rasmussenGlobal, name: "Rasmussen Global" },
-  { src: kmbs, name: "Києво-Могилянська бізнес-школа" },
+  { src: artellence, name: "Artellence" },
   { src: militarnyi, name: "Мілітарний" },
-  { src: mimKyiv, name: "MIM Kyiv" },
+  { src: rasmussenGlobal, name: "Rasmussen Global" },
   { src: defenderMedia, name: "Defender Media" },
+  { src: bankCreditDnipro, name: "Банк Кредит Дніпро" },
+  { src: kmbs, name: "Києво-Могилянська бізнес-школа" },
+  { src: oschadbank, name: "Ощадбанк" },
+  { src: mimKyiv, name: "MIM Kyiv" },
+  { src: ukreximbank, name: "Укрексімбанк" },
   { src: dou, name: "DOU" },
+  { src: pumb, name: "ПУМБ" },
   { src: epsa, name: "EPSA" },
+  { src: mtbBank, name: "MTB Bank" },
 ];
